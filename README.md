@@ -10,4 +10,9 @@
                   DB_PASSWORD=
 5. Chạy php artisan migrate --seed để tạo db và fake data
 
-Cảm ơn !
+
+Github: 
+   Sau khi code xong: - git add . Để thêm các file cần thay đổi vào git
+                      - git commit -m "ghi chú" Để ghi chú thay đổi muốn đẩy lên
+                      - git pull 
+                      - git push origin main Để đẩy code lên nhánh main
