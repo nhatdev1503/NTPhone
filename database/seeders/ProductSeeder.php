@@ -14,15 +14,20 @@ class ProductSeeder extends Seeder
 
         foreach (range(1, 30) as $index) {
             DB::table('products')->insert([
-                'category_id' => rand(1, 10),
+                'category_id' => rand(1, 5),
                 'name' => $faker->word,
                 'description' => $faker->sentence,
-                'original_price' => rand(100, 1000),
-                'price' => rand(80, 900),
-                'stock' => rand(10, 100),
-                'image' => $faker->imageUrl(300, 300, 'technology'),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'original_price' => $faker->randomFloat(2, 1000000, 50000000),
+                'price' => $faker->randomFloat(2, 1000000, 50000000),
+                'stock' => $faker->numberBetween(1, 100),
+                'image' => 'default.jpg',
+                'screen' => $faker->randomElement([null, '6.7 inch OLED', '6.1 inch LCD']),
+                'os' => $faker->randomElement([null, 'Android', 'iOS', 'Windows Phone']),
+                'rear_camera' => $faker->randomElement([null, '48MP + 12MP', '64MP + 8MP + 2MP']),
+                'front_camera' => $faker->randomElement([null, '12MP', '32MP']),
+                'cpu' => $faker->randomElement([null, 'Snapdragon 8 Gen 2', 'Apple A16 Bionic']),
+                'ram' => $faker->randomElement([null, '4GB', '6GB', '8GB']),
+                'battery' => $faker->randomElement([null, '4000mAh', '5000mAh'])
             ]);
         }
     }
