@@ -8,4 +8,6 @@
                   DB_DATABASE=WD-32
                   DB_USERNAME=root
                   DB_PASSWORD=
-5. Chạy php artisan migrate --seed để tạo db và fake datadata
+5. Chạy php artisan migrate --seed để tạo db và fake data
+
+Rule: push code theo branch của mình
