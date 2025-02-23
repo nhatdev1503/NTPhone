@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
                 'stock' => rand(0, 100),
                 'image' => 'product.jpg',
                 'screen' => $faker->randomElement(['6.1 inches', '6.5 inches', '6.8 inches']),
-                'operating_system' => $faker->randomElement(['Android', 'iOS']),
+                'os' => $faker->randomElement(['Android', 'iOS']),
                 'rear_camera' => $faker->randomElement(['12MP', '48MP', '108MP']),
                 'front_camera' => $faker->randomElement(['8MP', '12MP', '32MP']),
                 'cpu' => $faker->randomElement(['Snapdragon 8 Gen 2', 'A16 Bionic', 'Exynos 2200']),

@@ -9,14 +9,13 @@ return new class extends Migration {
     {
         Schema::table('products', function (Blueprint $table) {
             $table->enum('status', ['active', 'inactive'])->default('active')->after('battery');
-            $table->string('operating_system')->nullable()->after('status');
         });
     }
 
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['status', 'operating_system']);
+            $table->dropColumn(['status']);
         });
     }
 };
