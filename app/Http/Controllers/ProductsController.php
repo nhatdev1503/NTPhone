@@ -8,16 +8,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('status', 'active')->latest()->paginate(5);
+        $search = $request->input('search');
+        $query = Product::where('status', 'active');
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+                    // ->orWhere('description', 'like', "%{$search}%")
+                    // ->orWhere('category_id', 'like', "%{$search}%")
+                    // ->orWhere('original_price', 'like', "%{$search}%")
+                    // ->orWhere('price', 'like', "%{$search}%")
+                    // ->orWhere('stock', 'like', "%{$search}%");
+            });
+        }
+        $products = $query->latest()->paginate(5);
         return view('admin.products.index', compact('products'));
-    }
-
-    
-    public function create()
-    {
-        return view('admin.products.create');
     }
 
     public function store(Request $request)
@@ -47,7 +53,7 @@ class ProductsController extends Controller
         Product::create($validated);
 
         return redirect()->route('admin.products.index')
-            ->with('success', 'Product created successfully.');
+            ->with('success', 'đã thêm sản phẩm mới');
     }
 
     public function show(Product $product)
@@ -90,28 +96,53 @@ class ProductsController extends Controller
         $product->update($validated);
 
         return redirect()->route('admin.products.index')
-            ->with('success', 'Product updated successfully.');
+            ->with('success', 'đã thay đổi thông tin sản phẩm');
     }
 
     public function destroy(Product $product)
     {
         $product->update(['status' => 'inactive']);
         return redirect()->route('admin.products.index')
-            ->with('success', 'Product deleted successfully (soft delete).');
+            ->with('success', 'đã xóa sản phẩm');
     }
 
 
-    public function lowStock()
+    public function lowStock(Request $request)
     {
-        $products = Product::where('stock', '<', 5)->get();
+        $search = $request->input('search');
+        $query = Product::where('stock', '<', 5);
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+                    // ->orWhere('description', 'like', "%{$search}%")
+                    // ->orWhere('category_id', 'like', "%{$search}%")
+                    // ->orWhere('original_price', 'like', "%{$search}%")
+                    // ->orWhere('price', 'like', "%{$search}%")
+                    // ->orWhere('stock', 'like', "%{$search}%");
+            });
+        }
+        // Nếu muốn dùng phân trang, chuyển get() thành paginate(n)
+        $products = $query->paginate();
         return view('admin.products.low_stock', compact('products'));
     }
 
 
 
-    public function inactive()
+    public function inactive(Request $request)
     {
-        $products = Product::where('status', 'inactive')->latest()->paginate(5);
+        $search = $request->input('search');
+        $query = Product::where('status', 'inactive');
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+                    // ->orWhere('description', 'like', "%{$search}%")
+                    // ->orWhere('category_id', 'like', "%{$search}%")
+                    // ->orWhere('original_price', 'like', "%{$search}%")
+                    // ->orWhere('price', 'like', "%{$search}%")
+                    // ->orWhere('stock', 'like', "%{$search}%");
+            });
+        }
+        $products = $query->latest()->paginate(5);
         return view('admin.products.inactive', compact('products'));
     }
 

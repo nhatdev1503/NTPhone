@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Edit Product</h1>
+    <h1>Chỉnh sửa thông tin</h1>
     
     @if($errors->any())
       <div class="alert alert-danger">
@@ -81,5 +81,9 @@
       </div>
       <button type="submit" class="btn btn-primary">Update Product</button>
     </form>
+    
+</div>
+<div class="card-footer">
+    <a href="{{ route('products.index') }}" class="btn btn-secondary">Back</a>
 </div>
 @endsection
