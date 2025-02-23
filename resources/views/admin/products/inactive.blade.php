@@ -1,17 +1,16 @@
+
 @extends('layouts.main')
 
 @section('content')
 <div class="container">
-    <h1>Danh sách sản phẩm</h1>
+    <h1>Sản phẩm ngừng bán</h1>
     
     @if(session('success'))
       <div class="alert alert-success">
         {{ session('success') }}
       </div>
     @endif
-    
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">+ Thêm mới</a>
-    
+
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -32,20 +31,18 @@
             <td>{{ $product->price }}</td>
             <td>{{ $product->stock }}</td>
             <td>
-              <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm">View</a>
-              <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-              <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Chắc chắc xóa ?')">Delete</button>
+              <!-- Form chuyển từ trạng thái inactive sang active -->
+              <form action="{{ route('admin.products.activate', $product->id) }}" method="POST">
+                 @csrf
+                 @method('PATCH')
+                 <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Mở bán sản phẩm này ?')">Mở bán</button>
               </form>
             </td>
           </tr>
         @endforeach
       </tbody>
     </table>
-
+    
     {{ $products->links() }}
 </div>
 @endsection

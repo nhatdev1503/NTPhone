@@ -281,9 +281,13 @@
               </a>
               <div class="collapse" id="error">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages\samples\error-404.html"> Tất cả sản phẩm </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages\samples\error-500.html"> Sản phẩm sắp hết hàng </a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages\samples\error-500.html"> Sản phẩm ngừng bán </a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('products.index' )}}"> Tất cả sản phẩm </a></li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.products.lowStock') }}"> Sản phẩm sắp hết hàng </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.products.inactive') }}"> Sản phẩm ngừng bán </a>
+                  </li>
                 </ul>
               </div>
             </li>
