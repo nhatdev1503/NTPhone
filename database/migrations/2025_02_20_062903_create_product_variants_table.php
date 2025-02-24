@@ -10,18 +10,22 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('product_colors', function (Blueprint $table) {
+        Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->string('color_name');
-            $table->decimal('additional_color', 10, 2)->default(0);
+            $table->string('color');
+            $table->string('storage');
+            $table->decimal('origin_price', 10, 2)->default(0);
+            $table->decimal('price', 10, 2);
+            $table->integer('stock');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
 
     public function down()
-    {
-        Schema::dropIfExists('product_colors');
-    }
+{
+    Schema::dropIfExists('product_variants');
+}
 
 };

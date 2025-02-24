@@ -13,9 +13,7 @@ class CartSeeder extends Seeder
         foreach (range(1, 20) as $index) {
             DB::table('carts')->insert([
                 'user_id' => rand(1, 50),
-                'product_id' => rand(1, 30),
-                'color_id' => rand(1, 50),
-                'storage_id' => rand(1, 50),
+                'product_variant_id' => rand(1, 30),
                 'quantity' => rand(1, 5),
             ]);
         }

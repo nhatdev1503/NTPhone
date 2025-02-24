@@ -15,10 +15,16 @@ return new class extends Migration {
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('original_price', 10, 2);
-            $table->decimal('price', 10, 2);
-            $table->integer('stock');
             $table->string('image')->nullable();
+            $table->string('mini_image')->nullable();
+            $table->string('screen')->nullable();
+            $table->string('os')->nullable();
+            $table->string('rear_camera')->nullable();
+            $table->string('front_camera')->nullable();
+            $table->string('cpu')->nullable();
+            $table->string('ram')->nullable();
+            $table->string('battery')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

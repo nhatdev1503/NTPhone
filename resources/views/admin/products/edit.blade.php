@@ -1,89 +1,108 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container">
-    <h1>Chỉnh sửa thông tin</h1>
-    
-    @if($errors->any())
-      <div class="alert alert-danger">
-         <ul>
-           @foreach($errors->all() as $error)
-             <li>{{ $error }}</li>
-           @endforeach
-         </ul>
-      </div>
-    @endif
-    
-    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
-      @csrf
-      @method('PUT')
-      
-      <div class="mb-3">
-          <label for="category_id" class="form-label">Category ID</label>
-          <input type="number" class="form-control" id="category_id" name="category_id" value="{{ $product->category_id }}" required>
-      </div>
-      <div class="mb-3">
-          <label for="name" class="form-label">Product Name</label>
-          <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
-      </div>
-      <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{ $product->description }}</textarea>
-      </div>
-      <div class="mb-3">
-          <label for="original_price" class="form-label">Original Price</label>
-          <input type="number" step="0.01" class="form-control" id="original_price" name="original_price" value="{{ $product->original_price }}" required>
-      </div>
-      <div class="mb-3">
-          <label for="price" class="form-label">Price</label>
-          <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ $product->price }}" required>
-      </div>
-      <div class="mb-3">
-          <label for="stock" class="form-label">Stock</label>
-          <input type="number" class="form-control" id="stock" name="stock" value="{{ $product->stock }}" required>
-      </div>
-      <div class="mb-3">
-          <label for="image" class="form-label">Product Image</label>
-          @if($product->image)
-              <div>
-                  <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}" width="100">
-              </div>
-          @endif
-          <input type="file" class="form-control" id="image" name="image">
-      </div>
-      <div class="mb-3">
-          <label for="screen" class="form-label">Screen</label>
-          <input type="text" class="form-control" id="screen" name="screen" value="{{ $product->screen }}">
-      </div>
-      <div class="mb-3">
-          <label for="os" class="form-label">Operating System</label>
-          <input type="text" class="form-control" id="os" name="os" value="{{ $product->os }}">
-      </div>
-      <div class="mb-3">
-          <label for="rear_camera" class="form-label">Rear Camera</label>
-          <input type="text" class="form-control" id="rear_camera" name="rear_camera" value="{{ $product->rear_camera }}">
-      </div>
-      <div class="mb-3">
-          <label for="front_camera" class="form-label">Front Camera</label>
-          <input type="text" class="form-control" id="front_camera" name="front_camera" value="{{ $product->front_camera }}">
-      </div>
-      <div class="mb-3">
-          <label for="cpu" class="form-label">CPU</label>
-          <input type="text" class="form-control" id="cpu" name="cpu" value="{{ $product->cpu }}">
-      </div>
-      <div class="mb-3">
-          <label for="ram" class="form-label">RAM</label>
-          <input type="text" class="form-control" id="ram" name="ram" value="{{ $product->ram }}">
-      </div>
-      <div class="mb-3">
-          <label for="battery" class="form-label">Battery</label>
-          <input type="text" class="form-control" id="battery" name="battery" value="{{ $product->battery }}">
-      </div>
-      <button type="submit" class="btn btn-primary">Update Product</button>
-    </form>
-    
-</div>
-<div class="card-footer">
-    <a href="{{ route('products.index') }}" class="btn btn-secondary">Back</a>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-white">
+            <h3 class="mb-0">Chỉnh sửa sản phẩm</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="row">
+                    <!-- Cột trái: Thông tin cơ bản -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tên sản phẩm</label>
+                            <input type="text" name="name" class="form-control" value="{{ $product->name }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Danh mục</label>
+                            <select name="category_id" class="form-select">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" 
+                                        {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Mô tả</label>
+                            <textarea name="description" class="form-control" rows="3">{{ $product->description }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Ảnh sản phẩm</label>
+                            <input type="file" name="image" class="form-control">
+                            @if($product->image)
+                                <img src="{{ asset('storage/'.$product->image) }}" alt="Ảnh sản phẩm" class="mt-2 img-thumbnail" width="120">
+                            @endif
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Ảnh thu nhỏ (Mini Image)</label>
+                            <input type="file" name="mini_image" class="form-control">
+                            @if($product->mini_image)
+                                <img src="{{ asset('storage/'.$product->mini_image) }}" alt="Ảnh thu nhỏ" class="mt-2 img-thumbnail" width="80">
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Cột phải: Thông số kỹ thuật -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Màn hình</label>
+                            <input type="text" name="screen" class="form-control" value="{{ $product->screen }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Hệ điều hành</label>
+                            <input type="text" name="os" class="form-control" value="{{ $product->os }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Camera sau</label>
+                            <input type="text" name="rear_camera" class="form-control" value="{{ $product->rear_camera }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Camera trước</label>
+                            <input type="text" name="front_camera" class="form-control" value="{{ $product->front_camera }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Vi xử lý</label>
+                            <input type="text" name="cpu" class="form-control" value="{{ $product->cpu }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">RAM</label>
+                            <input type="text" name="ram" class="form-control" value="{{ $product->ram }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Pin</label>
+                            <input type="text" name="battery" class="form-control" value="{{ $product->battery }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i> Lưu thay đổi
+                    </button>
+                    <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

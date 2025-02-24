@@ -12,7 +12,7 @@ class PaymentSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 50) as $index) {
+        foreach (range(1, 20) as $index) {
             DB::table('payments')->insert([
                 'order_id' => $index,
                 'payment_method' => $faker->randomElement(['VNPay', 'MoMo', 'PayPal', 'CreditCard']),

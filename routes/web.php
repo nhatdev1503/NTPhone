@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -16,21 +16,21 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('admin.products.index'); //test giao diệndiện
+    return view('admin.index'); //test giao diện
 });
 // Route::get('/', function () {
 //     return view('admin.layouts.main');
 // })->name('home');
 
 // router CRUD products (Hiếu)
-Route::get('/list_products', [ProductsController::class, 'index']);
-Route::get('/products/low-stock', [ProductsController::class, 'lowStock'])->name('admin.products.lowStock');
-Route::get('/products/inactive', [ProductsController::class, 'inactive'])->name('admin.products.inactive');
-Route::patch('/products/activate/{product}', [ProductsController::class, 'activate'])->name('admin.products.activate');
-Route::resource('products', ProductsController::class)->where(['product' => '[0-9]+']);
+Route::get('/products/low-stock', [ProductController::class, 'lowStock'])->name('admin.products.lowStock');
+Route::get('/products/inactive', [ProductController::class, 'inactive'])->name('admin.products.inactive');
+Route::patch('/products/activate/{product}', [ProductController::class, 'activate'])->name('admin.products.activate');
+Route::resource('products', ProductController::class)->where(['product' => '[0-9]+']);
+Route::get('/products/{id}/variants', [ProductController::class, 'getVariants']);
 
 
-// QUẢN LÝ TÀI KHOẢN (USERS) (HưngHưng)
+// QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
 // =============================
 Route::get('/users', [UserController::class, 'index'])->name('admin.users.index'); // Danh sách tài khoản
 Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create'); // Form tạo tài khoản

@@ -13,9 +13,6 @@ class Product extends Model
         'category_id',
         'name',
         'description',
-        'original_price',
-        'price',
-        'stock',
         'image',
         'screen',
         'os',
@@ -31,14 +28,10 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function colors()
+    public function variants()
     {
-        return $this->hasMany(ProductColor::class);
+        return $this->hasMany(ProductVariant::class);
     }
 
-    public function storage()
-    {
-        return $this->hasMany(ProductStorage::class);
-    }
 }
 
