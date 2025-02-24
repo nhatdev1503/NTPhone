@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoucherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,10 @@ Route::get('/users/create', [UserController::class, 'create'])->name('admin.user
 Route::post('/users', [UserController::class, 'store'])->name('admin.users.store'); 
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update'); 
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy'); 
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+// Quản lý Voucher (Minh)
+Route::get('/voucher', [VoucherController::class, 'index'])->name('admin.allVoucher');
+Route::get('/voucher/create', [VoucherController::class, 'create'])->name('admin.createVoucher');
+Route::post('/voucher/post', [VoucherController::class, 'store'])->name('admin.postVoucher');
+Route::delete('/voucher/delete/{discount}', [VoucherController::class, 'destroy'])->name('admin.deleteVoucher');

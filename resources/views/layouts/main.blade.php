@@ -202,11 +202,64 @@
                         </a>
                     </li>
                 </ul>
+<<<<<<< HEAD
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
                     data-toggle="offcanvas">
                     <span class="icon-menu"></span>
                 </button>
             </div>
+=======
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                aria-controls="ui-basic">
+                <span class="menu-title">Quản lí đơn hàng</span>
+                <span class="badge badge-success">10</span>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\accordions.html">Tất cả đơn hàng</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\buttons.html">Chờ xác nhận</a></li>
+                  <span class="badge badge-success">10</span>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\badges.html">Đang đóng gói</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\dropdowns.html">Đang giao</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\modals.html">Đã giao</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\progress.html">Đã hủy</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false"
+                aria-controls="ui-advanced">
+                <span class="menu-title">Quản lí voucher</span>
+                <span class="badge badge-primary">8</span>
+              </a>
+              <div class="collapse" id="ui-advanced">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{ route('admin.allVoucher') }}">Tất cả voucher</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\clipboard.html">Đã hết hạn</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="pages\ui-features\context-menu.html">Đang được áp dụng</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
+                aria-controls="form-elements">
+                <span class="menu-title">Quản lí tài khoản</span>
+                <span class="badge badge-danger">3</span>
+              </a>
+              <div class="collapse" id="form-elements">
+                <ul class="nav flex-column sub-menu">
+                  
+                  <li class="nav-item"><a class="nav-link" href="{{ route('admin.users.index') }}">Tất cả</a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </li>
+          </ul>
+>>>>>>> f9ab057ef0ce31471d7c08abde980ca3169a3a5e
         </nav>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
