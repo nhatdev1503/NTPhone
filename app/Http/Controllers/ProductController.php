@@ -35,8 +35,11 @@ class ProductController extends Controller
         if ($request->filled('search')) {
             $query->where('name', 'LIKE', '%' . $request->search . '%');
         }
-
+        if ($request->has('status') && !empty($request->status)) {
+            $query->where('status', $request->status);
+        }
         $products = $query->with('category')->paginate(10);
+        
 
         return view('admin.products.index', compact('products'));
     }
