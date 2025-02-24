@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,8 @@ Route::get('/products/low-stock', [ProductsController::class, 'lowStock'])->name
 Route::get('/products/inactive', [ProductsController::class, 'inactive'])->name('admin.products.inactive');
 Route::patch('/products/activate/{product}', [ProductsController::class, 'activate'])->name('admin.products.activate');
 Route::resource('products', ProductsController::class)->where(['product' => '[0-9]+']);
+//Router Danh muc Quyet //
+Route::resource('admin/categories', CategoryController::class);
+
 
 
