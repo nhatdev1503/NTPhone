@@ -12,7 +12,7 @@
             </div>
             <div class="mb-3">
                 <label for="discount_type">Type:</label>
-                <select name="discount_type">
+                <select name="discount_type" class="form-control">
                     <option value="percentage">Phần trăm</option>
                     <option value="fixed">Cố định</option>
                 </select>

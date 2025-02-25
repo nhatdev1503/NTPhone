@@ -44,4 +44,6 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.
 Route::get('/voucher', [VoucherController::class, 'index'])->name('admin.allVoucher');
 Route::get('/voucher/create', [VoucherController::class, 'create'])->name('admin.createVoucher');
 Route::post('/voucher/post', [VoucherController::class, 'store'])->name('admin.postVoucher');
+Route::get('/voucher/edit/{id}', [VoucherController::class, 'edit'])->name('admin.editVoucher');
+Route::put('/voucher/update/{id}', [VoucherController::class, 'update'])->name('admin.updateVoucher');
 Route::delete('/voucher/delete/{discount}', [VoucherController::class, 'destroy'])->name('admin.deleteVoucher');
