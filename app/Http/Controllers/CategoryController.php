@@ -8,7 +8,8 @@
   {
       public function index()
       {
-          return response()->json(Category::all());
+          $categories = Category::paginate(10);
+          return view('admin.categories.index', compact('categories'));
       }
   
       public function store(Request $request)
@@ -16,17 +17,17 @@
           $request->validate([
               'name' => 'required|unique:categories,name',
               'description' => 'nullable|string',
-            
           ]);
   
-          $category = Category::create($request->all());
+          Category::create($request->all());
   
-          return response()->json(['message' => 'Danh mục đã được tạo', 'data' => $category]);
+          return redirect()->route('categories.index')->with('success', 'Danh mục đã được tạo!');
       }
   
-      public function show($id)
+      public function edit($id)
       {
-          return response()->json(Category::findOrFail($id));
+          $category = Category::findOrFail($id);
+          return view('admin.categories.edit', compact('category'));
       }
   
       public function update(Request $request, $id)
@@ -34,15 +35,16 @@
           $category = Category::findOrFail($id);
           $category->update($request->all());
   
-          return response()->json(['message' => 'Cập nhật danh mục thành công', 'data' => $category]);
+          return redirect()->route('categories.index')->with('success', 'Cập nhật danh mục thành công!');
       }
   
       public function destroy($id)
       {
           Category::findOrFail($id)->delete();
   
-          return response()->json(['message' => 'Xóa danh mục thành công']);
+          return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
       }
   }
+   
   
 ?>

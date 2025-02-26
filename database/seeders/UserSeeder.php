@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $roles = ['admin', 'staff', 'customer'];
+        $roles = ['staff', 'customer'];
         $statuses = ['active', 'inactive'];
 
         // Tạo admin

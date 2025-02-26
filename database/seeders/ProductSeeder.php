@@ -12,16 +12,13 @@ class ProductSeeder extends Seeder
     {
         $faker = Faker::create();
         $statuses = ['active', 'inactive'];
-
         for ($i = 0; $i < 100; $i++) {
             Product::create([
                 'category_id' => rand(1, 10),
                 'name' => $faker->word,
                 'description' => $faker->sentence,
-                'original_price' => rand(100, 1000),
-                'price' => rand(100, 1000),
-                'stock' => rand(0, 100),
                 'image' => 'product.jpg',
+                'mini_image' => 'product.jpg',
                 'screen' => $faker->randomElement(['6.1 inches', '6.5 inches', '6.8 inches']),
                 'os' => $faker->randomElement(['Android', 'iOS']),
                 'rear_camera' => $faker->randomElement(['12MP', '48MP', '108MP']),
