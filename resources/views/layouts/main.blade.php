@@ -325,7 +325,7 @@
                             <div class="collapse" id="ui-advanced">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\dragula.html">Tất cả voucher</a></li>
+                                            href="{{ route('admin.allVoucher') }}">Tất cả voucher</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                             href="pages\ui-features\clipboard.html">Đã hết hạn</a></li>
                                     <li class="nav-item"> <a class="nav-link"

@@ -28,12 +28,18 @@
                             <td>{{ $voucher->id }}</td>
                             <td>{{ $voucher->code }}</td>
                             <td>{{ $voucher->discount_type }}</td>
-                            <td>{{ $voucher->discount_value }}</td>
-                            <td>{{ $voucher->max_discount }}</td>
+                            <td>
+                                {{ number_format($voucher->discount_value) }}
+                                @if ($voucher->discount_type == 'fixed') VNĐ @else % @endif
+                            </td>
+                            <td>
+                                {{ number_format($voucher->max_discount) }}
+                                @if ($voucher->discount_type == 'fixed') VNĐ @else % @endif
+                            </td>
                             <td>{{ $voucher->start_date }}</td>
                             <td>{{ $voucher->expiration_date }}</td>
                             <td>
-                                <a href="" class="btn btn-warning">Sửa</a>
+                                <a href="{{ route('admin.editVoucher', $voucher->id) }}" class="btn btn-warning">Sửa</a>
                                 <form action="{{ route('admin.deleteVoucher', $voucher->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

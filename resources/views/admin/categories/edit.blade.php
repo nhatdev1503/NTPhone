@@ -8,7 +8,7 @@
         <div class="card-body">
             <form action="{{ route('categories.update', $category->id) }}" method="POST">
                 @csrf
-                @method('PUT') <!-- Laravel yêu cầu phương thức PUT/PATCH để cập nhật -->
+                @method('PUT') 
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Tên danh mục</label>

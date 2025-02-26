@@ -44,6 +44,7 @@
   
           return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
       }
+      
   }
    
   

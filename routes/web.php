@@ -31,13 +31,15 @@ Route::get('/products/inactive', [ProductController::class, 'inactive'])->name('
 Route::patch('/products/activate/{product}', [ProductController::class, 'activate'])->name('admin.products.activate');
 Route::resource('products', ProductController::class)->where(['product' => '[0-9]+']);
 //Router Danh muc Quyet //
+// Route::resource('categories', CategoryController::class);
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::post('/categories/{id}/update', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/index', [CategoryController::class,'index']);
+Route::resource('categories', CategoryController::class);
+
 
 
 
