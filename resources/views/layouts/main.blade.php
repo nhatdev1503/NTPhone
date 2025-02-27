@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('css\style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('images\favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
 </head>
 
 <body>
@@ -268,7 +270,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages\widgets.html">
+                            <a class="nav-link" href="{{route('banners.index')}}">
                                 <span class="menu-title">Quản lí banner</span>
                                 <span class="badge badge-danger">3</span>
                             </a>

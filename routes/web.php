@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +31,8 @@ Route::get('/products/low-stock', [ProductController::class, 'lowStock'])->name(
 Route::get('/products/inactive', [ProductController::class, 'inactive'])->name('admin.products.inactive');
 Route::patch('/products/activate/{product}', [ProductController::class, 'activate'])->name('admin.products.activate');
 Route::resource('products', ProductController::class)->where(['product' => '[0-9]+']);
-//Router Danh muc Quyet //
-// Route::resource('categories', CategoryController::class);
 
+//Router Danh muc Quyet //
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::post('/categories/{id}/update', [CategoryController::class, 'update'])->name('categories.update');
@@ -40,6 +40,16 @@ Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name(
 Route::get('/index', [CategoryController::class,'index']);
 Route::resource('categories', CategoryController::class);
 
+//Route Banner QUyet//
+Route::prefix('admin')->group(function () {
+    Route::get('/banners', [BannerController::class, 'index'])->name('banners.index');
+    Route::get('/banners/create', [BannerController::class, 'create'])->name('banners.create');
+    Route::post('/banners/store', [BannerController::class, 'store'])->name('banners.store');
+    Route::delete('/banners/{id}', [BannerController::class, 'destroy'])->name('banners.destroy');
+    Route::get('/banners/{banner}/edit', [BannerController::class, 'edit'])->name('banners.edit');
+    Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name('banners.edit');
+    Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
+});
 
 
 
@@ -54,8 +64,8 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.user
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
 // Quản lý Voucher (Minh)
-// Route::get('/voucher', [VoucherController::class, 'index'])->name('admin.allVoucher');
-// Route::get('/voucher/create', [VoucherController::class, 'create'])->name('admin.createVoucher');
-// Route::post('/voucher/post', [VoucherController::class, 'store'])->name('admin.postVoucher');
-// Route::delete('/voucher/delete/{discount}', [VoucherController::class, 'destroy'])->name('admin.deleteVoucher');
+Route::get('/voucher', [VoucherController::class, 'index'])->name('admin.allVoucher');
+Route::get('/voucher/create', [VoucherController::class, 'create'])->name('admin.createVoucher');
+Route::post('/voucher/post', [VoucherController::class, 'store'])->name('admin.postVoucher');
+Route::delete('/voucher/delete/{discount}', [VoucherController::class, 'destroy'])->name('admin.deleteVoucher');
 Route::resource('vouchers', VoucherController::class)->where(['product' => '[0-9]+']);
