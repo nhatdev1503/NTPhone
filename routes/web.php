@@ -41,7 +41,8 @@ Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.user
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
 // Quản lý Voucher (Minh)
-Route::get('/voucher', [VoucherController::class, 'index'])->name('admin.allVoucher');
-Route::get('/voucher/create', [VoucherController::class, 'create'])->name('admin.createVoucher');
-Route::post('/voucher/post', [VoucherController::class, 'store'])->name('admin.postVoucher');
-Route::delete('/voucher/delete/{discount}', [VoucherController::class, 'destroy'])->name('admin.deleteVoucher');
+// Route::get('/voucher', [VoucherController::class, 'index'])->name('admin.allVoucher');
+// Route::get('/voucher/create', [VoucherController::class, 'create'])->name('admin.createVoucher');
+// Route::post('/voucher/post', [VoucherController::class, 'store'])->name('admin.postVoucher');
+// Route::delete('/voucher/delete/{discount}', [VoucherController::class, 'destroy'])->name('admin.deleteVoucher');
+Route::resource('vouchers', VoucherController::class)->where(['product' => '[0-9]+']);

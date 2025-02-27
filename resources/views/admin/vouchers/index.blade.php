@@ -6,7 +6,7 @@
             <h3>Tất cả voucher</h3>
         </div>
         <div class="my-2">
-            <a href="{{ route('admin.createVoucher') }}" style="text-decoration: none;" class="btn btn-success">Thêm voucher</a>
+            <a href="{{ route('vouchers.create') }}" style="text-decoration: none;" class="btn btn-success">Thêm voucher</a>
         </div>
         <div class="card-body">
             <table class="table">
@@ -28,16 +28,24 @@
                             <td>{{ $voucher->id }}</td>
                             <td>{{ $voucher->code }}</td>
                             <td>{{ $voucher->discount_type }}</td>
-                            <td>{{ $voucher->discount_value }}</td>
+                            <td>{{ $voucher->discount_value }}
+                                @if ($voucher->discount_type == 'fixed')
+                                     VND
+                                @elseif($voucher->discount_type == 'percentage')
+                                    %
+                                @endif
+                            </td>
                             <td>{{ $voucher->max_discount }}</td>
                             <td>{{ $voucher->start_date }}</td>
                             <td>{{ $voucher->expiration_date }}</td>
                             <td>
                                 <a href="" class="btn btn-warning">Sửa</a>
-                                <form action="{{ route('admin.deleteVoucher', $voucher->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('vouchers.destroy', $voucher->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa voucher này không?')">Xóa</button>
+                                    <button type="submit" class="btn btn-danger"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa voucher này không?')">Xóa</button>
                                 </form>
                             </td>
                         </tr>

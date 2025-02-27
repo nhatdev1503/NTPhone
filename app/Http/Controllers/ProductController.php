@@ -43,7 +43,11 @@ class ProductController extends Controller
 
         return view('admin.products.index', compact('products'));
     }
-
+    public function create(Request $request)
+    {
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
+    }
     public function getVariants($id)
     {
         $product = Product::with([
