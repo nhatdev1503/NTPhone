@@ -62,9 +62,11 @@ class VoucherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $discount = Discount::findOrFail($id);
+
+        return view('admin.vouchers.edit', compact('discount'));
     }
 
     /**
@@ -72,7 +74,27 @@ class VoucherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'code' => 'required|string|unique:discounts,code,' . $id,
+            'discount_type' => 'required|in:percentage,fixed',
+            'discount_value' => 'required|numeric|min:0',
+            'max_discount' => 'nullable|numeric|min:0',
+            'start_date' => 'required|date',
+            'expiration_date' => 'required|date|after:start_date'
+        ]);
+
+        $discount = Discount::findOrFail($id);
+
+        $discount->update([
+            'code' => $request->input('code'),
+            'discount_type' => $request->input('discount_type'),
+            'discount_value' => $request->input('discount_value'),
+            'max_discount' => $request->input('max_discount'),
+            'start_date' => $request->input('start_date'),
+            'expiration_date' => $request->input('expiration_date')
+        ]);
+
+        return redirect()->route('admin.allVoucher')->with('success', 'Chỉnh sửa voucher thành công');
     }
 
     /**

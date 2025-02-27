@@ -274,7 +274,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="pages\widgets.html">
+                            <a class="nav-link" href="{{ route('categories.index') }}">
                                 <span class="menu-title">Quản lí danh mục</span>
                                 <span class="badge badge-danger">3</span>
                             </a>
@@ -325,7 +325,11 @@
                             <div class="collapse" id="ui-advanced">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
+<<<<<<< HEAD
                                             href="{{ route('vouchers.index') }}">Tất cả voucher</a></li>
+=======
+                                            href="{{ route('admin.allVoucher') }}">Tất cả voucher</a></li>
+>>>>>>> c93ba0c1391ea2248f036427f134b1deffe88919
                                     <li class="nav-item"> <a class="nav-link"
                                             href="pages\ui-features\clipboard.html">Đã hết hạn</a></li>
                                     <li class="nav-item"> <a class="nav-link"

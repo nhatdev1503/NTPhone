@@ -28,6 +28,7 @@
                             <td>{{ $voucher->id }}</td>
                             <td>{{ $voucher->code }}</td>
                             <td>{{ $voucher->discount_type }}</td>
+<<<<<<< HEAD
                             <td>{{ $voucher->discount_value }}
                                 @if ($voucher->discount_type == 'fixed')
                                      VND
@@ -42,6 +43,21 @@
                                 <a href="" class="btn btn-warning">Sửa</a>
                                 <form action="{{ route('vouchers.destroy', $voucher->id) }}" method="POST"
                                     style="display:inline;">
+=======
+                            <td>
+                                {{ number_format($voucher->discount_value) }}
+                                @if ($voucher->discount_type == 'fixed') VNĐ @else % @endif
+                            </td>
+                            <td>
+                                {{ number_format($voucher->max_discount) }}
+                                @if ($voucher->discount_type == 'fixed') VNĐ @else % @endif
+                            </td>
+                            <td>{{ $voucher->start_date }}</td>
+                            <td>{{ $voucher->expiration_date }}</td>
+                            <td>
+                                <a href="{{ route('admin.editVoucher', $voucher->id) }}" class="btn btn-warning">Sửa</a>
+                                <form action="{{ route('admin.deleteVoucher', $voucher->id) }}" method="POST" style="display:inline;">
+>>>>>>> c93ba0c1391ea2248f036427f134b1deffe88919
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger"

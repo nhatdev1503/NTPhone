@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -24,11 +25,23 @@ Route::get('/', function () {
 // })->name('home');
 
 // router CRUD products (Hiếu)
+Route::get('/list_products', [ProductController::class, 'index']);
 Route::get('/products/low-stock', [ProductController::class, 'lowStock'])->name('admin.products.lowStock');
 Route::get('/products/inactive', [ProductController::class, 'inactive'])->name('admin.products.inactive');
 Route::patch('/products/activate/{product}', [ProductController::class, 'activate'])->name('admin.products.activate');
 Route::resource('products', ProductController::class)->where(['product' => '[0-9]+']);
-Route::get('/products/{id}/variants', [ProductController::class, 'getVariants']);
+//Router Danh muc Quyet //
+// Route::resource('categories', CategoryController::class);
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::post('/categories/{id}/update', [CategoryController::class, 'update'])->name('categories.update');
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('/index', [CategoryController::class,'index']);
+Route::resource('categories', CategoryController::class);
+
+
+
 
 
 // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
