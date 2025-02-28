@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class OrderSeeder extends Seeder
 {
@@ -13,16 +12,22 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
+        $latestOrder = DB::table('orders')->latest('id')->first();
+        $nextOrderNumber = $latestOrder ? ((int)substr($latestOrder->order_code, 2)) + 1 : 1;
+
+
         for ($i = 1; $i <= 20; $i++) {
             DB::table('orders')->insert([
-                'order_code'        => 'OD'.rand(11111, 99999),
+                'order_code'     => 'OD' . str_pad($nextOrderNumber++, 5, '0', STR_PAD_LEFT),
                 'user_id'        => rand(1, 10),
-                'staff_id'       => rand(1, 5) > 3 ? rand(1, 5) : null, // 60% có staff xử lý, 40% null
+                'staff_id'       => rand(1, 5) > 3 ? rand(1, 5) : null, 
+                'discount_id'    => rand(1, 10), 
                 'fullname'       => 'Khách hàng ' . $i,
                 'address'        => 'Số ' . rand(1, 100) . ' Đường ABC, Quận XYZ',
                 'phone'          => '09' . rand(10000000, 99999999),
                 'email'          => 'customer' . $i . '@example.com',
                 'total_price'    => rand(100, 5000) * 1000, // Giả sử giá trị đơn hàng từ 100k - 5 triệu
+                'discount_amount'=> rand(10000, 50000), // Khoảng giảm giá từ 10k - 50k
                 'status'         => ['pending', 'processing', 'shipped', 'delivered', 'cancelled'][rand(0, 4)],
                 'payment_method' => rand(0, 1) ? 'COD' : 'Online',
                 'created_at'     => now(),

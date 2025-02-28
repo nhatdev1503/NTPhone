@@ -43,7 +43,7 @@ Route::get('productvariants/{id}/edit', [ProductVariantController::class, 'edit'
 Route::put('productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
 Route::put('productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
 
-//Router Danh muc Quyet //
+//Router Danh muc, baners Quyet //
 // Route::resource('categories', CategoryController::class);
 
 //Router Danh muc Quyet //
@@ -53,7 +53,7 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('categori
 Route::get('/categories/{id}/edit', [CategoryController::class, 'index'])->name('categories.edit');
 Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
 Route::put('/categories/{id}/destroy', [CategoryController::class, 'destroy'])->name('categories.destroy');
-// Route::resource('categories', CategoryController::class);
+Route::resource('banners', BannerController::class);
 
 // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
 // =============================

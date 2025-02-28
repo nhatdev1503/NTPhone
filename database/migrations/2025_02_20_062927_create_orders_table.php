@@ -15,11 +15,13 @@ return new class extends Migration {
             $table->string('order_code')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('staff_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->string('fullname'); // Họ và tên người đặt hàng
-            $table->string('address');  // Địa chỉ giao hàng
-            $table->string('phone');    // Số điện thoại người nhận
-            $table->string('email');    // Email liên hệ
+            $table->foreignId('discount_id')->nullable()->constrained('discounts')->onDelete('set null');
+            $table->string('fullname'); 
+            $table->string('address');  
+            $table->string('phone');    
+            $table->string('email');    
             $table->decimal('total_price', 10, 2);
+            $table->decimal('discount_amount', 10, 2)->default(0);
             $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->enum('payment_method', ['COD', 'Online']);
             $table->timestamps();

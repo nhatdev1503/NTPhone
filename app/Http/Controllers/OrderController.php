@@ -26,7 +26,7 @@ class OrderController extends Controller
         $orders = $query->orderBy('id', 'desc')->paginate(10);
 
 
-        return view('admin.orders.index', compact('orders' ));
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -50,7 +50,27 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $order = Order::findOrFail($id);
+
+        // Mảng để hiển thị trạng thái đơn hàng đẹp hơn
+        $statusColors = [
+            'pending' => 'warning',
+            'processing' => 'primary',
+            'shipped' => 'info',
+            'delivered' => 'success',
+            'cancelled' => 'danger',
+        ];
+
+        $statusText = [
+            'pending' => 'Chờ xác nhận',
+            'processing' => 'Đang xử lý',
+            'shipped' => 'Đang giao',
+            'delivered' => 'Đã giao',
+            'cancelled' => 'Đã hủy',
+        ];
+
+        return view('admin.orders.show', compact('order', 'statusColors', 'statusText'));
     }
 
     /**

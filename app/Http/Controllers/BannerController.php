@@ -9,7 +9,7 @@
  {
      public function index()
      {
-         $banners = Banner::paginate('9');
+         $banners = Banner::latest()->paginate('9');
          return view('admin.banners.index', compact('banners'));
      }
  
