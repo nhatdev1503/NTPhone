@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -45,6 +46,7 @@ Route::put('productvariants/{id}/destroy', [ProductVariantController::class, 'ed
 //Router Danh muc Quyet //
 // Route::resource('categories', CategoryController::class);
 
+//Router Danh muc Quyet //
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/create', [CategoryController::class, 'index'])->name('categories.create');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
