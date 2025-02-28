@@ -6,11 +6,11 @@
 
     <!-- Thêm nút "Thêm tài khoản" -->
     <div class="mb-3">
-        <a href="{{ route('admin.users.create') }}" class="btn btn-success">Thêm tài khoản</a>
+        <a href="{{ route('users.create') }}" class="btn btn-success">Thêm tài khoản</a>
     </div>
 
     <!-- Form lọc theo vai trò & trạng thái -->
-    <form action="{{ route('admin.users.index') }}" method="GET" class="mb-3">
+    <form action="{{ route('users.index') }}" method="GET" class="mb-3">
         <div class="row">
             <div class="col-md-4">
                 <select name="role" class="form-control">
@@ -57,11 +57,25 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">Sửa</a>
-                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info"
+                            title="Xem chi tiết">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"
+                            title="Chỉnh sửa" onclick="alert('Bạn muốn cập nhật thông tin người dùng?')">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                            class="d-inline">
                             @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
+                            @method('PUT')
+                            <button type="submit"
+                                class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
+                                title="{{ $user->status == 'active' ? 'Khóa' : 'Mở Khóa' }}"
+                                onclick="return confirm('{{ $user->status == 'active' ? 'Bạn có chắc chắn muốn khóa tài khoản này?' : 'Bạn có chắc chắn muốn mở khóa tài khoản này?' }}')">
+                                <i
+                                    class="fa {{ $user->status == 'active' ? 'fa-ban' : 'fa-check' }}"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>

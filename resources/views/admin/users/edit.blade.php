@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -26,6 +26,16 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $user->address) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" required>
         </div>
 
         <div class="mb-3">
@@ -44,8 +54,18 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Quay lại</a>
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Ảnh đại diện</label>
+            @if ($user->avatar)
+                <div class="mb-2">
+                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="img-thumbnail" width="100">
+                </div>
+            @endif
+            <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-success">Cập nhật</button>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class ProductVariantController extends Controller
@@ -9,25 +11,43 @@ class ProductVariantController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id )
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('admin.products.product_variants.create',compact('product'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'variants' => 'required|array',
+            'variants.*.color' => 'required|string|distinct',
+            'variants.*.storage' => 'required|string|distinct',
+            'variants.*.origin_price' => 'required|numeric',
+            'variants.*.price' => 'required|numeric',
+            'variants.*.stock' => 'required|integer',
+        ]);
+        // Lưu biến thể sản phẩm
+        foreach ($request->variants as $variant) {
+            $variant = json_decode($variant, true);
+            ProductVariant::create([
+                'product_id' => $id,
+                'color' => $variant['color'],
+                'storage' => $variant['storage'],
+                'origin_price' => $variant['origin_price'],
+                'price' => $variant['price'],
+                'stock' => $variant['stock'],
+            ]);
+        }
+
+        return redirect()->route('products.index')->with('success', 'Biến thể sản phẩm đã được thêm thành công.');
     }
 
     /**

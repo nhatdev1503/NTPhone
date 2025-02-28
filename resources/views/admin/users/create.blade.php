@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.store') }}" method="POST">
+    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         <div class="mb-3">
@@ -38,6 +38,16 @@
         </div>
 
         <div class="mb-3">
+            <label for="address" class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" id="address" name="address" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <div class="mb-3">
             <label for="role" class="form-label">Vai trò</label>
             <select class="form-control" id="role" name="role" required>
                 <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Nhân viên</option>
@@ -53,8 +63,14 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Ảnh đại diện</label>
+            <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
+        </div>
+
         <button type="submit" class="btn btn-success">Tạo tài khoản</button>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Quay lại</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection
+        

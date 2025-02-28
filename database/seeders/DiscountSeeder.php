@@ -17,7 +17,6 @@ class DiscountSeeder extends Seeder
                 'code' => strtoupper($faker->lexify('??????')),
                 'discount_type' => $faker->randomElement(['percentage', 'fixed']),
                 'discount_value' => rand(5, 50),
-                'max_discount' => rand(50, 500),
                 'start_date' => now(),
                 'expiration_date' => now()->addDays(rand(7, 30)),
                 'created_at' => now(),

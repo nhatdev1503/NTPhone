@@ -14,7 +14,11 @@ class Order extends Model
         'staff_id',
         'total_price',
         'status',
-        'payment_method'
+        'payment_method',
+        'fullname',
+        'address',
+        'phone',
+        'email',
     ];
 
     public function user()

@@ -10,15 +10,19 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
-
-        foreach (range(1, 10) as $index) {
-            DB::table('categories')->insert([
-                'name' => $faker->word,
-                'description' => $faker->sentence,
+        DB::table('categories')->insert([
+            [
+                'name' => 'iPhone',
+                'description' => 'Là sản phẩm điện thoại thông minh của hãng Apple',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
-        }
+            ],
+            [
+                'name' => 'Samsung',
+                'description' => 'Là điện thoại thông minh của hãng Samsung',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        ]);
     }
 }

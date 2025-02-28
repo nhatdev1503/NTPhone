@@ -13,7 +13,6 @@ class Discount extends Model
         'code',
         'discount_type',
         'discount_value',
-        'max_discount',
         'start_date',
         'expiration_date'
     ];

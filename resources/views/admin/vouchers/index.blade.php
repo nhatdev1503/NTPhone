@@ -5,20 +5,46 @@
         <div class="card-header text-white bg-primary">
             <h3>Tất cả voucher</h3>
         </div>
-        <div class="my-2">
+        <div class="my-2 mt-3 mb-3">
             <a href="{{ route('vouchers.create') }}" style="text-decoration: none;" class="btn btn-success">Thêm voucher</a>
         </div>
+        <form action="{{ route('vouchers.index') }}" method="GET" class="mb-3">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" name="code" class="form-control" placeholder="Tìm mã voucher..." value="{{ request('code') }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="status" class="form-control">
+                        <option value="">-- Chọn trạng thái --</option>
+                        <option value="upcoming" {{ request('status') == 'upcoming' ? 'selected' : '' }}>Sắp tới</option>
+                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Hoạt động</option>
+                        <option value="expired" {{ request('status') == 'expired' ? 'selected' : '' }}>Hết hạn</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="discount_type" class="form-control">
+                        <option value="">-- Chọn loại voucher --</option>
+                        <option value="fixed" {{ request('discount_type') == 'fixed' ? 'selected' : '' }}>Giảm giá cố định</option>
+                        <option value="percentage" {{ request('discount_type') == 'percentage' ? 'selected' : '' }}>Giảm giá %</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Lọc</button>
+                    <a href="{{ route('vouchers.index') }}" class="btn btn-secondary">Reset</a>
+                </div>
+            </div>
+        </form>
         <div class="card-body">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
                         <th>Code</th>
-                        <th>Discount type</th>
-                        <th>Discount value</th>
-                        <th>Max discount</th>
-                        <th>Start date</th>
-                        <th>Expiration date</th>
+                        <th>Loại voucher</th>
+                        <th>Giá trị</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
+                        <th>Trạng thái</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -28,41 +54,34 @@
                             <td>{{ $voucher->id }}</td>
                             <td>{{ $voucher->code }}</td>
                             <td>{{ $voucher->discount_type }}</td>
-<<<<<<< HEAD
                             <td>{{ $voucher->discount_value }}
                                 @if ($voucher->discount_type == 'fixed')
-                                     VND
+                                    VND
                                 @elseif($voucher->discount_type == 'percentage')
                                     %
                                 @endif
                             </td>
-                            <td>{{ $voucher->max_discount }}</td>
                             <td>{{ $voucher->start_date }}</td>
                             <td>{{ $voucher->expiration_date }}</td>
                             <td>
-                                <a href="" class="btn btn-warning">Sửa</a>
-                                <form action="{{ route('vouchers.destroy', $voucher->id) }}" method="POST"
-                                    style="display:inline;">
-=======
-                            <td>
-                                {{ number_format($voucher->discount_value) }}
-                                @if ($voucher->discount_type == 'fixed') VNĐ @else % @endif
+                                @php
+                                    $now = now();
+                                    if ($voucher->start_date > $now) {
+                                        $status = ['text' => 'Sắp tới', 'class' => 'badge bg-warning text-dark']; // Màu vàng
+                                    } elseif ($voucher->expiration_date < $now) {
+                                        $status = ['text' => 'Hết hạn', 'class' => 'badge bg-danger']; // Màu đỏ
+                                    } else {
+                                        $status = ['text' => 'Hoạt động', 'class' => 'badge bg-primary']; // Màu xanh
+                                    }
+                                @endphp
+
+                                <span class="{{ $status['class'] }}">
+                                    {{ $status['text'] }}
+                                </span>
                             </td>
+
                             <td>
-                                {{ number_format($voucher->max_discount) }}
-                                @if ($voucher->discount_type == 'fixed') VNĐ @else % @endif
-                            </td>
-                            <td>{{ $voucher->start_date }}</td>
-                            <td>{{ $voucher->expiration_date }}</td>
-                            <td>
-                                <a href="{{ route('admin.editVoucher', $voucher->id) }}" class="btn btn-warning">Sửa</a>
-                                <form action="{{ route('admin.deleteVoucher', $voucher->id) }}" method="POST" style="display:inline;">
->>>>>>> c93ba0c1391ea2248f036427f134b1deffe88919
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Bạn có chắc chắn muốn xóa voucher này không?')">Xóa</button>
-                                </form>
+                                <a href="{{ route('vouchers.edit', $voucher->id) }}" class="btn btn-warning">Sửa</a>
                             </td>
                         </tr>
                     @endforeach

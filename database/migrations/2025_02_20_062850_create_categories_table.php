@@ -14,8 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active'); // Thêm status
             $table->timestamps();
         });
+        
     }
 
     public function down()

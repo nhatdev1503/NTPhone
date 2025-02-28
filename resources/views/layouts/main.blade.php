@@ -155,7 +155,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="images\faces\face4.jpg" alt="image" class="profile-pic">
+                                    <img src="{{ asset('images\faces\face4.jpg') }}" alt="image" class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium">Hưng
@@ -169,7 +169,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="images\faces\face2.jpg" alt="image" class="profile-pic">
+                                    <img src="{{ asset('images\faces\face2.jpg') }}" alt="image" class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium">Quyết
@@ -183,7 +183,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="images\faces\face3.jpg" alt="image" class="profile-pic">
+                                    <img src="{{ asset('images\faces\face3.jpg') }}" alt="image" class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium"> Hiếu
@@ -301,41 +301,18 @@
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\accordions.html">Tất cả đơn hàng</a></li>
+                                            href="{{ route('orders.index') }}">Tất cả đơn hàng</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\buttons.html">Chờ xác nhận</a></li>
+                                            href="{{ route('orders.pending') }}">Chờ xác nhận</a></li>
                                     <span class="badge badge-success">10</span>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\badges.html">Đang đóng gói</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\dropdowns.html">Đang giao</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="pages\ui-features\modals.html">Đã
-                                            giao</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\progress.html">Đã hủy</a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false"
-                                aria-controls="ui-advanced">
+                            <a class="nav-link" href="{{ route('vouchers.index') }}">
                                 <span class="menu-title">Quản lí voucher</span>
-                                <span class="badge badge-primary">8</span>
+                                <span class="badge badge-primary">3</span>
                             </a>
-                            <div class="collapse" id="ui-advanced">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-<<<<<<< HEAD
-                                            href="{{ route('vouchers.index') }}">Tất cả voucher</a></li>
-=======
-                                            href="{{ route('admin.allVoucher') }}">Tất cả voucher</a></li>
->>>>>>> c93ba0c1391ea2248f036427f134b1deffe88919
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\clipboard.html">Đã hết hạn</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="pages\ui-features\context-menu.html">Đang được áp dụng</a></li>
-                                </ul>
-                            </div>
                         </li>
                         {{-- <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
@@ -360,7 +337,7 @@
                                 <ul class="nav flex-column sub-menu">
 
                                     <li class="nav-item"><a class="nav-link"
-                                            href="{{ route('admin.users.index') }}">Tất cả</a>
+                                            href="{{ route('users.index') }}">Tất cả</a>
                                     </li>
 
                                 </ul>

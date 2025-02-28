@@ -15,6 +15,7 @@ class OrderSeeder extends Seeder
     {
         for ($i = 1; $i <= 20; $i++) {
             DB::table('orders')->insert([
+                'order_code'        => 'OD'.rand(11111, 99999),
                 'user_id'        => rand(1, 10),
                 'staff_id'       => rand(1, 5) > 3 ? rand(1, 5) : null, // 60% có staff xử lý, 40% null
                 'fullname'       => 'Khách hàng ' . $i,

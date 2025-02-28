@@ -7,10 +7,12 @@
                 {{ session('success') }}
             </div>
         @endif
+
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
                 <h3 class="mb-0">{{ $product->name }}</h3>
             </div>
+
             <div class="card-body">
                 <div class="row">
                     <!-- Hình ảnh sản phẩm -->
@@ -27,6 +29,16 @@
                     <div class="col-md-8">
                         <table class="table table-borderless">
                             <tbody>
+                                <tr>
+                                    <th>Trạng thái:</th>
+                                    <td>
+                                        <span
+                                            class="badge bg-{{ $product->status == 'active' && $product->category->status == 'active' ? 'success' : 'danger' }}">
+                                            {{ $product->status == 'active' && $product->category->status == 'active' ? 'Đang bán' : 'Ngừng bán' }}
+                                        </span>
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <th>Danh mục:</th>
                                     <td>
@@ -94,19 +106,87 @@
                                 <th>Pin</th>
                                 <td>{{ $product->battery }}</td>
                             </tr>
+                            <tr>
+                                <th>Giá cơ bản</th>
+                                <td>{{ $product->base_price }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-            <div class="card-footer text-end">
-                <a href="{{ route('products.index') }}" class="btn btn-secondary">
-                    <i class="fa fa-arrow-left"></i> Danh sách
-                </a>
-                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">
-                    <i class="fa fa-edit"></i> Chỉnh sửa
-                </a>
+                <!-- Danh sách biến thể -->
+                <div class="mt-4">
+                    <h5 class="text-primary">Danh sách biến thể</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Màu sắc</th>
+                                    <th>Dung lượng</th>
+                                    <th>Giá gốc</th>
+                                    <th>Giá bán</th>
+                                    <th>Số lượng</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($product->variants as $index => $variant)
+                                    <tr class="text-center" data-id="{{ $variant->id }}">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>
+                                            {{ $variant->color }}
+                                        </td>
+                                        <td>
+                                            {{ $variant->storage }}
+                                        </td>
+                                        <td>
+                                            {{ $variant->origin_price }}
+                                        </td>
+                                        <td>
+                                            {{ $variant->price }}
+                                        </td>
+                                        <td>
+                                            {{ $variant->stock }}
+                                        </td>
+                                        <td>
+                                            {{ $variant->created_at->format('d/m/Y') }}
+                                        </td>
+                                        <td>
+                                            {{ $variant->updated_at->format('d/m/Y') }}
+                                        </td>
+                                        <td>
+                                            @php
+                                                $isActive =
+                                                    $product->category->status === 'active' &&
+                                                    $product->status === 'active' &&
+                                                    $variant->status === 'active';
+                                            @endphp
+
+                                            <span class="btn btn-{{ $isActive ? 'primary' : 'danger' }}">{{ $isActive ? 'Đang bán' : 'Ngừng bán' }}</span>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer text-end">
+                    <a href="{{ route('products.index') }}" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Danh sách
+                    </a>
+                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">
+                        <i class="fa fa-edit"></i> Chỉnh sửa
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection

@@ -10,26 +10,11 @@
             {{ session('success') }}
         </div>
     @endif
-
-    <!-- Form thêm danh mục -->
-    <div class="card mb-4">
-        <div class="card-header">Thêm Danh Mục</div>
-        <div class="card-body">
-            <form action="{{ route('categories.store') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Tên danh mục</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Nhập tên danh mục" required>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Mô tả</label>
-                    <input type="text" name="description" id="description" class="form-control" placeholder="Nhập mô tả">
-                </div>
-                <button type="submit" class="btn btn-primary">Thêm</button>
-            </form>
-        </div>
+    <div class="col-md-6 text-end">
+        <a href="{{ route('categories.create') }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> Thêm mới
+        </a>
     </div>
-
     <!-- Danh sách danh mục -->
     <div class="card">
         <div class="card-header">Danh Sách Danh Mục</div>
@@ -40,6 +25,7 @@
                         <th>STT</th>
                         <th>Tên danh mục</th>
                         <th>Mô tả</th>
+                        <th>Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -50,11 +36,28 @@
                             <td><strong>{{ $category->name }}</strong></td>
                             <td>{{ $category->description }}</td>
                             <td>
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">Sửa</a>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                                @if ($category->status === 'active')
+                                    <span class="badge bg-success">Hoạt động</span>
+                                @else
+                                    <span class="badge bg-danger">Ngừng hoạt động</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning"
+                                    title="Chỉnh sửa">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                    @method('PUT')
+                                    <button type="submit"
+                                        class="btn btn-sm {{ $category->status == 'active' ? 'btn-danger' : 'btn-success' }}"
+                                        title="{{ $category->status == 'active' ? 'Ngừng bán' : 'Mở bán' }}"
+                                        onclick="return confirm('{{ $category->status == 'active' ? 'Bạn có chắc chắn muốn vô hiệu hóa danh mục này?' : 'Bạn có chắc chắn muốn mở khóa danh mục này?' }}')">
+                                        <i
+                                            class="fa {{ $category->status == 'active' ? 'fa-ban' : 'fa-check' }}"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -64,8 +67,5 @@
         </div>
     </div>
     <!-- Hiển thị phân trang -->
-<div class="d-flex justify-content-center mt-3">
-    {{ $categories->links('pagination::bootstrap-5') }}
-</div>
 </div>
 @endsection

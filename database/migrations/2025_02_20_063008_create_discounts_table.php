@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->string('code')->unique();
             $table->enum('discount_type', ['percentage', 'fixed']);
             $table->decimal('discount_value', 10, 2);
-            $table->decimal('max_discount', 10, 2)->nullable();
             $table->date('start_date');
             $table->date('expiration_date');
             $table->timestamps();

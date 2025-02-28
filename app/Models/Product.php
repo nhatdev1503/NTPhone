@@ -21,6 +21,8 @@ class Product extends Model
         'cpu',
         'ram',
         'battery',
+        'base_price',
+        'status'
     ];
 
     public function category()

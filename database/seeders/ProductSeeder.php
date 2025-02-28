@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
         $statuses = ['active', 'inactive'];
         for ($i = 0; $i < 100; $i++) {
             Product::create([
-                'category_id' => rand(1, 10),
+                'category_id' => rand(1, 2),
                 'name' => $faker->word,
                 'description' => $faker->sentence,
                 'image' => 'product.jpg',
@@ -26,6 +26,7 @@ class ProductSeeder extends Seeder
                 'cpu' => $faker->randomElement(['Snapdragon 8 Gen 2', 'A16 Bionic', 'Exynos 2200']),
                 'ram' => $faker->randomElement(['4GB', '6GB', '8GB', '12GB']),
                 'battery' => $faker->randomElement(['4000mAh', '4500mAh', '5000mAh']),
+                'base_price'        => $faker->randomFloat(2, 1000, 2000),
                 'status' => $faker->randomElement($statuses),
             ]);
         }
