@@ -3,8 +3,16 @@
 @section('content')
     <div class="container">
         <h2>Sửa voucher</h2>
-
-        <form action="{{ route('vouchers.update', $discount->id) }}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('discounts.update', $discount->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -31,7 +39,7 @@
                 <label for="expiration_date">Ngày kết thúc:</label>
                 <input type="date" name="expiration_date" class="form-control" value="{{ $discount->expiration_date }}">
             </div>
-            <a href="{{ route('vouchers.index') }}" class="btn btn-info ">Quay lại</a>
+            <a href="{{ route('discounts.index') }}" class="btn btn-info ">Quay lại</a>
             <button type="submit" class="btn btn-success">Cập nhật</button>
         </form>
     </div>

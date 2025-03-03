@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DiscountRequest;
 use App\Models\Discount;
 use Illuminate\Http\Request;
 
-class VoucherController extends Controller
+class DiscountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $query = Discount::query();
+        $query = Discount::query()->latest();
         $now = now();
 
         // Lọc theo mã voucher
@@ -37,7 +38,7 @@ class VoucherController extends Controller
         }
 
         // Lấy danh sách voucher đã lọc
-        $vouchers = $query->paginate(10);
+        $vouchers = $query->paginate(10)->appends($request->query());
 
         return view('admin.vouchers.index', compact('vouchers'));
     }
@@ -53,16 +54,8 @@ class VoucherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DiscountRequest $request)
     {
-        $request->validate([
-            'code' => 'required|string|unique:discounts',
-            'discount_type' => 'required|in:percentage,fixed',
-            'discount_value' => 'required|numeric|min:0',
-            'start_date' => 'required|date',
-            'expiration_date' => 'required|date|after:start_date'
-        ]);
-
         Discount::create([
             'code' => $request->code,
             'discount_type' => $request->discount_type,
@@ -71,7 +64,7 @@ class VoucherController extends Controller
             'expiration_date' => $request->expiration_date
         ]);
 
-        return redirect()->route('vouchers.index')->with('success', 'Tạo voucher thành công');
+        return redirect()->route('discounts.index')->with('success', 'Tạo voucher thành công');
     }
 
     /**
@@ -95,36 +88,14 @@ class VoucherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DiscountRequest $request, Discount $discount)
     {
-        $request->validate([
-            'code' => 'required|string|unique:discounts,code,' . $id,
-            'discount_type' => 'required|in:percentage,fixed',
-            'discount_value' => 'required|numeric|min:0',
-            'start_date' => 'required|date',
-            'expiration_date' => 'required|date|after:start_date'
-        ]);
+        $discount->update($request->validated());
 
-        $discount = Discount::findOrFail($id);
-
-        $discount->update([
-            'code' => $request->input('code'),
-            'discount_type' => $request->input('discount_type'),
-            'discount_value' => $request->input('discount_value'),
-            'start_date' => $request->input('start_date'),
-            'expiration_date' => $request->input('expiration_date')
-        ]);
-
-        return redirect()->route('vouchers.index')->with('success', 'Chỉnh sửa voucher thành công');
+        return redirect()->route('discounts.index')->with('success', 'Chỉnh sửa voucher thành công');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Discount $discount)
-    {
-        $discount->delete();
-
-        return redirect()->route('admin.allVoucher')->with('success', 'Voucher đã bị xóa');
-    }
 }

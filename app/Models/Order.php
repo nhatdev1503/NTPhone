@@ -16,6 +16,7 @@ class Order extends Model
         'total_price',
         'status',
         'payment_method',
+        'payment_status',
         'fullname',
         'address',
         'phone',
@@ -43,8 +44,4 @@ class Order extends Model
         return $this->belongsTo(Discount::class,'discount_id');
     }
 
-    public function payment()
-    {
-        return $this->hasOne(Payment::class);
-    }
 }

@@ -46,23 +46,19 @@
                             <span class="btn">+ Thêm Mới Nhanh</span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown dropdown-left" aria-labelledby="actionDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('users.create') }}">
                                 Người dùng
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('products.create') }}">
                                 Sản phẩm
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('categories.create') }}">
                                 Danh mục
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                Đơn hàng
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('discounts.create') }}">
                                 Voucher
                             </a>
                         </div>
@@ -282,36 +278,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false"
-                                aria-controls="error">
+                            <a class="nav-link" href="{{ route('products.index') }}">
                                 <span class="menu-title">Quản lí sản phẩm</span>
-                                <span class="badge badge-primary">2</span>
+                                <span class="badge badge-info">3</span>
                             </a>
-                            <div class="collapse" id="error">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="{{ route('products.index') }}">
-                                            Tất cả sản phẩm </a></li>
-                                </ul>
-                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                                aria-controls="ui-basic">
+                            <a class="nav-link" href="{{ route('orders.index') }}">
                                 <span class="menu-title">Quản lí đơn hàng</span>
-                                <span class="badge badge-success">10</span>
+                                <span class="badge badge-danger">3</span>
                             </a>
-                            <div class="collapse" id="ui-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('orders.index') }}">Tất cả đơn hàng</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('orders.pending') }}">Chờ xác nhận</a></li>
-                                    <span class="badge badge-success">10</span>
-                                </ul>
-                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vouchers.index') }}">
+                            <a class="nav-link" href="{{ route('discounts.index') }}">
                                 <span class="menu-title">Quản lí voucher</span>
                                 <span class="badge badge-primary">3</span>
                             </a>
@@ -329,22 +308,12 @@
                 </ul>
               </div>
             </li> --}}
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
-                                aria-controls="form-elements">
-                                <span class="menu-title">Quản lí tài khoản</span>
-                                <span class="badge badge-danger">3</span>
-                            </a>
-                            <div class="collapse" id="form-elements">
-                                <ul class="nav flex-column sub-menu">
-
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="{{ route('users.index') }}">Tất cả</a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index') }}">
+                    <span class="menu-title">Quản lí tài khoản</span>
+                    <span class="badge badge-warning">3</span>
+                </a>
+            </li>
                     </ul>
                 </nav>
                 <!-- partial -->
@@ -368,6 +337,7 @@
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- plugins:js -->
     <script src="{{ asset('vendors\js\vendor.bundle.base.js') }}"></script>

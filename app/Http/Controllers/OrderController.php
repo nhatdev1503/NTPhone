@@ -13,17 +13,33 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $query = Order::query();
-        // Tìm kiếm theo tên (Không phân biệt hoa thường)
-        if ($request->filled('search')) {
-            $query->where('name', 'LIKE', '%' . $request->search . '%');
+
+        // 🔍 1. Lọc theo từ khóa (tìm theo tên, email, SĐT)
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where(function ($q) use ($keyword) {
+                $q->where('fullname', 'like', "%$keyword%")
+                  ->orWhere('email', 'like', "%$keyword%")
+                  ->orWhere('phone', 'like', "%$keyword%");
+            });
         }
-        if ($request->has('status') && !empty($request->status)) {
+
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
-        if ($request->has('category_id') && !empty($request->category_id)) {
-            $query->where('category_id', $request->category_id);
+
+        if ($request->filled('payment_method')) {
+            $query->where('payment_method', $request->payment_method);
         }
-        $orders = $query->orderBy('id', 'desc')->paginate(10);
+
+        if ($request->filled('from_date')) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+
+        if ($request->filled('to_date')) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+        $orders = $query->orderBy('id', 'desc')->paginate(10)->appends($request->query());
 
 
         return view('admin.orders.index', compact('orders'));
@@ -64,13 +80,24 @@ class OrderController extends Controller
 
         $statusText = [
             'pending' => 'Chờ xác nhận',
-            'processing' => 'Đang xử lý',
+            'processing' => 'Đang đóng gói',
             'shipped' => 'Đang giao',
             'delivered' => 'Đã giao',
             'cancelled' => 'Đã hủy',
         ];
+        $paymentColors = [
+            'pending' => 'info',
+            'paid' => 'success',
+            'failed' => 'danger',
+        ];
 
-        return view('admin.orders.show', compact('order', 'statusColors', 'statusText'));
+        $paymentStatus = [
+            'pending' => 'Chưa thanh toán',
+            'paid' => 'Thành công',
+            'failed' => 'Thất bại',
+        ];
+
+        return view('admin.orders.show', compact('order', 'statusColors', 'statusText','paymentColors','paymentStatus'));
     }
 
     /**
@@ -84,9 +111,12 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        $order->status = $request->status;
+        $order->staff_id = 1;
+        $order->save();
+        return redirect()->route('orders.show',$order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');
     }
 
     /**

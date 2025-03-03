@@ -43,7 +43,7 @@ class ProductController extends Controller
         if ($request->has('category_id') && !empty($request->category_id)) {
             $query->where('category_id', $request->category_id);
         }
-        $products = $query->with('category')->orderBy('id', 'desc')->paginate(10);
+        $products = $query->with('category')->orderBy('id', 'desc')->paginate(10)->appends($request->query());
 
 
         return view('admin.products.index', compact('products', 'categories'));

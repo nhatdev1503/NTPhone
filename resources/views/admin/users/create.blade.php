@@ -19,37 +19,37 @@
         @csrf
         <div class="mb-3">
             <label for="fullname" class="form-label">Họ và tên</label>
-            <input type="text" class="form-control" id="fullname" name="fullname" value="{{ old('fullname') }}" required>
+            <input type="text" class="form-control" id="fullname" name="fullname" value="{{ old('fullname') }}">
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
         </div>
 
         <div class="mb-3">
             <label for="username" class="form-label">Tên đăng nhập</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
+            <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}">
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">Mật khẩu</label>
-            <input type="password" class="form-control" id="password" name="password" required>
+            <input type="password" class="form-control" id="password" name="password">
         </div>
 
         <div class="mb-3">
             <label for="address" class="form-label">Địa chỉ</label>
-            <input type="text" class="form-control" id="address" name="address" required>
+            <input type="text" class="form-control" id="address" name="address">
         </div>
 
         <div class="mb-3">
             <label for="phone" class="form-label">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" name="phone" required>
+            <input type="text" class="form-control" id="phone" name="phone">
         </div>
 
         <div class="mb-3">
             <label for="role" class="form-label">Vai trò</label>
-            <select class="form-control" id="role" name="role" required>
+            <select class="form-control" id="role" name="role">
                 <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Nhân viên</option>
                 <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Khách hàng</option>
             </select>
@@ -69,7 +69,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Tạo tài khoản</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Danh sách</a>
     </form>
 </div>
 @endsection

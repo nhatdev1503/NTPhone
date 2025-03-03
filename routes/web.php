@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VoucherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,12 +48,13 @@ Route::put('productvariants/{id}/destroy', [ProductVariantController::class, 'ed
 
 //Router Danh muc Quyet //
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/categories/create', [CategoryController::class, 'index'])->name('categories.create');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::get('/categories/{id}/edit', [CategoryController::class, 'index'])->name('categories.edit');
 Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
 Route::put('/categories/{id}/destroy', [CategoryController::class, 'destroy'])->name('categories.destroy');
 Route::resource('banners', BannerController::class);
+Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('banners.status');
 
 // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
 // =============================
@@ -67,11 +68,9 @@ Route::put('/users/{user}/destroy', [UserController::class, 'destroy'])->name('u
 
 
 // Quản lý Voucher (Minh)
-Route::resource('vouchers', VoucherController::class)->where(['product' => '[0-9]+']);
+Route::resource('discounts', DiscountController::class)->where(['discounts' => '[0-9]+']);
 
 //Quản lí Đơn hàng (Nhật)
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
 Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
-Route::get('/orders/pending', [OrderController::class, 'pending'])->name('orders.pending');

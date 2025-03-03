@@ -2,7 +2,15 @@
 
 @section('content')
     <h2>Thêm Banner</h2>
-
+    @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     <form action="{{ route('banners.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">

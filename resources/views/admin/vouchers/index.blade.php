@@ -6,16 +6,22 @@
             <h3>Tất cả voucher</h3>
         </div>
         <div class="my-2 mt-3 mb-3">
-            <a href="{{ route('vouchers.create') }}" style="text-decoration: none;" class="btn btn-success">Thêm voucher</a>
+            <a href="{{ route('discounts.create') }}" style="text-decoration: none;" class="btn btn-success">Thêm voucher</a>
         </div>
-        <form action="{{ route('vouchers.index') }}" method="GET" class="mb-3">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+        <form action="{{ route('discounts.index') }}" method="GET" class="mb-3">
             <div class="row">
                 <div class="col-md-3">
-                    <input type="text" name="code" class="form-control" placeholder="Tìm mã voucher..." value="{{ request('code') }}">
+                    <input type="text" name="code" class="form-control" placeholder="Tìm mã voucher..."
+                        value="{{ request('code') }}">
                 </div>
                 <div class="col-md-3">
                     <select name="status" class="form-control">
-                        <option value="">-- Chọn trạng thái --</option>
+                        <option value="">-- Tất cả trạng thái --</option>
                         <option value="upcoming" {{ request('status') == 'upcoming' ? 'selected' : '' }}>Sắp tới</option>
                         <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Hoạt động</option>
                         <option value="expired" {{ request('status') == 'expired' ? 'selected' : '' }}>Hết hạn</option>
@@ -23,14 +29,16 @@
                 </div>
                 <div class="col-md-3">
                     <select name="discount_type" class="form-control">
-                        <option value="">-- Chọn loại voucher --</option>
-                        <option value="fixed" {{ request('discount_type') == 'fixed' ? 'selected' : '' }}>Giảm giá cố định</option>
-                        <option value="percentage" {{ request('discount_type') == 'percentage' ? 'selected' : '' }}>Giảm giá %</option>
+                        <option value="">-- Tất cả voucher --</option>
+                        <option value="fixed" {{ request('discount_type') == 'fixed' ? 'selected' : '' }}>Giảm giá cố định
+                        </option>
+                        <option value="percentage" {{ request('discount_type') == 'percentage' ? 'selected' : '' }}>Giảm giá
+                            %</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-primary">Lọc</button>
-                    <a href="{{ route('vouchers.index') }}" class="btn btn-secondary">Reset</a>
+                    <a href="{{ route('discounts.index') }}" class="btn btn-secondary">Reset</a>
                 </div>
             </div>
         </form>
@@ -81,7 +89,7 @@
                             </td>
 
                             <td>
-                                <a href="{{ route('vouchers.edit', $voucher->id) }}" class="btn btn-warning">Sửa</a>
+                                <a href="{{ route('discounts.edit', $voucher->id) }}" class="btn btn-warning">Sửa</a>
                             </td>
                         </tr>
                     @endforeach

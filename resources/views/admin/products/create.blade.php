@@ -144,7 +144,8 @@
                             </div>
 
                             <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg">
+                                <a href="{{ route('products.index') }}" class="btn btn-secondary">Danh sách</a>
+                                <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-arrow-right"></i> Thêm mới
                                 </button>
                             </div>

@@ -10,16 +10,18 @@
         <form action="{{ route('orders.index') }}" method="GET" class="mb-4">
             <div class="row g-3">
                 <div class="col-md-4">
+                    <label class="form-label fw-bold"> Tìm kiếm</label>
                     <input type="text" name="keyword" class="form-control form-control-lg fs-5"
                         placeholder="Tìm kiếm khách hàng, email, SĐT..."
                         value="{{ request('keyword') }}">
                 </div>
 
                 <div class="col-md-2">
+                    <label for="">Trạng thái đơn</label>
                     <select name="status" class="form-control form-control-lg fs-5">
-                        <option value="">-- Trạng thái đơn --</option>
+                        <option value="">-- Tất cả --</option>
                         <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ xác nhận</option>
-                        <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Đang xử lý</option>
+                        <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Đang đóng gói</option>
                         <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Đang giao</option>
                         <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Đã giao</option>
                         <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
@@ -27,28 +29,32 @@
                 </div>
 
                 <div class="col-md-2">
+                    <label for="">Hình thức thanh toán</label>
                     <select name="payment_method" class="form-control form-control-lg fs-5">
-                        <option value="">-- Hình thức thanh toán --</option>
-                        <option value="COD" {{ request('payment_method') == 'COD' ? 'selected' : '' }}>Thanh toán khi nhận hàng</option>
-                        <option value="Online" {{ request('payment_method') == 'Online' ? 'selected' : '' }}>Thanh toán online</option>
+                        <option value="">-- Tất cả --</option>
+                        <option value="COD" {{ request('payment_method') == 'COD' ? 'selected' : '' }}>COD</option>
+                        <option value="VNPay" {{ request('payment_method') == 'VNpay' ? 'selected' : '' }}>VNPay</option>
+                        <option value="MoMo" {{ request('payment_method') == 'MoMo' ? 'selected' : '' }}>MoMo</option>
                     </select>
                 </div>
 
                 <div class="col-md-2">
+                    <label class="form-label" for="">Ngày bắt đầu</label>
                     <input type="date" name="from_date" class="form-control form-control-lg fs-5"
                         value="{{ request('from_date') }}">
                 </div>
 
                 <div class="col-md-2">
+                    <label for="">Ngày kết thúc</label>
                     <input type="date" name="to_date" class="form-control form-control-lg fs-5"
                         value="{{ request('to_date') }}">
                 </div>
 
-                <div class="col-md-1">
+                <div class="col-md-1 mt-3">
                     <button type="submit" class="btn btn-primary btn-lg w-100">Lọc</button>
                 </div>
 
-                <div class="col-md-1">
+                <div class="col-md-1 mt-3">
                     <a href="{{ route('orders.index') }}" class="btn btn-secondary btn-lg w-100">Reset</a>
                 </div>
             </div>
@@ -61,10 +67,10 @@
                         <th class="text-center">Mã Order</th>
                         <th class="text-center">Khách hàng</th>
                         <th class="text-center">SĐT</th>
-                        <th class="text-center">Địa chỉ</th>
                         <th class="text-center">Tổng tiền</th>
-                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Trạng thái đơn</th>
                         <th class="text-center">Thanh toán</th>
+                        <th class="text-center">Trạng thái thanh toán</th>
                         <th class="text-center">Ngày đặt</th>
                         <th class="text-center">Người xác nhận</th>
                         <th class="text-center">Hành động</th>
@@ -76,8 +82,7 @@
                             <td>{{ $order->order_code }}</td>
                             <td>{{ $order->fullname }}</td>
                             <td>{{ $order->phone }}</td>
-                            <td>{{ $order->address }}</td>
-                            <td>{{ number_format($order->total_price) }} VND</td>
+                            <td>{{ number_format($order->total_price) }}</td>
                             <td>
                                 @php
                                     $statusColors = [
@@ -89,7 +94,7 @@
                                     ];
                                     $statusText = [
                                         'pending' => 'Chờ xác nhận',
-                                        'processing' => 'Đang xử lý',
+                                        'processing' => 'Đang đóng gói',
                                         'shipped' => 'Đang giao',
                                         'delivered' => 'Đã giao',
                                         'cancelled' => 'Đã hủy',
@@ -100,17 +105,26 @@
                                 </span>
                             </td>
                             <td>
+                                {{ $order->payment_method }}
+                            </td>
+                            <td>
                                 @php
-                                    $paymentMethods = [
-                                        'COD' => 'Thanh toán khi nhận hàng',
-                                        'Online' => 'Thanh toán online',
+                                    $statusColors = [
+                                        'pending' => 'badge bg-warning text-dark',
+                                        'paid' => 'badge bg-success',
+                                        'failed' => 'badge bg-danger',
+                                    ];
+                                    $statusText = [
+                                        'pending' => 'Chưa thanh toán',
+                                        'paid' => 'Thành công',
+                                        'failed' => 'Thất bại',
                                     ];
                                 @endphp
-                                <span class="badge bg-secondary p-2">
-                                    {{ $paymentMethods[$order->payment_method] ?? 'Không xác định' }}
+                                <span class="{{ $statusColors[$order->payment_status] }} p-2">
+                                    {{ $statusText[$order->payment_status] }}
                                 </span>
                             </td>
-                            <td>{{ $order->created_at->format('d/m/Y H:i:s') }}</td>
+                            <td>{{ $order->created_at->format('d/m/Y') }}</td>
                             <td>{{ $order->staff->fullname ?? 'Chưa có' }}</td>
                             <td>
                                 <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-lg">Xem</a>

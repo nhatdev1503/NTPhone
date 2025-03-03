@@ -3,7 +3,15 @@
 @section('content')
 <div class="container mt-4">
     <h2 class="mb-4">Chỉnh Sửa Danh Mục</h2>
-
+    @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     <div class="card">
         <div class="card-body">
             <form action="{{ route('categories.update', $category->id) }}" method="POST">

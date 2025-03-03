@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('image');
+            $table->enum('status', ['active', 'inactive'])->default('inactive'); 
             $table->timestamps();
         });
     }

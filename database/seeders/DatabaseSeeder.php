@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             CartSeeder::class,
             OrderSeeder::class,
             OrderItemSeeder::class,
-            PaymentSeeder::class,
             MessageSeeder::class,
             BannerSeeder::class,
             CommentSeeder::class,

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class UserController extends Controller
             $query->where('status', $request->status);
         }
 
-        $users = $query->orderBy('id', 'desc')->paginate(10);
+        $users = $query->orderBy('id', 'desc')->paginate(10)->appends($request->query());
 
         return view('admin.users.index', compact('users'));
     }
@@ -38,20 +39,8 @@ class UserController extends Controller
     }
 
     // Xử lý thêm người dùng
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'fullname' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'username' => 'required|string|unique:users,username',
-            'password' => 'required|min:6',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'role' => 'required|in:staff,customer',
-            'status' => 'required|in:active,inactive',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
         $data = $request->except('password', 'avatar');
         $data['password'] = bcrypt($request->password);
 
@@ -78,20 +67,15 @@ class UserController extends Controller
     }
 
     // Xử lý cập nhật người dùng
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
 
-        $request->validate([
-            'fullname' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'role' => 'required|in:staff,customer',
-            'status' => 'required|in:active,inactive',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
+        $data = $request->except('password', 'avatar');
+        
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
         // Xử lý avatar
         if ($request->hasFile('avatar')) {
             // Xóa avatar cũ nếu có

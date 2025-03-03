@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class OrderSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class OrderSeeder extends Seeder
     {
         $latestOrder = DB::table('orders')->latest('id')->first();
         $nextOrderNumber = $latestOrder ? ((int)substr($latestOrder->order_code, 2)) + 1 : 1;
-
+        $faker = Faker::create();
 
         for ($i = 1; $i <= 20; $i++) {
             DB::table('orders')->insert([
@@ -29,7 +30,8 @@ class OrderSeeder extends Seeder
                 'total_price'    => rand(100, 5000) * 1000, // Giả sử giá trị đơn hàng từ 100k - 5 triệu
                 'discount_amount'=> rand(10000, 50000), // Khoảng giảm giá từ 10k - 50k
                 'status'         => ['pending', 'processing', 'shipped', 'delivered', 'cancelled'][rand(0, 4)],
-                'payment_method' => rand(0, 1) ? 'COD' : 'Online',
+                'payment_method' => $faker->randomElement(['VNPay', 'MoMo', 'COD']),
+                'payment_status' => $faker->randomElement(['pending', 'paid', 'failed']),
                 'created_at'     => now(),
                 'updated_at'     => now(),
             ]);
