@@ -140,7 +140,7 @@
                                         <input type="number" class="form-control" id="variant_origin_price">
                                     </div>
                                     <div class="col-md-2">
-                                        <label class="form-label">Giá bán</label>
+                                        <label class="form-label">Giá giảm</label>
                                         <input type="number" class="form-control" id="variant_price">
                                     </div>
                                     <div class="col-md-2">
@@ -182,7 +182,10 @@
                 alert("Vui lòng điền đầy đủ thông tin biến thể!");
                 return;
             }
-    
+            if(origin_price < price){
+                alert("Giá giảm phải bé hơn giá gốc!");
+                return;
+            }
             let exists = false;
             document.querySelectorAll("#variant-list li").forEach(function (item) {
                 console.log(`Checking: ${item.dataset.color} | ${item.dataset.storage}`);

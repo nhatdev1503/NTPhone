@@ -49,25 +49,21 @@
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Ảnh sản phẩm</label>
                                 <input type="file" name="image" class="form-control">
-                                @if ($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="Ảnh sản phẩm"
-                                        class="mt-2 img-thumbnail" width="200" height="150">
-                                @endif
+                                <img src="{{ asset($product->image) }}" alt="Ảnh sản phẩm" class="mt-2 img-thumbnail"
+                                    width="200" height="150">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Ảnh thu nhỏ (Mini Image)</label>
                                 <input type="file" name="mini_image" class="form-control">
-                                @if ($product->mini_image)
-                                    <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                        class="mt-2 img-thumbnail" width="80" height="60">
-                                    <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                        class="mt-2 img-thumbnail" width="80" height="60">
-                                    <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                        class="mt-2 img-thumbnail" width="80" height="60">
-                                    <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                        class="mt-2 img-thumbnail" width="80" height="60">
-                                @endif
+                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
+                                    class="mt-2 img-thumbnail" width="80" height="60">
+                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
+                                    class="mt-2 img-thumbnail" width="80" height="60">
+                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
+                                    class="mt-2 img-thumbnail" width="80" height="60">
+                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
+                                    class="mt-2 img-thumbnail" width="80" height="60">
                             </div>
                         </div>
 
@@ -76,12 +72,14 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Màn hình</label>
-                                <input type="text" name="screen" class="form-control" value="{{ $product->screen }}" required>
+                                <input type="text" name="screen" class="form-control" value="{{ $product->screen }}"
+                                    required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Hệ điều hành</label>
-                                <input type="text" name="os" class="form-control" value="{{ $product->os }}" required>
+                                <input type="text" name="os" class="form-control" value="{{ $product->os }}"
+                                    required>
                             </div>
 
                             <div class="mb-3">
@@ -98,12 +96,14 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Vi xử lý</label>
-                                <input type="text" name="cpu" class="form-control" value="{{ $product->cpu }}" required>
+                                <input type="text" name="cpu" class="form-control" value="{{ $product->cpu }}"
+                                    required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">RAM</label>
-                                <input type="text" name="ram" class="form-control" value="{{ $product->ram }}" required>
+                                <input type="text" name="ram" class="form-control" value="{{ $product->ram }}"
+                                    required>
                             </div>
 
                             <div class="mb-3">
@@ -132,7 +132,7 @@
                                         <th>Màu sắc</th>
                                         <th>Dung lượng</th>
                                         <th>Giá gốc</th>
-                                        <th>Giá bán</th>
+                                        <th>Giá giảm</th>
                                         <th>Số lượng</th>
                                         <th>Trạng thái</th>
                                     </tr>
@@ -222,7 +222,7 @@
                                 <input type="number" class="form-control" id="variant_origin_price">
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label">Giá bán</label>
+                                <label class="form-label">Giá giảm</label>
                                 <input type="number" class="form-control" id="variant_price">
                             </div>
                             <div class="col-md-2">
@@ -357,7 +357,7 @@
             });
 
             document.getElementById("submit-button").addEventListener("click", function(event) {
-                    console.log("Submit event triggered");
+                console.log("Submit event triggered");
 
                 let productStatus = document.getElementById("product-status").value;
                 let categoryStatus = document.getElementById("category-status").value;
@@ -375,7 +375,7 @@
                         "inactive")) {
                     alert(
                         "Không thể thay đổi trạng thái biến thể vì sản phẩm hoặc danh mục đang bị vô hiệu hóa."
-                        );
+                    );
                     event.preventDefault();
                     return;
                 }

@@ -18,7 +18,7 @@
                     <!-- Hình ảnh sản phẩm -->
                     <div class="col-md-4 text-center">
                         @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                            <img src="{{ asset( $product->image) }}" alt="{{ $product->name }}"
                                 class="img-fluid rounded shadow">
                         @else
                             <div class="text-muted">Không có ảnh</div>
@@ -125,7 +125,7 @@
                                     <th>Màu sắc</th>
                                     <th>Dung lượng</th>
                                     <th>Giá gốc</th>
-                                    <th>Giá bán</th>
+                                    <th>Giá giảm</th>
                                     <th>Số lượng</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
