@@ -25,7 +25,7 @@
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Mô tả</label>
-                    <input type="text" name="description" id="description" class="form-control" value="{{ $category->description }}">
+                    <input type="text" name="description" id="description" class="form-control" value="{{ $category->description }}" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Cập Nhật</button>

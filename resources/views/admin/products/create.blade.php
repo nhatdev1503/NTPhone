@@ -52,12 +52,12 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="image" class="form-label">Ảnh sản phẩm</label>
-                                    <input type="file" class="form-control" id="image" name="image">
+                                    <input type="file" class="form-control" id="image" name="image" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="mini_image" class="form-label">Ảnh mini</label>
-                                    <input type="file" class="form-control" id="mini_image" name="mini_image">
+                                    <input type="file" class="form-control" id="mini_image" name="mini_image" >
                                 </div>
                             </div>
 
@@ -65,13 +65,26 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="screen" class="form-label">Màn hình</label>
                                     <input type="text" class="form-control" id="screen" name="screen"
-                                        value="{{ old('screen') }}">
+                                        value="{{ old('screen') }}" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="os" class="form-label">Hệ điều hành</label>
                                     <input type="text" class="form-control" id="os" name="os"
-                                        value="{{ old('os') }}">
+                                        value="{{ old('os') }}" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="screen" class="form-label">Camera trước</label>
+                                    <input type="text" class="form-control" id="front_camera" name="screen"
+                                        value="{{ old('front_camera') }}" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="os" class="form-label">Camera sau</label>
+                                    <input type="text" class="form-control" id="os" name="rear_camera"
+                                        value="{{ old('rear_camera') }}" required>
                                 </div>
                             </div>
 
@@ -79,25 +92,25 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="cpu" class="form-label">CPU</label>
                                     <input type="text" class="form-control" id="cpu" name="cpu"
-                                        value="{{ old('cpu') }}">
+                                        value="{{ old('cpu') }}" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="ram" class="form-label">RAM</label>
                                     <input type="text" class="form-control" id="ram" name="ram"
-                                        value="{{ old('ram') }}">
+                                        value="{{ old('ram') }}" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="battery" class="form-label">Dung lượng Pin</label>
                                 <input type="text" class="form-control" id="battery" name="battery"
-                                    value="{{ old('battery') }}">
+                                    value="{{ old('battery') }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="base_price" class="form-label">Giá cơ bản</label>
                                 <input type="number" class="form-control" id="base_price" name="base_price"
-                                    value="{{ old('base_price') }}">
+                                    value="{{ old('base_price') }}" required>
                             </div>
 
                             <!-- Biến thể sản phẩm -->

@@ -21,24 +21,24 @@
             <div class="mb-3">
                 <label for="fullname" class="form-label">Họ và tên</label>
                 <input type="text" class="form-control" id="fullname" name="fullname"
-                    value="{{ old('fullname', $user->fullname) }}">
+                    value="{{ old('fullname', $user->fullname) }}" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="text" class="form-control" id="email" name="email"
-                    value="{{ old('email', $user->email) }}">
+                    value="{{ old('email', $user->email) }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="address" class="form-label">Địa chỉ</label>
                 <input type="text" class="form-control" id="address" name="address"
-                    value="{{ old('address', $user->address) }}">
+                    value="{{ old('address', $user->address) }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="phone" class="form-label">Số điện thoại</label>
                 <input type="text" class="form-control" id="phone" name="phone"
-                    value="{{ old('phone', $user->phone) }}">
+                    value="{{ old('phone', $user->phone) }}" required>
             </div>
             @if ($user->role != 'admin')
                 <div class="mb-3">

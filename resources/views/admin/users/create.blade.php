@@ -19,32 +19,32 @@
         @csrf
         <div class="mb-3">
             <label for="fullname" class="form-label">Họ và tên</label>
-            <input type="text" class="form-control" id="fullname" name="fullname" value="{{ old('fullname') }}">
+            <input type="text" class="form-control" id="fullname" name="fullname" value="{{ old('fullname') }}" required>
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
+            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
         </div>
 
         <div class="mb-3">
             <label for="username" class="form-label">Tên đăng nhập</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}">
+            <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">Mật khẩu</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" class="form-control" id="password" name="password" required>
         </div>
 
         <div class="mb-3">
             <label for="address" class="form-label">Địa chỉ</label>
-            <input type="text" class="form-control" id="address" name="address">
+            <input type="text" class="form-control" id="address" name="address" >
         </div>
 
         <div class="mb-3">
             <label for="phone" class="form-label">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" name="phone">
+            <input type="text" class="form-control" id="phone" name="phone" required>
         </div>
 
         <div class="mb-3">

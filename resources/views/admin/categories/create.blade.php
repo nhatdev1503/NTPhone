@@ -24,7 +24,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Mô tả</label>
-                    <input type="text" name="description" id="description" class="form-control" placeholder="Nhập mô tả">
+                    <input type="text" name="description" id="description" class="form-control" placeholder="Nhập mô tả" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Thêm</button>
                 <a href="{{ route('categories.index') }} " class="btn btn-secondary">Danh sách</a>

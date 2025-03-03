@@ -18,7 +18,7 @@
 
             <div class="form-group mb-3">
                 <label for="title">Tiêu đề:</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $banner->title) }}">
+                <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $banner->title) }}" required>
             </div>
 
             <div class="form-group mb-3">
@@ -29,7 +29,7 @@
 
             <div class="form-group mb-3">
                 <label for="image">Chọn ảnh mới (nếu muốn thay đổi):</label>
-                <input type="file" name="image" id="image" class="form-control">
+                <input type="file" name="image" id="image" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-success">Cập nhật</button>

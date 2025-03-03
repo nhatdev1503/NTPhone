@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid my-4" style="max-width: 95%; min-width: 1200px;">
-        <div class="card-header text-white bg-primary p-3">
+        <div class="card-header text-white bg-primary p-3 mb-3">
             <h3 class="fs-4 text-center">Danh sách đơn hàng</h3>
         </div>
 

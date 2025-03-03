@@ -261,8 +261,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">
-                                <span class="menu-title">Trang chủ</span>
+                                <span class="menu-title">Dashboard</span>
                                 <span class="badge badge-success">New</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('users.index') }}">
+                                <span class="menu-title">Quản lí tài khoản</span>
+                                <span class="badge badge-warning">3</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -308,12 +314,6 @@
                 </ul>
               </div>
             </li> --}}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('users.index') }}">
-                    <span class="menu-title">Quản lí tài khoản</span>
-                    <span class="badge badge-warning">3</span>
-                </a>
-            </li>
                     </ul>
                 </nav>
                 <!-- partial -->

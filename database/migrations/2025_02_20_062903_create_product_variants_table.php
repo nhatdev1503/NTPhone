@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('color');
             $table->string('storage');
-            $table->decimal('origin_price', 10, 2)->default(0);
-            $table->decimal('price', 10, 2);
+            $table->decimal('origin_price', 15, 2)->default(0);
+            $table->decimal('price', 15, 2);
             $table->integer('stock');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

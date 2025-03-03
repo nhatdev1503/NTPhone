@@ -95,7 +95,7 @@
                                         {{ $product->name }}
                                     </td>
                                     <td>{{ $product->category->name }}</td>
-                                    <td>{{ $product->image }}</td>
+                                    <td><img src="{{ asset('storage/'.$product->image) }}" alt=""></td>
                                     <td>{{ $product->screen }}</td>
                                     <td>{{ $product->ram }}</td>
                                     <td>{{ $product->battery }}</td>

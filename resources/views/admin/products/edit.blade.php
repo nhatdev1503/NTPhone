@@ -76,45 +76,45 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Màn hình</label>
-                                <input type="text" name="screen" class="form-control" value="{{ $product->screen }}">
+                                <input type="text" name="screen" class="form-control" value="{{ $product->screen }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Hệ điều hành</label>
-                                <input type="text" name="os" class="form-control" value="{{ $product->os }}">
+                                <input type="text" name="os" class="form-control" value="{{ $product->os }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Camera sau</label>
                                 <input type="text" name="rear_camera" class="form-control"
-                                    value="{{ $product->rear_camera }}">
+                                    value="{{ $product->rear_camera }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Camera trước</label>
                                 <input type="text" name="front_camera" class="form-control"
-                                    value="{{ $product->front_camera }}">
+                                    value="{{ $product->front_camera }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Vi xử lý</label>
-                                <input type="text" name="cpu" class="form-control" value="{{ $product->cpu }}">
+                                <input type="text" name="cpu" class="form-control" value="{{ $product->cpu }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">RAM</label>
-                                <input type="text" name="ram" class="form-control" value="{{ $product->ram }}">
+                                <input type="text" name="ram" class="form-control" value="{{ $product->ram }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Pin</label>
                                 <input type="text" name="battery" class="form-control"
-                                    value="{{ $product->battery }}">
+                                    value="{{ $product->battery }}" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Giá cơ bản</label>
                                 <input type="text" name="base_price" class="form-control"
-                                    value="{{ $product->base_price }}">
+                                    value="{{ $product->base_price }}" required>
                             </div>
                         </div>
                     </div>
