@@ -260,7 +260,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/">
                                 <span class="menu-title">Trang chủ</span>
                                 <span class="badge badge-success">New</span>
                             </a>

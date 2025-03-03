@@ -113,7 +113,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Giá cơ bản</label>
-                                <input type="number" name="base_price" class="form-control"
+                                <input type="text" name="base_price" class="form-control"
                                     value="{{ $product->base_price }}">
                             </div>
                         </div>

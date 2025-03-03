@@ -26,8 +26,8 @@
                                     @method('PUT')
                                     <button type="submit"
                                         class="btn btn-sm {{ $banner->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                        title="{{ $banner->status == 'active' ? 'Sử dụng' : 'Ngừng sử dụng' }}"
-                                        onclick="return confirm('{{ $banner->status == 'active' ? 'Bạn có chắc chắn muốn ngừng bán sản phẩm này?' : 'Bạn có chắc chắn muốn mở bán sản phẩm này?' }}')">
+                                        onclick="return confirm('{{ $banner->status == 'active' ? 'Bạn có chắc chắn muốn ngừng banner này?' : 'Bạn có chắc chắn muốn sử dụng banner này?' }}')">
+                                        {{ $banner->status == 'active' ? 'Ngừng sử dụng' : 'Sử dụng' }}
                                     </button>
                                 </form>
                                 <form action="{{ route('banners.destroy', $banner->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
