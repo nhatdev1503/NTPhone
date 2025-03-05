@@ -362,4 +362,5 @@
     <script src="{{ asset('js\productlist.js') }}"></script>
 </body>
 
+
 </html>
