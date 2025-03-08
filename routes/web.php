@@ -74,3 +74,23 @@ Route::resource('discounts', DiscountController::class)->where(['discounts' => '
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+
+
+
+Route::get('/home', function () {
+    return view('giaodien_web.trangchu');
+})->name('web.home');
+
+
+Route::get('/san-pham', function () {
+    return view('giaodien_web.sanpham');
+})->name('web.products');
+
+
+Route::get('/san-pham/{id}', function ($id) {
+    return view('giaodien_web.sanpham_chitiet', compact('id'));
+})->name('web.product.detail');
+
+Route::get('/gio-hang', function () {
+    return view('giaodien_web.giohang');
+})->name('web.cart');
