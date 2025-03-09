@@ -121,51 +121,50 @@
                         <div class="swiper-wrapper">
 
                             @foreach ($categories as $category)
-                                
-                            <div class="swiper-slide">
-                                <div class="row row-fix">
-                                    <div class="col-12 item col-fix">
-                                        <div class="product-image">
-                                            <a class="image_thumb scale_hover" href="{{ route('web.product.category', $category->id) }}"
-                                                title="{{ $category->name }}">
-                                                <picture>
-                                                    @foreach ($category->products as $product)
-                                                        
-                                                    @endforeach
-                                                    <source media="(max-width: 567px)"
-                                                        srcset="https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860-d1ac5802-c456-4803-9c80-b6a415fbf2d5.png?v=1740461892397">
-                                                    <img width="130" height="130"
-                                                        src="{{ $product->image }}"
-                                                        alt="{{ $category->name }}">
-                                                </picture>
-                                            </a>
+                                <div class="swiper-slide">
+                                    <div class="row row-fix">
+                                        <div class="col-12 item col-fix">
+                                            <div class="product-image">
+                                                <a class="image_thumb scale_hover"
+                                                    href="{{ route('web.product.category', $category->id) }}"
+                                                    title="{{ $category->name }}">
+                                                    <picture>
+                                                        @foreach ($category->products as $product)
+                                                            <source media="(max-width: 567px)"
+                                                                srcset="https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860-d1ac5802-c456-4803-9c80-b6a415fbf2d5.png?v=1740461892397">
+                                                            <img width="130" height="130"
+                                                                src="{{ $product->image }}" alt="{{ $category->name }}">
+                                                        @endforeach
+                                                    </picture>
+                                                </a>
+
+                                            </div>
+
 
                                         </div>
-
-
                                     </div>
+                                    <a href="{{ route('web.product.category', $category->id) }}"
+                                        title="{{ $category->name }}">
+                                        <h3>
+                                            {{ $category->name }}
+                                            <span> </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </h3>
+                                    </a>
+
+
                                 </div>
-                                <a href="{{ route('web.product.category', $category->id) }}" title="{{ $category->name }}">
-                                    <h3>
-                                        {{ $category->name }}
-                                        <span> </span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                                        </svg>
-                                    </h3>
-                                </a>
-
-
-                            </div>
                             @endforeach
 
 
 
 
 
-                            
+
 
 
 
@@ -3097,8 +3096,7 @@
                                         </div>
 
 
-                                        <input class="hidden" type="hidden" name="variantId"
-                                            value="127314876" />
+                                        <input class="hidden" type="hidden" name="variantId" value="127314876" />
                                         <div class="action">
                                             <button class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
                                                 <svg class="icon">
@@ -3184,8 +3182,7 @@
                                 <form action="/cart/add" method="post" class="variants product-action"
                                     data-cart-form data-id="product-actions-37786728" enctype="multipart/form-data">
                                     <div class="product-thumbnail">
-                                        <a class="image_thumb scale_hover"
-                                            href="/pin-eu-iphone-xs-max-dung-luong-cao"
+                                        <a class="image_thumb scale_hover" href="/pin-eu-iphone-xs-max-dung-luong-cao"
                                             title="Pin EU iPhone XS MAX Dung Lượng Cao">
                                             <img width="234" height="234" class="lazyload image1"
                                                 src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"
@@ -3203,8 +3200,7 @@
                                         </div>
 
 
-                                        <input class="hidden" type="hidden" name="variantId"
-                                            value="127314887" />
+                                        <input class="hidden" type="hidden" name="variantId" value="127314887" />
                                         <div class="action">
                                             <button class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
                                                 <svg class="icon">

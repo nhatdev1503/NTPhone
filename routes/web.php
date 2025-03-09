@@ -91,7 +91,9 @@ Route::get('/san-pham', function () {
 })->name('web.products');
 
 Route::get('/danh-muc/{id}', function($id){
-    $category = Category::with('products')->findOrFail($id);
+    $category = Category::with(['products' => function($query){
+        $query->limit(24);
+    }])->findOrFail($id);
 
     return view('giaodien_web.danhmuc', compact('category'));
 })->name('web.product.category');
