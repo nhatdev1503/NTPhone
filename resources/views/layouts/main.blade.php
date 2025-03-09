@@ -30,10 +30,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html"><img src="{{ asset('images\logo.svg') }}"
-                        alt="logo"></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img
-                        src="{{ asset('images\logo-mini.svg') }}" alt="logo"></a>
+              
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -64,6 +61,9 @@
                         </div>
                     </li>
                 </ul>
+                <div class="custom-logo-center mx-auto">
+                    <img src="{{ asset('images/logo-nt.jpeg') }}" alt="Custom Logo" class="custom-logo">
+                </div>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
@@ -153,7 +153,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="{{ asset('images\faces\face4.jpg') }}" alt="image" class="profile-pic">
+                                    <img src="{{ asset('images\faces\face4.jpg') }}" alt="image"
+                                        class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium">Hưng
@@ -167,7 +168,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="{{ asset('images\faces\face2.jpg') }}" alt="image" class="profile-pic">
+                                    <img src="{{ asset('images\faces\face2.jpg') }}" alt="image"
+                                        class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium">Quyết
@@ -181,7 +183,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="{{ asset('images\faces\face3.jpg') }}" alt="image" class="profile-pic">
+                                    <img src="{{ asset('images\faces\face3.jpg') }}" alt="image"
+                                        class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium"> Hiếu
@@ -272,7 +275,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('banners.index')}}">
+                            <a class="nav-link" href="{{ route('banners.index') }}">
                                 <span class="menu-title">Quản lí banner</span>
                                 <span class="badge badge-danger">3</span>
                             </a>
@@ -363,3 +366,22 @@
 </body>
 
 </html>
+
+
+<style>
+    .custom-logo-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custom-logo {
+        margin-left: 250px;
+        height: 58px;
+        /* điều chỉnh kích thước theo ý bạn */
+        width: auto;
+        /* Có thể thêm hiệu ứng viền, bo góc, shadow... nếu muốn */
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
