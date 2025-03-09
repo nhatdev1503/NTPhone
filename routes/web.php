@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +76,30 @@ Route::resource('discounts', DiscountController::class)->where(['discounts' => '
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+
+
+
+Route::get('/home', function () {
+    $categories = Category::with('products')->take(4)->get();
+
+    return view('giaodien_web.trangchu', compact('categories'));
+})->name('web.home');
+
+
+Route::get('/san-pham', function () {
+    return view('giaodien_web.sanpham');
+})->name('web.products');
+
+Route::get('/danh-muc/{id}', function($id){
+    $category = Category::with('products')->findOrFail($id);
+
+    return view('giaodien_web.danhmuc', compact('category'));
+})->name('web.product.category');
+
+Route::get('/san-pham/{id}', function ($id) {
+    return view('giaodien_web.sanpham_chitiet', compact('id'));
+})->name('web.product.detail');
+
+Route::get('/gio-hang', function () {
+    return view('giaodien_web.giohang');
+})->name('web.cart');
