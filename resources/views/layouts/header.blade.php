@@ -727,7 +727,7 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a href="/cart" title="Giỏ hàng">
+                        <a href="{{ route('web.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
                             Sản phẩm <span class=" count_item_pr">0</span>
                         </a>
