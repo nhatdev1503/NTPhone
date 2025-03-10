@@ -20,12 +20,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
+// Giao diện Admin
+Route::get('/admin', function () {
     return view('admin.index'); //test giao diện
 });
-// Route::get('/', function () {
-//     return view('admin.layouts.main');
-// })->name('home');
 
 // router CRUD products (Hiếu, Nhật)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -77,20 +75,26 @@ Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.
 
 
 
-Route::get('/home', function () {
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+
+
+// router giao diện người dùng / hiếu
+Route::get('/', function () {
     return view('giaodien_web.trangchu');
 })->name('web.home');
-
-
+//---------------------------------------------------------------------
 Route::get('/san-pham', function () {
     return view('giaodien_web.sanpham');
 })->name('web.products');
-
-
-Route::get('/san-pham/{id}', function ($id) {
+//---------------------------------------------------------------------
+Route::get('/san-pham-chitiet/{id}', function ($id) {
     return view('giaodien_web.sanpham_chitiet', compact('id'));
 })->name('web.product.detail');
-
+//---------------------------------------------------------------------
 Route::get('/gio-hang', function () {
     return view('giaodien_web.giohang');
 })->name('web.cart');
+//---------------------------------------------------------------------
+
