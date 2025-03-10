@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +77,7 @@ Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.
 
 
 
+<<<<<<< HEAD
 
 //--------------------------------------------------------------------------------------------------------------------------
 
@@ -83,13 +86,30 @@ Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.
 // router giao diện người dùng / hiếu
 Route::get('/', function () {
     return view('giaodien_web.trangchu');
+=======
+Route::get('/home', function () {
+    $categories = Category::with('products')->take(4)->get();
+
+    return view('giaodien_web.trangchu', compact('categories'));
+>>>>>>> ce8a243096fdf10dc896b17192bdca14fd3bd1ca
 })->name('web.home');
 //---------------------------------------------------------------------
 Route::get('/san-pham', function () {
     return view('giaodien_web.sanpham');
 })->name('web.products');
+<<<<<<< HEAD
 //---------------------------------------------------------------------
 Route::get('/san-pham-chitiet/{id}', function ($id) {
+=======
+
+Route::get('/danh-muc/{id}', function($id){
+    $category = Category::with('products')->findOrFail($id);
+
+    return view('giaodien_web.danhmuc', compact('category'));
+})->name('web.product.category');
+
+Route::get('/san-pham/{id}', function ($id) {
+>>>>>>> ce8a243096fdf10dc896b17192bdca14fd3bd1ca
     return view('giaodien_web.sanpham_chitiet', compact('id'));
 })->name('web.product.detail');
 //---------------------------------------------------------------------
