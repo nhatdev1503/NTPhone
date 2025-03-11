@@ -18,5 +18,15 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function latestProducts()
+    {
+        return $this->hasMany(Product::class)->latest()->take(5);
+    }
+    public function topViewedProducts()
+    {
+        return $this->hasMany(Product::class) 
+                    ->orderBy('views', 'desc') 
+                    ->limit(4); 
+    }
 }
 

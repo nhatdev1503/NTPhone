@@ -25,6 +25,8 @@ return new class extends Migration {
             $table->string('ram')->nullable();
             $table->string('battery')->nullable();
             $table->decimal('base_price', 15, 2);
+            $table->integer('view')->nullable();
+            $table->integer('sale')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

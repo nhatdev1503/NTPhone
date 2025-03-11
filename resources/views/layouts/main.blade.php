@@ -62,7 +62,7 @@
                     </li>
                 </ul>
                 <div class="custom-logo-center mx-auto">
-                    <img src="{{ asset('images/logo-nt.jpeg') }}" alt="Custom Logo" class="custom-logo">
+                    <img src="{{ asset('images/logo-nt.png') }}" alt="Custom Logo" class="custom-logo" >
                 </div>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown">
@@ -301,6 +301,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('discounts.index') }}">
                                 <span class="menu-title">Quản lí voucher</span>
+                                <span class="badge badge-primary">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('contacts.show') }}">
+                                <span class="menu-title">Quản lí liên hệ</span>
+                                <span class="badge badge-primary">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('contacts.show') }}">
+                                <span class="menu-title">Quản lí tin tức</span>
                                 <span class="badge badge-primary">3</span>
                             </a>
                         </li>

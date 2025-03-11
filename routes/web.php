@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -77,13 +79,21 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
 
+//Quản lí Liên hệ
+Route::get('/contacts', [ContactController::class, 'show'])->name('contacts.show');
+Route::get('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+Route::put('/contacts/update', [ContactController::class, 'update'])->name('contacts.update');
 
-
-Route::get('/home', function () {
-    $categories = Category::with('products')->take(4)->get();
-
-    return view('giaodien_web.trangchu', compact('categories'));
-})->name('web.home');
+//Người dùng
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+// Route::get('/home', function () {
+//     $categories = Category::with('products')->where('status', 'active')->get();
+//     // foreach($categories as $category){
+//     //     dd($category->products);
+//     // }
+        
+//     return view('giaodien_web.trangchu', compact('categories'));
+// })->name('web.home');
 
 
 Route::get('/san-pham', function () {

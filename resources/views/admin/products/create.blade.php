@@ -124,6 +124,7 @@
                                             @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
                                                 <option value="{{ $color }}">{{ $color }}</option>
                                             @endforeach
+                                                <option value="other">Khác</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2">
@@ -225,6 +226,15 @@
                 e.target.parentElement.remove();
             }
         });
+        document.getElementById("variant_color").addEventListener("change", function () {
+        let customColorInput = document.getElementById("custom_color");
+        if (this.value === "other") {
+            customColorInput.classList.remove("d-none");
+            customColorInput.focus();
+        } else {
+            customColorInput.classList.add("d-none");
+        }
+    });
     </script>
     
 @endsection

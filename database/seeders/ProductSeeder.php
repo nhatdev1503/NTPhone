@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
         $statuses = ['active', 'inactive'];
         for ($i = 0; $i < 100; $i++) {
             Product::create([
-                'category_id' => rand(1, 2),
+                'category_id' => rand(1, 8),
                 'name' => $faker->word,
                 'description' => $faker->sentence,
                 'image' => 'product.jpg',
