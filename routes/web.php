@@ -24,12 +24,10 @@ use App\Models\Product;
 |
 */
 
-Route::get('/', function () {
+// Giao diện Admin
+Route::get('/admin', function () {
     return view('admin.index'); //test giao diện
 });
-// Route::get('/', function () {
-//     return view('admin.layouts.main');
-// })->name('home');
 
 // router CRUD products (Hiếu, Nhật)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -64,11 +62,11 @@ Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('bann
 // =============================
 Route::get('/users', [UserController::class, 'index'])->name('users.index'); // Danh sách tài khoản
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); // Form tạo tài khoản
-Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-Route::put('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy'); 
+Route::put('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 // Quản lý Voucher (Minh)
@@ -95,21 +93,25 @@ Route::get('/clients', [ClientController::class, 'index'])->name('clients.index'
 //     return view('giaodien_web.trangchu', compact('categories'));
 // })->name('web.home');
 
-
+//---------------------------------------------------------------------
 Route::get('/san-pham', function () {
     return view('giaodien_web.sanpham');
 })->name('web.products');
 
+
 Route::get('/danh-muc/{id}', function($id){
-    $category = Category::with('products')->findOrFail($id);
+    $category = Category::with(['products' => function($query){
+        $query->limit(24);
+    }])->findOrFail($id);
 
     return view('giaodien_web.danhmuc', compact('category'));
 })->name('web.product.category');
 
 Route::get('/san-pham/{id}', function ($id) {
+
     return view('giaodien_web.sanpham_chitiet', compact('id'));
 })->name('web.product.detail');
-
+//---------------------------------------------------------------------
 Route::get('/gio-hang', function () {
     return view('giaodien_web.giohang');
 })->name('web.cart');

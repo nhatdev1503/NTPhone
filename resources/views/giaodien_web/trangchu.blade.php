@@ -87,14 +87,17 @@
                                                     title="{{ $category->name }}">
                                                     <picture>
                                                         @foreach ($category->products as $product)
+                                                            <source media="(max-width: 567px)"
+                                                                srcset="https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860-d1ac5802-c456-4803-9c80-b6a415fbf2d5.png?v=1740461892397">
+                                                            <img width="130" height="130"
+                                                                src="{{ $product->image }}" alt="{{ $category->name }}">
                                                         @endforeach
-                                                        <source media="(max-width: 567px)"
-                                                            srcset="https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860-d1ac5802-c456-4803-9c80-b6a415fbf2d5.png?v=1740461892397">
-                                                        <img width="130" height="130" src="{{ $product->image }}"
-                                                            alt="{{ $category->name }}">
                                                     </picture>
                                                 </a>
+
                                             </div>
+
+
                                         </div>
                                     </div>
                                     <a href="{{ route('web.product.category', $category->id) }}"
@@ -109,8 +112,19 @@
                                             </svg>
                                         </h3>
                                     </a>
+
                                 </div>
                             @endforeach
+
+
+
+
+
+
+
+
+
+
                         </div>
                         <div class="swiper-button-next">
                         </div>
