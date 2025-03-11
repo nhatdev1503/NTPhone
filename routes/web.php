@@ -60,11 +60,11 @@ Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('bann
 // =============================
 Route::get('/users', [UserController::class, 'index'])->name('users.index'); // Danh sách tài khoản
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); // Form tạo tài khoản
-Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-Route::put('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy'); 
+Route::put('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 // Quản lý Voucher (Minh)
@@ -77,30 +77,21 @@ Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.
 
 
 
-<<<<<<< HEAD
-
-//--------------------------------------------------------------------------------------------------------------------------
-
-
 
 // router giao diện người dùng / hiếu
 Route::get('/', function () {
-    return view('giaodien_web.trangchu');
-=======
-Route::get('/home', function () {
+
     $categories = Category::with('products')->take(4)->get();
 
     return view('giaodien_web.trangchu', compact('categories'));
->>>>>>> ce8a243096fdf10dc896b17192bdca14fd3bd1ca
+
 })->name('web.home');
+
 //---------------------------------------------------------------------
 Route::get('/san-pham', function () {
     return view('giaodien_web.sanpham');
 })->name('web.products');
-<<<<<<< HEAD
-//---------------------------------------------------------------------
-Route::get('/san-pham-chitiet/{id}', function ($id) {
-=======
+
 
 Route::get('/danh-muc/{id}', function($id){
     $category = Category::with(['products' => function($query){
@@ -111,12 +102,10 @@ Route::get('/danh-muc/{id}', function($id){
 })->name('web.product.category');
 
 Route::get('/san-pham/{id}', function ($id) {
->>>>>>> ce8a243096fdf10dc896b17192bdca14fd3bd1ca
+
     return view('giaodien_web.sanpham_chitiet', compact('id'));
 })->name('web.product.detail');
 //---------------------------------------------------------------------
 Route::get('/gio-hang', function () {
     return view('giaodien_web.giohang');
 })->name('web.cart');
-//---------------------------------------------------------------------
-
