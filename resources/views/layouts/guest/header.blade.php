@@ -74,6 +74,7 @@
         type="text/css" media="all" />
     <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/cartpage.scss.css?1741067950025" rel="stylesheet"
         type="text/css" media="all" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 
 
@@ -275,7 +276,7 @@
                                 class=""></path>
                         </svg>
                     </span>
-                    <span class="vertical-heading-text">Danh mục</span>
+                    <span class="vertical-heading-text" style="position: absolute; top: 25px; left: 170px;">Danh mục</span>
                 </div>
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
@@ -502,18 +503,6 @@
                             </li>
                         </ul>
                     </nav>
-                    <div class="control-menu d-none">
-                        <a href="#" id="prev"><svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 384 512">
-                                <path fill="#fff"
-                                    d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
-                            </svg></a>
-                        <a href="#" id="next"><svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 384 512">
-                                <path fill="#fff"
-                                    d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                            </svg></a>
-                    </div>
                 </div>
             </div>
         </div>

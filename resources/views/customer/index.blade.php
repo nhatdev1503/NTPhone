@@ -1,4 +1,4 @@
-@include('layouts.client_header')
+@include('layouts.customer.header')
 <div class="container my-4">
     @yield('content')
     <div class="bodywrap">
@@ -83,7 +83,7 @@
                                         <div class="col-12 item col-fix">
                                             <div class="product-image">
                                                 <a class="image_thumb scale_hover"
-                                                    href="{{ route('web.product.category', $category->id) }}"
+                                                    href="#"
                                                     title="{{ $category->name }}">
                                                     <picture>
                                                         @foreach ($category->products as $product)
@@ -100,7 +100,7 @@
 
                                         </div>
                                     </div>
-                                    <a href="{{ route('web.product.category', $category->id) }}"
+                                    <a href="#"
                                         title="{{ $category->name }}">
                                         <h3>
                                             {{ $category->name }}
@@ -715,4 +715,4 @@
 </div>
 <style>
 </style>
-@include('layouts.footer')
+@include('layouts.customer.footer')

@@ -19681,19 +19681,19 @@ input:focus {
   display: none;
 }
 
-.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-settings {
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-info {
   width: 30px;
   height: 30px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 100%;
 }
 
-.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-settings .nav-link {
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-info .nav-link {
   padding: 0;
   text-align: center;
 }
 
-.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-settings i {
+.navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-info i {
   font-size: .9375rem;
   vertical-align: middle;
 }

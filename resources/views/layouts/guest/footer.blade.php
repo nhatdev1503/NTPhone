@@ -1,2751 +1,371 @@
-@include('layouts.header')
 
-<div class="container my-4">
-    @yield('content')
+<footer class="footer">
+	<div class="top-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-7 col-xl-6">
 
-		<link rel="icon" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/favicon.png?1741067950025" type="image/x-icon" />
-		<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/jquery.js?1741067950025" />
-		<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/jquery.js?1741067950025" type="text/javascript"></script>
-		<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/cookie.js?1741067950025" />
-		<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/cookie.js?1741067950025" type="text/javascript"></script>
-		<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/swiper.js?1741067950025" />
-		<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/swiper.js?1741067950025" type="text/javascript"></script>
-		<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.js?1741067950025" />
-		<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.js?1741067950025" type="text/javascript"></script>
-		<link rel="preload" as='style' type="text/css" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.scss.css?1741067950025">
-
-<link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/bootstrap-4-3-min.css?1741067950025">
-
-<link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/bootstrap-4-3-min.css?1741067950025" rel="stylesheet" type="text/css" media="all" />
-<link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.scss.css?1741067950025" rel="stylesheet" type="text/css" media="all" />
-
-
-<link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1741067950025" rel="stylesheet" type="text/css" media="all" />
-
-
-
-
-
-
-
-<link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1741067950025" rel="stylesheet" type="text/css" media="all" />
-
-<div class="opacity_menu"></div>
-<div class="banner-top d-none d-md-block" style="background: #01000d">
-	<div class="container">
-		<a href="" title="Banner top">
-			<picture>
-
-				<source 
-						media="(max-width: 567px)"
-						srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/banner_top.jpg?1741067950025">
-				<img alt="Banner top" width="1270" height="47" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner_top.jpg?1741067950025">
-			</picture>	
-
-		</a>
-	</div>
-</div>
-
-
-
-<div class="bodywrap">		
-<section class="bread-crumb">
-	
-	<div class="container">
-		
-		<ul class="breadcrumb" >					
-			<li class="home">
-				<a  href="/" ><span >Trang chủ</span></a>						
-				<span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
-			</li>
-			
-			
-			<li>
-				<a class="changeurl"  href="/iphone-14-pro-max"><span >iPhone 14 Pro Max</span></a>						
-				<span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
-			</li>
-			
-			<li><strong><span>iPhone 14 Pro Max 256GB</span></strong><li>
-			
-		</ul>
-	</div>
-</section>   
-
-<section class="product layout-product" itemscope itemtype="https://schema.org/Product">	
-	<meta itemprop="category" content="iPhone 14 Pro Max">
-	<meta itemprop="url" content="//www.hoangkien.com/iphone-14-pro-max-256gb">
-	<meta itemprop="name" content="iPhone 14 Pro Max 256GB">
-	<meta itemprop="image" content="http://bizweb.dktcdn.net/thumb/grande/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823">
-	<meta itemprop="description" content="iPhone 14 Pro Max&nbsp;là dòng sản phẩm cao cấp nhất nằm trong thế hệ iPhone mới vừa được ra mắt cùng với nhiều nâng cấp về ngoại hình và tính năng, hứa hẹn sẽ là dòng sản phẩm đột phá trong vài năm trở lại đây của Apple.
-&nbsp;
-
-&nbsp;
-iPhone 14 Pro Max
-Phá vỡ thiết kế notch cổ điển
-Chiếc iPhone 14 Pro Max&nbsp;sở hữu màn hình Super Retina XDR mới với ProMotion có kích thước 6.7 inch. Tần số quét màn hình sẽ giảm xuống 1 Hz để tiết kiệm pin, trong khi hình nền được làm mờ. Màn hình tiên tiến cũng mang lại mức độ sáng HDR cao nhất tương tự như Pro Display XDR và ​​độ sáng đỉnh ngoài trời cao nhất trong điện thoại thông minh: lên đến 2000 nits, sáng gấp đôi so với người tiền nhiệm.
-Màn hình trước làm từ chất liệu Ceramic Shield - cứng hơn bất kỳ loại kính điện thoại thông minh nào - và được bảo vệ khỏi các sự cố tràn và tai nạn thông thường với khả năng chống nước và bụi.
-Màn hình Dynamic Island mới trên dòng iPhone 14 Pro được coi là ý tưởng thiết kế sáng tạo, đem đến trải nghiệm độc đáo. Apple đã thay thế phần notch trên dòng sản phẩm ‌iPhone 14 Pro‌ bằng lỗ khuyết viên thuốc và đục lỗ. Một chi tiết mới quan trọng của việc thay thế notch xuất hiện trong tuần này là khi thiết bị được sử dụng, các lỗ hình viên thuốc và lỗ đục lỗ sẽ hợp nhất bằng kỹ thuật số thành hình chữ i dài hơn. Phần cắt này được Apple dùng để hiển thị thông tin như các thông báo về quyền riêng tư của iOS và cụm cảm biến cho FaceID
-Ngoài ra, iPhone 14 Pro Max còn có tính năng Always On Display hay màn hình luôn bật, đây là một trong những tính năng khá thú vị trên các dòng điện thoại hiện nay. Tính năng này không chỉ giúp bạn nhận được thông báo từ các ứng dụng như đồng hồ, lịch, tin nhắn, cuộc gọi nhỡ, ứng dụng,... kể cả khi màn hình điện thoại đã tắt mà còn giúp điện thoại tiết kiệm pin đáng kể.
-Nâng cấp đáng kể về camera
-&nbsp;
-Một trong những nâng cấp mà người dùng trông đợi nhất từ dòng iPhone 14 đó chính là camera. Sau nhiều năm camera dặm chân ở con số 12MP, độ phân giải camera chính của iPhone 14 Pro Max&nbsp;đã được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm. Sự nâng cấp này cho phép camera thu được nhiều ánh sáng hơn khi chụp ảnh trong điều kiện ánh sáng yếu.
-&nbsp;
-
-&nbsp;
-iPhone 14 Pro Max&nbsp;có nâng cấp đáng kể về camera
-&nbsp;
-Ngoài ra, điện thoại còn hỗ trợ quay video 8K (ở tốc độ lên đến 60 khung hình/giây), không chỉ đem lại hình ảnh sắc nét hơn (như tăng chất lượng trên video YouTube) mà còn cho phép các nhà làm phim cắt, ổn định và điều chỉnh lại cảnh quay sau khi nó được quay.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh chính được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm, đi kèm pixel-binning (kết hợp pixel với nhau) cho phép camera thu được nhiều ánh sáng hơn và giảm nhiễu
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh 12MP Ultra Wide mới với điểm ảnh 1,4 µm pixel, mang lại hình ảnh sắc nét hơn với nhiều chi tiết hơn, cải thiện khả năng chụp ảnh macro vốn đã mạnh mẽ.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh tele cải tiến có khả năng zoom quang học 3x.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Một camera TrueDepth phía trước mới với khẩu độ ƒ / 1.9 cho phép chụp ảnh và quay video trong điều kiện ánh sáng yếu tốt hơn. Sử dụng lấy nét tự động lần đầu tiên, nó có thể lấy nét nhanh hơn nữa trong điều kiện ánh sáng yếu và chụp ảnh nhóm từ xa hơn.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đèn flash True Tone thích ứng mới đã được thiết kế lại hoàn toàn với một dãy chín đèn LED thay đổi kiểu dựa trên độ dài tiêu cự đã chọn.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hỗ trợ chụp ảnh tiên tiến như Chế độ ban đêm, Smart HDR 4, Chế độ chân dung với Ánh sáng chân dung, Chế độ ban đêm Ảnh chân dung, Kiểu chụp ảnh để cá nhân hóa giao diện của mọi bức ảnh và Apple ProRAW.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Action mới cho video trông cực kỳ mượt mà có thể giảm độ rung, cho ra những khung hình mượt mà sống động
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Cinematic, hiện có sẵn ở 4K ở tốc độ 30 khung hình / giây và 4K ở tốc độ 24 khung hình / giây.
-●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tính năng định dạng video chuyên nghiệp, bao gồm ProRes3 và Dolby Vision HDR đầu cuối.
-Bộ vi xử lý A16 cực xịn
-iPhone 14 Pro Max&nbsp;sử dụng bộ vi xử lý Apple A16 Bionic được xử lý trên tiến trình 4nm. Với bộ xử lý neural 16 nhân trên chip này, bên cạnh bộ xử lý màn hình hoàn toàn mới để hỗ trợ đẩy tần số quét xuống 1Hz, xử lý tính năng always-on và giúp Dynamic Island hoạt động mượt mà.Thiết bị có RAM 6GB sử dụng công nghệ LPDDR5 cải tiến về tốc độ truyền và điện năng tiêu thụ.&nbsp;
-
-&nbsp;
-iPhone 14 Pro Max
-&nbsp;
-Tính năng điện thoại vệ tinh
-Điểm độc đáo trên thế hệ iPhone 14 chính là điện thoại vệ tinh hỗ trợ người dùng trong việc liên lạc bằng cách kết nối với các trạm vệ tinh xoay quanh quỹ đạo mà không cần sóng của nhà mạng.
-iPhone 14 Pro Max&nbsp;có dung lượng 4.323 mAh – thấp hơn một chút so với mức 4.352 mAh của 13 Pro Max. Ngoài ra, thiết bị được trang bị sạc nhanh với công suất 30W, cao hơn đáng kể so với mức sạc 20W cũ.
-iPhone 14 Pro Max&nbsp;hiện là chiếc flagship có trọng lượng nặng nhất trên thị trường với khối lượng 255 gram, cao hơn 15 gram so với thế hệ trước. Người dùng có tùy chọn các phiên bản dung lượng gồm 128 GB, 256 GB, 512 GB và 1TB. Thiết bị sử dụng phần khung titan thay vì thép không gỉ, mang đến một chiếc iPhone mạnh mẽ hơn, nhẹ hơn và chống trầy tốt hơn, dù làm tăng khối lượng.
-&nbsp;
-iPhone 14 Pro Max&nbsp;sẽ có các lựa chọn màu sắc: xám than chì (Graphite), bạc (Silver), vàng (Gold), tím (Purple), nhưng không có phiên bản màu xanh Sierra Blue như năm ngoái.">
-	<div class="d-none" itemprop="brand" itemtype="https://schema.org/Brand" itemscope>
-		<meta itemprop="name" content="Apple" />
-	</div>
-	<meta itemprop="model" content="">
-	<div class="d-none hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-		<div class="inventory_quantity hidden" itemscope itemtype="http://schema.org/ItemAvailability">
-			<span class="a-stock" itemprop="supersededBy">
-				Còn hàng
-			</span>
+					<form id="mc-form" class="newsletter-form" data-toggle="validator">
+						<input aria-label="Địa chỉ Email" type="email" class="form-control" placeholder="Nhập email nhận tin khuyến mãi" name="EMAIL" required autocomplete="off" />
+						<button class="btn btn-default" type="submit" aria-label="Đăng ký nhận tin" name="subscribe">ĐĂNG KÝ</button>
+					</form>
+					<div class="mailchimp-alerts " >
+						<div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+						<div class="mailchimp-success"></div><!-- mailchimp-success end -->
+						<div class="mailchimp-error"></div><!-- mailchimp-error end -->
+					</div>
+					<script>
+						$('#mc-form').ajaxChimp({
+							language: 'en',
+							callback: mailChimpResponse,
+							url: 'https://facebook.us7.list-manage.com/subscribe/post?u=97ba6d3ba28239250923925a8&id=4ef3a755a8'
+						});
+						function mailChimpResponse(resp) {
+							if (resp.result === 'success') {
+								if(resp.msg == 'Thank you for subscribing!'){
+									$('.mailchimp-success').html('Cảm ơn bạn đã đăng ký!').fadeIn(900);
+								}else{
+									$('.mailchimp-success').html('' + resp.msg).fadeIn(900);
+								}
+								$('.mailchimp-error').fadeOut(100);
+							} else if (resp.result === 'error') {
+								if(resp.msg == '0 - Please enter a value'){
+									$('.mailchimp-error').html('Vui lòng nhập các trường thông tin').fadeIn(900);
+								}else if(resp.msg == '0 - An email address must contain a single @.'){
+									$('.mailchimp-error').html('Địa chỉ email phải chứa ký tự @').fadeIn(900);
+								}else if(resp.msg == 'This email cannot be added to this list. Please enter a different email address.'){
+									$('.mailchimp-error').html('Email này không thể được thêm vào danh sách này. Vui lòng nhập một địa chỉ email khác.').fadeIn(900);
+								}else if(resp.msg.includes('0 - The domain portion of the email address is invalid')){
+									$('.mailchimp-error').html('Phần tên miền của địa chỉ email không hợp lệ').fadeIn(900);
+								}else if(resp.msg.includes('0 - The username portion of the email address is empty')){
+									$('.mailchimp-error').html('Phần tên người dùng của địa chỉ email trống').fadeIn(900);
+								}else if(resp.msg == 'Thank you for subscribing!'){
+									$('.mailchimp-error').html('Cảm ơn bạn đã đăng ký!').fadeIn(900);
+								}else{
+									$('.mailchimp-error').html('' + resp.msg).fadeIn(900);
+								}
+							}
+						}
+					</script>
+				</div>
+				<div class="col-12 col-md-6 col-lg-5 col-xl-6">
+					<div class="footer-social">
+						<span>Kết nối với chúng tôi:</span>
+						<ul class="social">
+							<li><a href="https://zalo.me/0813600999" title="Zalo"><img width="32" height="32" title="Zalo" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1741067950025"></a></li>
+							<li><a href="https://www.facebook.com/hoangkien.co" title="Facebook"><img width="32" height="32" title="Facebook" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1741067950025"></a></li>
+							<li><a href="https://www.youtube.com/@hoangkienzin" title="Youtube"><img width="32" height="32" title="Youtube" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1741067950025"></a></li>
+							<li><a href="#" title="Google"><img width="32" height="32" title="Google" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/google.png?1741067950025"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
-		<link itemprop="availability" href="http://schema.org/InStock">
-		<meta itemprop="priceCurrency" content="VND">
-		<meta itemprop="price" content="19500000">
-		<meta itemprop="url" content="https://www.hoangkien.com/iphone-14-pro-max-256gb">
-		<span itemprop="UnitPriceSpecification" itemscope itemtype="https://schema.org/Downpayment">
-			<meta itemprop="priceType" content="19500000">
-		</span>
-		<meta itemprop="priceValidUntil" content="2099-01-01">
 	</div>
-	<div class="d-none hidden" id="https://www.hoangkien.com" itemprop="seller" itemtype="http://schema.org/Organization" itemscope>
-		<meta itemprop="name" content="Hoàng Kiên" />
-		<meta itemprop="url" content="https://www.hoangkien.com" />
-		<meta itemprop="logo" content="http://bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1741067950025" />
-	</div>
-
+	<div class="top-footer2">
 	<div class="container">
 		<div class="block-background">
-			<div class="row">
-				<div class="col-12">
-					<h1 class="title-product">iPhone 14 Pro Max 256GB</h1>
-				</div>
-				<div class="product-detail-left product-images col-12 col-md-12 col-lg-6 col-xl-4">
-					<div class="product-image-block">
-						
-						<div class="swiper-container gallery-top p-5">
-							<div class="swiper-wrapper" id="lightgallery">
-								
-								<a class="swiper-slide" data-hash="0" href="//bizweb.dktcdn.net/thumb/1024x1024/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823" title="Click để xem">
-									<img height="400" width="400" src="https://bizweb.dktcdn.net/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="https://bizweb.dktcdn.net/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823" class="img-responsive mx-auto d-block swiper-lazy" />
-								</a>
-								
-								<a class="swiper-slide" data-hash="1" href="//bizweb.dktcdn.net/thumb/1024x1024/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823" title="Click để xem">
-									<img height="400" width="400" src="https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823" class="img-responsive mx-auto d-block swiper-lazy" />
-								</a>
-								
-								<a class="swiper-slide" data-hash="2" href="//bizweb.dktcdn.net/thumb/1024x1024/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823" title="Click để xem">
-									<img height="400" width="400" src="https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823" class="img-responsive mx-auto d-block swiper-lazy" />
-								</a>
-								
-								<a class="swiper-slide" data-hash="3" href="//bizweb.dktcdn.net/thumb/1024x1024/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823" title="Click để xem">
-									<img height="400" width="400" src="https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823" class="img-responsive mx-auto d-block swiper-lazy" />
-								</a>
-								
-								<a class="swiper-slide" data-hash="4" href="//bizweb.dktcdn.net/thumb/1024x1024/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823" title="Click để xem">
-									<img height="400" width="400" src="https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823" class="img-responsive mx-auto d-block swiper-lazy" />
-								</a>
-								
-							</div>
-							<div class="tag-km">
-								
-
-								
-
-								
-							</div>
-						</div>
-						<div class="swiper-container gallery-thumbs p-5">
-							<div class="swiper-wrapper">
-								
-								<div class="swiper-slide" data-hash="0">
-									<div class="p-100">
-										<img height="80" width="80" src="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823" class="swiper-lazy" />
-									</div>	
-								</div>
-								
-								<div class="swiper-slide" data-hash="1">
-									<div class="p-100">
-										<img height="80" width="80" src="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823" class="swiper-lazy" />
-									</div>	
-								</div>
-								
-								<div class="swiper-slide" data-hash="2">
-									<div class="p-100">
-										<img height="80" width="80" src="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823" class="swiper-lazy" />
-									</div>	
-								</div>
-								
-								<div class="swiper-slide" data-hash="3">
-									<div class="p-100">
-										<img height="80" width="80" src="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823" class="swiper-lazy" />
-									</div>	
-								</div>
-								
-								<div class="swiper-slide" data-hash="4">
-									<div class="p-100">
-										<img height="80" width="80" src="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823" alt="iPhone 14 Pro Max 256GB" data-image="//bizweb.dktcdn.net/thumb/medium/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823" class="swiper-lazy" />
-									</div>	
-								</div>
-								
-							</div>
-							<div class="swiper-button-next">
-							</div>
-							<div class="swiper-button-prev">
-							</div>
-						</div>
-						
-
-					</div>
-
-
-
-				</div>
-
-				<div class="col-12 col-md-12 col-lg-6 col-xl-5">
-					<div class="details-pro">
-
-
-
-						<div class="inventory_quantity">
-							<div class="thump-break row">
-
-								<div class="mb-break type col-lg-6">
-									<span class="stock-brand-title">Loại:</span>
-									<span class="a-vendor">
-										
-										Điện Thoại
-										
-									</span>
-								</div>
-								<div class="mb-break type col-lg-6">
-									<span class="stock-brand-title">Thương hiệu:</span>
-									<span class="a-vendor">
-										
-										Apple
-										
-									</span>
-								</div>
-								<div class="mb-break inventory col-lg-6">
-									<span class="stock-brand-title">Tình trạng:</span>
-									 
-									
-									<span class="a-stock">
-										Liên hệ
-									</span>
-									
-									
-								</div>
-								<div class="mb-break sku-product clearfix col-lg-6">
-									
-								</div>
-							</div>
-
-						</div>
-
-						<form enctype="multipart/form-data" data-cart-form id="add-to-cart-form" action="/cart/add" method="post" class="form-inline">
-
-							<div class="price-box clearfix">
-								<span class="title-price">Giá bán:</span>
-								
-								<span class="special-price">
-									<span class="price product-price">19.500.000₫</span>
-									<meta itemprop="price" content="19500000">
-									<meta itemprop="priceCurrency" content="VND">
-								</span> <!-- Giá Khuyến mại -->
-								<span class="old-price" itemprop="priceSpecification" itemscope="" itemtype="http://schema.org/priceSpecification">
-
-									<span class="price product-price-old">
-										
-									</span>
-									<meta itemprop="price" content="0">
-									<meta itemprop="priceCurrency" content="VND">
-								</span> <!-- Giá gốca -->
-								
-							</div>
-
-
+			<div class="row  align-items-center">
+				<div class="col-lg-5 col-xl-6 col-12">
+					<div class="chinhsach-ft-slider swiper-container p-5">
+						<div class="swiper-wrapper">
 
 							
-							
-							<div class="form-product">
-								
-								<div class="phienban">
-									<div class="row">
-										
-										
-										
-
-										
-										
-										
-										
-
-										
-
-										
-										<div class="col-lg-4 col-md-3 col-4">
-											<a class="thumb-phienban " href="/iphone-14-pro-max-128gb" title="iPhone 14 Pro Max 128GB">
-												<span class="line-clamp line-clamp-1">
-													128GB
-
-												</span>
-												<span class="price-phienban">18.000.000₫</span> 
-											</a>
-										</div>
-																				
-										
-										
-
-										
-										
-										
-										
-
-										
-
-										
-										<div class="col-lg-4 col-md-3 col-4">
-											<a class="thumb-phienban active" href="/iphone-14-pro-max-256gb" title="iPhone 14 Pro Max 256GB">
-												<span class="line-clamp line-clamp-1">
-													256GB
-
-												</span>
-												<span class="price-phienban">19.500.000₫</span> 
-											</a>
-										</div>
-																				
-										
-										
-
-										
-										
-										
-										
-
-										
-
-										
-										<div class="col-lg-4 col-md-3 col-4">
-											<a class="thumb-phienban " href="/iphone-14-pro-max-512gb" title="iPhone 14 Pro Max 512GB">
-												<span class="line-clamp line-clamp-1">
-													512GB
-
-												</span>
-												<span class="price-phienban">20.500.000₫</span> 
-											</a>
-										</div>
-																				
-										
-										
-
-										
-										
-										
-										
-
-										
-
-										
-										<div class="col-lg-4 col-md-3 col-4">
-											<a class="thumb-phienban " href="/iphone-14-pro-max-1tb" title="iPhone 14 Pro Max 1TB">
-												<span class="line-clamp line-clamp-1">
-													1TB
-
-												</span>
-												<span class="price-phienban">21.000.000₫</span> 
-											</a>
-										</div>
-										
-									</div>
-								</div>
-								
-
-
-								
-								<div class="select-swatch">
-									
-									
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>$(window).load(function() { $('.selector-wrapper:eq(0)').hide(); });</script>
-
-
-
-
-
-
-
-
-
-
-<div class="swatch clearfix" data-option-index="0">
-	<div class="header">Màu sắc: <span class="value-roperties"></span></div>
-	<div class="thump-swatch">
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="Đen" class="swatch-element color den soldout">
-			
-			<div class="tooltip">Đen</div>
-			
-			<input id="swatch-0-den" type="radio" name="option-0" value="Đen" checked />
-			
-			<label for="swatch-0-den">
-				
-				<img  width="47" height="47" src="//bizweb.dktcdn.net/thumb/small/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823" alt="Đen">
-				
-				<span>Đen</span>
-			</label>
-			
-		</div>
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .den').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .den').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .den').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="Trắng" class="swatch-element color trang soldout">
-			
-			<div class="tooltip">Trắng</div>
-			
-			<input id="swatch-0-trang" type="radio" name="option-0" value="Trắng" />
-			
-			<label for="swatch-0-trang">
-				
-				<img  width="47" height="47" src="//bizweb.dktcdn.net/thumb/small/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823" alt="Trắng">
-				
-				<span>Trắng</span>
-			</label>
-			
-		</div>
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .trang').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .trang').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .trang').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="V&#224;ng" class="swatch-element color vang soldout">
-			
-			<div class="tooltip">Vàng</div>
-			
-			<input id="swatch-0-vang" type="radio" name="option-0" value="V&#224;ng" />
-			
-			<label for="swatch-0-vang">
-				
-				<img  width="47" height="47" src="//bizweb.dktcdn.net/thumb/small/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823" alt="Vàng">
-				
-				<span>Vàng</span>
-			</label>
-			
-		</div>
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .vang').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .vang').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .vang').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="T&#237;m" class="swatch-element color tim soldout">
-			
-			<div class="tooltip">Tím</div>
-			
-			<input id="swatch-0-tim" type="radio" name="option-0" value="T&#237;m" />
-			
-			<label for="swatch-0-tim">
-				
-				<img  width="47" height="47" src="//bizweb.dktcdn.net/thumb/small/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823" alt="Tím">
-				
-				<span>Tím</span>
-			</label>
-			
-		</div>
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .tim').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .tim').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="0"] .tim').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-	</div>
-</div>
-
-
-									
-									
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>$(window).load(function() { $('.selector-wrapper:eq(1)').hide(); });</script>
-
-
-
-
-
-
-<div class="swatch clearfix" data-option-index="1">
-	<div class="header">Tình Trạng: <span class="value-roperties"></span></div>
-	<div class="thump-swatch">
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="M&#225;y Xấu 98%" class="swatch-element may-xau-98 soldout">
-			
-			<input id="swatch-1-may-xau-98" type="radio" name="option-1" value="M&#225;y Xấu 98%" checked />
-			
-			<label for="swatch-1-may-xau-98">
-				Máy Xấu 98%
-			</label>
-			
-		</div>
-		
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="M&#225;y LikeNew 99%" class="swatch-element may-likenew-99 available">
-			
-			<input id="swatch-1-may-likenew-99" type="radio" name="option-1" value="M&#225;y LikeNew 99%" />
-			
-			<label for="swatch-1-may-likenew-99">
-				Máy LikeNew 99%
-			</label>
-			
-		</div>
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-likenew-99').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="M&#225;y sạc &#237;t Pin 100%" class="swatch-element may-sac-it-pin-100 available">
-			
-			<input id="swatch-1-may-sac-it-pin-100" type="radio" name="option-1" value="M&#225;y sạc &#237;t Pin 100%" />
-			
-			<label for="swatch-1-may-sac-it-pin-100">
-				Máy sạc ít Pin 100%
-			</label>
-			
-		</div>
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-sac-it-pin-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		 
-		
-		<div data-value="M&#225;y New Trần 100%" class="swatch-element may-new-tran-100 available">
-			
-			<input id="swatch-1-may-new-tran-100" type="radio" name="option-1" value="M&#225;y New Trần 100%" />
-			
-			<label for="swatch-1-may-new-tran-100">
-				Máy New Trần 100%
-			</label>
-			
-		</div>
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-new-tran-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-likenew-99').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-sac-it-pin-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-new-tran-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-likenew-99').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-sac-it-pin-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-new-tran-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-likenew-99').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-sac-it-pin-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-		
-		
-		
-		<script>
-			jQuery('.swatch[data-option-index="1"] .may-new-tran-100').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-		</script>
-		
-		
-	</div>
-</div>
-
-
-									
-								</div>
-								
-								<div class="box-variant clearfix  d-none ">
-									 
-									<select id="product-selectors" class="form-control form-control-lg" name="variantId" style="display:none">
-										
-										<option  value="127968063">Đen / M&#225;y Xấu 98% - 19.500.000₫</option>
-										
-										<option  selected="selected"  value="127968064">Đen / M&#225;y LikeNew 99% - 21.500.000₫</option>
-										
-										<option  value="127968065">Đen / M&#225;y sạc &#237;t Pin 100% - 22.000.000₫</option>
-										
-										<option  value="127968066">Đen / M&#225;y New Trần 100% - 23.000.000₫</option>
-										
-										<option  value="127968067">Trắng / M&#225;y Xấu 98% - 19.500.000₫</option>
-										
-										<option  value="127968068">Trắng / M&#225;y LikeNew 99% - 21.500.000₫</option>
-										
-										<option  value="127968069">Trắng / M&#225;y sạc &#237;t Pin 100% - 22.000.000₫</option>
-										
-										<option  value="127968070">Trắng / M&#225;y New Trần 100% - 23.000.000₫</option>
-										
-										<option  value="127968071">V&#224;ng / M&#225;y Xấu 98% - 19.800.000₫</option>
-										
-										<option  value="127968072">V&#224;ng / M&#225;y LikeNew 99% - 21.800.000₫</option>
-										
-										<option  value="127968073">V&#224;ng / M&#225;y sạc &#237;t Pin 100% - 22.300.000₫</option>
-										
-										<option  value="127968074">V&#224;ng / M&#225;y New Trần 100% - 23.300.000₫</option>
-										
-										<option  value="127968075">T&#237;m / M&#225;y Xấu 98% - 19.800.000₫</option>
-										
-										<option  value="127968076">T&#237;m / M&#225;y LikeNew 99% - 21.800.000₫</option>
-										
-										<option  value="127968077">T&#237;m / M&#225;y sạc &#237;t Pin 100% - 22.300.000₫</option>
-										
-										<option  value="127968078">T&#237;m / M&#225;y New Trần 100% - 23.300.000₫</option>
-										
-									</select>
-									
-								</div>
-								<div class="clearfix form-group ">
-									<div class="flex-quantity">
-										<div class="custom custom-btn-number show">
-											<label class="sl section">Số lượng:</label>
-											<div class="input_number_product form-control">									
-												<button class="btn_num num_1 button button_qty" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro ) &amp;&amp; qtypro &gt; 1 ) result.value--;return false;" type="button">								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-</svg></button>
-												<input type="text" id="qtym" name="quantity" value="1" maxlength="3" class="form-control prd_quantity" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" onchange="if(this.value == 0)this.value=1;">
-												<button class="btn_num num_2 button button_qty" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro )) result.value++;return false;" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-</svg>							</button>
-											</div>
-										</div>
-										<div class="btn-mua button_actions clearfix">
-												
-											<button type="submit" title="Thêm vào giỏ" class="btn btn_base normal_button btn_add_cart add_to_cart btn-cart">
-												<span class="txt-main text_1">Thêm vào giỏ</span>
-												<span class="text_2">Giao hàng tận nơi miễn phí</span>
-											</button>
-											
-										</div>
-										<div class="group-button">
-											
-												
-											<a href="javascript:void(0)" title="Mua ngay" class="btn-buyNow">
-												Mua ngay
-											</a>
-											
-											<a class="button-phone" title="0813600999" href="tel:0813600999"> 
-												<span>Liên hệ <b>0813600999</b></span>
-												Để được tư vấn và hỗ trợ ngay!!!
-											</a>
-										</div>
-
-									</div>
-								</div>
+							<div class="swiper-slide">
+								<img width="54" height="54" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/chinhsach_footer_1.png?1741067950025" alt="Thanh toán<br>khi nhận hàng">
+								<span>Thanh toán<br>khi nhận hàng</span>
 							</div>
 							
+
+							
+							<div class="swiper-slide">
+								<img width="54" height="54" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/chinhsach_footer_2.png?1741067950025" alt="Cam kết uy tín<br>hàng chính hãng">
+								<span>Cam kết uy tín<br>hàng chính hãng</span>
+							</div>
 							
 
-						</form>
-
-
-
-					</div> 
-				</div>
-
-				<div class="col-xl-3 col-lg-12 col-md-12 col-12 content-pro"> 
-					<div class="row">
-						
-						<div class="col-12 col-md-12 col-lg-4 col-xl-12">
-							<div class="product-hethong">
-
-	<h3 class="title-index-pro">
-		<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M408 120c0 54.6-73.1 151.9-105.2 192c-7.7 9.6-22 9.6-29.6 0C241.1 271.9 168 174.6 168 120C168 53.7 221.7 0 288 0s120 53.7 120 120zm8 80.4c3.5-6.9 6.7-13.8 9.6-20.6c.5-1.2 1-2.5 1.5-3.7l116-46.4C558.9 123.4 576 135 576 152V422.8c0 9.8-6 18.6-15.1 22.3L416 503V200.4zM137.6 138.3c2.4 14.1 7.2 28.3 12.8 41.5c2.9 6.8 6.1 13.7 9.6 20.6V451.8L32.9 502.7C17.1 509 0 497.4 0 480.4V209.6c0-9.8 6-18.6 15.1-22.3l122.6-49zM327.8 332c13.9-17.4 35.7-45.7 56.2-77V504.3L192 449.4V255c20.5 31.3 42.3 59.6 56.2 77c20.5 25.6 59.1 25.6 79.6 0zM288 152a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
-		Hệ thống cửa hàng
-	</h3>
-	<div class="option-chos">
-
-		<div class="group-option">
-			<div class="group-city group">
-				<select id="city" class="select" >
-					<option value="ALL" selected>Chọn tỉnh thành</option>
-					
-					
-					<option value="Hà Nội">Hà Nội</option>
-					
-					<option value="Hồ Chí Minh">Hồ Chí Minh</option>
-					
-					<option value=""></option>
-					
-				</select>
-			</div>
-			<div class="group-district group">
-				<select id="district" class="select" disabled>
-					<option value="ALL">Chọn quận/huyện</option>
-				</select>
-			</div>
-		</div>
-		<div class="info-store info-block">
-
-		</div>
-	</div>
-</div>
-<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/tabletop.js?1741067950025" type="text/javascript"></script>
-<script>
-	$(document).ready(function (){
-		var public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRIgXK-Wn8Uzhfto2jPCMlzuYspNv1ylRbGnQYIRAz52eOlpsWVBOiUHtGsG4x5jA0gjQGwdACLSk7D/pub?output=csv";
-		var data;
-		Papa.parse(public_spreadsheet_url, {
-			header: true,
-			download: true,
-			dynamicTyping: true,
-			complete: function(results) {
-				var result = results.data;
-				var dataFix = result;
-				showlocation();		
-				$('.store-list span').click(function(){
-					var urls = $(this).attr('data-url');
-					$('.wrapcontact').addClass('d-none');
-					$('.pagebody').removeClass('d-none');
-					$('.pagebody iframe').attr('src',urls);
-				});
-
-
-
-				/*Theo thành phố*/
-				var citytarget = '';
-
-				$('.group-city select').on('change', function (e) {
-
-
-					var optionSelected = $("option:selected", this);
-					var valueSelected = this.value;
-					citytarget = this.value;
-					if (valueSelected != 'ALL') {
-						$('.store-list').addClass('d-none');
-						$('.store-list').each(function(){
-							if (valueSelected === $(this).attr('data-local') ) {
-								$(this).removeClass('d-none');
-							} 
-						}); 
-						$('#district').removeAttr('disabled');
-						showDistrict();
-						removeDuplicate3();
-					} else {
-						$('#district').attr('disabled', 'disabled');
-						$('.store-list').removeClass('d-none');
-						$('.group-district select').html('<option value="ALL">Chọn quận/huyện</option>');
-
-					}
-
-				});
-
-
-				/*Theo quận huyện*/
-				$('.group-district select').on('change', function (e) {
-					var oSelected = $("option:selected", this);
-					var oSelectedCity = $("option:selected", '.group-city select');
-					var oSelectedProduct = $("option:selected", '.group-product select');
-					var oSelectedStore = $("option:selected", '.group-store select');
-					$(this).attr("selected", "selected");
-					var valSelected = oSelected.data('district');
-					var valueSelected = oSelected.val();
-					var valCity = oSelected.data('local');
-					var valProduct = oSelected.data('product');
-					var valStore = oSelected.data('store');
-					var valSelectedProduct = oSelectedCity.data('product');
-					var valSelectedCity = oSelectedCity.val();
-					var valSelectedStore = oSelectedStore.val();
-
-					if (valueSelected != 'ALL') {
-						$('.store-list').addClass('d-none');
-
-						$('.store-list').each(function(){
-							console.log('test' + valCity)
-							if (valSelected === $(this).attr('data-district') && valCity === $(this).attr('data-local') ) {
-								$(this).removeClass('d-none');
-							} 
-						}); 
-						$('#district').removeAttr('disabled');
-					} else {
-						console.log('check' + valSelectedCity);
-						$('.store-list').each(function(){
-							if (valSelectedCity === $(this).attr('data-local') ) {
-								$(this).removeClass('d-none');
-							}
-						}); 
-					}
-				});
-
-				function showlocation(local){	
-					var cityString = "";
-					dataFix.forEach(function(data){
-						let datasdt = data.sdt.toString();
-						let result = datasdt.replace('#', '');
-						cityString += '<div data-local="'+ data.city +'" data-district="'+ data.district +'" class="store-list">'
-							+				'<span class="name-cuahang">'+data.name+'</span>'
-							+				'<span class="store-name"><b>Địa chỉ:</b> '+data.address+'</span>'
-							+			'</div>	';
-					})	
-					$('.info-store').html(cityString);
-				} 
-
-
-				function showDistrict(local) {
-					var district = "";
-					var citys = citytarget;
-					dataFix.forEach(function(data){
-
-						if (data.city === citys) {
-
-							district += '<option data-local="'+data.city+'"data-district="'+data.district+'" value="'+data.city+'" class="district-list">'
-								+				'<span class="district-name">'+data.district+'</span>'
-								+			'</option>';
-						}
-					})	
-					$('#district').html('<option value="ALL">Chọn quận/huyện</option>' + district);
-				}
-
-				function removeDuplicate() {
-					var map = {};
-					$('#product option').each(function () {
-						if (map[$(this).attr('data-product')]) {
-							$(this).remove()
-						}
-						map[$(this).attr('data-product')] = true;
-					})
-				}
-				function removeDuplicate2() {
-					var map = {};
-					$('#city option').each(function () {
-						if (map[$(this).attr('data-local')]) {
-							$(this).remove()
-						}
-						map[$(this).attr('data-local')] = true;
-					})
-				}
-
-				function removeDuplicate3() {
-					var map = {};
-					$('#district option').each(function () {
-						if (map[$(this).attr('data-district')]) {
-							$(this).remove()
-						}
-						map[$(this).attr('data-district')] = true;
-					})
-				}
-
-				function awe_convertVietnamese(str) { 
-					str= str.toUpperCase();
-					str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
-					str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
-					str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
-					str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
-					str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
-					str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
-					str= str.replace(/đ/g,"d"); 
-					str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g,"-");
-					str= str.replace(/-+-/g,"-");
-					str= str.replace(/^\-+|\-+$/g,""); 
-					return str; 
-				}
-			}
-		});
-	});
-</script>
-						</div>
-						
-						
-						<div class="col-12 col-md-6 col-lg-4 col-xl-12">
+							
+							<div class="swiper-slide">
+								<img width="54" height="54" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/chinhsach_footer_3.png?1741067950025" alt="Giao hàng<br>miễn phí 2h">
+								<span>Giao hàng<br>miễn phí 2h</span>
+							</div>
 							
 
-							<div class="khuyen-mai">
-								<h3 class="title">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
-										<path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
-										<path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
-									</svg> Cam kết bán hàng
-								</h3>
-								<div class="content">
-									<ul>
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/camket_1.png?1741067950025" alt="Bảo hành 12 tháng lỗi 1 đổi 1">
-											Bảo hành 12 tháng lỗi 1 đổi 1
-										</li>
-
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/camket_2.png?1741067950025" alt="Cam kết không Zin tặng máy">
-											Cam kết không Zin tặng máy
-										</li>
-
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/camket_3.png?1741067950025" alt="Lên đời thu 100% giá web">
-											Lên đời thu 100% giá web
-										</li>
-
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/camket_4.png?1741067950025" alt="Bảo hành rơi vỡ vào nước sửa chữa miễn phí không giới hạn">
-											Bảo hành rơi vỡ vào nước sửa chữa miễn phí không giới hạn
-										</li>
-
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/camket_5.png?1741067950025" alt="Reset bảo hành chỉ 500K">
-											Reset bảo hành chỉ 500K
-										</li>
-
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/camket_6.png?1741067950025" alt="Tặng kèm cáp sạc nhanh zin + Cường lực full màn + ốp silicon chống sốc">
-											Tặng kèm cáp sạc nhanh zin + Cường lực full màn + ốp silicon chống sốc
-										</li>
-
-										
-
-									</ul>
-								</div>
+							
+							<div class="swiper-slide">
+								<img width="54" height="54" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/chinhsach_footer_4.png?1741067950025" alt="Bảo Hành <br>lỗi 1 đổi 1">
+								<span>Bảo Hành <br>lỗi 1 đổi 1</span>
 							</div>
 							
 						</div>
-						
-						
-						<div class="col-12 col-md-6 col-lg-4 col-xl-12">
-
-							<div class="khuyen-mai">
-								<h3 class="title">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightning-fill" viewBox="0 0 16 16">
-										<path d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641l2.5-8.5z"/>
-									</svg>
-									Tình trạng máy
-								</h3>
-								<div class="content">
-									<ul>
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/km_product1.png?1741067950025" alt="Máy 98% là các máy cấn móp, xước sâu nhiều">Máy 98% là các máy cấn móp, xước sâu nhiều</li>
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/km_product2.png?1741067950025" alt="Máy 99% là các máy gần như mới, có vài vết xước nhẹ nhỏ">Máy 99% là các máy gần như mới, có vài vết xước nhẹ nhỏ</li>
-										
-
-										
-										<li><img width="20" height="20" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/km_product3.png?1741067950025" alt="Máy New 100% là các máy mới chưa Active ( không box )">Máy New 100% là các máy mới chưa Active ( không box )</li>
-										
-									</ul>
-								</div>
-							</div>
-
-						</div>
-						
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-
-</section>
-<div class="mid-product">
-	<div class="container">
-		<div class="row ">
-			<div class="col-lg-7 ">
-				<div class="block-background" style="    margin-bottom: 20px;">
-					
-<div class="product-tab e-tabs not-dqtab" id="tab-product">
-	<ul class="tabs tabs-title clearfix">	
-		
-		<li class="tab-link active" data-tab="#tab-1">
-			<h3>Mô tả sản phẩm</h3>
-		</li>																	
-		
-		
-		<li class="tab-link" data-tab="#tab-2">
-			<h3>Hướng dẫn mua hàng</h3>
-		</li>																	
-		
-		
-	</ul>																									
-	<div class="tab-float">
-		
-		<div id="tab-1" class="tab-content active content_extab">
-			<div class="rte product_getcontent">
-				
-				<div class="ba-text-fpt">
-					<p><b>iPhone 14 Pro Max&nbsp;là dòng sản phẩm cao cấp nhất nằm trong thế hệ iPhone mới vừa được ra mắt cùng với nhiều nâng cấp về ngoại hình và tính năng, hứa hẹn sẽ là dòng sản phẩm đột phá trong vài năm trở lại đây của Apple.</b></p>
-<h1>&nbsp;</h1>
-<p><img src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/11.jpg" /></p>
-<p>&nbsp;</p>
-<p><i>iPhone 14 Pro Max</i></p>
-<h2><b>Phá vỡ thiết kế notch cổ điển</b></h2>
-<p>Chiếc iPhone 14 Pro Max&nbsp;sở hữu màn hình Super Retina XDR mới với ProMotion có kích thước 6.7 inch. Tần số quét màn hình sẽ giảm xuống 1 Hz để tiết kiệm pin, trong khi hình nền được làm mờ. Màn hình tiên tiến cũng mang lại mức độ sáng HDR cao nhất tương tự như Pro Display XDR và ​​độ sáng đỉnh ngoài trời cao nhất trong điện thoại thông minh: lên đến 2000 nits, sáng gấp đôi so với người tiền nhiệm.</p>
-<p>Màn hình trước làm từ chất liệu Ceramic Shield - cứng hơn bất kỳ loại kính điện thoại thông minh nào - và được bảo vệ khỏi các sự cố tràn và tai nạn thông thường với khả năng chống nước và bụi.</p>
-<p>Màn hình Dynamic Island mới trên dòng iPhone 14 Pro được coi là ý tưởng thiết kế sáng tạo, đem đến trải nghiệm độc đáo. Apple đã thay thế phần notch trên dòng sản phẩm ‌iPhone 14 Pro‌ bằng lỗ khuyết viên thuốc và đục lỗ. Một chi tiết mới quan trọng của việc thay thế notch xuất hiện trong tuần này là khi thiết bị được sử dụng, các lỗ hình viên thuốc và lỗ đục lỗ sẽ hợp nhất bằng kỹ thuật số thành hình chữ i dài hơn. Phần cắt này được Apple dùng để hiển thị thông tin như các thông báo về quyền riêng tư của iOS và cụm cảm biến cho FaceID</p>
-<p>Ngoài ra, iPhone 14 Pro Max còn có tính năng Always On Display hay màn hình luôn bật, đây là một trong những tính năng khá thú vị trên các dòng điện thoại hiện nay. Tính năng này không chỉ giúp bạn nhận được thông báo từ các ứng dụng như đồng hồ, lịch, tin nhắn, cuộc gọi nhỡ, ứng dụng,... kể cả khi màn hình điện thoại đã tắt mà còn giúp điện thoại tiết kiệm pin đáng kể.</p>
-<h2><b>Nâng cấp đáng kể về camera</b></h2>
-<p>&nbsp;</p>
-<p>Một trong những nâng cấp mà người dùng trông đợi nhất từ dòng iPhone 14 đó chính là camera. Sau nhiều năm camera dặm chân ở con số 12MP, độ phân giải camera chính của iPhone 14 Pro Max&nbsp;đã được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm. Sự nâng cấp này cho phép camera thu được nhiều ánh sáng hơn khi chụp ảnh trong điều kiện ánh sáng yếu.</p>
-<h2>&nbsp;</h2>
-<p><img src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/22.jpg" /></p>
-<p>&nbsp;</p>
-<p><i>iPhone 14 Pro Max&nbsp;có nâng cấp đáng kể về camera</i></p>
-<p>&nbsp;</p>
-<p>Ngoài ra, điện thoại còn hỗ trợ quay video 8K (ở tốc độ lên đến 60 khung hình/giây), không chỉ đem lại hình ảnh sắc nét hơn (như tăng chất lượng trên video YouTube) mà còn cho phép các nhà làm phim cắt, ổn định và điều chỉnh lại cảnh quay sau khi nó được quay.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh chính được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm, đi kèm pixel-binning (kết hợp pixel với nhau) cho phép camera thu được nhiều ánh sáng hơn và giảm nhiễu</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh 12MP Ultra Wide mới với điểm ảnh 1,4 µm pixel, mang lại hình ảnh sắc nét hơn với nhiều chi tiết hơn, cải thiện khả năng chụp ảnh macro vốn đã mạnh mẽ.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh tele cải tiến có khả năng zoom quang học 3x.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Một camera TrueDepth phía trước mới với khẩu độ ƒ / 1.9 cho phép chụp ảnh và quay video trong điều kiện ánh sáng yếu tốt hơn. Sử dụng lấy nét tự động lần đầu tiên, nó có thể lấy nét nhanh hơn nữa trong điều kiện ánh sáng yếu và chụp ảnh nhóm từ xa hơn.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đèn flash True Tone thích ứng mới đã được thiết kế lại hoàn toàn với một dãy chín đèn LED thay đổi kiểu dựa trên độ dài tiêu cự đã chọn.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hỗ trợ chụp ảnh tiên tiến như Chế độ ban đêm, Smart HDR 4, Chế độ chân dung với Ánh sáng chân dung, Chế độ ban đêm Ảnh chân dung, Kiểu chụp ảnh để cá nhân hóa giao diện của mọi bức ảnh và Apple ProRAW.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Action mới cho video trông cực kỳ mượt mà có thể giảm độ rung, cho ra những khung hình mượt mà sống động</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Cinematic, hiện có sẵn ở 4K ở tốc độ 30 khung hình / giây và 4K ở tốc độ 24 khung hình / giây.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tính năng định dạng video chuyên nghiệp, bao gồm ProRes3 và Dolby Vision HDR đầu cuối.</p>
-<h2><b>Bộ vi xử lý A16 cực xịn</b></h2>
-<p>iPhone 14 Pro Max&nbsp;sử dụng bộ vi xử lý Apple A16 Bionic được xử lý trên tiến trình 4nm. Với bộ xử lý neural 16 nhân trên chip này, bên cạnh bộ xử lý màn hình hoàn toàn mới để hỗ trợ đẩy tần số quét xuống 1Hz, xử lý tính năng always-on và giúp Dynamic Island hoạt động mượt mà.Thiết bị có RAM 6GB sử dụng công nghệ LPDDR5 cải tiến về tốc độ truyền và điện năng tiêu thụ.&nbsp;</p>
-<p><img src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/33.jpg" /></p>
-<p>&nbsp;</p>
-<p><i>iPhone 14 Pro Max</i></p>
-<p><i>&nbsp;</i></p>
-<h2><b>Tính năng điện thoại vệ tinh</b></h2>
-<p>Điểm độc đáo trên thế hệ iPhone 14 chính là điện thoại vệ tinh hỗ trợ người dùng trong việc liên lạc bằng cách kết nối với các trạm vệ tinh xoay quanh quỹ đạo mà không cần sóng của nhà mạng.</p>
-<p>iPhone 14 Pro Max&nbsp;có dung lượng 4.323 mAh – thấp hơn một chút so với mức 4.352 mAh của 13 Pro Max. Ngoài ra, thiết bị được trang bị sạc nhanh với công suất 30W, cao hơn đáng kể so với mức sạc 20W cũ.</p>
-<p>iPhone 14 Pro Max&nbsp;hiện là chiếc flagship có trọng lượng nặng nhất trên thị trường với khối lượng 255 gram, cao hơn 15 gram so với thế hệ trước. Người dùng có tùy chọn các phiên bản dung lượng gồm 128 GB, 256 GB, 512 GB và 1TB. Thiết bị sử dụng phần khung titan thay vì thép không gỉ, mang đến một chiếc iPhone mạnh mẽ hơn, nhẹ hơn và chống trầy tốt hơn, dù làm tăng khối lượng.</p>
-<p>&nbsp;</p>
-<p>iPhone 14 Pro Max&nbsp;sẽ có các lựa chọn màu sắc: xám than chì (Graphite), bạc (Silver), vàng (Gold), tím (Purple), nhưng không có phiên bản màu xanh Sierra Blue như năm ngoái.</p>
-				</div>
-				<div class="show-more d-none">
-					<div class="btn btn-default btn--view-more see-more">
-						<a href="javascript:void(0)" class="more-text see-more">Xem thêm</a>
-						<a href="javascript:void(0)" class="less-text see-more">Thu gọn </a>
-					</div>
-				</div>
-				
-
-			</div>
-		</div>
-		
-		
-		<div id="tab-2" class="tab-content content_extab">
-			<div class="rte">
-				
-				<p><strong>Bước 1:</strong> Truy cập website và lựa chọn sản phẩm cần mua</p>
-<p><strong>Bước 2:</strong> Click và sản phẩm muốn mua, màn hình hiển thị ra pop up với các lựa chọn sau</p>
-<p>Nếu bạn muốn tiếp tục mua hàng: Bấm vào phần tiếp tục mua hàng để lựa chọn thêm sản phẩm vào giỏ hàng</p>
-<p>Nếu bạn muốn xem giỏ hàng để cập nhật sản phẩm: Bấm vào xem giỏ hàng</p>
-<p>Nếu bạn muốn đặt hàng và thanh toán cho sản phẩm này vui lòng bấm vào: Đặt hàng và thanh toán</p>
-<p><strong>Bước 3:</strong> Lựa chọn thông tin tài khoản thanh toán</p>
-<p>Nếu bạn đã có tài khoản vui lòng nhập thông tin tên đăng nhập là email và mật khẩu vào mục đã có tài khoản trên hệ thống</p>
-<p>Nếu bạn chưa có tài khoản và muốn đăng ký tài khoản vui lòng điền các thông tin cá nhân để tiếp tục đăng ký tài khoản. Khi có tài khoản bạn sẽ dễ dàng theo dõi được đơn hàng của mình</p>
-<p>Nếu bạn muốn mua hàng mà không cần tài khoản vui lòng nhấp chuột vào mục đặt hàng không cần tài khoản</p>
-<p><strong>Bước 4:</strong> Điền các thông tin của bạn để nhận đơn hàng, lựa chọn hình thức thanh toán và vận chuyển cho đơn hàng của mình</p>
-<p><strong>Bước 5:</strong> Xem lại thông tin đặt hàng, điền chú thích và gửi đơn hàng</p>
-<p>Sau khi nhận được đơn hàng bạn gửi chúng tôi sẽ liên hệ bằng cách gọi điện lại để xác nhận lại đơn hàng và địa chỉ của bạn.</p>
-<p>Trân trọng cảm ơn.</p>	
-				
-			</div>
-		</div>	
-		
-		
-	</div>	
-</div>
-
-				</div>
-			</div>
-			<div class="col-lg-5">
-				<div class="row row-fix">
-					
-					
-					
-					
-					<div class="col-12 col-md-12 col-lg-12 col-fix">
-						<div class="product-like block-background">
-							<h3 class="title">
-
-								<a class="title-name" href="iphone-13-13pro-13pro-max" title="Có thể bạn thích">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-										<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-									</svg>
-									Có thể bạn thích
-								</a>
-
-							</h3>
-
-							<div class="product1-swiper swiper-container p-5">
-								<div class="swiper-wrapper">
-									<div class="swiper-slide">
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38020522" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-13-pro-max-128gb" title="iPhone 13 Pro Max 128GB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/ruu6-compressed-f8055a33-8558-4050-8507-010c93da58fc-ce6a1016-c340-48e8-a98f-981ebcbcfab7.jpg?v=1730353846397" alt="iPhone 13 Pro Max 128GB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127971838" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-13-pro-max-128gb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-13-pro-max-128gb" title="iPhone 13 Pro Max 128GB">iPhone 13 Pro Max 128GB</a></h3>
-		<div class="price-box">
-			15.000.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-									</div>
-									<div class="swiper-slide">
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38020526" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-13-pro-max-256gb" title="iPhone 13 Pro Max 256GB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/ruu6-compressed-f8055a33-8558-4050-8507-010c93da58fc-636bf21e-1e50-41d9-84ac-16c85cf727c1.jpg?v=1730353916017" alt="iPhone 13 Pro Max 256GB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127971943" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-13-pro-max-256gb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-13-pro-max-256gb" title="iPhone 13 Pro Max 256GB">iPhone 13 Pro Max 256GB</a></h3>
-		<div class="price-box">
-			16.000.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-									</div>
-									<div class="swiper-slide">
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38020529" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-13-pro-max-512gb" title="iPhone 13 Pro Max 512GB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/ruu6-compressed-f8055a33-8558-4050-8507-010c93da58fc-76a3a7d3-3981-4714-bd80-692f3e9f038b.jpg?v=1730354006193" alt="iPhone 13 Pro Max 512GB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127972049" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-13-pro-max-512gb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-13-pro-max-512gb" title="iPhone 13 Pro Max 512GB">iPhone 13 Pro Max 512GB</a></h3>
-		<div class="price-box">
-			16.800.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-									</div>
-									<div class="swiper-slide">
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38020533" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-13-pro-max-1thone-13-pro-max-1tb" title="iPhone 13 Pro Max 1TB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/ruu6-compressed-f8055a33-8558-4050-8507-010c93da58fc-66023d22-ea51-400d-ba94-e295dc4134ec.jpg?v=1730354128813" alt="iPhone 13 Pro Max 1TB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127972157" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-13-pro-max-1thone-13-pro-max-1tb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-13-pro-max-1thone-13-pro-max-1tb" title="iPhone 13 Pro Max 1TB">iPhone 13 Pro Max 1TB</a></h3>
-		<div class="price-box">
-			17.300.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-									</div>
-									<div class="swiper-slide">
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38020576" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-13-pro-128gb" title="iPhone 13 Pro 128GB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/ruu6-compressed-4fac14c8-68c2-4c05-8cce-745a3cd6084d-711e9c30-b09e-49f4-81da-db2a7e91590f.jpg?v=1730354869223" alt="iPhone 13 Pro 128GB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127972310" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-13-pro-128gb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-13-pro-128gb" title="iPhone 13 Pro 128GB">iPhone 13 Pro 128GB</a></h3>
-		<div class="price-box">
-			12.600.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-									</div>
-								</div>
-								<div class="swiper-button-next">
-
-								</div>
-								<div class="swiper-button-prev">
-
-								</div>
-
+				<div class="col-lg-7 col-xl-6 col-12">
+					<ul class="hotline">
+
+						<li>
+							<div class="title">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14"/>
+								</svg>
+								KHIẾU NẠI, GÓP Ý
 							</div>
-							<div class="text-center no-padding">
-								<a class="see-more" title="Xem toàn bộ sản phẩm" href="iphone-13-13pro-13pro-max">Xem toàn bộ sản phẩm <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+							<a href="tel:0813600999" title="0813600999">0813600999</a>
+						</li>
+						<li>
+							<div class="title">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+								</svg>
+								TƯ VẤN
 							</div>
-						</div>
-					</div>
-					
+							<a href="tel:0813600999" title="0813600999">0813600999</a>
+						</li>
+						<li>
+							<div class="title">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+									<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+								</svg>
+								TÌM CHI NHÁNH
+							</div>
+							<a href="/he-thong-cua-hang-hoang-kien" title="Hệ thống Hoàng Kiên">Hệ thống Hoàng Kiên</a>
+						</li>
 
+
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
-
-	
-
-<div class="productRelate product-lq">
-	<div class="container ">
-		<div class="block-product block-background">
-			<h3 class="title-index">
-				<a class="title-name" href="/iphone-14-pro-max" title="Sản phẩm liên quan">Sản phẩm liên quan
-				</a>
-
-
-			</h3>
-			<div class="product-relate-swiper swiper-container p-5">
-				<div class="swiper-wrapper">
-					
-					
-					<div class="swiper-slide swiper-slide-pro">
-						
-							
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38019244" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-14-pro-max-128gb" title="iPhone 14 Pro Max 128GB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-5b48a3dd-1748-4c4c-9eed-7fdc8cb681a7.png?v=1730347929420" alt="iPhone 14 Pro Max 128GB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127967665" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-14-pro-max-128gb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-14-pro-max-128gb" title="iPhone 14 Pro Max 128GB">iPhone 14 Pro Max 128GB</a></h3>
-		<div class="price-box">
-			18.000.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-					</div>
-					
-					
-					
-					
-					
-					<div class="swiper-slide swiper-slide-pro">
-						
-							
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38019361" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-14-pro-max-512gb" title="iPhone 14 Pro Max 512GB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-63c94571-7989-4cc5-899d-1e9c8e902fad.png?v=1730348219257" alt="iPhone 14 Pro Max 512GB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127968298" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-14-pro-max-512gb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-14-pro-max-512gb" title="iPhone 14 Pro Max 512GB">iPhone 14 Pro Max 512GB</a></h3>
-		<div class="price-box">
-			20.500.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-					</div>
-					
-					
-					
-					<div class="swiper-slide swiper-slide-pro">
-						
-							
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-38019374" enctype="multipart/form-data">
-	<div class="product-thumbnail">
-		<a class="image_thumb scale_hover" href="/iphone-14-pro-max-1tb" title="iPhone 14 Pro Max 1TB">
-			<img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/thumb/large/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-3f664214-2b1c-472f-98ad-aa7a0b4b13a1.png?v=1730348304800" alt="iPhone 14 Pro Max 1TB">
-			
-
-		</a>
-		<div class="tag-km">
-			
-
-			
-
-			
-		</div>
-		
-
-		<input class="hidden" type="hidden" name="variantId" value="127968400" />
-		<div class="action">
-			<button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/iphone-14-pro-max-1tb'" >
-				<svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-				
-			</button> 
-		</div>
-		
-	</div>
-	<div class="product-info">
-		
-		<h3 class="product-name"><a class="line-clamp line-clamp-2" href="/iphone-14-pro-max-1tb" title="iPhone 14 Pro Max 1TB">iPhone 14 Pro Max 1TB</a></h3>
-		<div class="price-box">
-			21.000.000₫
-			
-		</div>
-
-		
-		<div class="wishlish-compare">
-		
-		
-	</div>
-	</div>
-	
-</form>
-					</div>
-					
-					
-				</div>
-				<div class="swiper-button-next">
-
-				</div>
-				<div class="swiper-button-prev">
-
-				</div>
-			</div>
-			<div class="text-center no-padding">
-				<a class="see-more" title="Xem toàn bộ sản phẩm" href="/iphone-14-pro-max">Xem toàn bộ sản phẩm <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-
-<div class="thong-so-popup">
-	<div class="thong-so">
-		<h3 class="title">
-
-			<span>
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-					<path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-				</svg>
-				Thông số kỹ thuật
-			</span>
-		</h3>
-		<div class="content">
-			
-			<p><b>iPhone 14 Pro Max&nbsp;là dòng sản phẩm cao cấp nhất nằm trong thế hệ iPhone mới vừa được ra mắt cùng với nhiều nâng cấp về ngoại hình và tính năng, hứa hẹn sẽ là dòng sản phẩm đột phá trong vài năm trở lại đây của Apple.</b></p>
-<h1>&nbsp;</h1>
-<p><img src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/11.jpg" /></p>
-<p>&nbsp;</p>
-<p><i>iPhone 14 Pro Max</i></p>
-<h2><b>Phá vỡ thiết kế notch cổ điển</b></h2>
-<p>Chiếc iPhone 14 Pro Max&nbsp;sở hữu màn hình Super Retina XDR mới với ProMotion có kích thước 6.7 inch. Tần số quét màn hình sẽ giảm xuống 1 Hz để tiết kiệm pin, trong khi hình nền được làm mờ. Màn hình tiên tiến cũng mang lại mức độ sáng HDR cao nhất tương tự như Pro Display XDR và ​​độ sáng đỉnh ngoài trời cao nhất trong điện thoại thông minh: lên đến 2000 nits, sáng gấp đôi so với người tiền nhiệm.</p>
-<p>Màn hình trước làm từ chất liệu Ceramic Shield - cứng hơn bất kỳ loại kính điện thoại thông minh nào - và được bảo vệ khỏi các sự cố tràn và tai nạn thông thường với khả năng chống nước và bụi.</p>
-<p>Màn hình Dynamic Island mới trên dòng iPhone 14 Pro được coi là ý tưởng thiết kế sáng tạo, đem đến trải nghiệm độc đáo. Apple đã thay thế phần notch trên dòng sản phẩm ‌iPhone 14 Pro‌ bằng lỗ khuyết viên thuốc và đục lỗ. Một chi tiết mới quan trọng của việc thay thế notch xuất hiện trong tuần này là khi thiết bị được sử dụng, các lỗ hình viên thuốc và lỗ đục lỗ sẽ hợp nhất bằng kỹ thuật số thành hình chữ i dài hơn. Phần cắt này được Apple dùng để hiển thị thông tin như các thông báo về quyền riêng tư của iOS và cụm cảm biến cho FaceID</p>
-<p>Ngoài ra, iPhone 14 Pro Max còn có tính năng Always On Display hay màn hình luôn bật, đây là một trong những tính năng khá thú vị trên các dòng điện thoại hiện nay. Tính năng này không chỉ giúp bạn nhận được thông báo từ các ứng dụng như đồng hồ, lịch, tin nhắn, cuộc gọi nhỡ, ứng dụng,... kể cả khi màn hình điện thoại đã tắt mà còn giúp điện thoại tiết kiệm pin đáng kể.</p>
-<h2><b>Nâng cấp đáng kể về camera</b></h2>
-<p>&nbsp;</p>
-<p>Một trong những nâng cấp mà người dùng trông đợi nhất từ dòng iPhone 14 đó chính là camera. Sau nhiều năm camera dặm chân ở con số 12MP, độ phân giải camera chính của iPhone 14 Pro Max&nbsp;đã được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm. Sự nâng cấp này cho phép camera thu được nhiều ánh sáng hơn khi chụp ảnh trong điều kiện ánh sáng yếu.</p>
-<h2>&nbsp;</h2>
-<p><img src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/22.jpg" /></p>
-<p>&nbsp;</p>
-<p><i>iPhone 14 Pro Max&nbsp;có nâng cấp đáng kể về camera</i></p>
-<p>&nbsp;</p>
-<p>Ngoài ra, điện thoại còn hỗ trợ quay video 8K (ở tốc độ lên đến 60 khung hình/giây), không chỉ đem lại hình ảnh sắc nét hơn (như tăng chất lượng trên video YouTube) mà còn cho phép các nhà làm phim cắt, ổn định và điều chỉnh lại cảnh quay sau khi nó được quay.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh chính được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm, đi kèm pixel-binning (kết hợp pixel với nhau) cho phép camera thu được nhiều ánh sáng hơn và giảm nhiễu</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh 12MP Ultra Wide mới với điểm ảnh 1,4 µm pixel, mang lại hình ảnh sắc nét hơn với nhiều chi tiết hơn, cải thiện khả năng chụp ảnh macro vốn đã mạnh mẽ.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh tele cải tiến có khả năng zoom quang học 3x.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Một camera TrueDepth phía trước mới với khẩu độ ƒ / 1.9 cho phép chụp ảnh và quay video trong điều kiện ánh sáng yếu tốt hơn. Sử dụng lấy nét tự động lần đầu tiên, nó có thể lấy nét nhanh hơn nữa trong điều kiện ánh sáng yếu và chụp ảnh nhóm từ xa hơn.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đèn flash True Tone thích ứng mới đã được thiết kế lại hoàn toàn với một dãy chín đèn LED thay đổi kiểu dựa trên độ dài tiêu cự đã chọn.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hỗ trợ chụp ảnh tiên tiến như Chế độ ban đêm, Smart HDR 4, Chế độ chân dung với Ánh sáng chân dung, Chế độ ban đêm Ảnh chân dung, Kiểu chụp ảnh để cá nhân hóa giao diện của mọi bức ảnh và Apple ProRAW.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Action mới cho video trông cực kỳ mượt mà có thể giảm độ rung, cho ra những khung hình mượt mà sống động</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Cinematic, hiện có sẵn ở 4K ở tốc độ 30 khung hình / giây và 4K ở tốc độ 24 khung hình / giây.</p>
-<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tính năng định dạng video chuyên nghiệp, bao gồm ProRes3 và Dolby Vision HDR đầu cuối.</p>
-<h2><b>Bộ vi xử lý A16 cực xịn</b></h2>
-<p>iPhone 14 Pro Max&nbsp;sử dụng bộ vi xử lý Apple A16 Bionic được xử lý trên tiến trình 4nm. Với bộ xử lý neural 16 nhân trên chip này, bên cạnh bộ xử lý màn hình hoàn toàn mới để hỗ trợ đẩy tần số quét xuống 1Hz, xử lý tính năng always-on và giúp Dynamic Island hoạt động mượt mà.Thiết bị có RAM 6GB sử dụng công nghệ LPDDR5 cải tiến về tốc độ truyền và điện năng tiêu thụ.&nbsp;</p>
-<p><img src="https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/33.jpg" /></p>
-<p>&nbsp;</p>
-<p><i>iPhone 14 Pro Max</i></p>
-<p><i>&nbsp;</i></p>
-<h2><b>Tính năng điện thoại vệ tinh</b></h2>
-<p>Điểm độc đáo trên thế hệ iPhone 14 chính là điện thoại vệ tinh hỗ trợ người dùng trong việc liên lạc bằng cách kết nối với các trạm vệ tinh xoay quanh quỹ đạo mà không cần sóng của nhà mạng.</p>
-<p>iPhone 14 Pro Max&nbsp;có dung lượng 4.323 mAh – thấp hơn một chút so với mức 4.352 mAh của 13 Pro Max. Ngoài ra, thiết bị được trang bị sạc nhanh với công suất 30W, cao hơn đáng kể so với mức sạc 20W cũ.</p>
-<p>iPhone 14 Pro Max&nbsp;hiện là chiếc flagship có trọng lượng nặng nhất trên thị trường với khối lượng 255 gram, cao hơn 15 gram so với thế hệ trước. Người dùng có tùy chọn các phiên bản dung lượng gồm 128 GB, 256 GB, 512 GB và 1TB. Thiết bị sử dụng phần khung titan thay vì thép không gỉ, mang đến một chiếc iPhone mạnh mẽ hơn, nhẹ hơn và chống trầy tốt hơn, dù làm tăng khối lượng.</p>
-<p>&nbsp;</p>
-<p>iPhone 14 Pro Max&nbsp;sẽ có các lựa chọn màu sắc: xám than chì (Graphite), bạc (Silver), vàng (Gold), tím (Purple), nhưng không có phiên bản màu xanh Sierra Blue như năm ngoái.</p>
-		</div>
-	</div>
-</div>
-
-{{-- <script> 
-$(document).ready(function() {
-		$(document).on('click', '.btn-buyNow', function(){
-			var _variantID = $('#product-selectors').val();
-			var _Qty = parseInt($('#qtym').val());;
-			if(_variantID == null){
-				_variantID = $('#one_variant').val();
-			}
-			jQuery.ajax({
-				type: "POST",
-				url: "/cart/add.js",
-				data: "quantity=" + _Qty + "&VariantId=" + _variantID,
-				dataType: "json",
-				success: function(e) {
-					window.location = '/checkout';
-				},
-				error: function(e, t) {
-					Bizweb.onError(e, t);
-				}
-			});
-		})
-	});
-	function activeTab(obj){
-		$('.product-tab>ul>li').removeClass('active');
-		$(obj).addClass('active');
-		var id = $(obj).attr('data-tab');
-		$('.tab-content').removeClass('active');
-		$(id).addClass('active');
-	}
-	$('.button-thongso').click(function() {
-		$('.thong-so-popup, .backdrop__body-backdrop___1rvky').addClass('active'); 
-
-	}); 
-	$('.product-tab>ul>li').click(function(){
-		activeTab(this);
-		return false;
-	});
-	var swiperflash = new Swiper('.product1-swiper', {
-		slidesPerView: 3,
-		loop: false,
-		grabCursor: true,
-		roundLengths: true,
-		slideToClickedSlide: false,
-		spaceBetween: 20,
+<script rel="dns-prefetch">
+	var swiperdanhgia = new Swiper('.chinhsach-ft-slider', {
 		autoplay: false,
-		slidesPerColumn: 2,
-		slidesPerColumnFill: "row",
+		slidesPerView: 2,
+		spaceBetween: 30,
 		navigation: {
-			nextEl: '.product1-swiper .swiper-button-next',
-			prevEl: '.product1-swiper .swiper-button-prev',
+			nextEl: '.chinhsach-ft-slider .swiper-button-next',
+			prevEl: '.chinhsach-ft-slider .swiper-button-prev',
 		},
 		breakpoints: {
 			300: {
 				slidesPerView: 2,
-				spaceBetween: 15,
-			},
-			450: {
-				slidesPerView: 2,
-			},
-			640: {
-				slidesPerView: 2,
-				spaceBetween: 20
-			},
-			767: {
-				slidesPerView: 3,
-				spaceBetween: 20
-			},
-			991: {
-				slidesPerView: 2,
-				spaceBetween: 20
-			},
-			1200: {
-				slidesPerView: 2,
-				spaceBetween: 20
-			}
-		}
-	});
-
-	var variantsize = false;
-	var ww = $(window).width();
-
-	var selectCallback = function(variant, selector) {
-		if (variant) {
-			var form = jQuery('#' + selector.domIdPrefix).closest('form');
-			for (var i=0,length=variant.options.length; i<length; i++) {
-				var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
-				if (radioButton.size()) {
-					radioButton.get(0).checked = true;
-				}
-			}
-		}
-		var addToCart = jQuery('.form-product .btn-cart.normal_button'),
-			buyNow = jQuery('.form-product .btn-buyNow'),
-			FastAddToCart = jQuery('.form-product .btn-cart.fast'),
-			form = jQuery('.form-product .form-group'),
-			productPrice = jQuery('.details-pro .special-price .product-price'),
-			qty = jQuery('.inventory_quantity .a-stock'),
-			comparePrice = jQuery('.details-pro .old-price .product-price-old'),
-			comparePriceText = jQuery('.details-pro .old-price'),
-			savePrice = jQuery('.details-pro .save-price .product-price-save'),
-			savePriceText = jQuery('.details-pro .save-price'),
-			qtyBtn = jQuery('.form-product .form-group .custom-btn-number'),
-			BtnSold = jQuery('.form-product .form-group .btn-mua'),
-			product_sku = jQuery('.details-product .sku-product .variant-sku');
-		if (variant && variant.sku != "" && variant.sku != null) {
-			product_sku.html(variant.sku);
-		} else {
-			product_sku.html('Đang cập nhật');
-		}
-		FastAddToCart.addClass('d-none');
-		if (variant && variant.available) {
-			if(variant.inventory_management == "bizweb"){
-				if (variant.inventory_quantity != 0) {
-					qty.html('<span class="a-stock">Liên hệ</span>');
-				} else if (variant.inventory_quantity == ''){
-					if (variant.inventory_policy == "continue"){
-						qty.html('<span class="a-stock">Liên hệ</span>');
-					} else {
-						qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
-					}
-				}
-			}else{
-				qty.html('<span class="a-stock">Liên hệ</span>');
-			}
-			FastAddToCart.removeClass('d-none');
-			addToCart.html('<span class="txt-main text_1">Thêm vào giỏ</span><span class="text_2">Giao hàng tận nơi miễn phí</span>').removeAttr('disabled').removeClass('btn-soldout');	
-			buyNow.removeClass('d-none');
-			BtnSold.removeClass('btnsold');
-			qtyBtn.removeClass('d-none');
-			if(variant.price == 0){
-				console.log(1);
-				productPrice.html('Liên hệ');
-				comparePrice.hide();
-				savePrice.hide();
-				comparePriceText.hide();
-				savePriceText.hide();
-				form.addClass('d-none');
-			}else{
-				form.removeClass('d-none');
-				productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫"));
-													 if ( variant.compare_at_price > variant.price ) {
-								  comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
-								  savePrice.html(Bizweb.formatMoney(variant.compare_at_price - variant.price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
-								  comparePriceText.show();
-				savePriceText.show();
-			} else {
-				comparePrice.hide();   
-				savePrice.hide();
-				comparePriceText.hide();
-				savePriceText.hide();
-			}       										
-		}
-	} else {	
-		qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
-		FastAddToCart.addClass('d-none');
-		addToCart.html('<span class="txt-main-hh">Hết hàng</span>').attr('disabled', 'disabled').addClass('btn-soldout');
-		buyNow.addClass('d-none');
-		BtnSold.addClass('btnsold');
-		qtyBtn.addClass('d-none');
-		if(variant){
-			if(variant.price != 0){
-				form.removeClass('d-none');
-				productPrice.html(Bizweb.formatMoney(variant.price, "{{amount_no_decimals_with_comma_separator}}₫"));
-													 if ( variant.compare_at_price > variant.price ) {
-								  FastAddToCart.addClass('d-none');
-				addToCart.html('<span class="txt-main-hh">Hết hàng</span>').attr('disabled', 'disabled').addClass('btn-soldout');
-				buyNow.addClass('d-none');
-				comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
-													 savePrice.html(Bizweb.formatMoney(variant.compare_at_price - variant.price, "{{amount_no_decimals_with_comma_separator}}₫")).show();
-													 comparePriceText.show();
-								  savePriceText.show();
-			} else {
-				comparePrice.hide();  
-				savePrice.hide();
-				comparePriceText.hide();
-				savePriceText.hide();
-				FastAddToCart.addClass('d-none');
-				addToCart.html('<span class="txt-main-hh">Hết hàng</span>').attr('disabled', 'disabled').addClass('btn-soldout');
-			}     
-		}else{
-			productPrice.html('Liên hệ');
-			comparePrice.hide();
-			savePrice.hide();
-			comparePriceText.hide();
-			savePriceText.hide();
-			form.addClass('d-none');
-			buyNow.addClass('d-none');
-		}
-	}else{
-		productPrice.html('Liên hệ');
-		comparePrice.hide();
-		savePrice.hide();
-		comparePriceText.hide();
-		savePriceText.hide();
-		form.addClass('d-none');
-	}
-	}
-	/*begin variant image*/
-	if (variant && variant.image) {  
-		var originalImage = jQuery(".gallery-thumbs img");
-		var stickoriginalImage = jQuery(".nd-product-news img");
-		var newImage = variant.image;
-		var element = originalImage[0];
-		Bizweb.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
-			$('.gallery-thumbs .swiper-slide').each(function(){
-				var $this = $(this);
-				var imgThis = $this.find('img').attr('data-image');
-				if(newImageSizedSrc.split("?")[0] == imgThis.split("?")[0]){
-					var pst = $this.attr('data-hash');
-					galleryTop.slideTo(pst, 1000,false);
-				}
-				jQuery(stickoriginalImage).attr('src', newImageSizedSrc);
-			});
-		});
-	}
-	/*end of variant image*/
-	};
-	jQuery(function($) {
-		
-		new Bizweb.OptionSelectors('product-selectors', {
-			product: {"id":38019332,"name":"iPhone 14 Pro Max 256GB","alias":"iphone-14-pro-max-256gb","vendor":"Apple","type":"Điện Thoại","content":"<p><b>iPhone 14 Pro Max&nbsp;là dòng sản phẩm cao cấp nhất nằm trong thế hệ iPhone mới vừa được ra mắt cùng với nhiều nâng cấp về ngoại hình và tính năng, hứa hẹn sẽ là dòng sản phẩm đột phá trong vài năm trở lại đây của Apple.</b></p>\n<h1>&nbsp;</h1>\n<p><img src=\"https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/11.jpg\" /></p>\n<p>&nbsp;</p>\n<p><i>iPhone 14 Pro Max</i></p>\n<h2><b>Phá vỡ thiết kế notch cổ điển</b></h2>\n<p>Chiếc iPhone 14 Pro Max&nbsp;sở hữu màn hình Super Retina XDR mới với ProMotion có kích thước 6.7 inch. Tần số quét màn hình sẽ giảm xuống 1 Hz để tiết kiệm pin, trong khi hình nền được làm mờ. Màn hình tiên tiến cũng mang lại mức độ sáng HDR cao nhất tương tự như Pro Display XDR và ​​độ sáng đỉnh ngoài trời cao nhất trong điện thoại thông minh: lên đến 2000 nits, sáng gấp đôi so với người tiền nhiệm.</p>\n<p>Màn hình trước làm từ chất liệu Ceramic Shield - cứng hơn bất kỳ loại kính điện thoại thông minh nào - và được bảo vệ khỏi các sự cố tràn và tai nạn thông thường với khả năng chống nước và bụi.</p>\n<p>Màn hình Dynamic Island mới trên dòng iPhone 14 Pro được coi là ý tưởng thiết kế sáng tạo, đem đến trải nghiệm độc đáo. Apple đã thay thế phần notch trên dòng sản phẩm ‌iPhone 14 Pro‌ bằng lỗ khuyết viên thuốc và đục lỗ. Một chi tiết mới quan trọng của việc thay thế notch xuất hiện trong tuần này là khi thiết bị được sử dụng, các lỗ hình viên thuốc và lỗ đục lỗ sẽ hợp nhất bằng kỹ thuật số thành hình chữ i dài hơn. Phần cắt này được Apple dùng để hiển thị thông tin như các thông báo về quyền riêng tư của iOS và cụm cảm biến cho FaceID</p>\n<p>Ngoài ra, iPhone 14 Pro Max còn có tính năng Always On Display hay màn hình luôn bật, đây là một trong những tính năng khá thú vị trên các dòng điện thoại hiện nay. Tính năng này không chỉ giúp bạn nhận được thông báo từ các ứng dụng như đồng hồ, lịch, tin nhắn, cuộc gọi nhỡ, ứng dụng,... kể cả khi màn hình điện thoại đã tắt mà còn giúp điện thoại tiết kiệm pin đáng kể.</p>\n<h2><b>Nâng cấp đáng kể về camera</b></h2>\n<p>&nbsp;</p>\n<p>Một trong những nâng cấp mà người dùng trông đợi nhất từ dòng iPhone 14 đó chính là camera. Sau nhiều năm camera dặm chân ở con số 12MP, độ phân giải camera chính của iPhone 14 Pro Max&nbsp;đã được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm. Sự nâng cấp này cho phép camera thu được nhiều ánh sáng hơn khi chụp ảnh trong điều kiện ánh sáng yếu.</p>\n<h2>&nbsp;</h2>\n<p><img src=\"https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/22.jpg\" /></p>\n<p>&nbsp;</p>\n<p><i>iPhone 14 Pro Max&nbsp;có nâng cấp đáng kể về camera</i></p>\n<p>&nbsp;</p>\n<p>Ngoài ra, điện thoại còn hỗ trợ quay video 8K (ở tốc độ lên đến 60 khung hình/giây), không chỉ đem lại hình ảnh sắc nét hơn (như tăng chất lượng trên video YouTube) mà còn cho phép các nhà làm phim cắt, ổn định và điều chỉnh lại cảnh quay sau khi nó được quay.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh chính được nâng cấp lên thành 48MP cùng điểm ảnh 1,4µm, đi kèm pixel-binning (kết hợp pixel với nhau) cho phép camera thu được nhiều ánh sáng hơn và giảm nhiễu</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh 12MP Ultra Wide mới với điểm ảnh 1,4 µm pixel, mang lại hình ảnh sắc nét hơn với nhiều chi tiết hơn, cải thiện khả năng chụp ảnh macro vốn đã mạnh mẽ.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Máy ảnh tele cải tiến có khả năng zoom quang học 3x.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Một camera TrueDepth phía trước mới với khẩu độ ƒ / 1.9 cho phép chụp ảnh và quay video trong điều kiện ánh sáng yếu tốt hơn. Sử dụng lấy nét tự động lần đầu tiên, nó có thể lấy nét nhanh hơn nữa trong điều kiện ánh sáng yếu và chụp ảnh nhóm từ xa hơn.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Đèn flash True Tone thích ứng mới đã được thiết kế lại hoàn toàn với một dãy chín đèn LED thay đổi kiểu dựa trên độ dài tiêu cự đã chọn.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hỗ trợ chụp ảnh tiên tiến như Chế độ ban đêm, Smart HDR 4, Chế độ chân dung với Ánh sáng chân dung, Chế độ ban đêm Ảnh chân dung, Kiểu chụp ảnh để cá nhân hóa giao diện của mọi bức ảnh và Apple ProRAW.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Action mới cho video trông cực kỳ mượt mà có thể giảm độ rung, cho ra những khung hình mượt mà sống động</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chế độ Cinematic, hiện có sẵn ở 4K ở tốc độ 30 khung hình / giây và 4K ở tốc độ 24 khung hình / giây.</p>\n<p>●&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tính năng định dạng video chuyên nghiệp, bao gồm ProRes3 và Dolby Vision HDR đầu cuối.</p>\n<h2><b>Bộ vi xử lý A16 cực xịn</b></h2>\n<p>iPhone 14 Pro Max&nbsp;sử dụng bộ vi xử lý Apple A16 Bionic được xử lý trên tiến trình 4nm. Với bộ xử lý neural 16 nhân trên chip này, bên cạnh bộ xử lý màn hình hoàn toàn mới để hỗ trợ đẩy tần số quét xuống 1Hz, xử lý tính năng always-on và giúp Dynamic Island hoạt động mượt mà.Thiết bị có RAM 6GB sử dụng công nghệ LPDDR5 cải tiến về tốc độ truyền và điện năng tiêu thụ.&nbsp;</p>\n<p><img src=\"https://cdn.hoanghamobile.com/i/content/Uploads/2022/09/09/33.jpg\" /></p>\n<p>&nbsp;</p>\n<p><i>iPhone 14 Pro Max</i></p>\n<p><i>&nbsp;</i></p>\n<h2><b>Tính năng điện thoại vệ tinh</b></h2>\n<p>Điểm độc đáo trên thế hệ iPhone 14 chính là điện thoại vệ tinh hỗ trợ người dùng trong việc liên lạc bằng cách kết nối với các trạm vệ tinh xoay quanh quỹ đạo mà không cần sóng của nhà mạng.</p>\n<p>iPhone 14 Pro Max&nbsp;có dung lượng 4.323 mAh – thấp hơn một chút so với mức 4.352 mAh của 13 Pro Max. Ngoài ra, thiết bị được trang bị sạc nhanh với công suất 30W, cao hơn đáng kể so với mức sạc 20W cũ.</p>\n<p>iPhone 14 Pro Max&nbsp;hiện là chiếc flagship có trọng lượng nặng nhất trên thị trường với khối lượng 255 gram, cao hơn 15 gram so với thế hệ trước. Người dùng có tùy chọn các phiên bản dung lượng gồm 128 GB, 256 GB, 512 GB và 1TB. Thiết bị sử dụng phần khung titan thay vì thép không gỉ, mang đến một chiếc iPhone mạnh mẽ hơn, nhẹ hơn và chống trầy tốt hơn, dù làm tăng khối lượng.</p>\n<p>&nbsp;</p>\n<p>iPhone 14 Pro Max&nbsp;sẽ có các lựa chọn màu sắc: xám than chì (Graphite), bạc (Silver), vàng (Gold), tím (Purple), nhưng không có phiên bản màu xanh Sierra Blue như năm ngoái.</p>","summary":null,"template_layout":"product","available":true,"tags":["phienban_iphone-14-pro-max_256GB"],"price":19500000.0000,"price_min":19500000.0000,"price_max":23300000.0000,"price_varies":true,"compare_at_price":0,"compare_at_price_min":0,"compare_at_price_max":0,"compare_at_price_varies":false,"variants":[{"id":127968063,"barcode":null,"sku":null,"title":"Đen / Máy Xấu 98%","options":["Đen","Máy Xấu 98%"],"option1":"Đen","option2":"Máy Xấu 98%","option3":null,"available":false,"taxable":false,"price":19500000.0000,"compare_at_price":null,"inventory_management":"bizweb","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823"}},{"id":127968064,"barcode":null,"sku":null,"title":"Đen / Máy LikeNew 99%","options":["Đen","Máy LikeNew 99%"],"option1":"Đen","option2":"Máy LikeNew 99%","option3":null,"available":true,"taxable":false,"price":21500000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823"}},{"id":127968065,"barcode":null,"sku":null,"title":"Đen / Máy sạc ít Pin 100%","options":["Đen","Máy sạc ít Pin 100%"],"option1":"Đen","option2":"Máy sạc ít Pin 100%","option3":null,"available":true,"taxable":false,"price":22000000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823"}},{"id":127968066,"barcode":null,"sku":null,"title":"Đen / Máy New Trần 100%","options":["Đen","Máy New Trần 100%"],"option1":"Đen","option2":"Máy New Trần 100%","option3":null,"available":true,"taxable":false,"price":23000000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823"}},{"id":127968067,"barcode":null,"sku":null,"title":"Trắng / Máy Xấu 98%","options":["Trắng","Máy Xấu 98%"],"option1":"Trắng","option2":"Máy Xấu 98%","option3":null,"available":false,"taxable":false,"price":19500000.0000,"compare_at_price":null,"inventory_management":"bizweb","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823"}},{"id":127968068,"barcode":null,"sku":null,"title":"Trắng / Máy LikeNew 99%","options":["Trắng","Máy LikeNew 99%"],"option1":"Trắng","option2":"Máy LikeNew 99%","option3":null,"available":true,"taxable":false,"price":21500000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823"}},{"id":127968069,"barcode":null,"sku":null,"title":"Trắng / Máy sạc ít Pin 100%","options":["Trắng","Máy sạc ít Pin 100%"],"option1":"Trắng","option2":"Máy sạc ít Pin 100%","option3":null,"available":true,"taxable":false,"price":22000000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823"}},{"id":127968070,"barcode":null,"sku":null,"title":"Trắng / Máy New Trần 100%","options":["Trắng","Máy New Trần 100%"],"option1":"Trắng","option2":"Máy New Trần 100%","option3":null,"available":true,"taxable":false,"price":23000000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823"}},{"id":127968071,"barcode":null,"sku":null,"title":"Vàng / Máy Xấu 98%","options":["Vàng","Máy Xấu 98%"],"option1":"Vàng","option2":"Máy Xấu 98%","option3":null,"available":false,"taxable":false,"price":19800000.0000,"compare_at_price":null,"inventory_management":"bizweb","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823"}},{"id":127968072,"barcode":null,"sku":null,"title":"Vàng / Máy LikeNew 99%","options":["Vàng","Máy LikeNew 99%"],"option1":"Vàng","option2":"Máy LikeNew 99%","option3":null,"available":true,"taxable":false,"price":21800000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823"}},{"id":127968073,"barcode":null,"sku":null,"title":"Vàng / Máy sạc ít Pin 100%","options":["Vàng","Máy sạc ít Pin 100%"],"option1":"Vàng","option2":"Máy sạc ít Pin 100%","option3":null,"available":true,"taxable":false,"price":22300000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823"}},{"id":127968074,"barcode":null,"sku":null,"title":"Vàng / Máy New Trần 100%","options":["Vàng","Máy New Trần 100%"],"option1":"Vàng","option2":"Máy New Trần 100%","option3":null,"available":true,"taxable":false,"price":23300000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823"}},{"id":127968075,"barcode":null,"sku":null,"title":"Tím / Máy Xấu 98%","options":["Tím","Máy Xấu 98%"],"option1":"Tím","option2":"Máy Xấu 98%","option3":null,"available":false,"taxable":false,"price":19800000.0000,"compare_at_price":null,"inventory_management":"bizweb","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823"}},{"id":127968076,"barcode":null,"sku":null,"title":"Tím / Máy LikeNew 99%","options":["Tím","Máy LikeNew 99%"],"option1":"Tím","option2":"Máy LikeNew 99%","option3":null,"available":true,"taxable":false,"price":21800000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823"}},{"id":127968077,"barcode":null,"sku":null,"title":"Tím / Máy sạc ít Pin 100%","options":["Tím","Máy sạc ít Pin 100%"],"option1":"Tím","option2":"Máy sạc ít Pin 100%","option3":null,"available":true,"taxable":false,"price":22300000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823"}},{"id":127968078,"barcode":null,"sku":null,"title":"Tím / Máy New Trần 100%","options":["Tím","Máy New Trần 100%"],"option1":"Tím","option2":"Máy New Trần 100%","option3":null,"available":true,"taxable":false,"price":23300000.0000,"compare_at_price":null,"inventory_management":"","inventory_policy":"deny","inventory_quantity":0,"weight_unit":"kg","weight":0,"requires_shipping":true,"image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823"}}],"featured_image":{"src":"https://bizweb.dktcdn.net/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823"},"images":[{"src":"https://bizweb.dktcdn.net/100/112/815/products/rehrh-71e53ef3-19ef-4451-938c-7722ab83a866-026a40ad-f680-4d76-bcf1-9e3f04b6c723.png?v=1730348108823"},{"src":"https://bizweb.dktcdn.net/100/112/815/products/5u6u-0d01f87c-248f-40ac-a7a2-e6e4c71742d0-3c28e68c-5590-4d79-ac1e-d3369a8989de.png?v=1730348108823"},{"src":"https://bizweb.dktcdn.net/100/112/815/products/e5u-60085c4a-f19c-4594-a64e-05f1c1c52195-5a5bf4c3-7155-43b4-a108-516ba874ed12.png?v=1730348108823"},{"src":"https://bizweb.dktcdn.net/100/112/815/products/u65u-9e508466-b936-4ea7-8348-85ca199ad5c4-45f33af0-9163-4b14-8811-94365995829c.png?v=1730348108823"},{"src":"https://bizweb.dktcdn.net/100/112/815/products/5746457-d2a7c838-383b-4fbe-a223-d7dce5f2dff8-769eabd8-d535-4808-82a0-77d9bb9cec6b.png?v=1730348108823"}],"options":["Màu sắc","Tình Trạng"],"created_on":"2024-10-31T11:15:08","modified_on":"2025-03-04T11:13:01","published_on":"2023-02-15T10:29:00"},
-			onVariantSelected: selectCallback, 
-			enableHistoryState: true
-		});      
-		
-		// Add label if only one product option and it isn't 'Title'. Could be 'Size'.
-		
-											 // Hide selectors if we only have 1 variant and its title contains 'Default'.
-											  
-		$('.selector-wrapper').css({
-			'text-align':'left',
-			'margin-bottom':'15px'
-		});
-	});
-
-	jQuery('.swatch :radio').change(function() {
-		var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
-		var optionValue = jQuery(this).val();
-		jQuery(this)
-			.closest('form')
-			.find('.single-option-selector')
-			.eq(optionIndex)
-			.val(optionValue)
-			.trigger('change');
-		$(this).closest('.swatch').find('.header .value-roperties').html(optionValue);
-	});
-
-	setTimeout(function(){
-		$('.swatch .swatch-element').each(function(){
-			$(this).closest('.swatch').find('.header .value-roperties').html($(this).closest('.swatch').find('input:checked').val());
-		});
-	}, 500);
-	setTimeout(function(){
-		var ch = $('.product_getcontent').height(),
-			smore = $('.show-more');
-		console.log(ch);
-		if(ch > 1451) {
-			$('.ba-text-fpt').addClass('has-height');
-			smore.removeClass('d-none');
-		}
-	},200);
-	$('.btn--view-more').on('click', function(e){
-		e.preventDefault();
-		var $this = $(this);
-		$this.parents('.product_getcontent').toggleClass('expanded');
-		$('html, body').animate({ scrollTop: $('.product_getcontent').offset().top - 110 }, 'slow');
-		$(this).toggleClass('active');
-
-	});
-
-
-
-
-	var galleryThumbs = new Swiper('.gallery-thumbs', {
-		spaceBetween: 5,
-		slidesPerView: 20,
-		freeMode: true,
-		lazy: true,
-		watchSlidesVisibility: true,
-		watchSlidesProgress: true,
-		hashNavigation: true,
-		slideToClickedSlide: true,
-		breakpoints: {
-			300: {
-				slidesPerView: 3,
-				spaceBetween: 10,
+				spaceBetween: 10
 			},
 			500: {
-				slidesPerView: 3,
-				spaceBetween: 10,
-			},
-			640: {
-				slidesPerView: 4,
-				spaceBetween: 10,
-			},
-			768: {
-				slidesPerView: 4,
-				spaceBetween: 10,
-			},
-			1024: {
-				slidesPerView: 4,
-				spaceBetween: 10,
-			},
-			1199: {
-				slidesPerView: 4,
-				spaceBetween: 10,
-			},
-		},
-		navigation: {
-			nextEl: '.gallery-thumbs .swiper-button-next',
-			prevEl: '.gallery-thumbs .swiper-button-prev',
-		},
-	});
-	var galleryTop = new Swiper('.gallery-top', {
-		spaceBetween: 0,
-		lazy: true,
-		hashNavigation: true,
-		effect: 'fade',
-		thumbs: {
-			swiper: galleryThumbs
-		}
-	});
-	var swiper = new Swiper('.product-relate-swiper', {
-		slidesPerColumnFill: 'row',
-		direction: 'horizontal',
-		slidesPerView: 4,
-		spaceBetween: 20,
-		slidesPerGroup: 1,
-		slidesPerColumn: 1,
-		navigation: {
-			nextEl: '.product-relate-swiper .swiper-button-next',
-			prevEl: '.product-relate-swiper .swiper-button-prev',
-		},
-		breakpoints: {
-			280: {
 				slidesPerView: 2,
-				spaceBetween: 15
+				spaceBetween: 10
 			},
 			640: {
 				slidesPerView: 2,
-				spaceBetween: 15
+				spaceBetween: 10
 			},
 			768: {
-				slidesPerView: 3,
-				spaceBetween: 15
-			},
-			992: {
 				slidesPerView: 4,
-				spaceBetween: 15
+				spaceBetween: 10
 			},
-			1024: {
-				slidesPerView: 5,
-				spaceBetween: 20
+			991: {
+				slidesPerView: 3,
+				spaceBetween: 10
+			},
+			1200: {
+				slidesPerView: 4,
+				spaceBetween: 10
 			}
 		}
 	});
-
-	$(document).ready(function() {
-		$("#lightgallery").lightGallery({
-			thumbnail: false
-		}); 
-	});
-
-
-
-</script> --}}
-<script>
 </script>
+	<div class="mid-footer">
+		<div class="container">
+			<div class="row row-fix">
 
 
+				<div class="col-6 col-md-6 col-lg-3 col-xl-3 link-list col-footer footer-click col-fix">
+					<h4 class="title-menu title-menu2">
+						Chính sách
 
-<script>
-	$(document).on('click', '.js-copy',function(e){
-		e.preventDefault();
-		var copyText = $(this).attr('data-copy');
-		var copyTextarea = document.createElement("textarea");
-		copyTextarea.textContent = copyText;
-		copyTextarea.style.position = "fixed";
-		document.body.appendChild(copyTextarea);
-		copyTextarea.select();
-		document.execCommand("copy"); 
-		document.body.removeChild(copyTextarea);
-		var cur_text = $(this).text();
-		var $cur_btn = $(this);
-		$(this).addClass("iscopied");
-		$(this).text("Đã lưu");
-		setTimeout(function(){
-			$cur_btn.removeClass("iscopied");
-			$cur_btn.text(cur_text);
-		},1500)
-	})
-</script>
+					</h4>
+					<ul class="list-menu hidden-mobile">
+						
+						<li><a href="/chinh-sach-doi-tra-len-doi" title="Chính sách đổi trả, lên đời">Chính sách đổi trả, lên đời</a></li>
+						
+						<li><a href="/chinh-sach-bao-hanh-12-thang-1-doi-1" title="Chính sách bảo hành 12 tháng 1 đổi 1">Chính sách bảo hành 12 tháng 1 đổi 1</a></li>
+						
+						<li><a href="/cam-ket-chat-luong" title="Cam kết chất lượng">Cam kết chất lượng</a></li>
+						
+						<li><a href="/chinh-sach-bao-mat-thong-tin" title="Chính sách bảo mật">Chính sách bảo mật</a></li>
+						
+					</ul>
+				</div>
+				<div class="col-6 col-md-6 col-lg-3 col-xl-3 link-list col-footer footer-click col-fix">
+					<h4 class="title-menu title-menu2">
+						MUA HÀNG
+
+					</h4>
+					<ul class="list-menu hidden-mobile" >
+						
+						<li><a href="/huong-dan" title="Hướng dẫn mua hàng">Hướng dẫn mua hàng</a></li>
+						
+						<li><a href="/quy-trinh-mua-hang" title="Quy trình mua hàng">Quy trình mua hàng</a></li>
+						
+						<li><a href="/phuong-thuc-thanh-toan" title="Phương thức thanh toán">Phương thức thanh toán</a></li>
+						
+						<li><a href="/phuong-thuc-van-chuyen" title="Phương thức vận chuyển">Phương thức vận chuyển</a></li>
+						
+						<li><a href="/chinh-sach-tra-gop" title="Phương thức trả góp">Phương thức trả góp</a></li>
+						
+					</ul>
+
+				</div>
+				<div class="col-6 col-md-6 col-lg-3 col-xl-3 link-list col-footer footer-click col-fix">
+					<h4 class="title-menu title-menu2">
+						Điều khoản dịch vụ
+
+					</h4>
+					<ul class="list-menu hidden-mobile" >
+						
+						<li><a href="/dieu-khoan-su-dung" title="Diều khoản dịch vụ">Diều khoản dịch vụ</a></li>
+						
+						<li><a href="/dieu-khoan-html" title="Điều khoản sử dụng">Điều khoản sử dụng</a></li>
+						
+						<li><a href="/chinh-sach" title="Cam kết bảo mật">Cam kết bảo mật</a></li>
+						
+						<li><a href="/gioi-thieu" title="Giới thiệu">Giới thiệu</a></li>
+						
+						<li><a href="/lien-he" title="Liên hệ">Liên hệ</a></li>
+						
+					</ul>
+
+				</div>
+				<div class="col-6 col-md-6 col-lg-3 col-xl-3 link-list col-footer footer-click col-fix">
+					<h4 class="title-menu title-menu2">
+						Liên Hệ
+
+					</h4>
+					<ul class="list-menu hidden-mobile" >
+						
+						<li><a href="https://www.hoangkien.com/he-thong-cua-hang-hoang-kien" title="Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội:  083.888.3663">Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội:  083.888.3663</a></li>
+						
+						<li><a href="https://www.hoangkien.com/he-thong-cua-hang-hoang-kien" title="Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663">Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663</a></li>
+						
+						<li><a href="https://www.hoangkien.com/he-thong-cua-hang-hoang-kien" title="Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993">Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993</a></li>
+						
+						<li><a href="https://www.hoangkien.com/he-thong-cua-hang-hoang-kien" title="Cơ Sở 4: 403 Ngô Gia Tự- P.2, Q.10 Hồ Chí Minh: 0707.678.707">Cơ Sở 4: 403 Ngô Gia Tự- P.2, Q.10 Hồ Chí Minh: 0707.678.707</a></li>
+						
+						<li><a href="/" title="Mua hàng online: 0813.600.999">Mua hàng online: 0813.600.999</a></li>
+						
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom-footer">
+		<div class="container">
+			<div class="row row-fix">
+				<div class="col-12 col-md-12 col-lg-12 col-xl-5 ft-info col-fix"> 
+					<a href="/" class="logo-ft" title="Logo">	
+						<img style="max-height: 50px;  width: auto;" width="414" height="85" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo-ft.png?1741067950025" alt="Hoàng Kiên">
+					</a>
+					<div class="content-ft">
+						Hệ thống bán lẻ iPhone chính hãng với giá tốt, có trả góp, giao hàng nhanh miễn phí.
+					</div>
+					<div class="group-address">
+						<ul>
+							<li><b>Địa chỉ: </b><span>
+								
+								Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội:  083.888.3663
+
+Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663
+
+Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993
+
+Cơ Sở 4: 403 Ngô Gia Tự- P.2, Q.10 Hồ Chí Minh: 0707.678.707
+								
+								</span></li>
+							<li>
+								<b>Điện thoại: </b><a title="0813600999" href="tel:0813600999">0813600999</a>
+							</li>
+							<li>
+								<b>Email: </b><a  title="hotro@hoangkien.com" href="mailto:hotro@hoangkien.com">hotro@hoangkien.com</a>
+							</li>
+						</ul>
+					</div>	
+
+				</div>
+				<div class="col-12 col-md-6 col-lg-6 col-xl-4 col-fix"> 
+					<h4 class="title-menu">
+						Tổng Đài Hỗ Trợ
+					</h4>
+					<ul class="call-footer">
+						
+						<li>
+							<span class="title">MUA ONLINE (09:00 - 21:00 mỗi ngày)</span>
+							<a href="tel:0813600999" title="0813600999">0813600999</a>
+							<span class="content">Tất cả các ngày trong tuần (Trừ tết Âm Lịch)</span>
+						</li>
+						
+						
+						<li>
+							<span class="title">GÓP Ý & KHIẾU NẠI (09:00 - 21:00)</span>
+							<a href="tel:0813600999" title="0813600999">0813600999</a>
+							<span class="content">Tất cả các ngày trong tuần (Trừ tết Âm Lịch)</span>
+						</li>
+						
+					</ul>
+
+				</div>
+				<div class="col-12 col-md-6 col-lg-6 col-xl-3 col-fix"> 
+
+					<h4 class="title-menu" style="    margin-bottom: 10px;">
+						Liên kết sàn
+					</h4>
+					<ul class="social" style="    margin-bottom: 20px;">
+						
+						<li><a href="#" title="Shopee"><img width="32" height="32" title="Shopee" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/shopee.png?1741067950025"></a></li>
+						
+						
+						<li><a href="#" title="Lazada"><img width="32" height="32" title="Lazada" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazada.png?1741067950025"></a></li>
+						
+						
+						<li><a href="#" title="Tiki"><img width="32" height="32" title="Tiki" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/tiki.png?1741067950025"></a></li>
+						
+						
+						<li><a href="#" title="Sendo"><img width="32" height="32" title="Sendo" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/sendo.png?1741067950025"></a></li>
+						
+					</ul>
+					<h4 class="title-menu" style="    margin-bottom: 10px;">
+						Hình thức thanh toán 
+					</h4> 
+					<ul class="thanhtoan">
+
+						<li><img width="57" height="35" alt="Payment 1" data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_1.png?1741067950025" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></li>
+						<li><img width="57" height="35" alt="Payment 2" data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_2.png?1741067950025" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></li>
+						<li><img width="57" height="35" alt="Payment 3" data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_3.png?1741067950025" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"></li>
+
+					</ul>
+				</div>
+			</div>
 		</div>
 
+	</div>
+	<div id="copyright" class="copyright">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-12 col-lg-12">
+					<span class="copy-right">Bản quyền thuộc về <b>Hoàng Kiên</b>.</span>
+					<span class="opacity1">
+						Cung cấp bởi 
+						 <a href="https://www.sapo.vn/?utm_campaign=cpn:kho_theme-plm:footer&utm_source=Tu_nhien&utm_medium=referral&utm_content=fm:text_link-km:-sz:&utm_term=&campaign=kho_theme-sapo" rel="noopener" title="Sapo" target="_blank">Sapo</a> 
+					</span>
+				</div>
 
 
-
-
-
-
-
-
-
-
-
-<script>
-	(function($){"use strict";$.ajaxChimp={responses:{"We have sent you a confirmation email":0,"Please enter a valueggg":1,"An email address must contain a single @":2,"The domain portion of the email address is invalid (the portion after the @: )":3,"The username portion of the email address is invalid (the portion before the @: )":4,"This email address looks fake or invalid. Please enter a real email address":5},translations:{en:null},init:function(selector,options){$(selector).ajaxChimp(options)}};$.fn.ajaxChimp=function(options){$(this).each(function(i,elem){var form=$(elem);var email=form.find("input[type=email]");var label=form.find("label[for="+email.attr("id")+"]");var settings=$.extend({url:form.attr("action"),language:"en"},options);var url=settings.url.replace("/post?","/post-json?").concat("&c=?");form.attr("novalidate","true");email.attr("name","EMAIL");form.submit(function(){var msg;function successCallback(resp){if(resp.result==="success"){msg="We have sent you a confirmation email";label.removeClass("error").addClass("valid");email.removeClass("error").addClass("valid")}else{email.removeClass("valid").addClass("error");label.removeClass("valid").addClass("error");var index=-1;try{var parts=resp.msg.split(" - ",2);if(parts[1]===undefined){msg=resp.msg}else{var i=parseInt(parts[0],10);if(i.toString()===parts[0]){index=parts[0];msg=parts[1]}else{index=-1;msg=resp.msg}}}catch(e){index=-1;msg=resp.msg}}if(settings.language!=="en"&&$.ajaxChimp.responses[msg]!==undefined&&$.ajaxChimp.translations&&$.ajaxChimp.translations[settings.language]&&$.ajaxChimp.translations[settings.language][$.ajaxChimp.responses[msg]]){msg=$.ajaxChimp.translations[settings.language][$.ajaxChimp.responses[msg]]}label.html(msg);label.show(2e3);if(settings.callback){settings.callback(resp)}}var data={};var dataArray=form.serializeArray();$.each(dataArray,function(index,item){data[item.name]=item.value});$.ajax({url:url,data:data,success:successCallback,dataType:"jsonp",error:function(resp,text){console.log("mailchimp ajax submit error: "+text)}});var submitMsg="Submitting...";if(settings.language!=="en"&&$.ajaxChimp.translations&&$.ajaxChimp.translations[settings.language]&&$.ajaxChimp.translations[settings.language]["submit"]){submitMsg=$.ajaxChimp.translations[settings.language]["submit"]}label.html(submitMsg).show(2e3);return false})});return this}})(jQuery);
-</script>
-
+			</div>
+		</div>
+	</div>
+</footer>
 
 <a href="#"  class="backtop"  title="Lên đầu trang">
 	<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-angle-up fa-w-10"><path fill="currentColor" d="M168.5 164.2l148 146.8c4.7 4.7 4.7 12.3 0 17l-19.8 19.8c-4.7 4.7-12.3 4.7-17 0L160 229.3 40.3 347.8c-4.7 4.7-12.3 4.7-17 0L3.5 328c-4.7-4.7-4.7-12.3 0-17l148-146.8c4.7-4.7 12.3-4.7 17 0z" class=""></path></svg>
@@ -2771,7 +391,7 @@ $(document).ready(function() {
 			<a href="/cart">
 				<img width="25" height="25" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_fixed_3.png?1741067950025" alt="Khuyến mãi">
 				<span>Giỏ hàng</span>
-				<span class="count count_item_pr">7</span>
+				<span class="count count_item_pr">0</span>
 			</a>
 		</li>
 		<li>
@@ -3677,9 +1297,9 @@ $(window).on('load', function() {
 </form>
 
 
-</script> --}}
+</script>
 
-{{-- <script id="CartPopupTemplate" type="text/template">
+<script id="CartPopupTemplate" type="text/template">
 
 <form action="/cart" method="post" novalidate class="cart ajaxcart cartpopup">
 	<div class="cart-header-info">
@@ -3838,10 +1458,10 @@ $(window).on('load', function() {
 </form>
 
 
-</script>
+</script> --}}
 
 
-<script id="JsQty" type="text/template">
+{{-- <script id="JsQty" type="text/template">
 
 <div class="js-qty">
 	<button type="button" class="js-qty__adjust js-qty__adjust--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" aria-label="-">
@@ -3884,7 +1504,9 @@ $(window).on('load', function() {
 			</a>
 		</div>
 	</div>
-</div><link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.js?1741067950025" />
+</div><link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/index.js?1741067950025" />
+<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/index.js?1741067950025" type="text/javascript"></script>
+<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.js?1741067950025" />
 <script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.js?1741067950025" type="text/javascript"></script>
 
 
@@ -4166,10 +1788,6 @@ $(window).on('load', function() {
 
 	Dola.Compare.init();
 </script>
-<link rel="preload" as="script" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/picbox.js?1741067950025" />
-<link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/picbox.scss.css?1741067950025">
-<link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/picbox.scss.css?1741067950025" rel="stylesheet" type="text/css" media="all" />
-<script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/picbox.js?1741067950025" type="text/javascript"></script>
 		<div id="popupCartModal" class="modal fade" role="dialog">
 		</div>
 		<div style="visibility:hidden; position: absolute; z-index: -1; bottom: 0; left: 0;">
@@ -4236,59 +1854,6 @@ $(window).on('load', function() {
 			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <g stroke="none" stroke-width="1" fill-rule="evenodd"> <g transform="translate(-1341.000000, -90.000000)"> <g transform="translate(1341.000000, 90.000000)"> <polygon points="19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12"></polygon> </g> </g> </g> </svg>
 		</button>
 		<ul class="addThis_listing">
-			<li class="addThis_item">
-				<a class="addThis_item--icon" href="tel:0813600999" title="Gọi ngay cho chúng tôi" rel="nofollow" aria-label="phone">
-					<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="22" cy="22" r="22" fill="url(#paint2_linear)"></circle>
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M14.0087 9.35552C14.1581 9.40663 14.3885 9.52591 14.5208 9.61114C15.3315 10.148 17.5888 13.0324 18.3271 14.4726C18.7495 15.2949 18.8903 15.9041 18.758 16.3558C18.6214 16.8415 18.3953 17.0971 17.384 17.9109C16.9786 18.239 16.5988 18.5756 16.5391 18.6651C16.3855 18.8866 16.2617 19.3212 16.2617 19.628C16.266 20.3395 16.7269 21.6305 17.3328 22.6232C17.8021 23.3944 18.6428 24.3828 19.4749 25.1413C20.452 26.0361 21.314 26.6453 22.2869 27.1268C23.5372 27.7488 24.301 27.9064 24.86 27.6466C25.0008 27.5826 25.1501 27.4974 25.1971 27.4591C25.2397 27.4208 25.5683 27.0202 25.9268 26.5772C26.618 25.7079 26.7759 25.5674 27.2496 25.4055C27.8513 25.201 28.4657 25.2563 29.0844 25.5716C29.5538 25.8145 30.5779 26.4493 31.2393 26.9095C32.1098 27.5187 33.9703 29.0355 34.2221 29.3381C34.6658 29.8834 34.7427 30.5821 34.4439 31.3534C34.1281 32.1671 32.8992 33.6925 32.0415 34.3444C31.2649 34.9323 30.7145 35.1581 29.9891 35.1922C29.3917 35.222 29.1442 35.1709 28.3804 34.8556C22.3893 32.3887 17.6059 28.7075 13.8081 23.65C11.8239 21.0084 10.3134 18.2688 9.28067 15.427C8.67905 13.7696 8.64921 13.0495 9.14413 12.2017C9.35753 11.8438 10.2664 10.9575 10.9278 10.4633C12.0288 9.64524 12.5365 9.34273 12.9419 9.25754C13.2193 9.19787 13.7014 9.24473 14.0087 9.35552Z" fill="white"></path>
-						<defs>
-							<linearGradient id="paint2_linear" x1="22" y1="-7.26346e-09" x2="22.1219" y2="40.5458" gradientUnits="userSpaceOnUse">
-								<stop offset="50%" stop-color="#e8434c"></stop>
-								<stop offset="100%" stop-color="#d61114"></stop>
-							</linearGradient>
-						</defs>
-					</svg>
-					<span class="tooltip-text">Gọi ngay cho chúng tôi</span>
-				</a>
-			</li>
-			<li class="addThis_item">
-				<a class="addThis_item--icon" href="https://zalo.me/0813600999" title="Chat với chúng tôi qua Zalo" target="_blank" rel="nofollow noreferrer" aria-label="zalo">
-					<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="22" cy="22" r="22" fill="url(#paint4_linear)"></circle>
-						<g clip-path="url(#clip0)">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M15.274 34.0907C15.7773 34.0856 16.2805 34.0804 16.783 34.0804C16.7806 34.0636 16.7769 34.0479 16.7722 34.0333C16.777 34.0477 16.7808 34.0632 16.7832 34.0798C16.8978 34.0798 17.0124 34.0854 17.127 34.0965H25.4058C26.0934 34.0965 26.7809 34.0977 27.4684 34.0989C28.8434 34.1014 30.2185 34.1039 31.5935 34.0965H31.6222C33.5357 34.0798 35.0712 32.5722 35.0597 30.7209V27.4784C35.0597 27.4582 35.0612 27.4333 35.0628 27.4071C35.0676 27.3257 35.0731 27.2325 35.0368 27.2345C34.9337 27.2401 34.7711 27.2757 34.7138 27.3311C34.2744 27.6145 33.8483 27.924 33.4222 28.2335C32.57 28.8525 31.7179 29.4715 30.7592 29.8817C27.0284 31.0993 23.7287 31.157 20.2265 30.3385C20.0349 30.271 19.9436 30.2786 19.7816 30.292C19.6773 30.3007 19.5436 30.3118 19.3347 30.3068C19.3093 30.3077 19.2829 30.3085 19.2554 30.3093C18.9099 30.3197 18.4083 30.3348 17.8088 30.6877C16.4051 31.1034 14.5013 31.157 13.5175 31.0147C13.522 31.0245 13.5247 31.0329 13.5269 31.0407C13.5236 31.0341 13.5204 31.0275 13.5173 31.0208C13.5036 31.0059 13.4864 30.9927 13.4696 30.98C13.4163 30.9393 13.3684 30.9028 13.46 30.8268C13.4867 30.8102 13.5135 30.7929 13.5402 30.7757C13.5937 30.7412 13.6472 30.7067 13.7006 30.6771C14.4512 30.206 15.1559 29.6905 15.6199 28.9311C16.2508 28.1911 15.9584 27.9025 15.4009 27.3524L15.3799 27.3317C12.6639 24.6504 11.8647 21.8054 12.148 17.9785C12.486 15.8778 13.4829 14.0708 14.921 12.4967C15.7918 11.5433 16.8288 10.7729 17.9632 10.1299C17.9796 10.1198 17.9987 10.1116 18.0182 10.1032C18.0736 10.0793 18.1324 10.0541 18.1408 9.98023C18.1475 9.92191 18.0507 9.90264 18.0163 9.90264C17.3698 9.90264 16.7316 9.89705 16.0964 9.89148C14.8346 9.88043 13.5845 9.86947 12.3041 9.90265C10.465 9.95254 8.78889 11.1779 8.81925 13.3614C8.82689 17.2194 8.82435 21.0749 8.8218 24.9296C8.82053 26.8567 8.81925 28.7835 8.81925 30.7104C8.81925 32.5007 10.2344 34.0028 12.085 34.0749C13.1465 34.1125 14.2107 34.1016 15.274 34.0907ZM13.5888 31.1403C13.5935 31.1467 13.5983 31.153 13.6032 31.1594C13.7036 31.2455 13.8031 31.3325 13.9021 31.4202C13.8063 31.3312 13.7072 31.2423 13.6035 31.1533C13.5982 31.1487 13.5933 31.1444 13.5888 31.1403ZM16.5336 33.8108C16.4979 33.7885 16.4634 33.7649 16.4337 33.7362C16.4311 33.7358 16.4283 33.7352 16.4254 33.7345C16.4281 33.7371 16.4308 33.7397 16.4335 33.7423C16.4632 33.7683 16.4978 33.79 16.5336 33.8108Z" fill="white"></path>
-							<path d="M17.6768 21.6754C18.5419 21.6754 19.3555 21.6698 20.1633 21.6754C20.6159 21.6809 20.8623 21.8638 20.9081 22.213C20.9597 22.6509 20.6961 22.9447 20.2034 22.9502C19.2753 22.9613 18.3528 22.9558 17.4247 22.9558C17.1554 22.9558 16.8919 22.9669 16.6226 22.9502C16.2903 22.9336 15.9637 22.8671 15.8033 22.5345C15.6429 22.2019 15.7575 21.9026 15.9752 21.631C16.8575 20.5447 17.7455 19.4527 18.6336 18.3663C18.6851 18.2998 18.7367 18.2333 18.7883 18.1723C18.731 18.0781 18.6508 18.1224 18.582 18.1169C17.9633 18.1114 17.3388 18.1169 16.72 18.1114C16.5768 18.1114 16.4335 18.0947 16.296 18.067C15.9695 17.995 15.7689 17.679 15.8434 17.3686C15.895 17.158 16.0669 16.9862 16.2846 16.9363C16.4221 16.903 16.5653 16.8864 16.7085 16.8864C17.7284 16.8809 18.7539 16.8809 19.7737 16.8864C19.9571 16.8809 20.1347 16.903 20.3123 16.9474C20.7019 17.0749 20.868 17.4241 20.7133 17.7899C20.5758 18.1058 20.3581 18.3774 20.1404 18.649C19.3899 19.5747 18.6393 20.4948 17.8888 21.4093C17.8258 21.4814 17.7685 21.5534 17.6768 21.6754Z" fill="white"></path>
-							<path d="M24.3229 18.7604C24.4604 18.5886 24.6036 18.4279 24.8385 18.3835C25.2911 18.2948 25.7151 18.5775 25.7208 19.021C25.738 20.1295 25.7323 21.2381 25.7208 22.3467C25.7208 22.6349 25.526 22.8899 25.2453 22.973C24.9588 23.0783 24.6322 22.9952 24.4432 22.7568C24.3458 22.6404 24.3057 22.6183 24.1682 22.7236C23.6468 23.1338 23.0567 23.2058 22.4207 23.0063C21.4009 22.6848 20.9827 21.9143 20.8681 20.9776C20.7478 19.9632 21.0973 19.0986 22.0369 18.5664C22.816 18.1175 23.6067 18.1563 24.3229 18.7604ZM22.2947 20.7836C22.3061 21.0275 22.3863 21.2603 22.5353 21.4543C22.8447 21.8534 23.4348 21.9365 23.8531 21.6372C23.9218 21.5873 23.9848 21.5263 24.0421 21.4543C24.363 21.033 24.363 20.3402 24.0421 19.9189C23.8817 19.7027 23.6296 19.5752 23.3603 19.5697C22.7301 19.5309 22.289 20.002 22.2947 20.7836ZM28.2933 20.8168C28.2474 19.3923 29.2157 18.3281 30.5907 18.2893C32.0517 18.245 33.1174 19.1928 33.1632 20.5785C33.209 21.9808 32.321 22.973 30.9517 23.106C29.4563 23.2502 28.2704 22.2026 28.2933 20.8168ZM29.7313 20.6838C29.7199 20.961 29.8058 21.2326 29.9777 21.4598C30.2928 21.8589 30.8829 21.9365 31.2955 21.6261C31.3585 21.5818 31.41 21.5263 31.4616 21.4709C31.7939 21.0496 31.7939 20.3402 31.4673 19.9189C31.3069 19.7083 31.0548 19.5752 30.7855 19.5697C30.1668 19.5364 29.7313 19.991 29.7313 20.6838ZM27.7891 19.7138C27.7891 20.573 27.7948 21.4321 27.7891 22.2912C27.7948 22.6848 27.474 23.0118 27.0672 23.0229C26.9985 23.0229 26.924 23.0174 26.8552 23.0007C26.5688 22.9287 26.351 22.6349 26.351 22.2857V17.8791C26.351 17.6186 26.3453 17.3636 26.351 17.1031C26.3568 16.6763 26.6375 16.3992 27.0615 16.3992C27.4969 16.3936 27.7891 16.6708 27.7891 17.1142C27.7948 17.9789 27.7891 18.8491 27.7891 19.7138Z" fill="white"></path>
-							<path d="M22.2947 20.7828C22.289 20.0013 22.7302 19.5302 23.3547 19.5634C23.6239 19.5745 23.876 19.702 24.0364 19.9181C24.3573 20.3339 24.3573 21.0322 24.0364 21.4535C23.7271 21.8526 23.1369 21.9357 22.7187 21.6364C22.65 21.5865 22.5869 21.5255 22.5296 21.4535C22.3864 21.2595 22.3062 21.0267 22.2947 20.7828ZM29.7314 20.683C29.7314 19.9957 30.1668 19.5357 30.7856 19.569C31.0549 19.5745 31.307 19.7075 31.4674 19.9181C31.794 20.3394 31.794 21.0544 31.4617 21.4701C31.1408 21.8636 30.545 21.9302 30.1382 21.6198C30.0752 21.5754 30.0236 21.52 29.9778 21.459C29.8059 21.2318 29.7257 20.9602 29.7314 20.683Z" fill="#0068FF"></path>
-						</g>
-						<defs>
-							<linearGradient id="paint4_linear" x1="22" y1="0" x2="22" y2="44" gradientUnits="userSpaceOnUse">
-								<stop offset="50%" stop-color="#3985f7"></stop>
-								<stop offset="100%" stop-color="#1272e8"></stop>
-							</linearGradient>
-							<clipPath id="clip0">
-								<rect width="26.3641" height="24.2" fill="white" transform="translate(8.78906 9.90234)"></rect>
-							</clipPath>
-						</defs>
-					</svg>
-					<span class="tooltip-text">Chat với chúng tôi qua Zalo</span>
-				</a>
-			</li>
-			<li class="addThis_item">
-				<a class="addThis_item--icon" href="/lien-he" title="Thông tin cửa hàng" aria-label="Liên hệ">
-					<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="22" cy="22" r="22" fill="url(#paint5_linear)"></circle>
-						<path class="down" d="M22 10C17.0374 10 13 13.7367 13 18.3297C13 24.0297 21.0541 32.3978 21.397 32.7512C21.7191 33.0832 22.2815 33.0826 22.603 32.7512C22.9459 32.3978 31 24.0297 31 18.3297C30.9999 13.7367 26.9626 10 22 10ZM22 22.5206C19.5032 22.5206 17.4719 20.6406 17.4719 18.3297C17.4719 16.0188 19.5032 14.1388 22 14.1388C24.4968 14.1388 26.528 16.0189 26.528 18.3297C26.528 20.6406 24.4968 22.5206 22 22.5206Z" fill="white"></path>
-						<defs>
-							<linearGradient id="paint5_linear" x1="22" y1="0" x2="22" y2="44" gradientUnits="userSpaceOnUse">
-								<stop offset="50%" stop-color="#fecf72"></stop>
-								<stop offset="100%" stop-color="#ef9f00"></stop>
-							</linearGradient>
-						</defs>
-					</svg>
-					<span class="tooltip-text">Thông tin cửa hàng</span>
-				</a>
-			</li>
 		</ul>	
 	</div>
 	<div class="listSharing_overlay"></div>
@@ -4318,9 +1883,5 @@ $(window).on('load', function() {
 		$('.addThis_listSharing').fadeOut(150);				
 	})
 </script>
-	
-
-
-
-</div>
-@include('layouts.footer')
+	</body>
+</html>

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin.main')
 
 @section('content')
     <div class="container-fluid my-4" style="max-width: 95%; min-width: 1200px;">

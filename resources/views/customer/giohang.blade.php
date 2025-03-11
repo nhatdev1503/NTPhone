@@ -1,4 +1,4 @@
- @include('layouts.header')
+ @include('layouts.customer.header')
 
  <div class="container my-4">
      @yield('content')
@@ -1141,4 +1141,4 @@
 
 
  
- @include('layouts.footer')
+ @include('layouts.customer.footer')

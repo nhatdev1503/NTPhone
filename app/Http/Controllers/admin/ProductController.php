@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -11,24 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $search = $request->input('search');
-    //     $query = Product::query()->paginate(10);
-
-    //     if ($search) {
-    //         $query->where(function ($q) use ($search) {
-    //             $q->where('name', 'like', "%{$search}%");
-    //             // ->orWhere('description', 'like', "%{$search}%")
-    //             // ->orWhere('category_id', 'like', "%{$search}%")
-    //             // ->orWhere('original_price', 'like', "%{$search}%")
-    //             // ->orWhere('price', 'like', "%{$search}%")
-    //             // ->orWhere('stock', 'like', "%{$search}%");
-    //         });
-    //     }
-    //     $products = $query;
-    //     return view('admin.products.index', compact('products'));
-    // }
     public function index(Request $request)
     {
         $query = Product::query();
