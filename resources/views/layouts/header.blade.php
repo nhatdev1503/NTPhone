@@ -727,7 +727,7 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a href="/cart" title="Giỏ hàng">
+                        <a href="{{ route('web.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
                             Sản phẩm <span class=" count_item_pr">0</span>
                         </a>
@@ -1627,33 +1627,6 @@
                             <li class="nav-item  ">
                                 <a class="a-img" href="/lien-he" title="Liên hệ">
                                     Liên hệ
-                                </a>
-                            </li>
-
-
-
-                            <li class="nav-item  ">
-                                <a class="a-img" target="_blank" href="https://www.facebook.com/hoangkien.co"
-                                    title="Facebook Page">
-                                    Facebook Page
-                                </a>
-                            </li>
-
-
-
-                            <li class="nav-item  ">
-                                <a class="a-img" target="_blank" href="https://www.tiktok.com/@hoangkien3663"
-                                    title="TikTok">
-                                    TikTok
-                                </a>
-                            </li>
-
-
-
-                            <li class="nav-item  ">
-                                <a class="a-img" target="_blank" href="https://www.youtube.com/@hoangkienzin"
-                                    title="Youtube">
-                                    Youtube
                                 </a>
                             </li>
                             <li class="d-block d-lg-none title-danhmuc"><span>Danh mục sản phẩm</span></li>
