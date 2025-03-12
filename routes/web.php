@@ -119,6 +119,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // Trang Dashboard Admin
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
 
+    // Trang danh mục
+    Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+
 });
 
 
