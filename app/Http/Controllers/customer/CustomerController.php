@@ -5,6 +5,7 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -20,9 +21,11 @@ class CustomerController extends Controller
     }
 
     public function categories(string $id){
-        $category = Category::with('products')->findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        return view('customer.danhmuc', compact('category'));
+        $products = Product::where('category_id', $id)->paginate(24);
+
+        return view('customer.danhmuc', compact('category', 'products'));
     }
 
     /**
