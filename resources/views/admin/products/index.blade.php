@@ -140,7 +140,7 @@
                                                     <th>Dung lượng</th>
                                                     <th>Màu</th>
                                                     <th>Giá gốc</th>
-                                                    <th>Giá</th>
+                                                    <th>Giá giảm</th>
                                                     <th>Số lượng</th>
                                                 </tr>
                                             </thead>
@@ -182,7 +182,7 @@
                     icon.classList.add("fa-chevron-up");
     
                     // Gọi API lấy danh sách biến thể
-                    fetch(`/products/${productId}/variants`)
+                    fetch(`/admin/products/${productId}/variants`)
                         .then(response => response.json())
                         .then(variants => {
                             let variantList = document.getElementById("variant-list-" + productId);

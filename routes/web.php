@@ -29,6 +29,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route trang đăng nhập
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 
@@ -61,12 +64,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::put('/products/{product}/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
-    Route::get('products/{product}/variants', [ProductController::class, 'getVariants']);
-    Route::get('productvariants/{product}/create', [ProductVariantController::class, 'create']);
-    Route::post('productvariants/{product}/store', [ProductVariantController::class, 'store'])->name('productvariants.store');
-    Route::get('productvariants/{id}/edit', [ProductVariantController::class, 'edit'])->name('productvariants.edit');
-    Route::put('productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
-    Route::put('productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
+    Route::get('/products/{product}/variants', [ProductController::class, 'getVariants']);
+    Route::get('/productvariants/{product}/create', [ProductVariantController::class, 'create']);
+    Route::post('/productvariants/{product}/store', [ProductVariantController::class, 'store'])->name('productvariants.store');
+    Route::get('/productvariants/{id}/edit', [ProductVariantController::class, 'edit'])->name('productvariants.edit');
+    Route::put('/productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
+    Route::put('/productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
 
     // //Router Danh muc Quyet //
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

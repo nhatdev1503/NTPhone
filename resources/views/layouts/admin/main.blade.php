@@ -184,12 +184,17 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="icon-grid"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" style="position: absolute; right: 0px" aria-labelledby="userDropdown">
+                        <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="#">Thông tin tài khoản</a></li>
                             <li><a class="dropdown-item" href="#">Thay đổi thông tin cá nhân</a></li>
                             <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><form action="{{ route('auth.logout') }}" method="POST">@csrf <button type="submit" class="dropdown-item text-danger">Đăng xuất</button></form></li>
+                            <li>
+                                <form action="{{ route('auth.logout') }}" method="POST">
+                                    @csrf 
+                                    <button type="submit" class="dropdown-item text-danger">Đăng xuất</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -297,6 +302,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contacts.show') }}">
                                 <span class="menu-title">Quản lí liên hệ</span>
+                                <span class="badge badge-primary">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('contacts.show') }}">
+                                <span class="menu-title">Quản lí chính sách bảo hành</span>
                                 <span class="badge badge-primary">3</span>
                             </a>
                         </li>
