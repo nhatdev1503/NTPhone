@@ -2,7 +2,7 @@
 
  <div class="container my-4">
      @yield('content')
-     
+
 
      <div class="bodywrap">
          <section class="bread-crumb">
@@ -36,87 +36,15 @@
                              </h1>
                          </div>
                      </div>
-                     <div class="row">
-
-                         <div class="col-xl-8 col-lg-8 col-12 col-cart-left">
-                             <div class="cart-page d-xl-block d-none">
-                                 <div class="drawer__inner">
-                                     <div class="CartPageContainer">
-                                     </div>
-
-                                 </div>
-                             </div>
-                             <div class="cart-mobile-page d-block d-xl-none">
-                                 <div class="CartMobileContainer">
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="col-xl-4 col-lg-4 col-12 col-cart-right">
-
-                             <form method="post" novalidate="" class="formVAT">
-                                 <h4>
-                                     Thời gian giao hàng
-                                 </h4>
-                                 <div class="timedeli-modal">
-                                     <fieldset class="input_group date_pick">
-                                         <input type="text" placeholder="Chọn ngày" readonly id="date"
-                                             name="attributes[shipdate]" class="date_picker" required>
-                                     </fieldset>
-                                     <fieldset class="input_group date_time">
-                                         <select name="time" class="timeer timedeli-cta">
-                                             <option selected>Chọn thời gian</option>
-
-
-                                             <option value="08h00 - 12h00">08h00 - 12h00</option>
-
-                                             <option value=" 14h00 - 18h00"> 14h00 - 18h00</option>
-
-                                             <option value=" 19h00 - 21h00"> 19h00 - 21h00</option>
-
-                                         </select>
-                                     </fieldset>
-                                 </div>
-
-                                 <div class="r-bill">
-                                     <div class="checkbox">
-                                         <input type="hidden" name="attributes[invoice]" id="re-checkbox-bill"
-                                             value='không'>
-                                         <input type="checkbox" id="checkbox-bill" name="attributes[invoice]"
-                                             value="có" class="regular-checkbox" />
-                                         <label for="checkbox-bill" class="box"></label>
-                                         <label for="checkbox-bill" class="title">Xuất hóa đơn công ty</label>
-                                     </div>
-                                     <div class="bill-field">
-                                         <div class="form-group">
-                                             <label>Tên công ty</label>
-                                             <input type="text" class="form-control val-f"
-                                                 name="attributes[company_name]" value=""
-                                                 placeholder="Tên công ty">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Mã số thuế</label>
-                                             <input type="text" pattern=".{10,}"
-                                                 onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
-                                                 class="form-control val-f val-n" name="attributes[tax_code]"
-                                                 value="" placeholder="Mã số thuế">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Địa chỉ công ty</label>
-                                             <textarea class="form-control val-f" name="attributes[company_address]"
-                                                 placeholder="Nhập địa chỉ công ty (bao gồm Phường/Xã, Quận/Huyện, Tỉnh/Thành phố nếu có)"></textarea>
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Email nhận hoá đơn</label>
-                                             <input type="email" class="form-control val-f val-email"
-                                                 name="attributes[invoice_email]" value=""
-                                                 placeholder="Email nhận hoá đơn">
-                                         </div>
-                                     </div>
-                                 </div>
-
-                             </form>
-                         </div>
-                     </div>
+                     <div class="cart-container">
+                        <h1 class="title_cart">
+                            <span>🛒 Giỏ hàng của bạn</span>
+                        </h1>
+                        <p class="empty_cart">Hiện tại giỏ hàng đang trống!</p>
+                        <p><a href="/trangchu" class="shop-now-btn">Đi tới mua sắm nào!</a></p>
+                    </div>
+                    
+                     
                  </div>
              </div>
          </section>
@@ -331,7 +259,7 @@
                              if ($(this).val() === '') {
                                  if ($(this).next('span.text-danger').length == 0) {
                                      $(this).after(
-                                     '<span class="text-danger">Bạn không được để trống trường này</span>');
+                                         '<span class="text-danger">Bạn không được để trống trường này</span>');
                                  }
                              } else {
                                  $(this).next('span.text-danger').remove();
@@ -806,11 +734,11 @@
                                                  .html(parseData.image ?
                                                      `<img class="img-fluid" src="${parseData.image}" alt="${parseData.title}"/>` :
                                                      "//bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif"
-                                                     );
+                                                 );
                                              selfPage.find(`tr.title td:nth-child(${i + 2})`)
                                                  .html(
                                                      `<h3><a href="${parseData.url}">${parseData.title}</a></h3>`
-                                                     );
+                                                 );
                                              selfPage.find(`tr.price td:nth-child(${i + 2})`)
                                                  .html(parseData.price);
                                              selfPage.find(`tr.available td:nth-child(${i + 2})`)
@@ -827,7 +755,7 @@
                                              $('#alertError').modal('show').find('.modal-body')
                                                  .html(
                                                      'Xin lỗi, có vấn đề khi thực hiện so sánh, vui lòng thử lại sau!'
-                                                     );
+                                                 );
                                          }
                                      })
                                  });
@@ -1123,22 +1051,58 @@
          })
      </script>
 
-
-
-
-
-     <a target="_blank" class="livechat-mes" href="https://m.me/hoangkien.co">
-         <img src="https://bizweb.dktcdn.net/100/485/241/themes/911577/assets/messenger.svg?1705567372895"
-             alt="Messenger">
-     </a>
-
-
-
  </div>
-
-
-
-
-
- 
  @include('layouts.footer')
+
+
+ <style>
+    .cart-container {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9; /* Nền sáng tinh tế */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
+    max-width: 600px;
+    margin: 0 auto; /* Canh giữa container */
+}
+
+.title_cart {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.empty_cart {
+    font-size: 18px;
+    color: #888; /* Màu xám nhẹ nhàng */
+    margin-bottom: 30px;
+}
+
+.shop-now-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none; /* Loại bỏ gạch chân */
+    background-color: #007bff; /* Màu xanh chủ đạo */
+    border-radius: 8px;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Hiệu ứng đổ bóng nút */
+}
+
+.shop-now-btn:hover {
+    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+    box-shadow: 0 6px 8px rgba(0, 123, 255, 0.5); /* Đổ bóng nổi bật hơn */
+    transform: translateY(-2px); /* Hiệu ứng nhô lên */
+}
+
+.shop-now-btn:active {
+    background-color: #004494; /* Màu đậm hơn khi nhấn */
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+    transform: translateY(0); /* Trở lại trạng thái bình thường */
+}
+
+ </style>

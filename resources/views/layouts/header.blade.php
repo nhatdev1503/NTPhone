@@ -10,7 +10,7 @@
     <meta name="robots" content="noodp,index,follow" />
     <meta name="description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
-    <title>Apple Store - Hoàng Kiên iPhone, iPad and more..... </title>
+    <title>NTPhone - iPhone, iPad and more..... </title>
     <meta name="keywords" content="Cập nhật sau" />
 
 
@@ -167,10 +167,6 @@
     <script>
         window.enabled_enhanced_ecommerce = false;
     </script>
-
-
-
-
     <!--Facebook Pixel Code-->
     <script>
         ! function(f, b, e, v, n, t, s) {
@@ -232,13 +228,13 @@
     </script>
 </head>
 
+
 <body>
     <div class="opacity_menu"></div>
     <div class="banner-top d-none d-md-block" style="background: #01000d">
         <div class="container">
             <a href="" title="Banner top">
                 <picture>
-
                     <source media="(max-width: 567px)"
                         srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/banner_top.jpg?1741067950025">
                     <img alt="Banner top" width="1270" height="47"
@@ -248,11 +244,11 @@
             </a>
         </div>
     </div>
-
+    
     <header class="header header-scroll">
         <div class="container">
             <div class="header-top d-flex     align-items-center" style="    justify-content: space-between;">
-                <a href="/" class="logo" title="Logo">
+                <a href="/trangchu" class="logo" title="Logo">
                     <picture>
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1741067950025">
@@ -276,15 +272,6 @@
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
-
-
-
-
-
-
-
-
-
                             <div class="nav_item nav-item lv1 li_check ">
                                 <a href="/dien-thoai" title="Điện thoại"
                                     style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1741067950025')">Điện
@@ -694,7 +681,7 @@
                     </div>
                     <div class="content">
                         <a title="Hệ thống cửa hàng" href="/he-thong-cua-hang-hoang-kien" class="button-wishlist">
-                            Hệ thống<span>cửa hàng</span>
+                            Sản phẩm<span>yêu thích</span>
                         </a>
                     </div>
                 </div>
@@ -798,29 +785,16 @@
 
         </div>
         <div class=" header-menu">
-            <div class="container" style="    position: relative;">
+            <div class="container" style="position: relative;">
                 <div class="header-menu-des">
                     <nav class="header-nav">
                         <ul class="item_big">
-
                             <li class="d-block d-lg-none title-danhmuc"><span>Menu chính</span></li>
-
-
-
-
                             <li class="nav-item active  ">
                                 <a class="a-img" href="/" title="Trang chủ">
                                     Trang chủ
                                 </a>
                             </li>
-
-
-
-
-
-
-
-
                             <li class="nav-item   has-mega ">
                                 <a class="a-img caret-down" href="/dien-thoai" title="Điện thoại">
                                     Điện thoại
