@@ -19,6 +19,12 @@ class CustomerController extends Controller
         return view('customer.index', compact('categories','categoryList'));
     }
 
+    public function categories(string $id){
+        $category = Category::with('products')->findOrFail($id);
+
+        return view('customer.danhmuc', compact('category'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
