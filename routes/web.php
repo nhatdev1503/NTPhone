@@ -115,7 +115,7 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 });
 
 //Route trang khách hàng
-Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+Route::prefix('customer')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
 
