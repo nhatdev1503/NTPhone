@@ -237,6 +237,98 @@
         }
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
+    <style>
+       .breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    list-style: none;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb .mr_lr {
+    margin: 0 8px;
+}
+
+.page-title .title-head {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.content-page {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+}
+
+.content-page img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+}
+
+
+.form-contact h4 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.form-contact .content-form {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.group_contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.group_contact input,
+.group_contact textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.group_contact textarea {
+    resize: none;
+    height: 100px;
+}
+
+.btn-lienhe {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-lienhe:hover {
+    background: #0056b3;
+}
+
+
+
+
+    </style>
 </head>
 
 <body>
@@ -498,12 +590,12 @@
                                 </li>
                             @endforeach
                             <li class="nav-item  ">
-                                <a class="a-img" href="#" title="Chính sách bảo hành">
+                                <a class="a-img" href="{{ route('customer.warranty') }}" title="Chính sách bảo hành">
                                     Chính sách bảo hành
                                 </a>
                             </li>
                             <li class="nav-item  ">
-                                <a class="a-img" href="#" title="Liên hệ">
+                                <a class="a-img" href="{{ route('customer.contact') }}" title="Liên hệ">
                                     Liên hệ
                                 </a>
                             </li>

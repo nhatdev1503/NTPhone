@@ -27,7 +27,14 @@ class CustomerController extends Controller
 
         return view('customer.danhmuc', compact('category', 'products'));
     }
-
+    public function warranty()
+    {
+        return view('customer.warranty');
+    }
+    public function contact()
+    {
+        return view('customer.contact');
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -122,6 +122,11 @@ Route::prefix('customer')->group(function () {
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
 
+    // Bao hanhhanh
+    Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
+    // Bao contactcontact
+    Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
+
 });
 
 
