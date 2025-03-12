@@ -20,12 +20,34 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'fullname' => 'Admin User',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('admin'),
             'phone' => $faker->phoneNumber,
             'address' => $faker->address,
             'avatar' => 'default.jpg',
             'status' => 'active',
             'role' => 'admin',
+        ]);
+        User::create([
+            'username' => 'customer',
+            'fullname' => 'Customer',
+            'email' => 'customer@example.com',
+            'password' => Hash::make('customer'),
+            'phone' => $faker->phoneNumber,
+            'address' => $faker->address,
+            'avatar' => 'default.jpg',
+            'status' => 'active',
+            'role' => 'customer',
+        ]);
+        User::create([
+            'username' => 'staff',
+            'fullname' => 'Admin User',
+            'email' => 'staff@example.com',
+            'password' => Hash::make('staff'),
+            'phone' => $faker->phoneNumber,
+            'address' => $faker->address,
+            'avatar' => 'default.jpg',
+            'status' => 'active',
+            'role' => 'staff',
         ]);
 
         // Fake thêm user khách hàng và nhân viên
