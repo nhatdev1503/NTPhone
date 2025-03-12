@@ -83,7 +83,7 @@
                                         <div class="col-12 item col-fix">
                                             <div class="product-image">
                                                 <a class="image_thumb scale_hover"
-                                                    href="#"
+                                                    href="{{ route('customer.category', $category->id) }}"
                                                     title="{{ $category->name }}">
                                                     <picture>
                                                         @foreach ($category->products as $product)
@@ -100,7 +100,7 @@
 
                                         </div>
                                     </div>
-                                    <a href="#"
+                                    <a href="{{ route('customer.category', $category->id) }}"
                                         title="{{ $category->name }}">
                                         <h3>
                                             {{ $category->name }}

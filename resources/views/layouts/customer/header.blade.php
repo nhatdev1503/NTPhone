@@ -284,7 +284,7 @@
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
                             @foreach ($categoriess as $category)
                                 <div class="nav_item nav-item lv1 li_check ">
-                                    <a href="#1" title="{{ $category->name }}"
+                                    <a href="{{ route('customer.category', $category->id) }}" title="{{ $category->name }}"
                                         style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1741067950025')">{{ $category->name }}
                                         <i class="fas fa-angle-right">
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -492,7 +492,7 @@
                             </li>
                             @foreach ($categoriess as $category)
                                 <li class="nav-item   has-mega ">
-                                    <a class="a-img caret-down" href="#" title="Điện thoại">
+                                    <a class="a-img caret-down" href="{{ route('customer.category', $category->id) }}" title="Điện thoại">
                                         {{ $category->name }}
                                     </a>
                                 </li>
