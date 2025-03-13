@@ -266,7 +266,7 @@
                         <img width="414" height="85" src="{{ asset('images/logo-nt.png') }}" alt="NTPhone">
                     </picture>
                 </a>
-                <div class="icon-menu vertical-menu-category d-none d-lg-block">
+                <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative;">
                     <span class="menu-icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -276,7 +276,7 @@
                                 class=""></path>
                         </svg>
                     </span>
-                    <span class="vertical-heading-text" style="position: absolute; top: 25px; left: 170px;">Danh mục</span>
+                    <span class="vertical-heading-text" style="position: absolute; top:9px; left: 40px; ">Danh mục</span>
                 </div>
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
@@ -430,7 +430,7 @@
                     <span>Thông tin</span>
                     <ul>
 
-                        <li class="li-account"><a rel="nofollow" href="/account/login" title="Đăng nhập">
+                        <li class="li-account"><a rel="nofollow" href="{{ route('login') }}" title="Đăng nhập">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -442,7 +442,7 @@
                                 </svg>
                                 Đăng nhập</a>
                         </li>
-                        <li class="li-account"><a rel="nofollow" href="/account/register" title="Đăng ký">
+                        <li class="li-account"><a rel="nofollow" href="{{ route('register')}}" title="Đăng ký">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                                     <path

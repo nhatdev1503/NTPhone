@@ -266,7 +266,7 @@
                         <img width="414" height="85" src="{{ asset('images/logo-nt.png') }}" alt="NTPhone">
                     </picture>
                 </a>
-                <div class="icon-menu vertical-menu-category d-none d-lg-block">
+                <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative;">
                     <span class="menu-icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -276,7 +276,7 @@
                                 class=""></path>
                         </svg>
                     </span>
-                    <span class="vertical-heading-text" style="position: absolute; top: 25px; left: 170px;">Danh
+                    <span class="vertical-heading-text" style="position: absolute; top:9px; left: 40px; ">Danh
                         mục</span>
                 </div>
                 <div class="menu-vertical  ">

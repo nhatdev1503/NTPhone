@@ -173,7 +173,7 @@
             <div class="container">
                 <a class="thumb-image-banner" href="https://www.hoangkien.com/iphone-16-16plus-16pro-16promax"
                     title="Banner">
-                    <img width="1270" height="236" class="lazyload"
+                    <img width="100%" height="236" class="lazyload"
                         src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"
                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1741067950025"
                         alt="Banner">
@@ -293,7 +293,7 @@
             <div class="container">
                 <a class="thumb-image-banner" href="https://www.hoangkien.com/chinh-sach-bao-hanh-12-thang-1-doi-1"
                     title="Banner">
-                    <img width="1270" height="236" class="lazyload"
+                    <img width="100%" height="236" class="lazyload"
                         src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1741067950025"
                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner2.jpg?1741067950025"
                         alt="Banner">
