@@ -23,7 +23,11 @@ class Order extends Model
         'email',
         'discount_amount'
     ];
-
+     // Quan hệ với bảng OrderItem
+     public function orderItems()
+     {
+         return $this->hasMany(OrderItem::class, 'order_id', 'id');
+     }
     public function user()
     {
         return $this->belongsTo(User::class,'staff_id');
@@ -34,14 +38,12 @@ class Order extends Model
         return $this->belongsTo(User::class, 'staff_id');
     }
 
-    public function orderItems()
-    {
-        return $this->hasMany(OrderItem::class);
-    }
+   
 
     public function discount()
     {
         return $this->belongsTo(Discount::class,'discount_id');
     }
+    
 
 }
