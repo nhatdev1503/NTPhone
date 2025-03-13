@@ -15,7 +15,9 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\staff\StaffController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\customer\OrderLookupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Route trang tra cứu đơn hàng
+
+Route::get('/tra-cuu-don-hang', [OrderLookupController::class, 'lookup'])->name('customer.orders.lookup');
+Route::post('/tim-kiem-don-hang', [OrderLookupController::class, 'redirect'])->name('customer.orders.redirect');
+Route::get('/don-hang/{order_code}', [OrderLookupController::class, 'show'])->name('customer.orders.show');
+
 
 // Route trang đăng nhập
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -120,24 +128,24 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
 
 // //---------------------------------------------------------------------
-// Route::get('/san-pham', function () {
-//     return view('giaodien_web.sanpham');
-// })->name('web.products');
+Route::get('/san-pham', function () {
+    return view('giaodien_web.sanpham');
+})->name('web.products');
 
 
-// Route::get('/danh-muc/{id}', function($id){
-//     $category = Category::with(['products' => function($query){
-//         $query->limit(24);
-//     }])->findOrFail($id);
+Route::get('/danh-muc/{id}', function($id){
+    $category = Category::with(['products' => function($query){
+        $query->limit(24);
+    }])->findOrFail($id);
 
-//     return view('giaodien_web.danhmuc', compact('category'));
-// })->name('web.product.category');
+    return view('giaodien_web.danhmuc', compact('category'));
+})->name('web.product.category');
 
-// Route::get('/san-pham/{id}', function ($id) {
+Route::get('/san-pham/{id}', function ($id) {
 
-//     return view('giaodien_web.sanpham_chitiet', compact('id'));
-// })->name('web.product.detail');
-// //---------------------------------------------------------------------
-// Route::get('/gio-hang', function () {
-//     return view('giaodien_web.giohang');
-// })->name('web.cart');
+    return view('giaodien_web.sanpham_chitiet', compact('id'));
+})->name('web.product.detail');
+//---------------------------------------------------------------------
+Route::get('/gio-hang', function () {
+    return view('giaodien_web.giohang');
+})->name('web.cart');

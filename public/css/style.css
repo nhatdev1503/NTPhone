@@ -115,6 +115,8 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
+
+
 @-moz-keyframes flash {
   0% {
     opacity: 1;
@@ -8694,6 +8696,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
 }
 
 html {

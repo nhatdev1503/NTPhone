@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
-
+    <style>
+        * {
+            text-decoration: none !important;
+        }
+    </style>
+    
 <head>
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#000" />
@@ -76,6 +81,7 @@
         type="text/css" media="all" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
 
@@ -363,8 +369,8 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a title="Tra cứu đơn hàng" href="/apps/kiem-tra-don-hang" class="button-wishlist">
-                            Tra cứu<span>đơn hàng</span>
+                        <a href="{{route('customer.orders.lookup')}}" class="button-wishlist">
+                            Tra cứu <span>đơn hàng</span>
                         </a>
                     </div>
                 </div>
