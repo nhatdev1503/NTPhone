@@ -33,20 +33,11 @@
         <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/paginate.scss.css?1741067950025"
             rel="stylesheet" type="text/css" media="all" />
 
-
-
-
-
-
         <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/sidebar_style.scss.css?1741067950025"
             rel="stylesheet" type="text/css" media="all" />
 
-
-
         <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/collection_style.scss.css?1741067950025"
             rel="stylesheet" type="text/css" media="all" />
-
-
         <script>
             var Bizweb = Bizweb || {};
             Bizweb.store = 'hoangkien.mysapo.net';
@@ -126,10 +117,6 @@
 
 
         <script src="/dist/js/stats.min.js?v=96f2ff2"></script>
-
-
-
-
         <script>
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -149,10 +136,6 @@
         <script>
             window.enabled_enhanced_ecommerce = false;
         </script>
-
-
-
-
         <!--Facebook Pixel Code-->
         <script>
             ! function(f, b, e, v, n, t, s) {
@@ -187,9 +170,6 @@
         </noscript>
         <!--DO NOT MODIFY-->
         <!--End Facebook Pixel Code-->
-
-
-
         <script>
             var eventsListenerScript = document.createElement('script');
             eventsListenerScript.async = true;
@@ -198,15 +178,6 @@
 
             document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);
         </script>
-
-
-
-
-
-
-
-
-
         <script type="application/ld+json">
         {
         "@context": "http://schema.org",

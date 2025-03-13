@@ -4,23 +4,46 @@
     @yield('content')
 
     <div class="container">
-        <h2>Danh mục {{ $category->name }}</h2>
+        <h2 style="font-size: 30px; font-weight: bold; margin-bottom: 15px;">Danh mục {{ $category->name }}</h2>
         <div class="row">
-            @foreach($category->products as $product)
-                <div class="col-6 col-md-4 col-lg-3 mb-4">
-                    <div class="card" style="border: 1px solid black; margin: 15px 0 15px 0; border-radius: 10px;">
-                        <div class="img_product">
-                            <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}" height="150px">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text">{{ number_format($product->base_price, 0, ',', '.') }} VND</p>
-                            <a href="#" class="btn btn-primary">Mua ngay</a>
-                        </div>
+            @foreach ($products as $product)
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="product-card mt-4">
+                        <form action="/cart/add" method="post" class="variants product-action" data-cart-form
+                            data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
+                            <div class="product-thumbnail">
+                                <a class="image_thumb scale_hover" href="#" title="{{ $product->name }}">
+                                    <img width="100%" height="auto" src="{{ $product->image }}"
+                                        alt="{{ $product->name }}">
+                                </a>
+                                <div class="action">
+                                    <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
+                                        onclick="window.location.href='#'">
+                                        <svg class="icon">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail">
+                                            </use>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a class="line-clamp line-clamp-2" href="#" title="{{ $product->name }}">
+                                        {{ $product->name }}
+                                    </a>
+                                </h3>
+                                <div class="price-box">
+                                    {{ number_format($product->base_price, 0, ',', '.') }} VND
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <hr>
             @endforeach
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            {{ $products->links() }}
         </div>
     </div>
 </div>

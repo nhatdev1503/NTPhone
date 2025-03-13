@@ -57,7 +57,7 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label for="mini_image" class="form-label">Ảnh mini</label>
-                                    <input type="file" class="form-control" id="mini_image" name="mini_image" >
+                                    <input type="file" class="form-control" id="mini_image" name="mini_image">
                                 </div>
                             </div>
 
@@ -117,24 +117,31 @@
                             <div id="variant-section">
                                 <h4 class="text-center mt-4">Thêm biến thể</h4>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label class="form-label">Màu sắc</label>
-                                        <select class="form-control" id="variant_color">
-                                            <option value="">Chọn màu</option>
+                                        <select class="form-control variant_color"
+                                            onchange="toggleInput(this, 'variant_color')">
+                                            <option value="" disabled selected>Chọn màu</option>
                                             @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
                                                 <option value="{{ $color }}">{{ $color }}</option>
                                             @endforeach
-                                                <option value="other">Khác</option>
+                                            <option value="other">Khác</option>
                                         </select>
+                                        <input type="text" id="variant_color" class="form-control mt-2 d-none"
+                                            placeholder="Nhập màu sắc">
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label class="form-label">Dung lượng</label>
-                                        <select class="form-control" id="variant_storage">
-                                            <option value="">Chọn dung lượng</option>
+                                        <select class="form-control variant_storage"
+                                            onchange="toggleInput(this, 'variant_storage')">
+                                            <option value="" disabled selected>Chọn dung lượng</option>
                                             @foreach (['8GB', '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB'] as $storage)
                                                 <option value="{{ $storage }}">{{ $storage }}</option>
                                             @endforeach
+                                            <option value="other">Khác</option>
                                         </select>
+                                        <input type="number" id="variant_storage" class="form-control mt-2 d-none"
+                                            placeholder="Nhập dung lượng">
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Giá gốc</label>
@@ -153,7 +160,7 @@
                                     </div>
                                 </div>
 
-                                <h5 class="mt-4">Danh sách biến thể cần thêm: </h5>
+                                <h5 class="mt-5">Danh sách biến thể cần thêm: </h5>
                                 <ul class="list-group" id="variant-list"></ul>
                             </div>
 
@@ -172,42 +179,66 @@
     </div>
 
     <script>
-        document.getElementById("add-variant").addEventListener("click", function () {
-            const color = document.getElementById("variant_color").value;
-            const storage = document.getElementById("variant_storage").value;
+        function toggleInput(selectElement, inputId) {
+            let inputField = document.getElementById(inputId);
+
+            if (selectElement.value === "other") {
+                inputField.classList.remove("d-none"); // Hiện ô nhập
+                inputField.setAttribute("required", "true");
+            } else {
+                inputField.classList.add("d-none"); // Ẩn ô nhập
+                inputField.removeAttribute("required");
+            }
+        }
+        document.getElementById("add-variant").addEventListener("click", function() {
+            let color = document.querySelector(".variant_color").value;
+            let storage = document.querySelector(".variant_storage").value;
             const origin_price = document.getElementById("variant_origin_price").value;
             const price = document.getElementById("variant_price").value;
             const stock = document.getElementById("variant_stock").value;
-    
+            const inputColor = document.getElementById("variant_color").value;
+            const inputStorage = document.getElementById("variant_storage").value;
+            if (color == "other") {
+                color = inputColor;
+            }
+            if (storage == "other") {
+                storage = inputStorage + "GB";
+            }
             if (!color || !storage || !origin_price || !price || !stock) {
                 alert("Vui lòng điền đầy đủ thông tin biến thể!");
                 return;
             }
-            if(origin_price < price){
+            if (origin_price > price) {
                 alert("Giá giảm phải bé hơn giá gốc!");
                 return;
             }
             let exists = false;
-            document.querySelectorAll("#variant-list li").forEach(function (item) {
+            document.querySelectorAll("#variant-list li").forEach(function(item) {
                 console.log(`Checking: ${item.dataset.color} | ${item.dataset.storage}`);
                 if (item.dataset.color === color && item.dataset.storage === storage) {
                     exists = true;
                 }
             });
-    
+
             if (exists) {
                 alert("Biến thể với màu và dung lượng này đã tồn tại!");
                 return;
             }
-    
+
             // Tạo input hidden để gửi biến thể lên server
             const input = document.createElement("input");
             input.type = "hidden";
             input.name = "variants[]";
-            input.value = JSON.stringify({ color, storage, origin_price, price, stock });
-    
+            input.value = JSON.stringify({
+                color,
+                storage,
+                origin_price,
+                price,
+                stock
+            });
+
             document.getElementById("variant-section").appendChild(input);
-    
+
             // Thêm vào danh sách hiển thị
             const variantList = document.getElementById("variant-list");
             const li = document.createElement("li");
@@ -216,25 +247,16 @@
             li.dataset.storage = storage;
             li.innerHTML = `${color}   |   ${storage}   |   Giá gốc: ${origin_price}   |   Giá bán: ${price}   |   Kho: ${stock}
                 <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>`;
-    
+
             variantList.appendChild(li);
         });
-    
+
         // Xóa biến thể khỏi danh sách
-        document.getElementById("variant-list").addEventListener("click", function (e) {
+        document.getElementById("variant-list").addEventListener("click", function(e) {
             if (e.target.classList.contains("remove-variant")) {
                 e.target.parentElement.remove();
             }
         });
-        document.getElementById("variant_color").addEventListener("change", function () {
-        let customColorInput = document.getElementById("custom_color");
-        if (this.value === "other") {
-            customColorInput.classList.remove("d-none");
-            customColorInput.focus();
-        } else {
-            customColorInput.classList.add("d-none");
-        }
-    });
     </script>
-    
+
 @endsection

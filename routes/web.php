@@ -23,7 +23,7 @@ use App\Http\Controllers\customer\OrderLookupController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+|x
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
@@ -37,6 +37,9 @@ Route::get('/don-hang/{order_code}', [OrderLookupController::class, 'show'])->na
 
 
 // Route trang đăng nhập
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 
@@ -69,12 +72,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::put('/products/{product}/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
-    Route::get('products/{product}/variants', [ProductController::class, 'getVariants']);
-    Route::get('productvariants/{product}/create', [ProductVariantController::class, 'create']);
-    Route::post('productvariants/{product}/store', [ProductVariantController::class, 'store'])->name('productvariants.store');
-    Route::get('productvariants/{id}/edit', [ProductVariantController::class, 'edit'])->name('productvariants.edit');
-    Route::put('productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
-    Route::put('productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
+    Route::get('/products/{product}/variants', [ProductController::class, 'getVariants']);
+    Route::get('/productvariants/{product}/create', [ProductVariantController::class, 'create']);
+    Route::post('/productvariants/{product}/store', [ProductVariantController::class, 'store'])->name('productvariants.store');
+    Route::get('/productvariants/{id}/edit', [ProductVariantController::class, 'edit'])->name('productvariants.edit');
+    Route::put('/productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
+    Route::put('/productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
 
     // //Router Danh muc Quyet //
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -120,9 +123,17 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 });
 
 //Route trang khách hàng
-Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+Route::prefix('customer')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
+
+    // Trang danh mục
+    Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+
+    // Bao hanhhanh
+    Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
+    // Bao contactcontact
+    Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
 
 });
 
