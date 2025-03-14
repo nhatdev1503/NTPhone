@@ -27,7 +27,7 @@
 
                         <div class="contact">
                             <h4>
-                                Cửa Hàng Hoàng Kiên
+                                Cửa Hàng NTPhone
 
                             </h4>
                             <div class="info-contact">
@@ -90,7 +90,7 @@
                                             </div>
                                             <div class="info">
                                                 <b>Email</b>
-                                                <a title="hotro@hoangkien.com" href="mailto:hotro@hoangkien.com">hotro@hoangkien.com</a>
+                                                <a title="hotro@hoangkien.com" href="mailto:hotro@hoangkien.com">hotro@ntphonene.com</a>
                                             </div>
                                         </li>
 
