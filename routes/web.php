@@ -83,14 +83,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('banners', BannerController::class);
     Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('banners.status');
 
-// //Quản lí Đơn hàng (Nhật)
+    // //Quản lí Đơn hàng (Nhật)
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
 
     // // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
-    Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
@@ -104,14 +104,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/contacts', [ContactController::class, 'show'])->name('contacts.show');
     Route::get('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::put('/contacts/update', [ContactController::class, 'update'])->name('contacts.update');
-
 });
 
 //Route trang nhân viên
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [StaffController::class, 'index'])->name('staff.index');
-
 });
 
 //Route trang khách hàng
@@ -121,7 +119,17 @@ Route::prefix('customer')->group(function () {
 
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+    // Trang sản phẩm yêu thích
+    Route::get('/favorites', [\App\Http\Controllers\customer\FavoritesController::class, 'index'])
+        ->name('customer.favorites.index');
 
+        
+    // Trang thông tin cá nhân (profile)
+    Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
+        ->name('customer.profile');
+    // Route xử lý cập nhật thông tin profile (POST)
+    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+        ->name('customer.profile.update');
 });
 
 
