@@ -25,7 +25,7 @@
           </button>
       </form>
       <p class="text-center text-sm text-gray-500 mt-6">
-          Chưa có tài khoản? <a href="#" class="text-blue-600 font-semibold">Đăng ký ngay</a>
+          Chưa có tài khoản? <a href="{{ route('register') }}" class="text-blue-600 font-semibold">Đăng ký ngay</a>
       </p>
   </div>
 </div>

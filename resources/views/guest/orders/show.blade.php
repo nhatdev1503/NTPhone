@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <a href="{{ route('customer.orders.lookup') }}" class="btn btn-secondary">
+                        <a href="{{ route('guest.orders.lookup') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Quay lại tra cứu
                         </a>
                     </div>

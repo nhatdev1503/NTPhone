@@ -25,6 +25,11 @@
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <meta property="og:url" content="https://www.hoangkien.com/">
     <meta property="og:site_name" content="Hoàng Kiên">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <link rel="icon" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/favicon.png?1741067950025"
         type="image/x-icon" />
     <link rel="preload" as="script"
@@ -276,15 +281,17 @@
                                 class=""></path>
                         </svg>
                     </span>
-                    <span class="vertical-heading-text" style="position: absolute; top:9px; left: 40px; ">Danh mục</span>
+                    <span class="vertical-heading-text" style="position: absolute; top:9px; left: 40px; ">Danh
+                        mục</span>
                 </div>
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
                             @foreach ($categoriess as $category)
                                 <div class="nav_item nav-item lv1 li_check ">
-                                    <a href="#1" title="{{ $category->name }}"
-                                        style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1741067950025')">{{$category->name}}
+                                    <a href="{{ route('customer.category', $category->id) }}"
+                                        title="{{ $category->name }}"
+                                        style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1741067950025')">{{ $category->name }}
                                         <i class="fas fa-angle-right">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -362,7 +369,8 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a title="Tra cứu đơn hàng" href="/apps/kiem-tra-don-hang" class="button-wishlist">
+                        <a title="Tra cứu đơn hàng" href="{{ route('guest.orders.lookup') }}"
+                            class="button-wishlist">
                             Tra cứu<span>đơn hàng</span>
                         </a>
                     </div>
@@ -442,7 +450,7 @@
                                 </svg>
                                 Đăng nhập</a>
                         </li>
-                        <li class="li-account"><a rel="nofollow" href="{{ route('register')}}" title="Đăng ký">
+                        <li class="li-account"><a rel="nofollow" href="{{ route('register') }}" title="Đăng ký">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                                     <path
@@ -483,16 +491,15 @@
                                     Trang chủ
                                 </a>
                             </li>
-                            @foreach ($categoriess as $category )
-                            <li class="nav-item   has-mega ">
-                                <a class="a-img caret-down" href="#" title="Điện thoại">
-                                    {{ $category->name }}
-                                </a>
-                            </li>
+                            @foreach ($categoriess as $category)
+                                <li class="nav-item   has-mega ">
+                                    <a class="a-img caret-down" href="#" title="Điện thoại">
+                                        {{ $category->name }}
+                                    </a>
+                                </li>
                             @endforeach
                             <li class="nav-item  ">
-                                <a class="a-img" href="#"
-                                    title="Chính sách bảo hành">
+                                <a class="a-img" href="#" title="Chính sách bảo hành">
                                     Chính sách bảo hành
                                 </a>
                             </li>

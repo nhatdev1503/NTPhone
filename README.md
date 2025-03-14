@@ -5,7 +5,6 @@
 3. Copy file .env.example và đổi tên thành .env
 
 4. Trong file .env kiểm tra các trường :
-                  APP_KEY=base64:ssolisiF7wqEqTMRnjten9LsvCxyIR3/LX7FB2H3/Vk=
                   DB_DATABASE=WD-32
                   DB_USERNAME=root
                   DB_PASSWORD=
