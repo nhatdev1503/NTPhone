@@ -335,6 +335,17 @@
         .btn-lienhe:hover {
             background: #0056b3;
         }
+        #contact_map {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#contact_map iframe {
+    width: 100%;
+    height: 80%;
+    border-radius: 10px;
+}
     </style>
 </head>
 
