@@ -17,8 +17,6 @@
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <title>Apple Store - Hoàng Kiên iPhone, iPad and more..... </title>
     <meta name="keywords" content="Cập nhật sau" />
-
-
     <meta property="og:type" content="website">
     <meta property="og:title" content="Apple Store - Hoàng Kiên iPhone, iPad and more.....">
     <meta property="og:image"
@@ -87,6 +85,11 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{{ asset('css/product_style.scss.css') }}">
+
+   
 
 
 
@@ -335,17 +338,18 @@
         .btn-lienhe:hover {
             background: #0056b3;
         }
-        #contact_map {
-    width: 100%;
-    height: 100%;
-    display: flex;
-}
 
-#contact_map iframe {
-    width: 100%;
-    height: 80%;
-    border-radius: 10px;
-}
+        #contact_map {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        #contact_map iframe {
+            width: 100%;
+            height: 80%;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -393,19 +397,19 @@
                     <div class="list_menu_header">
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
                             @foreach ($categoriess as $category)
-                                <div class="nav_item nav-item lv1 li_check ">
-                                    <a href="{{ route('customer.category', $category->id) }}"
-                                        title="{{ $category->name }}"
-                                        style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1741067950025')">{{ $category->name }}
-                                        <i class="fas fa-angle-right">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                                <path
-                                                    d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                            </svg>
-                                        </i>
-                                    </a>
-                                </div>
+                            <div class="nav_item nav-item lv1 li_check ">
+                                <a href="{{ route('customer.category', $category->id) }}"
+                                    title="{{ $category->name }}"
+                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1741067950025')">{{ $category->name }}
+                                    <i class="fas fa-angle-right">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -602,12 +606,12 @@
                                 </a>
                             </li>
                             @foreach ($categoriess as $category)
-                                <li class="nav-item   has-mega ">
-                                    <a class="a-img caret-down" href="{{ route('customer.category', $category->id) }}"
-                                        title="{{ $category->name }}">
-                                        {{ $category->name }}
-                                    </a>
-                                </li>
+                            <li class="nav-item   has-mega ">
+                                <a class="a-img caret-down" href="{{ route('customer.category', $category->id) }}"
+                                    title="{{ $category->name }}">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
                             @endforeach
                             <li class="nav-item  ">
                                 <a class="a-img" href="{{ route('customer.warranty') }}"

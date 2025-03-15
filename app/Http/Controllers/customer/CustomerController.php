@@ -35,6 +35,23 @@ class CustomerController extends Controller
     {
         return view('customer.contact');
     }
+    public function product_detail($id)
+    {
+        $product = Product::with('variants', 'colors')->findOrFail($id); 
+        
+        $variants = $product->variants ?? collect();
+    
+        // Lấy sản phẩm liên quan cùng danh mục, loại bỏ chính sản phẩm đang xem
+        $relatedProducts = Product::where('category_id', $product->category_id)
+                                  ->where('id', '!=', $id)
+                                  ->limit(6)
+                                  ->get();
+    
+    
+        return view('customer.product_detail', compact('product', 'variants', 'relatedProducts'));
+    }
+    
+    
     /**
      * Show the form for creating a new resource.
      */
