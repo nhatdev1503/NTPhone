@@ -52,8 +52,8 @@
                             <p><strong>💥 LỖI DO NGƯỜI DÙNG - SỬA CHỮA MIỄN PHÍ KHÔNG GIỚI HẠN TRONG 1 NĂM !</strong></p>
                             <p>Cụ thể các lỗi như: RƠI VỠ - VÀO NƯỚC, trầy xước mạnh, chân sạc rỉ sét hoặc sụp mạch, cháy cảm biến camera do tia laser..vvv.</p>
                             <p>➖Sửa chữa MIỄN PHÍ tất cả các lỗi phần cứng ... riêng màn hình HỖ TRỢ 50% giá gốc nếu không sửa được và cần phải thay linh kiện mới.</p>
-                            <p>➖Trường hợp khách hàng có nhu cầu lên đời Hoàng Kiên sẽ thanh lý bán hộ chuyển khoản đủ 100% tiền (khi số tiền bán hộ cao hơn 50% giá Web)</p>
-                            <p>➖ Trường hợp máy vỡ nát hoặc lỗi nặng không thể sửa chữa Hoàng Kiên trợ giá 50% cho khách hàng mua máy mới NGANG DÒNG (khi số tiền bán hộ thấp hơn 50% giá Web) và Hoàng Kiên sẽ thu hồi lại máy hỏng.</p>
+                            <p>➖Trường hợp khách hàng có nhu cầu lên đời NTPhone sẽ thanh lý bán hộ chuyển khoản đủ 100% tiền (khi số tiền bán hộ cao hơn 50% giá Web)</p>
+                            <p>➖ Trường hợp máy vỡ nát hoặc lỗi nặng không thể sửa chữa NTPhone trợ giá 50% cho khách hàng mua máy mới NGANG DÒNG (khi số tiền bán hộ thấp hơn 50% giá Web) và NTPhone sẽ thu hồi lại máy hỏng.</p>
                         </div>
                     </div>
                 </div>

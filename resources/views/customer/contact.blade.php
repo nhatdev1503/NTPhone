@@ -27,7 +27,7 @@
 
                         <div class="contact">
                             <h4>
-                                Cửa Hàng Hoàng Kiên
+                                Cửa Hàng NTPhone
 
                             </h4>
                             <div class="info-contact">
@@ -90,7 +90,7 @@
                                             </div>
                                             <div class="info">
                                                 <b>Email</b>
-                                                <a title="hotro@hoangkien.com" href="mailto:hotro@hoangkien.com">hotro@hoangkien.com</a>
+                                                <a title="hotro@hoangkien.com" href="mailto:hotro@hoangkien.com">hotro@ntphonene.com</a>
                                             </div>
                                         </li>
 
@@ -134,7 +134,8 @@
                 </div>
                 <div class="col-lg-6 col-12">
                     <div id="contact_map" class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.489921754731!2d105.83308857599832!3d21.0130742883157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aba5bded19bf%3A0x1c009d29981dec0!2zSG_DoG5nIEtpw6pu!5e0!3m2!1svi!2s!4v1729235968615!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d953310.7232688898!2d104.68962533125!3d21.037886500000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab7d763caf69%3A0x48364e31cec58f97!2zQ-G7rEEgSMOATkcgxJBJ4buGTiBUSE_huqBJIE5UUEhPTkU!5e0!3m2!1svi!2s!4v1741931626959!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
