@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-<<<<<<< HEAD
 // Route trang đăng nhập
 Route::get('/', function () {
     return redirect()->route('login');
@@ -105,11 +104,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/contacts', [ContactController::class, 'show'])->name('contacts.show');
     Route::get('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::put('/contacts/update', [ContactController::class, 'update'])->name('contacts.update');
-=======
-// Giao diện Admin
-Route::get('/', function () {
-    return view('admin.index'); //test giao diện
->>>>>>> 6ade668521471cf4c66d15f451a752fabbe47637
 });
 
 //Route trang nhân viên
@@ -150,35 +144,10 @@ Route::prefix('customer')->group(function () {
 //         $query->limit(24);
 //     }])->findOrFail($id);
 
-<<<<<<< HEAD
 //     return view('giaodien_web.danhmuc', compact('category'));
 // })->name('web.product.category');
 
 // Route::get('/san-pham/{id}', function ($id) {
-=======
-
-//--------------------------------------------------------------------------------------------------------------------------
-
-
-
-// router giao diện người dùng / hiếu
-Route::get('/trangchu', function () {
-    return view('giaodien_web.trangchu');
-})->name('web.home');
-//---------------------------------------------------------------------
-Route::get('/san-pham', function () {
-    return view('giaodien_web.sanpham');
-})->name('web.products');
-//---------------------------------------------------------------------
-Route::get('/san-pham-chitiet/{id}', function ($id) {
-    return view('giaodien_web.sanpham_chitiet', compact('id'));
-})->name('web.product.detail');
-//---------------------------------------------------------------------
-Route::get('/gio-hang', function () {
-    return view('giaodien_web.giohang');
-})->name('web.cart');
-//---------------------------------------------------------------------
->>>>>>> 6ade668521471cf4c66d15f451a752fabbe47637
 
 //     return view('giaodien_web.sanpham_chitiet', compact('id'));
 // })->name('web.product.detail');
