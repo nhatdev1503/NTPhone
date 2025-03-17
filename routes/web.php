@@ -130,6 +130,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
     // contact
     Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
+
+    // Route giỏ hàng
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
 });
 
 
