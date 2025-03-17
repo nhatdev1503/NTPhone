@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -51,7 +52,14 @@ class CustomerController extends Controller
         return view('customer.product_detail', compact('product', 'variants', 'relatedProducts'));
     }
     
-    
+   
+
+    public function cart(){
+        $user = Auth::user();
+        $carts = Cart::where('user_id', $user->id)->with('product_variant.product.category')->get();
+
+        return view('customer.giohang', compact('carts'));
+    }
     /**
      * Show the form for creating a new resource.
      */
