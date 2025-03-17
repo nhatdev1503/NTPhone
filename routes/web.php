@@ -136,6 +136,18 @@ Route::prefix('customer')->group(function () {
     // Bao contactcontact
     Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
 
+    // Route giỏ hàng
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+});
+
+
+//Route trang khách vãng lai
+Route::prefix('guest')->group(function () {
+    
+    Route::get('/order-lookup', [OrderLookupController::class, 'lookup'])->name('guest.orders.lookup');
+    Route::post('/api/order-lookup', [OrderLookupController::class, 'apiSearch'])->name('guest.orders.apiSearch');
+    Route::get('/order-lookup/{order_code}', [OrderLookupController::class, 'show'])->name('guest.orders.show');
+
 });
 
 

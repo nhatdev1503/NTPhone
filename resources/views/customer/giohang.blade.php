@@ -2,7 +2,7 @@
 
  <div class="container my-4">
      @yield('content')
-     
+
 
      <div class="bodywrap">
          <section class="bread-crumb">
@@ -38,83 +38,131 @@
                      </div>
                      <div class="row">
 
-                         <div class="col-xl-8 col-lg-8 col-12 col-cart-left">
+                         <div class="col-12 col-cart-left">
                              <div class="cart-page d-xl-block d-none">
                                  <div class="drawer__inner">
                                      <div class="CartPageContainer">
-                                     </div>
+                                         <h4>Giỏ hàng của bạn</h4>
 
+                                         <table class="table mt-2">
+                                             <thead class="table-dark">
+                                                 <tr>
+                                                     <th><input type="checkbox" id="select_all"></th>
+                                                     <th>STT</th>
+                                                     <th>Hình ảnh</th>
+                                                     <th>Tên sản phẩm</th>
+                                                     <th>Danh mục</th>
+                                                     <th>Màu sắc</th>
+                                                     <th>Dung lượng</th>
+                                                     <th>Giá</th>
+                                                     <th>Số lượng</th>
+                                                     <th>Số tiền</th>
+                                                     <th>Thao tác</th>
+                                                 </tr>
+                                             </thead>
+                                             <tbody>
+                                                 @php
+                                                     $index = 1;
+                                                 @endphp
+                                                 @foreach ($carts as $cart)
+                                                     <tr>
+                                                         <td><input type="checkbox" name="select_item"
+                                                                 value="{{ $cart->product_variant->product->id }}"
+                                                                 class="select-item">
+                                                         </td>
+                                                         <td>{{ $index++ }}</td>
+                                                         <td><img src="{{ $cart->product_variant->product->image }}" alt="{{ $cart->product_variant->product->name }}" width="100px" height="100px"></td>
+                                                         <td>{{ $cart->product_variant->product->name }}</td>
+                                                         <td>{{ $cart->product_variant->product->category->name }}</td>
+                                                         <td>{{ $cart->product_variant->color }}</td>
+                                                         <td>{{ $cart->product_variant->storage }}</td>
+                                                         <td>{{ number_format($cart->product_variant->price) }} VND</td>
+                                                         <td>{{ $cart->quantity }}</td>
+                                                         <td>{{ number_format($cart->product_variant->price * $cart->quantity) }} VND</td>
+                                                         <td>
+                                                             <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                                                             <form action="" style="display: inline-block;">
+                                                                 @csrf
+                                                                 @method('DELETE')
+                                                                 <button class="btn btn-danger">Xóa</button>
+                                                             </form>
+                                                         </td>
+                                                     </tr>
+                                                 @endforeach
+                                             </tbody>
+                                         </table>
+                                         <div class="cart-delivery-time mt-4">
+                                             <form method="post" novalidate="" class="formVAT">
+                                                 <h4>
+                                                     Thời gian giao hàng
+                                                 </h4>
+                                                 <div class="timedeli-modal">
+                                                     <fieldset class="input_group date_pick">
+                                                         <input type="text" placeholder="Chọn ngày" readonly
+                                                             id="date" name="attributes[shipdate]"
+                                                             class="date_picker" required>
+                                                     </fieldset>
+                                                     <fieldset class="input_group date_time">
+                                                         <select name="time" class="timeer timedeli-cta">
+                                                             <option selected>Chọn thời gian</option>
+
+
+                                                             <option value="08h00 - 12h00">08h00 - 12h00</option>
+
+                                                             <option value=" 14h00 - 18h00"> 14h00 - 18h00</option>
+
+                                                             <option value=" 19h00 - 21h00"> 19h00 - 21h00</option>
+
+                                                         </select>
+                                                     </fieldset>
+                                                 </div>
+
+                                                 <div class="r-bill">
+                                                     <div class="checkbox">
+                                                         <input type="hidden" name="attributes[invoice]"
+                                                             id="re-checkbox-bill" value='không'>
+                                                         <input type="checkbox" id="checkbox-bill"
+                                                             name="attributes[invoice]" value="có"
+                                                             class="regular-checkbox" />
+                                                         <label for="checkbox-bill" class="box"></label>
+                                                         <label for="checkbox-bill" class="title">Xuất hóa đơn công
+                                                             ty</label>
+                                                     </div>
+                                                     <div class="bill-field">
+                                                         <div class="form-group">
+                                                             <label>Tên công ty</label>
+                                                             <input type="text" class="form-control val-f"
+                                                                 name="attributes[company_name]" value=""
+                                                                 placeholder="Tên công ty">
+                                                         </div>
+                                                         <div class="form-group">
+                                                             <label>Mã số thuế</label>
+                                                             <input type="text" pattern=".{10,}"
+                                                                 onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
+                                                                 class="form-control val-f val-n"
+                                                                 name="attributes[tax_code]" value=""
+                                                                 placeholder="Mã số thuế">
+                                                         </div>
+                                                         <div class="form-group">
+                                                             <label>Địa chỉ công ty</label>
+                                                             <textarea class="form-control val-f" name="attributes[company_address]"
+                                                                 placeholder="Nhập địa chỉ công ty (bao gồm Phường/Xã, Quận/Huyện, Tỉnh/Thành phố nếu có)"></textarea>
+                                                         </div>
+                                                         <div class="form-group">
+                                                             <label>Email nhận hoá đơn</label>
+                                                             <input type="email" class="form-control val-f val-email"
+                                                                 name="attributes[invoice_email]" value=""
+                                                                 placeholder="Email nhận hoá đơn">
+                                                         </div>
+                                                     </div>
+                                                 </div>
+
+                                             </form>
+                                         </div>
+                                         <a href="#" class="float-end" style="color: white; background-color: red; padding: 10px 50px; font-size: 20px;">Mua hàng</a>
+                                     </div>
                                  </div>
                              </div>
-                             <div class="cart-mobile-page d-block d-xl-none">
-                                 <div class="CartMobileContainer">
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="col-xl-4 col-lg-4 col-12 col-cart-right">
-
-                             <form method="post" novalidate="" class="formVAT">
-                                 <h4>
-                                     Thời gian giao hàng
-                                 </h4>
-                                 <div class="timedeli-modal">
-                                     <fieldset class="input_group date_pick">
-                                         <input type="text" placeholder="Chọn ngày" readonly id="date"
-                                             name="attributes[shipdate]" class="date_picker" required>
-                                     </fieldset>
-                                     <fieldset class="input_group date_time">
-                                         <select name="time" class="timeer timedeli-cta">
-                                             <option selected>Chọn thời gian</option>
-
-
-                                             <option value="08h00 - 12h00">08h00 - 12h00</option>
-
-                                             <option value=" 14h00 - 18h00"> 14h00 - 18h00</option>
-
-                                             <option value=" 19h00 - 21h00"> 19h00 - 21h00</option>
-
-                                         </select>
-                                     </fieldset>
-                                 </div>
-
-                                 <div class="r-bill">
-                                     <div class="checkbox">
-                                         <input type="hidden" name="attributes[invoice]" id="re-checkbox-bill"
-                                             value='không'>
-                                         <input type="checkbox" id="checkbox-bill" name="attributes[invoice]"
-                                             value="có" class="regular-checkbox" />
-                                         <label for="checkbox-bill" class="box"></label>
-                                         <label for="checkbox-bill" class="title">Xuất hóa đơn công ty</label>
-                                     </div>
-                                     <div class="bill-field">
-                                         <div class="form-group">
-                                             <label>Tên công ty</label>
-                                             <input type="text" class="form-control val-f"
-                                                 name="attributes[company_name]" value=""
-                                                 placeholder="Tên công ty">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Mã số thuế</label>
-                                             <input type="text" pattern=".{10,}"
-                                                 onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
-                                                 class="form-control val-f val-n" name="attributes[tax_code]"
-                                                 value="" placeholder="Mã số thuế">
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Địa chỉ công ty</label>
-                                             <textarea class="form-control val-f" name="attributes[company_address]"
-                                                 placeholder="Nhập địa chỉ công ty (bao gồm Phường/Xã, Quận/Huyện, Tỉnh/Thành phố nếu có)"></textarea>
-                                         </div>
-                                         <div class="form-group">
-                                             <label>Email nhận hoá đơn</label>
-                                             <input type="email" class="form-control val-f val-email"
-                                                 name="attributes[invoice_email]" value=""
-                                                 placeholder="Email nhận hoá đơn">
-                                         </div>
-                                     </div>
-                                 </div>
-
-                             </form>
                          </div>
                      </div>
                  </div>
@@ -331,7 +379,7 @@
                              if ($(this).val() === '') {
                                  if ($(this).next('span.text-danger').length == 0) {
                                      $(this).after(
-                                     '<span class="text-danger">Bạn không được để trống trường này</span>');
+                                         '<span class="text-danger">Bạn không được để trống trường này</span>');
                                  }
                              } else {
                                  $(this).next('span.text-danger').remove();
@@ -382,6 +430,14 @@
          </script>
      </div>
 
+
+     {{-- Chọn tất cả sản phẩm trong giỏ hàng --}}
+     <script>
+         document.getElementById('select_all').addEventListener('change', function() {
+             let checkboxes = document.querySelectorAll('.select-item');
+             checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+         });
+     </script>
 
 
 
@@ -806,11 +862,11 @@
                                                  .html(parseData.image ?
                                                      `<img class="img-fluid" src="${parseData.image}" alt="${parseData.title}"/>` :
                                                      "//bizweb.dktcdn.net/thumb/large/assets/themes_support/noimage.gif"
-                                                     );
+                                                 );
                                              selfPage.find(`tr.title td:nth-child(${i + 2})`)
                                                  .html(
                                                      `<h3><a href="${parseData.url}">${parseData.title}</a></h3>`
-                                                     );
+                                                 );
                                              selfPage.find(`tr.price td:nth-child(${i + 2})`)
                                                  .html(parseData.price);
                                              selfPage.find(`tr.available td:nth-child(${i + 2})`)
@@ -827,7 +883,7 @@
                                              $('#alertError').modal('show').find('.modal-body')
                                                  .html(
                                                      'Xin lỗi, có vấn đề khi thực hiện so sánh, vui lòng thử lại sau!'
-                                                     );
+                                                 );
                                          }
                                      })
                                  });
@@ -1140,5 +1196,5 @@
 
 
 
- 
+
  @include('layouts.customer.footer')
