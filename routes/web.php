@@ -11,14 +11,13 @@ use App\Http\Controllers\admin\ProductVariantController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\LoginController;
-use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
-use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\guest\OrderLookupController;
+use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\staff\StaffController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Route trang tra cứu đơn hàng
+
+Route::get('/tra-cuu-don-hang', [OrderLookupController::class, 'lookup'])->name('customer.orders.lookup');
+Route::post('/tim-kiem-don-hang', [OrderLookupController::class, 'redirect'])->name('customer.orders.redirect');
+Route::get('/don-hang/{order_code}', [OrderLookupController::class, 'show'])->name('customer.orders.show');
+Route::get('/order-lookup', [OrderLookupController::class, 'lookup'])->name('guest.orders.lookup');
 
 
 // Route trang đăng nhập
@@ -40,7 +45,7 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 
 // Route đăng ký
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
 // Route đăng xuất
@@ -87,14 +92,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('banners', BannerController::class);
     Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('banners.status');
 
-    // //Quản lí Đơn hàng (Nhật)
+// //Quản lí Đơn hàng (Nhật)
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
 
     // // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
@@ -116,19 +121,19 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [StaffController::class, 'index'])->name('staff.index');
 
-
 });
 
 //Route trang khách hàng
-Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+Route::prefix('customer')->group(function () {
+    // Trang Dashboard Admin
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
 
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
 
-    // Bao hanh
+    // Bao hanhhanh
     Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
-    // contact
+    // Bao contactcontact
     Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
 
     // Route giỏ hàng
@@ -146,26 +151,25 @@ Route::prefix('guest')->group(function () {
 });
 
 
-
 // //---------------------------------------------------------------------
-// Route::get('/san-pham', function () {
-//     return view('giaodien_web.sanpham');
-// })->name('web.products');
+Route::get('/san-pham', function () {
+    return view('giaodien_web.sanpham');
+})->name('web.products');
 
 
-// Route::get('/danh-muc/{id}', function($id){
-//     $category = Category::with(['products' => function($query){
-//         $query->limit(24);
-//     }])->findOrFail($id);
+Route::get('/danh-muc/{id}', function($id){
+    $category = Category::with(['products' => function($query){
+        $query->limit(24);
+    }])->findOrFail($id);
 
-//     return view('giaodien_web.danhmuc', compact('category'));
-// })->name('web.product.category');
+    return view('giaodien_web.danhmuc', compact('category'));
+})->name('web.product.category');
 
-// Route::get('/san-pham/{id}', function ($id) {
+Route::get('/san-pham/{id}', function ($id) {
 
-//     return view('giaodien_web.sanpham_chitiet', compact('id'));
-// })->name('web.product.detail');
-// //---------------------------------------------------------------------
-// Route::get('/gio-hang', function () {
-//     return view('giaodien_web.giohang');
-// })->name('web.cart');
+    return view('giaodien_web.sanpham_chitiet', compact('id'));
+})->name('web.product.detail');
+//---------------------------------------------------------------------
+Route::get('/gio-hang', function () {
+    return view('giaodien_web.giohang');
+})->name('web.cart');
