@@ -200,9 +200,8 @@
                                                     class="variants product-action" data-cart-form
                                                     data-id="product-actions-41332974" enctype="multipart/form-data">
                                                     <div class="product-thumbnail">
-                                                        <a class="image_thumb scale_hover"
-                                                            href="#"
-                                                            title="#">
+                                                    <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
+
                                                             <img width="234px" height="234px"
                                                                 class=""
                                                                 src="{{ $product->image }}"
@@ -225,7 +224,7 @@
                                                     </div>
                                                     <div class="product-info">
                                                         <h3 class="product-name"><a class="line-clamp line-clamp-2"
-                                                                href="#"
+                                                                href="{{ route('customer.product_detail', $product->id) }}"
                                                                 title="#">{{ $product->name }}
                                                             </a></h3>
                                                         <div class="price-box">

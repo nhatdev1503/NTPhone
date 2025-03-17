@@ -1,8 +1,6 @@
-@include('layouts.customer.header')
-
+@include('layouts.customer.header') 
 <div class="container my-4">
     @yield('content')
-
     <div class="container">
         <h2 style="font-size: 30px; font-weight: bold; margin-bottom: 15px;">Danh mục {{ $category->name }}</h2>
         <div class="row">
@@ -12,7 +10,8 @@
                         <form action="/cart/add" method="post" class="variants product-action" data-cart-form
                             data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
                             <div class="product-thumbnail">
-                                <a class="image_thumb scale_hover" href="#" title="{{ $product->name }}">
+                            <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
+
                                     <img width="100%" height="auto" src="{{ $product->image }}"
                                         alt="{{ $product->name }}">
                                 </a>
@@ -28,9 +27,8 @@
                             </div>
                             <div class="product-info">
                                 <h3 class="product-name">
-                                    <a class="line-clamp line-clamp-2" href="#" title="{{ $product->name }}">
-                                        {{ $product->name }}
-                                    </a>
+                                <a class="line-clamp line-clamp-2" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
+
                                 </h3>
                                 <div class="price-box">
                                     {{ number_format($product->base_price, 0, ',', '.') }} VND

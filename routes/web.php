@@ -129,13 +129,16 @@ Route::prefix('customer')->group(function () {
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
 
     // Trang danh mục
+    //
+    
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+    // Product detail
+    Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
 
     // Bao hanhhanh
     Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
     // Bao contactcontact
     Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
-
     // Route giỏ hàng
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
 });
