@@ -80,7 +80,7 @@
                         @foreach ($order->orderItems as $item)
                             <tr>
                                 <td>
-                                    <img src="{{ asset('storage/' . $item->productVariant->product->image) }}"
+                                    <img src="{{ asset( $item->productVariant->product->image) }}"
                                         alt="Ảnh sản phẩm" width="60">
                                 </td>
                                 <td>{{ $item->productVariant->product->name }}</td>
@@ -125,7 +125,7 @@
                             <option value="processing" @if ($order->status == 'shipped' || $order->status == 'delivered'|| $order->status == 'cancelled') disabled @endif @if ($order->status == 'processing') selected @endif>Đang đóng gói</option>
                             <option value="shipped" @if ($order->status == 'pending' || $order->status == 'delivered' || $order->status == 'cancelled') disabled @endif @if ($order->status == 'shipped') selected @endif>Đang giao</option>
                             <option value="delivered"@if ($order->status == 'pending' || $order->status == 'processing'|| $order->status == 'cancelled') disabled @endif @if ($order->status == 'delivered') selected @endif>Đã giao</option>
-                            <option value="cancelled"@if ($order->status == 'cancelled')  disabled selected @endif>Đã hủy</option>
+                            <option value="cancelled"@if ($order->status == 'cancelled')  disabled selected @endif>Hoàn hàng</option>
                         </select>
                         <div class="mt-3 text-end">
                             <button type="submit" class="btn btn-success">Xác nhận</button>

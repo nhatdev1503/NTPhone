@@ -18,7 +18,6 @@ class ProductSeeder extends Seeder
                 'name' => $faker->word,
                 'description' => $faker->sentence,
                 'image' => 'product.jpg',
-                'mini_image' => 'product.jpg',
                 'screen' => $faker->randomElement(['6.1 inches', '6.5 inches', '6.8 inches']),
                 'os' => $faker->randomElement(['Android', 'iOS']),
                 'rear_camera' => $faker->randomElement(['12MP', '48MP', '108MP']),

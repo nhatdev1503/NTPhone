@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -109,17 +110,32 @@ class ProductController extends Controller
             'battery' => $request->battery,
             'base_price' => $request->base_price,
         ]);
+        // Lưu ảnh mini 
+        if ($request->hasFile('mini_images')) {
+            foreach ($request->file('mini_images') as $miniImage) {
+                $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
+                $miniImage->move($uploadPath, $miniImageName);
+                $miniImagePath = 'uploads/products/' . $miniImageName;
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'mini_image' => $miniImagePath,
+                ]);
+            }
+        }
         // Lưu biến thể sản phẩm
-        foreach ($request->variants as $variant) {
-            $variant = json_decode($variant, true);
-            ProductVariant::create([
-                'product_id' => $product->id,
-                'color' => $variant['color'],
-                'storage' => $variant['storage'],
-                'origin_price' => $variant['origin_price'],
-                'price' => $variant['price'],
-                'stock' => $variant['stock'],
-            ]);
+        if ($request->variants) {
+            foreach ($request->variants as $variant) {
+                $variant = json_decode($variant, true);
+                ProductVariant::create([
+                    'product_id' => $product->id,
+                    'color' => $variant['color'],
+                    'storage' => $variant['storage'],
+                    'origin_price' => $variant['origin_price'],
+                    'price' => $variant['price'],
+                    'stock' => $variant['stock'],
+                ]);
+            }
         }
 
         return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công.');
@@ -188,28 +204,12 @@ class ProductController extends Controller
             $image->move($uploadPath, $imageName);
             $imagePath = 'uploads/products/' . $imageName;
         }
-
-        $miniImagePath = $product->mini_image ?? null;
-        if ($request->hasFile('mini_image')) {
-            // Xóa ảnh mini cũ nếu tồn tại
-            if ($miniImagePath && File::exists(public_path($miniImagePath))) {
-                File::delete(public_path($miniImagePath));
-            }
-
-            // Lưu ảnh mini mới
-            $miniImage = $request->file('mini_image');
-            $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
-            $miniImage->move($uploadPath, $miniImageName);
-            $miniImagePath = 'uploads/products/' . $miniImageName;
-        }
-
         // Lưu sản phẩm
         $product->update([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image' => $imagePath,
-            'mini_image' => $miniImagePath,
             'screen' => $request->screen,
             'os' => $request->os,
             'rear_camera' => $request->rear_camera,
@@ -219,7 +219,33 @@ class ProductController extends Controller
             'battery' => $request->battery,
             'base_price' => $request->base_price,
         ]);
-        //Cập nhật biến thể sản phẩmphẩm
+        // Xóa ảnh mini cũ nếu được chọn
+        if ($request->has('delete_mini_images')) {
+            foreach ($request->delete_mini_images as $imageId) {
+                $miniImage = ProductImage::find($imageId);
+                if ($miniImage) {
+                    if (File::exists(public_path($miniImage->mini_image))) {
+                        File::delete(public_path($miniImage->mini_image)); // Xóa file khỏi thư mục
+                    }
+                    $miniImage->delete(); // Xóa record khỏi database
+                }
+            }
+        }
+    
+        // Thêm ảnh mini mới nếu có
+        if ($request->hasFile('mini_images')) {
+            foreach ($request->file('mini_images') as $miniImage) {
+                $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
+                $miniImage->move(public_path('uploads/products/'), $miniImageName);
+                $miniImagePath = 'uploads/products/' . $miniImageName;
+    
+                // Lưu vào bảng `product_images`
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'mini_image' => $miniImagePath
+                ]);
+            }
+        }
         // dd($request->updatevariants);
         if ($request->has('updatevariants')) {
             foreach ($request->updatevariants as $variantData) {
@@ -270,7 +296,7 @@ class ProductController extends Controller
     {
         $product->update([
             'status' => $product->status === 'active' ? 'inactive' : 'active'
-        ]);        
+        ]);
         return redirect()->route('products.index')
             ->with('success', 'Cập nhật thành công');
     }

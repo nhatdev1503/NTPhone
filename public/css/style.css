@@ -9143,7 +9143,6 @@ mark,
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   max-width: 100%;
-  height: auto;
 }
 
 .figure {
@@ -25143,12 +25142,6 @@ dl li {
   line-height: 1;
 }
 
-.table th img, .jsgrid .jsgrid-table th img,
-.table td img, .jsgrid .jsgrid-table td img {
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-}
 
 .table th .badge, .jsgrid .jsgrid-table th .badge,
 .table td .badge, .jsgrid .jsgrid-table td .badge {

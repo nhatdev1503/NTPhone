@@ -50,21 +50,23 @@
                                 <label class="form-label fw-bold">Ảnh sản phẩm</label>
                                 <input type="file" name="image" class="form-control">
                                 <img src="{{ asset($product->image) }}" alt="Ảnh sản phẩm" class="mt-2 img-thumbnail"
-                                    width="200" height="150">
+                                width="120" height="150">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Ảnh thu nhỏ (Mini Image)</label>
-                                <input type="file" name="mini_image" class="form-control">
-                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                    class="mt-2 img-thumbnail" width="80" height="60">
-                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                    class="mt-2 img-thumbnail" width="80" height="60">
-                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                    class="mt-2 img-thumbnail" width="80" height="60">
-                                <img src="{{ asset('storage/' . $product->mini_image) }}" alt="Ảnh thu nhỏ"
-                                    class="mt-2 img-thumbnail" width="80" height="60">
+                                <input type="file" name="mini_images[]" class="form-control" multiple>
+                                <label class="form-label fw-bold text-danger">*Chọn ảnh muốn xóa</label>
+                                <div class="d-flex flex-wrap mt-2">
+                                    @foreach ($product->images as $image)
+                                        <div class="position-relative" style="margin-left: 20px">
+                                            <img src="{{ asset($image->mini_image) }}" alt="Ảnh thu nhỏ" class="img-thumbnail" width="80" height="100">
+                                            <input type="checkbox" name="delete_mini_images[]" value="{{ $image->id }}" class="position-absolute top-0 end-0">
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
+                            
                         </div>
 
                         <!-- Cột phải: Thông số kỹ thuật -->
@@ -108,8 +110,8 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Pin</label>
-                                <input type="text" name="battery" class="form-control"
-                                    value="{{ $product->battery }}" required>
+                                <input type="text" name="battery" class="form-control" value="{{ $product->battery }}"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Giá cơ bản</label>
@@ -123,7 +125,7 @@
                     <input type="hidden" id="category-status" value="{{ $product->category->status }}">
 
                     <div class="mt-4">
-                        <h5 class="text-primary">Danh sách cập nhật</h5>
+                        <h5 class="text-primary">Danh sách biến thể</h5>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead class="table-dark">
@@ -142,30 +144,12 @@
                                         <tr class="text-center" data-id="{{ $variant->id }}">
                                             <td>{{ $index + 1 }}</td>
                                             <td>
-                                                <select class="form-control text-center variant-input" name="color"
-                                                    onchange="toggleInput(this, {{ 'variant_color__' . $variant->id }})">
-                                                    @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
-                                                        <option value="{{ $color }}"
-                                                            {{ $variant->color == $color ? 'selected' : '' }}>
-                                                            {{ $color }}</option>
-                                                    @endforeach
-                                                    <option value="other">Khác</option>
-                                                </select>
-                                                <input type="text" id="{{ 'variant_color__' . $variant->id }}"
-                                                    class="form-control mt-2 d-none" placeholder="Nhập màu">
+                                                <input type="text" class="form-control text-center variant-input"
+                                                    name="color" value="{{ $variant->color }}">
                                             </td>
                                             <td>
-                                                <select class="form-control text-center variant-input" name="storage"
-                                                    onchange="toggleInput(this, {{ 'variant_storage__' . $variant->id }})">
-                                                    @foreach (['8GB', '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB'] as $storage)
-                                                        <option value="{{ $storage }}"
-                                                            {{ $variant->storage == $storage ? 'selected' : '' }}>
-                                                            {{ $storage }}</option>
-                                                    @endforeach
-                                                    <option value="other">Khác</option>
-                                                </select>
-                                                <input type="number" id="{{ 'variant_storage__' . $variant->id }}"
-                                                    class="form-control mt-2 d-none" placeholder="Nhập dung lượng">
+                                                <input type="text" class="form-control text-center variant-input"
+                                                    name="storage" value="{{ $variant->storage }}">
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control text-center variant-input"
@@ -229,7 +213,7 @@
                                     @endforeach
                                     <option value="other">Khác</option>
                                 </select>
-                                <input type="number" id="variant_storage" class="form-control mt-2 d-none"
+                                <input type="text" id="variant_storage" class="form-control mt-2 d-none"
                                     placeholder="Nhập dung lượng">
                             </div>
                             <div class="col-md-2">
@@ -269,15 +253,7 @@
     </div>
     <script>
         function toggleInput(selectElement, inputId) {
-            console.log("ID được truyền vào:", inputId);
             let inputField = document.getElementById(inputId);
-
-
-            if (!inputField) {
-                console.error("Không tìm thấy phần tử với ID:", inputId);
-                return;
-            }
-
             if (selectElement.value === "other") {
                 inputField.classList.remove("d-none"); // Hiện ô nhập
                 inputField.setAttribute("required", "true");
@@ -361,7 +337,7 @@
                     color = inputColor;
                 }
                 if (storage == "other") {
-                    storage = inputStorage + "GB";
+                    storage = inputStorage;
                 }
                 if (!color || !storage || !origin_price || !price || !stock) {
                     alert("Vui lòng điền đầy đủ thông tin biến thể!");
@@ -429,7 +405,7 @@
 
                 document.querySelectorAll("tr[data-id]").forEach(row => {
                     const key =
-                        `${row.querySelector("select[name='color']").value.trim()}_${row.querySelector("select[name='storage']").value.trim()}`;
+                        `${row.querySelector("input[name='color']").value.trim()}_${row.querySelector("input[name='storage']").value.trim()}`;
                     if (existingVariants.has(key)) {
                         hasDuplicate = true;
                         console.log(`Duplicate detected: ${key}`);
@@ -452,7 +428,6 @@
                     return;
                 }
 
-                console.log("No duplicate variants found. Proceeding with form submission.");
             });
         });
     </script>

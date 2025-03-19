@@ -17,15 +17,25 @@
                 <div class="row">
                     <!-- Hình ảnh sản phẩm -->
                     <div class="col-md-4 text-center">
+                        <!-- Ảnh chính -->
                         @if ($product->image)
-                            <img src="{{ asset( $product->image) }}" alt="{{ $product->name }}"
-                                class="img-fluid rounded shadow">
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                                class="img-fluid rounded shadow mb-3" width="250">
                         @else
                             <div class="text-muted">Không có ảnh</div>
                         @endif
+
+                        <!-- Ảnh mini: Chỉ hiển thị tối đa 5 ảnh -->
+                        <div class="d-flex justify-content-center flex-wrap gap-2">
+                            @foreach ($product->images->take(4) as $image)
+                                <div class="p-1">
+                                    <img src="{{ asset($image->mini_image) }}" alt="Ảnh mini"
+                                        class="rounded shadow-sm border" width="80" height="100">
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
 
-                    <!-- Thông tin sản phẩm -->
                     <div class="col-md-8">
                         <table class="table table-borderless">
                             <tbody>
@@ -165,7 +175,8 @@
                                                     $variant->status === 'active';
                                             @endphp
 
-                                            <span class="btn btn-{{ $isActive ? 'primary' : 'danger' }}">{{ $isActive ? 'Đang bán' : 'Ngừng bán' }}</span>
+                                            <span
+                                                class="btn btn-{{ $isActive ? 'primary' : 'danger' }}">{{ $isActive ? 'Đang bán' : 'Ngừng bán' }}</span>
                                         </td>
 
                                     </tr>

@@ -273,7 +273,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contacts.show') }}">
+                            <a class="nav-link" href="#">
                                 <span class="menu-title">Quản lí tin tức</span>
                                 <span class="badge badge-primary">3</span>
                             </a>

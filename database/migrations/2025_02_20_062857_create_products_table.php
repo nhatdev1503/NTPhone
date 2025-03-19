@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('mini_image')->nullable();
             $table->string('screen')->nullable();
             $table->string('os')->nullable();
             $table->string('rear_camera')->nullable();

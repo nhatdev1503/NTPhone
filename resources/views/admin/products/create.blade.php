@@ -56,8 +56,8 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="mini_image" class="form-label">Ảnh mini</label>
-                                    <input type="file" class="form-control" id="mini_image" name="mini_image">
+                                    <label for="mini_image" class="form-label">Ảnh mini (Có thể chọn nhiều ảnh)</label>
+                                    <input type="file" class="form-control" id="mini_image" name="mini_images[]" multiple>
                                 </div>
                             </div>
 
@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="screen" class="form-label">Camera trước</label>
-                                    <input type="text" class="form-control" id="front_camera" name="screen"
+                                    <input type="text" class="form-control" id="front_camera" name="front_camera"
                                         value="{{ old('front_camera') }}" required>
                                 </div>
 
@@ -140,7 +140,7 @@
                                             @endforeach
                                             <option value="other">Khác</option>
                                         </select>
-                                        <input type="number" id="variant_storage" class="form-control mt-2 d-none"
+                                        <input type="text" id="variant_storage" class="form-control mt-2 d-none"
                                             placeholder="Nhập dung lượng">
                                     </div>
                                     <div class="col-md-2">
@@ -202,13 +202,13 @@
                 color = inputColor;
             }
             if (storage == "other") {
-                storage = inputStorage + "GB";
+                storage = inputStorage;
             }
             if (!color || !storage || !origin_price || !price || !stock) {
                 alert("Vui lòng điền đầy đủ thông tin biến thể!");
                 return;
             }
-            if (origin_price > price) {
+            if (origin_price < price) {
                 alert("Giá giảm phải bé hơn giá gốc!");
                 return;
             }
