@@ -108,14 +108,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/contacts', [ContactController::class, 'show'])->name('contacts.show');
     Route::get('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::put('/contacts/update', [ContactController::class, 'update'])->name('contacts.update');
-
 });
 
 //Route trang nhân viên
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [StaffController::class, 'index'])->name('staff.index');
-
 });
 
 //Route trang khách hàng
@@ -127,6 +125,7 @@ Route::prefix('customer')->group(function () {
     //
 
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+<<<<<<< HEAD
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
 
@@ -150,7 +149,19 @@ Route::prefix('guest')->group(function () {
     Route::get('/warranty', [GuestController::class, 'warranty'])->name('guest.warranty');
     // Bao contactcontact
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
+=======
+    // Trang sản phẩm yêu thích
+    Route::get('/favorites', [\App\Http\Controllers\customer\FavoritesController::class, 'index'])
+        ->name('customer.favorites.index');
+>>>>>>> ebadd290b9701eb91b109ea87b4e2da59907a251
 
+        
+    // Trang thông tin cá nhân (profile)
+    Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
+        ->name('customer.profile');
+    // Route xử lý cập nhật thông tin profile (POST)
+    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+        ->name('customer.profile.update');
 });
 
 
