@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5" style="max-width: 95%; min-width: 1200px;">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card shadow-lg">

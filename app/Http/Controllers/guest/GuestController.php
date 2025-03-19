@@ -11,4 +11,12 @@ class GuestController extends Controller
     {
         return view('guest.index');
     }
+    public function warranty()
+    {
+        return view('guest.warranty');
+    }
+    public function contact()
+    {
+        return view('guest.contact');
+    }
 }

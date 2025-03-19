@@ -32,76 +32,123 @@
             </div>
         </div>
     </div>
-    
-    <div id="orderResult" class="mt-4 d-none">
-        <h4 class="text-center text-success fw-bold">✅ Kết quả tìm kiếm</h4>
-        <table class="table table-bordered shadow-sm">
-            <tbody>
-                <tr><th>Mã đơn hàng:</th> <td id="resultOrderCode"></td></tr>
-                <tr><th>Tên người nhận:</th> <td id="resultName"></td></tr>
-                <tr><th>Địa chỉ:</th> <td id="resultAddress"></td></tr>
-                <tr><th>Số điện thoại:</th> <td id="resultPhone"></td></tr>
-                <tr><th>Email:</th> <td id="resultEmail"></td></tr>
-                <tr><th>Trạng thái:</th> <td id="resultStatus"></td></tr>
-                <tr><th>Ngày đặt hàng:</th> <td id="resultDate"></td></tr>
-                <tr><th>Tổng tiền:</th> <td id="resultTotal"></td></tr>
-            </tbody>
-        </table>
-        <a id="orderDetailLink" href="#" class="btn btn-primary w-100 fw-bold">🔍 Xem chi tiết đơn hàng</a>
+
+
+</div>
+<div id="orderResult" class="container mb-5 d-none" style=" margin-top: -200px;">
+    <!-- Label Kết Quả -->
+    <h3 class="text-center text-success fw-bold mb-3"> Kết quả tìm kiếm</h3>
+
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-header bg-gradient text-white text-center py-3 rounded-top-4"
+            style="background: linear-gradient(135deg, #007bff, #0056b3);">
+            <h4 class="mb-0 fw-bold"> Thông Tin Đơn Hàng</h4>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">📄 Mã đơn hàng:</h6>
+                        <p class="fw-bold text-primary" id="resultOrderCode"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">👤 Tên khách hàng:</h6>
+                        <p class="fw-bold" id="resultName"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">📍 Địa chỉ:</h6>
+                        <p class="fw-bold" id="resultAddress"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">📞 Số điện thoại:</h6>
+                        <p class="fw-bold" id="resultPhone"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">📧 Email:</h6>
+                        <p class="fw-bold" id="resultEmail"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">🚚 Trạng thái:</h6>
+                        <p class="fw-bold text-success" id="resultStatus"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">📅 Ngày đặt hàng:</h6>
+                        <p class="fw-bold" id="resultDate"></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border p-3 rounded shadow-sm bg-light">
+                        <h6 class="text-muted">💰 Tổng tiền:</h6>
+                        <p class="fw-bold text-danger" id="resultTotal"></p>
+                    </div>
+                </div>
+            </div>
+            <a id="orderDetailLink" href="#" class="btn btn-primary w-100 mt-3 fw-bold"> Xem chi tiết đơn hàng</a>
+        </div>
     </div>
 </div>
 
+
 <script>
-document.getElementById("orderLookupForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Ngăn chặn tải lại trang
+    document.getElementById("orderLookupForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Ngăn reload trang
 
-    let orderCode = document.getElementById("order_code").value;
-    let resultContainer = document.getElementById("orderResult");
-    let errorContainer = document.getElementById("orderError");
-    let loadingIndicator = document.getElementById("loadingIndicator");
+        let orderCode = document.getElementById("order_code").value;
+        let resultContainer = document.getElementById("orderResult");
+        let errorContainer = document.getElementById("orderError");
+        let loadingIndicator = document.getElementById("loadingIndicator");
 
-    // Reset UI
-    resultContainer.classList.add("d-none");
-    errorContainer.classList.add("d-none");
-    loadingIndicator.classList.remove("d-none");
+        // Ẩn kết quả cũ và thông báo lỗi, hiện loading
+        resultContainer.classList.add("d-none");
+        errorContainer.classList.add("d-none");
+        loadingIndicator.classList.remove("d-none");
 
-    fetch("{{ route('guest.orders.apiSearch') }}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        },
-        body: JSON.stringify({ order_code: orderCode })
-    })
-    .then(response => response.json())
-    .then(data => {
-        loadingIndicator.classList.add("d-none"); // Ẩn loading
+        fetch(`/guest/api/order-lookup/${orderCode}`)
+            .then(response => response.json())
+            .then(data => {
+                loadingIndicator.classList.add("d-none");
 
-        if (data.success) {
-            // Hiển thị thông tin đơn hàng trên giao diện
-            document.getElementById("resultOrderCode").innerText = data.order.code;
-            document.getElementById("resultName").innerText = data.order.customer_name;
-            document.getElementById("resultAddress").innerText = data.order.address;
-            document.getElementById("resultPhone").innerText = data.order.phone;
-            document.getElementById("resultEmail").innerText = data.order.email;
-            document.getElementById("resultStatus").innerText = data.order.status;
-            document.getElementById("resultDate").innerText = data.order.order_date;
-            document.getElementById("resultTotal").innerText = data.order.total + " VND";
-            document.getElementById("orderDetailLink").href = "/orders/" + data.order.id;
+                if (data.success) {
+                    document.getElementById("resultOrderCode").innerText = data.order.code;
+                    document.getElementById("resultName").innerText = data.order.customer_name;
+                    document.getElementById("resultAddress").innerText = data.order.address;
+                    document.getElementById("resultPhone").innerText = data.order.phone;
+                    document.getElementById("resultEmail").innerText = data.order.email;
+                    document.getElementById("resultStatus").innerText = data.order.status;
+                    document.getElementById("resultDate").innerText = data.order.order_date;
+                    document.getElementById("resultTotal").innerText = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(data.order.total);
+                    document.getElementById("orderDetailLink").href = `/orders/${data.order.id}`;
 
-            resultContainer.classList.remove("d-none"); // Hiện bảng kết quả
-        } else {
-            errorContainer.innerText = "Không tìm thấy đơn hàng!";
-            errorContainer.classList.remove("d-none");
-        }
-    })
-    .catch(error => {
-        loadingIndicator.classList.add("d-none");
-        errorContainer.innerText = "Lỗi kết nối đến server!";
-        errorContainer.classList.remove("d-none");
-        console.error("Lỗi:", error);
+                    let detailLink = document.getElementById("orderDetailLink");
+                    detailLink.href = `/guest/order-lookup/${data.order.code}`;
+
+                    resultContainer.classList.remove("d-none"); // Hiện kết quả
+                } else {
+                    errorContainer.innerText = "❌ " + data.message;
+                    errorContainer.classList.remove("d-none");
+                }
+            })
+            .catch(error => {
+                loadingIndicator.classList.add("d-none");
+                errorContainer.innerText = "❌ Lỗi kết nối đến server!";
+                errorContainer.classList.remove("d-none");
+            });
     });
-});
 </script>
 
 @include('layouts.guest.footer')

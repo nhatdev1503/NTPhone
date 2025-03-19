@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container my-4">
+    <div class="container my-4" style="max-width: 95%; min-width: 1200px;">
         <div class="card-header text-white bg-primary">
             <h3>Tất cả voucher</h3>
         </div>
@@ -42,6 +42,9 @@
                 </div>
             </div>
         </form>
+        <div class="alert alert-info">
+            Hiển thị {{ $vouchers->count() }} voucher trên tổng số {{ $vouchers->total() }} voucher.
+        </div>
         <div class="card-body">
             <table class="table">
                 <thead class="thead-dark">

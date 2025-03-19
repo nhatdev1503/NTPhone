@@ -15,7 +15,6 @@
                         placeholder="Tìm kiếm khách hàng, email, SĐT..."
                         value="{{ request('keyword') }}">
                 </div>
-
                 <div class="col-md-2">
                     <label for="">Trạng thái đơn</label>
                     <select name="status" class="form-control form-control-lg fs-5">
@@ -59,7 +58,9 @@
                 </div>
             </div>
         </form>
-
+        <div class="alert alert-info">
+            Hiển thị {{ $orders->count() }} đơn hàng trên tổng số {{ $orders->total() }} đơn hàng.
+        </div>
         <div class="card-body">
             <table class="table table-bordered table-lg fs-5 w-100">
                 <thead class="thead-dark">

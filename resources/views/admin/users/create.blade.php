@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<div class="container">
+<div class="container" style="max-width: 95%; min-width: 1200px;">
     <h2 class="my-4">Thêm tài khoản mới</h2>
 
     @if ($errors->any())

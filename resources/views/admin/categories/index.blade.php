@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<div class="container mt-4">
+<div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
     <h2 class="mb-4">Quản Lý Danh Mục</h2>
 
     <!-- Hiển thị thông báo -->

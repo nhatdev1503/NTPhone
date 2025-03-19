@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header bg-success text-white text-center">
+                <div class="card-header bg-dark text-white text-center">
                     <h4><i class="bi bi-receipt"></i> Thông tin đơn hàng</h4>
                 </div>
                 <div class="card-body">

@@ -13,6 +13,7 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
+use App\Http\Controllers\guest\GuestController;
 use App\Http\Controllers\guest\OrderLookupController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\staff\StaffController;
@@ -29,12 +30,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//Route trang tra cứu đơn hàng
-
-Route::get('/tra-cuu-don-hang', [OrderLookupController::class, 'lookup'])->name('customer.orders.lookup');
-Route::post('/tim-kiem-don-hang', [OrderLookupController::class, 'redirect'])->name('customer.orders.redirect');
-Route::get('/don-hang/{order_code}', [OrderLookupController::class, 'show'])->name('customer.orders.show');
-Route::get('/order-lookup', [OrderLookupController::class, 'lookup'])->name('guest.orders.lookup');
 
 
 // Route trang đăng nhập
@@ -92,14 +87,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('banners', BannerController::class);
     Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('banners.status');
 
-// //Quản lí Đơn hàng (Nhật)
+    // //Quản lí Đơn hàng (Nhật)
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
 
     // // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
-    Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
@@ -130,7 +125,7 @@ Route::prefix('customer')->group(function () {
 
     // Trang danh mục
     //
-    
+
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
@@ -146,10 +141,15 @@ Route::prefix('customer')->group(function () {
 
 //Route trang khách vãng lai
 Route::prefix('guest')->group(function () {
-    
+    //Tra cuu don hang
     Route::get('/order-lookup', [OrderLookupController::class, 'lookup'])->name('guest.orders.lookup');
-    Route::post('/api/order-lookup', [OrderLookupController::class, 'apiSearch'])->name('guest.orders.apiSearch');
+    Route::get('/api/order-lookup/{order_code}', [OrderLookupController::class, 'apiLookup'])->name('guest.orders.apiLookup');
     Route::get('/order-lookup/{order_code}', [OrderLookupController::class, 'show'])->name('guest.orders.show');
+
+    // Bao hanhhanh
+    Route::get('/warranty', [GuestController::class, 'warranty'])->name('guest.warranty');
+    // Bao contactcontact
+    Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
 
 });
 
@@ -160,10 +160,12 @@ Route::get('/san-pham', function () {
 })->name('web.products');
 
 
-Route::get('/danh-muc/{id}', function($id){
-    $category = Category::with(['products' => function($query){
-        $query->limit(24);
-    }])->findOrFail($id);
+Route::get('/danh-muc/{id}', function ($id) {
+    $category = Category::with([
+        'products' => function ($query) {
+            $query->limit(24);
+        }
+    ])->findOrFail($id);
 
     return view('giaodien_web.danhmuc', compact('category'));
 })->name('web.product.category');

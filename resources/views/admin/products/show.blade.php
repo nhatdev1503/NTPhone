@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

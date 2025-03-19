@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
         <div class="card shadow">
             <div class="card-header bg-warning text-white">
                 <h3 class="mb-0">Chỉnh sửa sản phẩm</h3>
@@ -142,22 +142,30 @@
                                         <tr class="text-center" data-id="{{ $variant->id }}">
                                             <td>{{ $index + 1 }}</td>
                                             <td>
-                                                <select class="form-control text-center variant-input" name="color">
+                                                <select class="form-control text-center variant-input" name="color"
+                                                    onchange="toggleInput(this, {{ 'variant_color__' . $variant->id }})">
                                                     @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
                                                         <option value="{{ $color }}"
                                                             {{ $variant->color == $color ? 'selected' : '' }}>
                                                             {{ $color }}</option>
                                                     @endforeach
+                                                    <option value="other">Khác</option>
                                                 </select>
+                                                <input type="text" id="{{ 'variant_color__' . $variant->id }}"
+                                                    class="form-control mt-2 d-none" placeholder="Nhập màu">
                                             </td>
                                             <td>
-                                                <select class="form-control text-center variant-input" name="storage">
+                                                <select class="form-control text-center variant-input" name="storage"
+                                                    onchange="toggleInput(this, {{ 'variant_storage__' . $variant->id }})">
                                                     @foreach (['8GB', '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB'] as $storage)
                                                         <option value="{{ $storage }}"
                                                             {{ $variant->storage == $storage ? 'selected' : '' }}>
                                                             {{ $storage }}</option>
                                                     @endforeach
+                                                    <option value="other">Khác</option>
                                                 </select>
+                                                <input type="number" id="{{ 'variant_storage__' . $variant->id }}"
+                                                    class="form-control mt-2 d-none" placeholder="Nhập dung lượng">
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control text-center variant-input"
@@ -201,8 +209,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <label class="form-label">Màu sắc</label>
-                                <select class="form-control variant_color"
-                                    onchange="toggleInput(this, 'variant_color')">
+                                <select class="form-control variant_color" onchange="toggleInput(this, 'variant_color')">
                                     <option value="" disabled selected>Chọn màu</option>
                                     @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
                                         <option value="{{ $color }}">{{ $color }}</option>
@@ -262,7 +269,14 @@
     </div>
     <script>
         function toggleInput(selectElement, inputId) {
+            console.log("ID được truyền vào:", inputId);
             let inputField = document.getElementById(inputId);
+
+
+            if (!inputField) {
+                console.error("Không tìm thấy phần tử với ID:", inputId);
+                return;
+            }
 
             if (selectElement.value === "other") {
                 inputField.classList.remove("d-none"); // Hiện ô nhập

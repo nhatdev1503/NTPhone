@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="max-width: 95%; min-width: 1200px;">
         <h2 class="my-4">Quản lý tài khoản</h2>
 
         <!-- Thêm nút "Thêm tài khoản" -->
@@ -38,6 +38,9 @@
                 {{ session('success') }}
             </div>
         @endif
+        <div class="alert alert-info">
+            Hiển thị {{ $users->count() }} tài khoản trên tổng số {{ $users->total() }} tài khoản.
+        </div>
         <!-- Bảng danh sách tài khoản -->
         <table class="table table-bordered">
             <thead class="thead-dark">

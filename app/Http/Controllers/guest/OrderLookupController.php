@@ -14,32 +14,36 @@ class OrderLookupController extends Controller
     {
         return view('guest.orders.lookup');
     }
+    
 
     // Xử lý form tìm kiếm và chuyển hướng sang trang chi tiết đơn hàng
-    public function apiSearch(Order $order)
-    {
-        if (!$order) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Không tìm thấy đơn hàng!'
-            ], 404);
-        }
-        
+    public function apiLookup(Request $request)
+{
+    $order = Order::where('order_code', $request->order_code)->first();
+
+    if (!$order) {
         return response()->json([
-            'success' => true,
-            'order' => [
-                'id' => $order->id,
-                'code' => $order->order_code,
-                'customer_name' => $order->customer_name,
-                'address' => $order->address,
-                'phone' => $order->phone,
-                'email' => $order->email,
-                'status' => $order->status,
-                'order_date' => $order->created_at,
-                'total' => number_format($order->total, 0, ',', '.') . " VND"
-            ]
+            'success' => false,
+            'message' => 'Không tìm thấy đơn hàng!'
         ]);
     }
+
+    return response()->json([
+        'success' => true,
+        'order' => [
+            'id' => $order->id,
+            'code' => $order->order_code,
+            'customer_name' => $order->fullname,
+            'address' => $order->address,
+            'phone' => $order->phone,
+            'email' => $order->email,
+            'status' => $order->status,
+            'order_date' => $order->created_at->format('d/m/Y'),
+            'total' => $order->total
+        ]
+    ]);
+}
+
 
     // Trang hiển thị thông tin đơn hàng
     public function show($order_code)
@@ -50,7 +54,7 @@ class OrderLookupController extends Controller
             return redirect()->route('guest.orders.lookup')->with('error', 'Không tìm thấy đơn hàng.');
         }
 
-        return view('customer.orders.show', compact('order'));
+        return view('guest.orders.show', compact('order'));
     }
 }
 ?>

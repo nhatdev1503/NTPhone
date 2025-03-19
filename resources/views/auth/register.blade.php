@@ -1,4 +1,4 @@
-@include('layouts.customer.header')
+@include('layouts.guest.header')
 
 <style>
     body {
@@ -114,4 +114,4 @@
     </div>
 </div>
 
-@include('layouts.customer.footer')
+@include('layouts.guest.footer')

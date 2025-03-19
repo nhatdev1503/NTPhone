@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="mb-4">Quản lý Banner</h2>
             <a href="{{ route('banners.create') }}" class="btn btn-success">+ Thêm Banner</a>

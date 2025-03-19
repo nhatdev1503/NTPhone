@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container my-5">
+    <div class="container my-5" style="max-width: 95%; min-width: 1200px;">
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
                 <h3 class="mb-0">Danh sách sản phẩm</h3>
@@ -70,6 +70,9 @@
                         </a>
                     </div>
                 </form>
+                <div class="alert alert-info">
+                    Hiển thị {{ $products->count() }} sản phẩm trên tổng số {{ $products->total() }} sản phẩm.
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover align-middle">
                         <thead class="table-dark">

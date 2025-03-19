@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="max-width: 95%; min-width: 1200px;">
         <h2>Sửa voucher</h2>
         @if ($errors->any())
             <div class="alert alert-danger">

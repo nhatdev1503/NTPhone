@@ -499,12 +499,12 @@
                                 </li>
                             @endforeach
                             <li class="nav-item  ">
-                                <a class="a-img" href="#" title="Chính sách bảo hành">
+                                <a class="a-img" href="{{ route('guest.warranty') }}" title="Chính sách bảo hành">
                                     Chính sách bảo hành
                                 </a>
                             </li>
                             <li class="nav-item  ">
-                                <a class="a-img" href="#" title="Liên hệ">
+                                <a class="a-img" href="{{ route('guest.contact') }}" title="Liên hệ">
                                     Liên hệ
                                 </a>
                             </li>

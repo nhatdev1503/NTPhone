@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h3>Chi Tiết Đơn Hàng: {{ $order->order_code }}</h3>

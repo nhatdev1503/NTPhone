@@ -281,7 +281,7 @@
                     </ul>
                 </nav>
                 <!-- partial -->
-                <div class="content-wrapper">
+                <div class="content-wrapper" >
                     @yield('content')
                     <!-- partial:partials/_footer.html -->
                     <footer class="footer">

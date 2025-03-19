@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<div class="container mt-4">
+<div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
     <h2 class="mb-4">Chỉnh Sửa Danh Mục</h2>
     @if ($errors->any())
             <div class="alert alert-danger">
