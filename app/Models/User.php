@@ -37,9 +37,9 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'sender_id');
     }
 
-    public function favorites()
+    public function favoriteProducts()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(Product::class, 'favorites');
     }
 
     public function notifications()
@@ -47,4 +47,3 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 }
-

@@ -16,12 +16,16 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $categoryList = Category::with('products')->where('status', 'active')->get();
-        $categories = Category::with('products')->where('status', 'active')->take(4)->get();
-        return view('customer.index', compact('categories','categoryList'));
+        $banners = \App\Models\Banner::where('status', 'active')->get();
+        // dd($banners);
+        $categoryList = \App\Models\Category::with('products')->where('status', 'active')->get();
+        $categories = \App\Models\Category::with('products')->where('status', 'active')->take(4)->get();
+
+        return view('customer.index', compact('banners', 'categories', 'categoryList'));
     }
 
-    public function categories(string $id){
+    public function categories(string $id)
+    {
         $category = Category::findOrFail($id);
 
         $products = Product::where('category_id', $id)->paginate(24);
@@ -64,4 +68,3 @@ class CustomerController extends Controller
      * Show the form for creating a new resource.
      */
 }
-
