@@ -41,7 +41,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 
 // Route đăng ký
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'register'])->name('auth.register');
 
 // Route đăng xuất
 Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
@@ -125,7 +125,6 @@ Route::prefix('customer')->group(function () {
     //
 
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
-<<<<<<< HEAD
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
 
@@ -149,11 +148,6 @@ Route::prefix('guest')->group(function () {
     Route::get('/warranty', [GuestController::class, 'warranty'])->name('guest.warranty');
     // Bao contactcontact
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
-=======
-    // Trang sản phẩm yêu thích
-    Route::get('/favorites', [\App\Http\Controllers\customer\FavoritesController::class, 'index'])
-        ->name('customer.favorites.index');
->>>>>>> ebadd290b9701eb91b109ea87b4e2da59907a251
 
         
     // Trang thông tin cá nhân (profile)

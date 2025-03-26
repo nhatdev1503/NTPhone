@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container" style="max-width: 95%; min-width: 1200px;">
-        <h2 class="my-4">Quản lý tài khoản</h2>
+        <h2 class="my-4 text-center fw-bold display-6">Quản lý tài khoản</h2>
 
         <!-- Thêm nút "Thêm tài khoản" -->
         <div class="mb-3">
@@ -66,13 +66,11 @@
                             </span>
                         </td>
                         <td>
-                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info"
-                                title="Xem chi tiết">
-                                <i class="fa fa-eye"></i>
+                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">
+                                Xem
                             </a>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"
-                                title="Chỉnh sửa" onclick="alert('Bạn muốn cập nhật thông tin người dùng?')">
-                                <i class="fa fa-edit"></i>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">
+                                Sửa
                             </a>
                             @if ($user->role != 'admin')
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
@@ -80,9 +78,8 @@
                                     @method('PUT')
                                     <button type="submit"
                                         class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                        title="{{ $user->status == 'active' ? 'Khóa' : 'Mở Khóa' }}"
                                         onclick="return confirm('{{ $user->status == 'active' ? 'Bạn có chắc chắn muốn khóa tài khoản này?' : 'Bạn có chắc chắn muốn mở khóa tài khoản này?' }}')">
-                                        <i class="fa {{ $user->status == 'active' ? 'fa-ban' : 'fa-check' }}"></i>
+                                        {{ $user->status == 'active' ? 'Khóa' : '-Mở-' }}
                                     </button>
                                 </form>
                             @endif

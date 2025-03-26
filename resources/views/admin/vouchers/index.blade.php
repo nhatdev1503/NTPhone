@@ -2,9 +2,7 @@
 
 @section('content')
     <div class="container my-4" style="max-width: 95%; min-width: 1200px;">
-        <div class="card-header text-white bg-primary">
-            <h3>Tất cả voucher</h3>
-        </div>
+        <h2 class="my-4 text-center fw-bold display-6">Quản lý voucher</h2>
         <div class="my-2 mt-3 mb-3">
             <a href="{{ route('discounts.create') }}" style="text-decoration: none;" class="btn btn-success">Thêm voucher</a>
         </div>

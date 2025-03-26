@@ -43,18 +43,6 @@ class CategorySeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Vivo',
-                'description' => 'Là điện thoại thông minh của hãng Samsung',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Ipad',
-                'description' => 'Là điện thoại thông minh của hãng Samsung',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'name' => 'Phụ kiện',
                 'description' => 'Là điện thoại thông minh của hãng Samsung',
                 'created_at' => now(),
