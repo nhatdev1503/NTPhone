@@ -75,7 +75,7 @@ class OrderController extends Controller
         $statusColors = [
             'pending' => 'warning',
             'processing' => 'primary',
-            'shipped' => 'info',
+            'shipped' => 'dark',
             'delivered' => 'success',
             'cancelled' => 'danger',
         ];
@@ -85,10 +85,10 @@ class OrderController extends Controller
             'processing' => 'Đang đóng gói',
             'shipped' => 'Đang giao',
             'delivered' => 'Đã giao',
-            'cancelled' => 'Đã hủy',
+            'cancelled' => 'Hoàn hàng',
         ];
         $paymentColors = [
-            'pending' => 'info',
+            'pending' => 'warning',
             'paid' => 'success',
             'failed' => 'danger',
         ];

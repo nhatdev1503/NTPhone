@@ -4893,6 +4893,21 @@
                 <a href="/" class="cart">
                     <i class="topzone-cart"></i>
                 </a>
+                <div class="cart relative">
+                    <!-- Checkbox ẩn để làm trigger -->
+                    <input type="checkbox" id="userMenuToggle" class="peer hidden">
+                    
+                    <!-- Nút User Icon -->
+                    <label for="userMenuToggle" class="cursor-pointer">
+                      <i class="fa fa-user"></i>
+                    </label>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="hidden peer-checked:flex flex-col absolute right-0 mt-6 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                      <a href="{{ route('login') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đăng nhập</a>
+                    </div>
+                  </div>
+                  
                 <div class="view-cart">
                     <i class="topzone-cohang"></i>
                     <span>Đã thêm sản phẩm vào giỏ hàng</span>

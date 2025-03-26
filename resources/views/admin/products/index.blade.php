@@ -3,7 +3,7 @@
 @section('content')
     <div class="container my-5" style="max-width: 95%; min-width: 1200px;">
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-dark text-white">
                 <h3 class="mb-0">Danh sách sản phẩm</h3>
             </div>
             <div class="card-body">
@@ -111,13 +111,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info"
-                                            title="Xem chi tiết">
-                                            <i class="fa fa-eye"></i>
+                                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info">
+                                            Xem
                                         </a>
-                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning"
-                                            title="Chỉnh sửa">
-                                            <i class="fa fa-edit"></i>
+                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
+                                            Sửa
                                         </a>
                                         <form action="{{ route('products.destroy', $product->id) }}" method="POST"
                                             class="d-inline">
@@ -125,10 +123,8 @@
                                             @method('PUT')
                                             <button type="submit"
                                                 class="btn btn-sm {{ $product->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                                title="{{ $product->status == 'active' ? 'Ngừng bán' : 'Mở bán' }}"
                                                 onclick="return confirm('{{ $product->status == 'active' ? 'Bạn có chắc chắn muốn ngừng bán sản phẩm này?' : 'Bạn có chắc chắn muốn mở bán sản phẩm này?' }}')">
-                                                <i
-                                                    class="fa {{ $product->status == 'active' ? 'fa-ban' : 'fa-check' }}"></i>
+                                                {{ $product->status == 'active' ? 'Khóa' : '-Mở-' }}
                                             </button>
                                         </form>
 

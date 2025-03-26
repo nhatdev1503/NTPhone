@@ -39,6 +39,10 @@
           <a href="{{ route('products.index') }}">Quản lí sản phẩm</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
+          <i class="lucide lucide-box"></i>
+          <a href="{{ route('orders.index') }}">Quản lí đơn hàng</a>
+        </li>
+        <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-tag"></i>
           <a href="{{ route('discounts.index') }}">Quản lí khuyến mãi</a>
         </li>
