@@ -13,10 +13,12 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\guest\GuestController;
 use App\Http\Controllers\guest\OrderLookupController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\staff\StaffController;
+use App\Http\Controllers\StorageController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -86,6 +88,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     //Quản lí banner
     Route::resource('banners', BannerController::class);
     Route::put('/banners/{banner}/status', [BannerController::class, 'status'])->name('banners.status');
+
+    //Quản lí màu sắc, dung lượng
+    Route::get('/colors_storages', [AdminController::class, 'color_storage'])->name('colors_storages.index');
+    Route::resource('colors', ColorController::class);
+    Route::resource('storages', StorageController::class);
 
     // //Quản lí Đơn hàng (Nhật)
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

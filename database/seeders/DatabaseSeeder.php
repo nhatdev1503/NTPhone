@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             RateSeeder::class,
             NotificationSeeder::class,
             FavoriteSeeder::class,
+            ColorSeeder::class,
+            StorageSeeder::class,
         ]);
     }
 }

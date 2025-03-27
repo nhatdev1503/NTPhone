@@ -59,13 +59,13 @@
                                 </tr>
                                 <tr>
                                     <th>Các màu đang được bán:</th>
-                                    <td class="text-danger fw-bold">
+                                    <td class="">
                                         {{ $product->variants->pluck('color')->unique()->join(', ') ?: 'Không có biến thể' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Dung lượng máy đang được bán:</th>
-                                    <td class="text-success fw-bold">
+                                    <td class="">
                                         {{ $product->variants->pluck('storage')->unique()->join(', ') ?: 'Không có biến thể' }}
                                     </td>
                                 </tr>
@@ -82,7 +82,7 @@
 
                 <!-- Thông số kỹ thuật -->
                 <div class="mt-4">
-                    <h5 class="text-primary">Thông số kỹ thuật</h5>
+                    <h3 class="mb-2" style="font-size:larger">Thông số kỹ thuật</h3>
                     <table class="table table-striped">
                         <tbody>
                             <tr>
@@ -123,7 +123,7 @@
 
                 <!-- Danh sách biến thể -->
                 <div class="mt-4">
-                    <h5 class="text-primary">Danh sách biến thể</h5>
+                    <h3 class="mb-2" style="font-size:larger">Danh sách biến thể: </h3>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="table-dark">
