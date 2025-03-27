@@ -79,13 +79,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/categories/{id}/edit', [CategoryController::class, 'index'])->name('categories.edit');
+    Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::put('/categories/{id}/destroy', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
     //Quản lí banner
     Route::resource('banners', BannerController::class);
-    Route::put('/banners/{banner}', [BannerController::class, 'status'])->name('banners.status');
+    Route::put('/banners/{banner}/status', [BannerController::class, 'status'])->name('banners.status');
 
     // //Quản lí Đơn hàng (Nhật)
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

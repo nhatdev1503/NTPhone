@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
-        <h2>Thêm Banner</h2>
+    <h2 class="mb-4 display-6">Thêm mới Banner</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

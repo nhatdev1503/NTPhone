@@ -19,6 +19,11 @@ class BannerController extends Controller
         return view('admin.banners.create');
     }
 
+    public function show($id)
+    {
+        $banner = Banner::findOrFail($id);
+        return view('admin.banners.show', compact('banner'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -57,26 +62,34 @@ class BannerController extends Controller
             'title' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         $banner = Banner::findOrFail($id);
-        $banner->title = $request->title;
-
+    
+        // Cập nhật tiêu đề nếu có
+        $banner->title = $request->input('title', $banner->title);
+    
+        // Xử lý hình ảnh nếu có
         if ($request->hasFile('image')) {
-            // Xóa ảnh cũ
-            if ($banner->image) {
-                Storage::delete('public/' . $banner->image);
+            try {
+                // Xóa ảnh cũ nếu tồn tại
+                if ($banner->image && Storage::exists('public/' . $banner->image)) {
+                    Storage::delete('public/' . $banner->image);
+                }
+    
+                // Lưu ảnh mới
+                $imagePath = $request->file('image')->store('banners', 'public');
+                $banner->image = $imagePath;
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage());
             }
-            // Lưu ảnh mới
-            $imagePath = $request->file('image')->store('banners', 'public');
-            $banner->image = $imagePath;
         }
-
+    
         $banner->save();
+    
         return redirect()->route('banners.index')->with('success', 'Cập nhật banner thành công!');
     }
     public function status(Banner $banner)
     {
-        Banner::where('status', 'active')->update(['status' => 'inactive']);
         $banner->update([
             'status' => $banner->status === 'active' ? 'inactive' : 'active'
         ]);   

@@ -38,6 +38,12 @@
                                             {{ $user->status == 'active' ? 'Đang hoạt động' : 'Ngừng hoạt động' }}
                                         </span>
                                     </li>
+                                    <li class="list-group-item"><strong>Lí do {{ $user->status == 'active' ? 'Mở' : 'Khóa' }}:</strong>
+                                        <span class="">
+                                            {{ $user->block_reason }}
+                                        </span>
+                                    </li>
+                                    
                                 </ul>
 
                                 <!-- Action Buttons -->

@@ -73,16 +73,40 @@
                                 Sửa
                             </a>
                             @if ($user->role != 'admin')
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit"
-                                        class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                        onclick="return confirm('{{ $user->status == 'active' ? 'Bạn có chắc chắn muốn khóa tài khoản này?' : 'Bạn có chắc chắn muốn mở khóa tài khoản này?' }}')">
-                                        {{ $user->status == 'active' ? 'Khóa' : '-Mở-' }}
-                                    </button>
-                                </form>
+                                <button type="button"
+                                    class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
+                                    data-bs-toggle="modal" data-bs-target="#confirmModal"
+                                    onclick="setUserData('{{ $user->id }}', '{{ $user->status }}')">
+                                    {{ $user->status == 'active' ? 'Khóa' : '-Mở-' }}
+                                </button>
                             @endif
+                            <!-- Modal -->
+                            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="confirmModalLabel">Xác nhận
+                                                {{ $user->status == 'active' ? 'Khóa' : 'Mở khóa' }} Tài Khoản</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-3">
+                                                    <label for="reason" class="form-label">Lý do</label>
+                                                    <textarea class="form-control" id="reason" name="block_reason" rows="3" required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -92,4 +116,12 @@
         <!-- Hiển thị phân trang -->
         {{ $users->links() }}
     </div>
+    <script>
+        function setUserData(userId, status) {
+            const form = document.getElementById('confirmForm');
+            form.action = `/users/${userId}`;
+            const modalTitle = document.getElementById('confirmModalLabel');
+            modalTitle.innerText = status === 'active' ? 'Xác nhận Khóa Tài Khoản' : 'Xác nhận Mở Khóa Tài Khoản';
+        }
+    </script>
 @endsection

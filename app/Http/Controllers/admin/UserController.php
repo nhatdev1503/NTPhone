@@ -96,10 +96,12 @@ class UserController extends Controller
     }
 
     // Xóa người dùng
-    public function destroy(User $user)
-    {
+    public function destroy(Request $request, User $user)
+    {    
+        $data = $request->all();
         $user->update([
-            'status' => $user->status === 'active' ? 'inactive' : 'active'
+            'status' => $user->status === 'active' ? 'inactive' : 'active',
+            'block_reason' => $data['block_reason']
         ]);        
         return redirect()->route('users.index')
             ->with('success', 'Cập nhật thành công');

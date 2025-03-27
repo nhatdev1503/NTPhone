@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('avatar')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->enum('role', ['admin', 'staff', 'customer'])->default('customer');
+            $table->string('block_reason')->nullable();
             $table->timestamps();
         });
     }

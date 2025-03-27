@@ -46,7 +46,6 @@ class UserSeeder extends Seeder
             'phone' => $faker->phoneNumber,
             'address' => $faker->address,
             'avatar' => 'default.jpg',
-            'status' => 'active',
             'role' => 'staff',
         ]);
 

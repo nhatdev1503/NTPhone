@@ -1,11 +1,9 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container my-5" style="max-width: 95%; min-width: 1200px;">
+    <div class="container" style="max-width: 95%; min-width: 1200px;">
+        <h2 class="mb-4 display-6">Quản lí sản phẩm</h2>
         <div class="card shadow">
-            <div class="card-header bg-dark text-white">
-                <h3 class="mb-0">Danh sách sản phẩm</h3>
-            </div>
             <div class="card-body">
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -32,7 +30,7 @@
                         </a>
                     </div>
                 </div> --}}
-                <div class="col-md-6 text-end">
+                <div class="col-md-6 text-start">
                     <a href="{{ route('products.create') }}" class="btn btn-success">
                         <i class="fa fa-plus"></i> Thêm mới
                     </a>

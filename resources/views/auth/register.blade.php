@@ -4,70 +4,16 @@
     body {
         background: #e3e9f7;
     }
-    .register-container {
-        background: #fff;
-        padding: 50px;
-        border-radius: 16px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        max-width: 420px;
-        text-align: center;
-    }
-    .register-container h3 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .register-container p {
-        font-size: 14px;
-        color: #6b7280;
-    }
-    .form-group {
-        position: relative;
-        margin-bottom: 15px;
-    }
-    .form-group input {
-        width: 100%;
-        padding: 12px 15px 12px 45px;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-    }
-    .form-group i {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6b7280;
-    }
-    .btn-register {
-        background: #2563eb;
-        color: #fff;
-        padding: 12px;
-        border-radius: 8px;
-        width: 100%;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .btn-register:hover {
-        background: #1e40af;
-    }
-    .login-link {
-        margin-top: 15px;
-        font-size: 14px;
-    }
-    .login-link a {
-        color: #2563eb;
-        font-weight: bold;
-        text-decoration: none;
-    }
 </style>
 
-<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="register-container">
-        <h3>Đăng Ký Tài Khoản</h3>
-        <p>Nhập thông tin của bạn để tạo tài khoản</p>
+<!-- Phần căn giữa sử dụng Tailwind CSS -->
+<div class="flex justify-center items-center min-h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full">
+        <h3 class="text-2xl font-bold mb-2">Đăng Ký Tài Khoản</h3>
+        <p class="text-gray-500 mb-6">Nhập thông tin của bạn để tạo tài khoản</p>
 
         @if($errors->any())
-            <div class="alert alert-danger">
+            <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -77,38 +23,50 @@
         @endif
 
         @if(session('success'))
-            <div class="alert alert-success">
+            <div class="bg-green-100 text-green-700 p-4 rounded-md mb-4">
                 {{ session('success') }}
             </div>
         @endif
 
         <form action="{{ route('register') }}" method="POST">
             @csrf
-            <div class="form-group">
-                <i class="bi bi-person"></i>
-                <input type="text" name="fullname" value="{{ old('fullname') }}" placeholder="Họ và tên" required>
-            </div>
-            <div class="form-group">
-                <i class="bi bi-person"></i>
-                <input type="text" name="username" value="{{ old('username') }}" placeholder="Tên tài khoản" required>
-            </div>
-            <div class="form-group">
-                <i class="bi bi-envelope"></i>
-                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <i class="bi bi-lock"></i>
-                <input type="password" name="password" placeholder="Mật khẩu" required>
-            </div>
-            <div class="form-group">
-                <i class="bi bi-lock-fill"></i>
-                <input type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu" required>
+            <div class="mb-4 relative">
+                <i class="bi bi-person absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" name="fullname" value="{{ old('fullname') }}" placeholder="Họ và tên"
+                       class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
             </div>
 
-            <button type="submit" class="btn-register">Đăng Ký</button>
+            <div class="mb-4 relative">
+                <i class="bi bi-person absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" name="username" value="{{ old('username') }}" placeholder="Tên tài khoản"
+                       class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
 
-            <div class="login-link">
-                <span>Đã có tài khoản? <a href="{{ route('login') }}">Đăng nhập ngay</a></span>
+            <div class="mb-4 relative">
+                <i class="bi bi-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email"
+                       class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+
+            <div class="mb-4 relative">
+                <i class="bi bi-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="password" name="password" placeholder="Mật khẩu"
+                       class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+
+            <div class="mb-6 relative">
+                <i class="bi bi-lock-fill absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu"
+                       class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition">Đăng Ký
+            </button>
+
+            <div class="text-center mt-4">
+                <span class="text-gray-600">Đã có tài khoản? </span>
+                <a href="{{ route('login') }}" class="text-blue-500 font-bold">Đăng nhập ngay</a>
             </div>
         </form>
     </div>

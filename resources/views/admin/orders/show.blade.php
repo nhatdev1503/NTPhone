@@ -51,10 +51,10 @@
 
                     <div>
                         <h5 class="text-blue-600 font-semibold">Tổng Tiền</h5>
-                        <p><strong>Tổng Đơn Hàng:</strong> {{ number_format($order->total_price + $order->discount_amount, 0, ',', '.') }} VND</p>
-                        <p><strong>Mã Giảm Giá:</strong> {{ $order->discount->code ?? 'Không có' }}</p>
-                        <p><strong>Giảm Giá:</strong> -{{ number_format($order->discount_amount, 0, ',', '.') }} VND</p>
-                        <p><strong>Thành Tiền:</strong> <span class="text-red-500 font-bold">{{ number_format($order->total_price, 0, ',', '.') }} VND</span></p>
+                        <p><strong>Tổng Đơn Hàng:</strong> {{ number_format($order->total_price , 0, ',', '.') }} VND</p>
+                        <p><strong>Mã Giảm Giá:</strong class="text-black-50"> {{ $order->discount->code ?? 'Không có' }}</p>
+                        <p><strong>Giảm Giá: </strong><span class="text-red-500 font-bold">-{{ number_format($order->discount_amount, 0, ',', '.') }}  VND</span></p>
+                        <p><strong>Thành Tiền:</strong> <span class="">{{ number_format($order->total_price - $order->discount_amount, 0, ',', '.') }} VND</span></p>
                     </div>
                 </div>
 
