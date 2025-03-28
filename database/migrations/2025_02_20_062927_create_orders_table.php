@@ -20,8 +20,8 @@ return new class extends Migration {
             $table->string('address');  
             $table->string('phone');    
             $table->string('email');    
-            $table->decimal('total_price', 10, 2);
-            $table->decimal('discount_amount', 10, 2)->default(0);
+            $table->integer('total_price');
+            $table->integer('discount_amount')->default(0);
             $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->enum('payment_method', ['COD', 'VNPay','MoMo']);
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');

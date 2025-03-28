@@ -112,9 +112,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('discounts', DiscountController::class)->where(['discounts' => '[0-9]+']);
 
     // //Quản lí Liên hệ
-    Route::get('/contacts', [ContactController::class, 'show'])->name('contacts.show');
-    Route::get('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
-    Route::put('/contacts/update', [ContactController::class, 'update'])->name('contacts.update');
+    Route::resource('contacts', ContactController::class);
 });
 
 //Route trang nhân viên

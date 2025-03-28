@@ -95,10 +95,12 @@
                                             <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="mb-3">
-                                                    <label for="reason" class="form-label">Lý do</label>
-                                                    <textarea class="form-control" id="reason" name="block_reason" rows="3" required></textarea>
-                                                </div>
+                                                @if ($user->status == 'active')
+                                                    <div class="mb-3">
+                                                        <label for="reason" class="form-label">Lý do</label>
+                                                        <textarea class="form-control" id="reason" name="block_reason" rows="3" required></textarea>
+                                                    </div>
+                                                @endif
                                                 <button type="submit" class="btn btn-primary">Xác nhận</button>
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Hủy</button>

@@ -15,7 +15,7 @@ class OrderItemSeeder extends Seeder
                 'order_id' => rand(1, 20),
                 'product_variant_id' => rand(1, 30),
                 'quantity' => rand(1, 5),
-                'price' => rand(50, 1000),
+                'price' => rand(10000000, 20000000),
             ]);
         }
     }

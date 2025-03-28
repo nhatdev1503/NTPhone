@@ -17,11 +17,9 @@ class CustomerController extends Controller
     public function index()
     {
         $banners = \App\Models\Banner::where('status', 'active')->get();
-        // dd($banners);
-        $categoryList = \App\Models\Category::with('products')->where('status', 'active')->get();
-        $categories = \App\Models\Category::with('products')->where('status', 'active')->take(4)->get();
+        $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
 
-        return view('customer.index', compact('banners', 'categories', 'categoryList'));
+        return view('customer.index', compact('banners', 'categories'));
     }
 
     public function categories(string $id)

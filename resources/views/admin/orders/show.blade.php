@@ -11,6 +11,15 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="p-6">
                 <div class="grid grid-cols-2 gap-8">
                     <!-- Thông tin đơn hàng -->
@@ -51,10 +60,15 @@
 
                     <div>
                         <h5 class="text-blue-600 font-semibold">Tổng Tiền</h5>
-                        <p><strong>Tổng Đơn Hàng:</strong> {{ number_format($order->total_price , 0, ',', '.') }} VND</p>
-                        <p><strong>Mã Giảm Giá:</strong class="text-black-50"> {{ $order->discount->code ?? 'Không có' }}</p>
-                        <p><strong>Giảm Giá: </strong><span class="text-red-500 font-bold">-{{ number_format($order->discount_amount, 0, ',', '.') }}  VND</span></p>
-                        <p><strong>Thành Tiền:</strong> <span class="">{{ number_format($order->total_price - $order->discount_amount, 0, ',', '.') }} VND</span></p>
+                        <p><strong>Tổng Đơn Hàng:</strong> {{ number_format($order->total_price, 0, ',', '.') }} VND</p>
+                        <p><strong>Mã Giảm Giá:</strong class="text-black-50"> {{ $order->discount->code ?? 'Không có' }}
+                        </p>
+                        <p><strong>Giảm Giá: </strong><span
+                                class="text-red-500 font-bold">-{{ number_format($order->discount_amount, 0, ',', '.') }}
+                                VND</span></p>
+                        <p><strong>Thành Tiền:</strong> <span
+                                class="">{{ number_format($order->total_price - $order->discount_amount, 0, ',', '.') }}
+                                VND</span></p>
                     </div>
                 </div>
 
@@ -77,9 +91,11 @@
                         <tbody>
                             @foreach ($order->orderItems as $item)
                                 <tr class="border-b">
-                                    <td class="py-2"><img src="{{ asset($item->productVariant->product->image) }}" alt="Ảnh sản phẩm" class="w-16"></td>
+                                    <td class="py-2"><img src="{{ asset($item->productVariant->product->image) }}"
+                                            alt="Ảnh sản phẩm" class="w-16"></td>
                                     <td>{{ $item->productVariant->product->name }}</td>
-                                    <td>Màu: {{ $item->productVariant->color }} - Dung lượng: {{ $item->productVariant->storage }}</td>
+                                    <td>Màu: {{ $item->productVariant->color }} - Dung lượng:
+                                        {{ $item->productVariant->storage }}</td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ number_format($item->price, 0, ',', '.') }} VND</td>
                                     <td>{{ number_format($item->quantity * $item->price, 0, ',', '.') }} VND</td>
@@ -91,7 +107,8 @@
 
                 <div class="flex justify-center space-x-4 mt-8">
                     <a href="{{ route('orders.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Quay Lại</a>
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg" data-bs-toggle="modal" data-bs-target="#confirmModal">Xác nhận</button>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg" data-bs-toggle="modal"
+                        data-bs-target="#confirmModal">Xác nhận</button>
                 </div>
             </div>
         </div>
@@ -104,17 +121,23 @@
                     <h5 class="modal-title" id="confirmModalLabel">Xác nhận trạng thái đơn hàng</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('orders.update', $order->id) }}" method="POST">
+                    <form action="{{ route('orders.update', $order->id) }}" method="POST" id="orderForm"
+                        onsubmit="return validateStatus()">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="order_id" value="{{ $order->id }}">
                         <label for="order_status">Chọn trạng thái:</label>
-                        <select class="form-select" name="status">
-                            <option value="pending" @if ($order->status != 'cancelled') disabled @endif @if ($order->status == 'pending') selected @endif>Chờ xác nhận</option>
-                            <option value="processing" @if ($order->status != 'pending') disabled @endif @if ($order->status == 'processing') selected @endif>Đang đóng gói</option>
-                            <option value="shipped" @if ($order->status != 'processing') disabled @endif @if ($order->status == 'shipped') selected @endif>Đang giao</option>
-                            <option value="delivered"@if ($order->status != 'shipped') disabled @endif @if ($order->status == 'delivered') selected @endif>Đã giao</option>
-                            <option value="cancelled"@if ($order->status == 'cancelled')  disabled selected @endif>Hoàn hàng</option>
+                        <select class="form-select" name="status" id="orderStatus">
+                            <option value="pending" @if ($order->status != 'cancelled') disabled @endif
+                                @if ($order->status == 'pending') selected @endif>Chờ xác nhận</option>
+                            <option value="processing" @if ($order->status != 'pending') disabled @endif
+                                @if ($order->status == 'processing') selected @endif>Đang đóng gói</option>
+                            <option value="shipped" @if ($order->status != 'processing') disabled @endif
+                                @if ($order->status == 'shipped') selected @endif>Đang giao</option>
+                            <option value="delivered"@if ($order->status != 'shipped') disabled @endif
+                                @if ($order->status == 'delivered') selected @endif>Đã giao</option>
+                            <option value="cancelled"@if ($order->status == 'cancelled') disabled selected @endif>Hoàn hàng
+                            </option>
                         </select>
                         <div class="mt-3 text-end">
                             <button type="submit" class="btn btn-success">Xác nhận</button>
@@ -125,4 +148,14 @@
             </div>
         </div>
     </div>
+    <script>
+        function validateStatus() {
+            let status = document.getElementById('orderStatus').value;
+            if (!status) {
+                alert("Bạn phải cập nhật trạng thái khi xác nhận");
+                return false;
+            }
+            return true;
+        }
+    </script>
 @endsection

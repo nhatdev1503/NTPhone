@@ -25,7 +25,8 @@ class ProductSeeder extends Seeder
                 'cpu' => $faker->randomElement(['Snapdragon 8 Gen 2', 'A16 Bionic', 'Exynos 2200']),
                 'ram' => $faker->randomElement(['4GB', '6GB', '8GB', '12GB']),
                 'battery' => $faker->randomElement(['4000mAh', '4500mAh', '5000mAh']),
-                'base_price'        => $faker->randomFloat(2, 1000, 2000),
+                'base_price'        => rand(1000000, 20000000),
+                'price'        => rand(1000000, 20000000),
                 'status' => $faker->randomElement($statuses),
             ]);
         }

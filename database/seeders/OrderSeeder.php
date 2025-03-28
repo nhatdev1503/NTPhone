@@ -27,8 +27,8 @@ class OrderSeeder extends Seeder
                 'address'        => 'Số ' . rand(1, 100) . ' Đường ABC, Quận XYZ',
                 'phone'          => '09' . rand(10000000, 99999999),
                 'email'          => 'customer' . $i . '@example.com',
-                'total_price'    => rand(100, 5000) * 1000, // Giả sử giá trị đơn hàng từ 100k - 5 triệu
-                'discount_amount'=> rand(10000, 50000), // Khoảng giảm giá từ 10k - 50k
+                'total_price'    => rand(1000000, 50000000),
+                'discount_amount'=> rand(10000, 50000), 
                 'status'         => ['pending', 'processing', 'shipped', 'delivered', 'cancelled'][rand(0, 4)],
                 'payment_method' => $faker->randomElement(['VNPay', 'MoMo', 'COD']),
                 'payment_status' => $faker->randomElement(['pending', 'paid', 'failed']),

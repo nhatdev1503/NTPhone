@@ -42,6 +42,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
-    
+    public function getTotalProductsAttribute()
+    {
+        return self::count();
+    }
 }
 

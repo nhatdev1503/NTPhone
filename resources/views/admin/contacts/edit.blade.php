@@ -1,37 +1,28 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<div class="container d-flex justify-content-center">
-    <div class="card shadow-lg p-4 rounded-lg" style="width: 400px;">
-        <h3 class="text-center fw-bold">Chỉnh sửa liên hệ</h3>
-        <form action="{{ route('contacts.update') }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <label class="form-label">Tên</label>
-                <input type="text" name="name" class="form-control" value="{{ $contact->name }}" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" value="{{ $contact->email }}" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Điện thoại</label>
-                <input type="text" name="phone" class="form-control" value="{{ $contact->phone }}" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Địa chỉ</label>
-                <input type="text" name="address" class="form-control" value="{{ $contact->address }}">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Facebook</label>
-                <input type="url" name="facebook" class="form-control" value="{{ $contact->facebook }}">
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-success">Lưu</button>
-                <a href="{{ route('contacts.show') }}" class="btn btn-secondary">Hủy</a>
-            </div>
-        </form>
-    </div>
+<div class="container mx-auto p-4 max-w-2xl">
+    <h2 class="text-xl font-bold mb-4">Chỉnh sửa liên hệ</h2>
+    <form action="{{ route('contacts.update', $contact->id) }}" method="POST" class="grid gap-4">
+        @csrf
+        @method('PUT')
+        
+        <label class="block">Tên</label>
+        <input type="text" name="name" value="{{ $contact->name }}" class="border p-2 rounded w-full" required>
+
+        <label class="block">Email</label>
+        <input type="email" name="email" value="{{ $contact->email }}" class="border p-2 rounded w-full" required>
+
+        <label class="block">Số điện thoại</label>
+        <input type="text" name="phone" value="{{ $contact->phone }}" class="border p-2 rounded w-full" required>
+
+        <label class="block">Địa chỉ</label>
+        <input type="text" name="address" value="{{ $contact->address }}" class="border p-2 rounded w-full">
+
+        <label class="block">Facebook</label>
+        <input type="text" name="facebook" value="{{ $contact->facebook }}" class="border p-2 rounded w-full">
+
+        <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded">Cập nhật</button>
+    </form>
 </div>
 @endsection

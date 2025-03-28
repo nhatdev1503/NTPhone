@@ -23,7 +23,8 @@ return new class extends Migration {
             $table->string('cpu')->nullable();
             $table->string('ram')->nullable();
             $table->string('battery')->nullable();
-            $table->decimal('base_price', 15, 2);
+            $table->integer('base_price')->nullable();
+            $table->integer('price')->nullable();
             $table->integer('view')->nullable();
             $table->integer('sale')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');

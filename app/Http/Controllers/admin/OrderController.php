@@ -30,8 +30,8 @@ class OrderController extends Controller
             $query->where('status', $request->status);
         }
 
-        if ($request->filled('payment_method')) {
-            $query->where('payment_method', $request->payment_method);
+        if ($request->filled('payment_status')) {
+            $query->where('payment_status', $request->payment_status);
         }
 
         if ($request->filled('from_date')) {
@@ -114,7 +114,12 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Order $order)
-    {
+    {   
+        $request->validate([
+            'status' => 'required',
+        ], [
+            'status.required' => 'Cần cập nhật trạng thái khi xác nhận',
+        ]);
         $order->status = $request->status;
         $order->staff_id = 1;
         $order->save();

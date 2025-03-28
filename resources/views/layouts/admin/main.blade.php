@@ -52,7 +52,7 @@
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-phone-call"></i>
-          <a href="#">Quản lí liên hệ</a>
+          <a href="{{ route('contacts.index') }}">Quản lí liên hệ</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-users"></i>

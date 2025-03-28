@@ -28,12 +28,12 @@
                 </div>
 
                 <div class="col-md-2">
-                    <label for="">Hình thức thanh toán</label>
-                    <select name="payment_method" class="form-control form-control-md fs-6 mt-2">
+                    <label for="">Trạng thái thanh toán</label>
+                    <select name="payment_status" class="form-control form-control-md fs-6 mt-2">
                         <option value="">-- Tất cả --</option>
-                        <option value="COD" {{ request('payment_method') == 'COD' ? 'selected' : '' }}>COD</option>
-                        <option value="VNPay" {{ request('payment_method') == 'VNpay' ? 'selected' : '' }}>VNPay</option>
-                        <option value="MoMo" {{ request('payment_method') == 'MoMo' ? 'selected' : '' }}>MoMo</option>
+                        <option value="pending" {{ request('payment_status') == 'pending' ? 'selected' : '' }}>Chưa thanh toán</option>
+                        <option value="paid" {{ request('payment_status') == 'paid' ? 'selected' : '' }}>Đã thanh toán </option>
+                        <option value="failed" {{ request('payment_status') == 'failed' ? 'selected' : '' }}>Thất bại</option>
                     </select>
                 </div>
 
@@ -93,7 +93,7 @@
                                     ];
                                     $paymentStatusText = [
                                         'pending' => 'Chưa thanh toán',
-                                        'paid' => 'Thành công',
+                                        'paid' => 'Đã thanh toán',
                                         'failed' => 'Thất bại',
                                     ];
                                 @endphp
@@ -116,9 +116,9 @@
                                     $statusText = [
                                         'pending' => 'Chờ xác nhận',
                                         'processing' => 'Đang đóng gói',
-                                        'shipped' => 'Đang giao',
-                                        'delivered' => 'Đã giao',
-                                        'cancelled' => 'Đã hủy',
+                                        'shipped' => 'Đang giao hàng',
+                                        'delivered' => 'Đã giao hàng',
+                                        'cancelled' => 'Hoàn hàng',
                                     ];
                                 @endphp
                                 <span class="{{ $statusColors[$order->status] }} p-2">
