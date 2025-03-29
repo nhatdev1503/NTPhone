@@ -12,7 +12,7 @@ class BannerSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 55) as $index) {
+        foreach (range(1, 10) as $index) {
             DB::table('banners')->insert([
                 'title' => $faker->sentence,
                 'image' => $faker->imageUrl(600, 300, 'advertising'),

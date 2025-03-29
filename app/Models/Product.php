@@ -22,6 +22,7 @@ class Product extends Model
         'ram',
         'battery',
         'base_price',
+        'price',
         'status'
     ];
 

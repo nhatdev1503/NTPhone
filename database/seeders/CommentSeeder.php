@@ -15,7 +15,7 @@ class CommentSeeder extends Seeder
         foreach (range(1, 100) as $index) {
             DB::table('comments')->insert([
                 'user_id' => rand(1, 50),
-                'product_id' => rand(1, 30),
+                'product_id' => rand(1, 5),
                 'content' => $faker->sentence,
                 'created_at' => now(),
                 'updated_at' => now(),

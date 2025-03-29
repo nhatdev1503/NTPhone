@@ -4885,11 +4885,6 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <div class="cart">
-                    <a href="/"><i class="fa fa-heart"></i>
-                        </i>
-                    </a>
-                </div>
                 <a href="/" class="cart">
                     <i class="topzone-cart"></i>
                 </a>

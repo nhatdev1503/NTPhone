@@ -33,7 +33,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 // Route trang đăng nhập
 Route::get('/', function () {
     return redirect()->route('login');
@@ -125,6 +124,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 Route::prefix('customer')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/payment', [CustomerController::class, 'payment'])->name('customer.payment');
+    Route::post('/payment', [CustomerController::class, 'postPayment'])->name('customer.postPayment');
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+    Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
 
     // Trang danh mục
     //
@@ -138,7 +141,8 @@ Route::prefix('customer')->group(function () {
     // Bao contactcontact
     Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
     // Route giỏ hàng
-    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+
+    Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
 });
 
 

@@ -86,7 +86,7 @@
                         <div class="slide-cate owl-carousel owl-theme" data-block="iPhone">
                             @foreach ($category->products as $product)
                                 <div class="item" data-pos="1" data-block="iPhone">
-                                    <a href="#" class="main-contain">
+                                    <a href="{{ route('customer.product_detail',$product->id) }}" class="main-contain">
                                         <label>M&#x1EDB;i</label>
                                         <div class="img-slide">
                                             <img data-src="{{ asset($product->image) }}"

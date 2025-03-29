@@ -14,6 +14,8 @@
                 @csrf
                 <input type="text" name="name" placeholder="Nhập màu sắc..." required 
                     class="p-2 border rounded w-full">
+                    <input type="text" name="hax_code" placeholder="Nhập mã màu..." required 
+                    class="p-2 border rounded w-full">
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                     Thêm
                 </button>

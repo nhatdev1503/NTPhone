@@ -13,7 +13,7 @@ class OrderItemSeeder extends Seeder
         foreach (range(1, 100) as $index) {
             DB::table('order_items')->insert([
                 'order_id' => rand(1, 20),
-                'product_variant_id' => rand(1, 30),
+                'product_variant_id' => rand(1, 5),
                 'quantity' => rand(1, 5),
                 'price' => rand(10000000, 20000000),
             ]);
