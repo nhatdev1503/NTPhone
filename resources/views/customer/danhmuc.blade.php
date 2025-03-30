@@ -1,46 +1,37 @@
-@include('layouts.customer.header') 
+@include('layouts.customer.header')
 <div class="container my-4">
     @yield('content')
     <div class="container">
-        <h2 style="font-size: 30px; font-weight: bold; margin-bottom: 15px;">Danh mục {{ $category->name }}</h2>
+        <h2 style="font-size: 30px; font-weight: bold; margin: 30px 0 30px 0; color: white; text-align: center;">Danh mục
+            {{ $category->name }}</h2>
+
         <div class="row">
-            @foreach ($products as $product)
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="product-card mt-4">
-                        <form action="/cart/add" method="post" class="variants product-action" data-cart-form
-                            data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
-                            <div class="product-thumbnail">
-                            <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
-
-                                    <img width="100%" height="auto" src="{{ $product->image }}"
-                                        alt="{{ $product->name }}">
+            @foreach ($groupedProducts as $group)
+                <div class="slide-cate owl-carousel owl-theme">
+                    @foreach ($group as $product)
+                        <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="item">
+                                <a href="#" class="main-contain">
+                                    <label>Mới</label>
+                                    <div class="img-slide">
+                                        <img src="https://cdn.tgdd.vn/Products/Images/42/334864/s16/iphone-16e-black-thumbtz-650x650.png"
+                                            class="img-fluid" alt="iPhone 16e 128GB">
+                                    </div>
+                                    <h3>iPhone 16e 128GB</h3>
+                                    <span class="box-price">
+                                        16.490.000₫
+                                        <strike>16.990.000₫</strike>
+                                        <small>-2%</small>
+                                    </span>
                                 </a>
-                                <div class="action">
-                                    <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
-                                        onclick="window.location.href='#'">
-                                        <svg class="icon">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail">
-                                            </use>
-                                        </svg>
-                                    </button>
-                                </div>
                             </div>
-                            <div class="product-info">
-                                <h3 class="product-name">
-                                <a class="line-clamp line-clamp-2" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
-
-                                </h3>
-                                <div class="price-box">
-                                    {{ number_format($product->base_price, 0, ',', '.') }} VND
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
             @endforeach
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
+        <div class="d-flex justify-content-center mt-4" style="color: white;">
             {{ $products->links() }}
         </div>
     </div>

@@ -28,9 +28,10 @@ class CustomerController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $products = Product::where('category_id', $id)->paginate(24);
+        $products = Product::where('category_id', $id)->paginate(12);
+        $groupedProducts = $products->chunk(4);
 
-        return view('customer.danhmuc', compact('category', 'products'));
+        return view('customer.danhmuc', compact('category', 'products', 'groupedProducts'));
     }
     public function warranty()
     {
