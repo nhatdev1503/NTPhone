@@ -16,6 +16,7 @@ class BannerSeeder extends Seeder
             DB::table('banners')->insert([
                 'title' => $faker->sentence,
                 'image' => $faker->imageUrl(600, 300, 'advertising'),
+                'product_url' => $faker->sentence,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('color')->nullable();
-            $table->string('hex_code')->nullable();
+            $table->string('hax_code')->nullable();
             $table->string('storage')->nullable();
             $table->integer('origin_price')->nullable();
             $table->integer('price')->nullable();
