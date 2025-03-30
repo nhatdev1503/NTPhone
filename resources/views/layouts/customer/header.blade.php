@@ -46,6 +46,41 @@
 
     <style>
         /*  03:26:33 21/01/2025 */
+        .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background: white;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #ff4500;
+}
+
+.btn-info {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.btn-info:hover {
+    background-color: #0056b3;
+}
+
+.badge {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
         .dot-stretching {
             position: relative;
             width: 10px;

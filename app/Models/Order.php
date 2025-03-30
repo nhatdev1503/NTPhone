@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderDetail;
 
 class Order extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'order_code',
         'user_id',
@@ -37,6 +40,7 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'staff_id');
     }
+    
 
     public function discount()
     {
@@ -46,11 +50,20 @@ class Order extends Model
     public function getTotalRevenueAttribute()
     {
         return self::where('status', 'success')
-            ->where('payment_status', 'paid') 
+            ->where('payment_status', 'paid')
             ->sum('total_price');
     }
     public function getTotalOrdersAttribute()
     {
         return self::count();
+    }
+    public function orderDetails(): HasMany
+    {
+        
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+    }
+    public function getDiscountAmountAttribute()
+    {
+        return $this->discount?->amount ?? 0;
     }
 }

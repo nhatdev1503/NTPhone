@@ -21,6 +21,7 @@ use App\Http\Controllers\staff\StaffController;
 use App\Http\Controllers\StorageController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\CustomerOrderController4;
 
 /*
 |--------------------------------------------------------------------------
@@ -188,3 +189,13 @@ Route::get('/san-pham/{id}', function ($id) {
 Route::get('/gio-hang', function () {
     return view('giaodien_web.giohang');
 })->name('web.cart');
+
+Route::prefix('customer')->group(function () {
+    // Lịch sử mua hàng
+    Route::get('/order-history', [CustomerOrderController4::class, 'history'])->name('customer.order.history');
+
+    // Chi tiết đơn hàng
+    Route::get('/order/{id}', [CustomerOrderController4::class, 'detail'])->name('customer.order.detail');
+});
+Route::get('/khach-hang/don-hang/{id}', [CustomerOrderController4   ::class, 'showCustomerOrder'])
+    ->name('customer.order.detail');
