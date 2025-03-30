@@ -16,13 +16,16 @@ class OrderItem extends Model
         'price'
     ];
 
-     // Quan hệ với bảng Order
-     public function order()
-     {
-         return $this->belongsTo(Order::class, 'order_id', 'id');
-     }
-    
+    // Quan hệ với bảng Order
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
     // Quan hệ với bảng ProductVariant (chính là sản phẩm có biến thể)
     public function productVariant()
     {

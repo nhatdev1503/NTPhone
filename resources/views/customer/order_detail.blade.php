@@ -1,39 +1,66 @@
 @extends('layouts.customer')
 
 @section('content')
-    <div class="container mt-5">
-        <h2>Chi tiết đơn hàng #{{ $order->id }}</h2>
-
-        <div class="card mb-3">
-            <div class="card-header bg-primary text-white">Thông tin đơn hàng</div>
-            <div class="card-body">
-                @if (isset($tongTienSanPham))
-                    <p><strong>Tổng tiền sản phẩm:</strong> {{ number_format($tongTienSanPham, 0, ',', '.') }}đ</p>
-                    <p><strong>Giảm giá:</strong> {{ number_format($discountAmount, 0, ',', '.') }}đ</p>
-                    <p><strong>Thành tiền:</strong> <span
-                            class="text-danger">{{ number_format($totalPayable, 0, ',', '.') }}đ</span></p>
-                @else
-                    <p class="text-muted">Chưa có dữ liệu đơn hàng.</p>
-                @endif
-
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header  text-white">
+            <h4 class="mb-0">Chi tiết đơn hàng: {{ $order->order_code }}</h4>
+        </div>
+        <div class="card-body">
+            <!-- Thông tin đơn hàng -->
+            
+            <div class="mb-4">
+                <p><i class="bi bi-calendar3 me-2"></i><strong>Ngày đặt hàng:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
+                @php
+                $statusMappings = [
+                    'pending'   => 'Chờ xác nhận',
+                    'confirmed' => 'Đã xác nhận',
+                    'shipping'  => 'Đang vận chuyển',
+                    'delivered' => 'Đã giao hàng',
+                    'canceled'  => 'Đã hủy'
+                ];
+            @endphp
+            
+            <p><strong>Trạng thái:</strong>
+                <span class="badge bg-{{ $order->status == 'delivered' ? 'success' : ($order->status == 'canceled' ? 'danger' : 'warning') }}">
+                    {{ $statusMappings[$order->status] ?? 'Không xác định' }}
+                </span>
+            </p>
+                <p><i class="bi bi-cash-stack me-2"></i><strong>Tổng tiền:</strong> {{ number_format($order->total_price, 0, ',', '.') }} đ</p>
+            </div>
+            
+            <!-- Thông tin khách hàng -->
+            <div class="mb-4">
+                <div class="card border">
+                    <div class="card-header text-white">
+                        <h5 class="mb-0">Thông tin khách hàng</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="bi bi-person-fill me-2"></i><strong>Họ và tên:</strong> {{ auth()->user()->fullname }}</p>
+                        <p><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> {{ auth()->user()->email }}</p>
+                        <p><i class="bi bi-telephone-fill me-2"></i><strong>Số điện thoại:</strong> {{ auth()->user()->phone ?? 'Chưa cập nhật' }}</p>
+                        <p><i class="bi bi-geo-alt-fill me-2"></i><strong>Địa chỉ:</strong> {{ auth()->user()->address ?? 'Chưa cập nhật' }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Thông tin thanh toán -->
+            <div class="mb-4">
+                <div class="card border">
+                    <div class="card-header text-white">
+                        <h5 class="mb-0">Thông tin thanh toán</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="bi bi-credit-card-2-front-fill me-2"></i><strong>Phương thức thanh toán:</strong> {{ $order->payment_method ?? 'Chưa cập nhật' }}</p>
+                        <p><i class="bi bi-check-circle-fill me-2"></i><strong>Tình trạng thanh toán:</strong> {{ $order->payment_status ?? 'Chưa cập nhật' }}</p>
+                        <p><i class="bi bi-card-text me-2"></i><strong>Ghi chú:</strong> {{ $order->payment_note ?? 'Không có' }}</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <h4>Danh sách sản phẩm</h4>
-        @if ($order->orderDetails->isNotEmpty())
-            <div class="list-group">
-                @foreach ($order->orderDetails as $detail)
-                    <div class="list-group-item">
-                        <h5>{{ $detail->product?->name ?? 'Không tìm thấy sản phẩm' }}</h5>
-                        <p>Giá: {{ number_format($detail->price, 0, ',', '.') }}đ</p>
-                        <p>Số lượng: {{ $detail->quantity }}</p>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <p class="text-muted">Không có sản phẩm nào trong đơn hàng này.</p>
-        @endif
-
-        <a href="{{ route('customer.order.history') }}" class="btn btn-secondary mt-3">Quay lại lịch sử đơn hàng</a>
+        <div class="card-footer text-end">
+            <a href="{{ route('customer.order.history') }}" class="btn btn-outline-secondary">Quay lại lịch sử đơn hàng</a>
+        </div>
     </div>
+</div>
 @endsection

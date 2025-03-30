@@ -27,45 +27,14 @@ class CustomerOrderController4 extends Controller
 
         return view('customer.history', compact('orders'));
     }
-
-    public function detail($id)
+   
+    public function show($id)
     {
-        $order = Order::with('orderDetails.product')->where('user_id', auth()->id())->find($id);
-
-        if (!$order) {
-            return redirect()->route('customer.order.history')->with('error', 'Đơn hàng không tồn tại.');
-        }
-
+        $order = Order::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->with('items.product')
+            ->firstOrFail();
         return view('customer.order_detail', compact('order'));
     }
-    public function show($id)
-{
-    $order = Order::with(['orderDetails.product', 'customer', 'payment'])->findOrFail($id);
-    return view('customer.orders.detail', compact('order'));
-}
-public function showCustomerOrder($id)
-{
-    // Tìm đơn hàng kèm các quan hệ liên quan
-    $order = Order::with(['orderDetails', 'customer', 'discount'])->find($id);
-
-    // Kiểm tra nếu đơn hàng không tồn tại
-    if (!$order) {
-        return redirect()->route('customer.order.history')->with('error', 'Không tìm thấy đơn hàng.');
-    }
-
-    // Tính tổng tiền sản phẩm
-    $tongTienSanPham = 0;
-    foreach ($order->orderDetails as $detail) {
-        $tongTienSanPham += $detail->price * $detail->quantity;
-    }
-
-    // Lấy số tiền giảm giá (nếu có)
-    $discountAmount = $order->discount?->amount ?? 0;
-
-    // Tính tổng tiền phải thanh toán
-    $totalPayable = max(0, $tongTienSanPham - $discountAmount);
-
-    // Trả về view với đầy đủ biến
-    return view('customer.order_detail', compact('order', 'tongTienSanPham', 'discountAmount', 'totalPayable'));
-}
+    
 }

@@ -198,8 +198,9 @@ Route::prefix('customer')->group(function () {
     // Lịch sử mua hàng
     Route::get('/order-history', [CustomerOrderController4::class, 'history'])->name('customer.order.history');
 
-    // Chi tiết đơn hàng
-    Route::get('/order/{id}', [CustomerOrderController4::class, 'detail'])->name('customer.order.detail');
 });
-Route::get('/khach-hang/don-hang/{id}', [CustomerOrderController4   ::class, 'showCustomerOrder'])
-    ->name('customer.order.detail');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/order-detail/{id}', [CustomerOrderController4::class, 'show'])->name('customer.order_detail');
+});
+
+

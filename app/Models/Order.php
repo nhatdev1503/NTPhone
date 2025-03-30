@@ -26,6 +26,10 @@ class Order extends Model
         'email',
         'discount_amount'
     ];
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
     // Quan hệ với bảng OrderItem
     public function orderItems()
     {
@@ -47,23 +51,7 @@ class Order extends Model
         return $this->belongsTo(Discount::class, 'discount_id');
     }
 
-    public function getTotalRevenueAttribute()
-    {
-        return self::where('status', 'success')
-            ->where('payment_status', 'paid')
-            ->sum('total_price');
-    }
-    public function getTotalOrdersAttribute()
-    {
-        return self::count();
-    }
-    public function orderDetails(): HasMany
-    {
-        
-        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
-    }
-    public function getDiscountAmountAttribute()
-    {
-        return $this->discount?->amount ?? 0;
-    }
+  
+
+    
 }

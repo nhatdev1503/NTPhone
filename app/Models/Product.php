@@ -47,5 +47,6 @@ class Product extends Model
     {
         return self::count();
     }
+    
 }
 
