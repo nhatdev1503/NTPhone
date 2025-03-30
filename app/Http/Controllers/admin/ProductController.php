@@ -90,20 +90,12 @@ class ProductController extends Controller
             $imagePath = 'uploads/products/' . $imageName;
         }
 
-        $miniImagePath = null;
-        if ($request->hasFile('mini_image')) {
-            $miniImage = $request->file('mini_image');
-            $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
-            $miniImage->move($uploadPath, $miniImageName);
-            $miniImagePath = 'uploads/products/' . $miniImageName;
-        }
         // Lưu sản phẩm
         $product = Product::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image' => $imagePath,
-            'mini_image' => $miniImagePath,
             'screen' => $request->screen,
             'os' => $request->os,
             'rear_camera' => $request->rear_camera,
