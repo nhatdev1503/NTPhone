@@ -93,11 +93,11 @@
                                                 class="lazyload" alt="iPhone 16e 128GB" width=300 height=300>
                                         </div>
                                         <h3>{{ $product->name }}</h3>
-                                        <span class="box-price">
+                                        {{-- <span class="box-price">
                                             {{ number_format($product->price, 0, '', '.') }}&#x20AB;
-                                            <strike>{{ number_format($product->base_price, 0, '', '.') }}&#x20AB;</strike>
+                                            <strike>{{ number_format($product->origin_price, 0, '', '.') }}&#x20AB;</strike>
                                             <small>-{{ (int) str_replace(',', '', (100-($product->price/$product->base_price*100))) }}%</small>
-                                        </span>
+                                        </span> --}}
                                         <p class="item-txt-online orange">Online gia&#x301; re&#x309; qu&#xE1;</p>
                                     </a>
                                 </div>

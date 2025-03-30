@@ -12,7 +12,7 @@ class ProductSeeder extends Seeder
     {
         $faker = Faker::create();
         $statuses = ['active', 'inactive'];
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             Product::create([
                 'category_id' => rand(1, 6),
                 'name' => $faker->word,

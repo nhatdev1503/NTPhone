@@ -48,5 +48,8 @@ class Product extends Model
     {
         return self::count();
     }
+    public function posts() {
+        return $this->hasMany(ProductPost::class)->orderBy('position');
+    }
 }
 
