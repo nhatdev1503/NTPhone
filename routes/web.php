@@ -131,9 +131,8 @@ Route::prefix('customer')->group(function () {
     Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
 
     // Trang danh mục
-    //
-
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+    
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
 

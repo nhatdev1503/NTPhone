@@ -4866,13 +4866,13 @@
             </div>
 
             <ul class="menu">
-                <li class="menu-trang-chu"><a href="#">
-                    <span>Trang chủ</span>
-                </a>
+                <li class="menu-trang-chu"><a href="{{ route('customer.index') }}">
+                        <span>Trang chủ</span>
+                    </a>
                 </li>
                 @foreach ($categoriess as $category)
                     <li class="menu-{{ strtolower($category->slug ?? str_replace(' ', '-', $category->name)) }}">
-                        <a href="#">
+                        <a href="{{ route('customer.category', ['id' => $category->id]) }}">
                             <span>{{ $category->name }}</span>
                         </a>
                     </li>
@@ -4891,13 +4891,34 @@
                 <div class="cart">
                     <!-- Checkbox ẩn để làm trigger -->
                     <input type="checkbox" id="userMenuToggle" class="peer hidden">
-                    
+
                     <!-- Nút User Icon -->
                     <label for="userMenuToggle" class="cursor-pointer">
-                      <i class="fa fa-user"></i>
+                        <i class="fa fa-user"></i>
                     </label>
-                    
+
                     <!-- Dropdown Menu -->
+
+                    <div
+                        class="hidden peer-checked:flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá
+                            nhân</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Lịch sử mua hàng</a>
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đổi mật khẩu</a>
+                        <form action="{{ route('auth.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Đăng xuất</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <a href="/" class="cart">
+                    <i class="topzone-cart"></i>
+                </a>
+=======
                     <div class="hidden peer-checked:flex flex-col absolute right-0 mt-6 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
                       <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá nhân</a>
                       <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Lịch sử mua hàng</a>
@@ -4908,6 +4929,7 @@
                       </form>
                     </div>
                   </div>
+>>>>>>> fitle-by-category
                 <div class="view-cart">
                     <i class="topzone-cohang"></i>
                     <span>Đã thêm sản phẩm vào giỏ hàng</span>
