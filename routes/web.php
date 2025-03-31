@@ -123,8 +123,8 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 });
 
 //Route trang khách hàng
-Route::prefix('customer')->group(function () {
-    // Trang Dashboard Admin
+Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+    // Trang Dashboard Customer
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/payment', [CustomerController::class, 'payment'])->name('customer.payment');
     Route::post('/payment', [CustomerController::class, 'postPayment'])->name('customer.postPayment');
@@ -144,6 +144,9 @@ Route::prefix('customer')->group(function () {
     // Route giỏ hàng
 
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
+
+    // Lịch sử mua hàng
+    Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
 });
 
 

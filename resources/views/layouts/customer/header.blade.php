@@ -4860,7 +4860,7 @@
                 {{-- <a href="/">
                     <i class="topzone-logo"></i>
                 </a> --}}
-                <a href="/tekzone/khac-biet-aar-va-apr-tieu-chuan-cua-hang-uy-quyen-apple-1411356">
+                <a href="#">
                     <i class="topzone-autho  "></i>
                 </a>
             </div>
@@ -4912,24 +4912,6 @@
                         </form>
                     </div>
                 </div>
-
-
-
-                <a href="/" class="cart">
-                    <i class="topzone-cart"></i>
-                </a>
-=======
-                    <div class="hidden peer-checked:flex flex-col absolute right-0 mt-6 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
-                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá nhân</a>
-                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Lịch sử mua hàng</a>
-                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đổi mật khẩu</a>
-                      <form action="{{ route('auth.logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Đăng xuất</button>
-                      </form>
-                    </div>
-                  </div>
->>>>>>> fitle-by-category
                 <div class="view-cart">
                     <i class="topzone-cohang"></i>
                     <span>Đã thêm sản phẩm vào giỏ hàng</span>

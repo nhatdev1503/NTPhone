@@ -68,7 +68,7 @@
                             $imgUrl = $images[$slug] ?? 'https://via.placeholder.com/150';
                         @endphp
                         <li>
-                            <a href="/{{ $slug }}">
+                            <a href="{{ route('customer.category',$category->id) }}">
                                 <div class="img-catesp cate{{ $slug }}">
                                     <img src="{{ $imgUrl }}" alt="" width="150" height="110">
                                 </div>
@@ -79,7 +79,7 @@
                 </ul>
                 @foreach ($categories as $category)
                     <div class="box-slide">
-                        <a href="iphone" class="logo-cate  ">
+                        <a href="{{ route('customer.category',$category->id) }}" class="logo-cate  ">
                             <i class="topzone-iconapple"></i>
                             <h2 class="title-text">{{ $category->name }}</h2>
                         </a>
