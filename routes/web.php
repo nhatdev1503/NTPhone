@@ -87,6 +87,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     //Quản lí banner
     Route::resource('banners', BannerController::class);
     Route::put('/banners/{banner}/status', [BannerController::class, 'status'])->name('banners.status');
+    Route::get('/api/product_url', [BannerController::class, 'apiProductURL']);
 
     //Quản lí màu sắc, dung lượng
     Route::get('/colors_storages', [AdminController::class, 'color_storage'])->name('colors_storages.index');

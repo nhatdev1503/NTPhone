@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('image');
-            $table->string('product_url');
+            $table->string('product_name')->nullable();
+            $table->string('product_url')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('inactive'); 
             $table->timestamps();
         });

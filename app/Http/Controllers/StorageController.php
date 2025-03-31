@@ -28,7 +28,24 @@ class StorageController extends Controller
      */
     public function store(Request $request)
     {
-        Storage::create($request->all()); 
+        $request->validate([
+            'size' => [
+                'required',
+                'string',
+                'max:10',
+                'regex:/^\d+(GB|TB|MB)$/i',
+                'unique:sizes,size'
+            ],
+        ], [
+            'size.required' => 'Dung lượng là bắt buộc.',
+            'size.string' => 'Dung lượng phải là chuỗi ký tự.',
+            'size.max' => 'Dung lượng không được vượt quá 10 ký tự.',
+            'size.regex' => 'Dung lượng phải có định dạng hợp lệ (ví dụ: 128GB, 1TB, 512MB).',
+            'size.unique' => 'Dung lượng này đã tồn tại.',
+        ]);
+        Storage::create([
+            'size' => $request->size,
+        ]);
         return redirect()->back()->with('success', 'Thêm dung lượng thành công!');
     }
 

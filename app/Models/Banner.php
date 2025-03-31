@@ -12,6 +12,7 @@ class Banner extends Model
     protected $fillable = [
         'title',
         'image',
+        'product_name',
         'product_url',
         'status'
     ];
