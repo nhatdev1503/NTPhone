@@ -21,8 +21,8 @@ class OrderController extends Controller
             $keyword = $request->keyword;
             $query->where(function ($q) use ($keyword) {
                 $q->where('fullname', 'like', "%$keyword%")
-                  ->orWhere('email', 'like', "%$keyword%")
-                  ->orWhere('phone', 'like', "%$keyword%");
+                    ->orWhere('email', 'like', "%$keyword%")
+                    ->orWhere('phone', 'like', "%$keyword%");
             });
         }
 
@@ -68,7 +68,6 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-
         $order = Order::findOrFail($id);
 
         // Mảng để hiển thị trạng thái đơn hàng đẹp hơn
@@ -83,10 +82,12 @@ class OrderController extends Controller
         $statusText = [
             'pending' => 'Chờ xác nhận',
             'processing' => 'Đang đóng gói',
-            'shipped' => 'Đang giao',
+            'shipping' => 'Đang giao',
             'delivered' => 'Đã giao',
             'cancelled' => 'Hoàn hàng',
+            'completed' => 'Hoàn thành',
         ];
+
         $paymentColors = [
             'pending' => 'warning',
             'paid' => 'success',
@@ -99,7 +100,7 @@ class OrderController extends Controller
             'failed' => 'Thất bại',
         ];
 
-        return view('admin.orders.show', compact('order', 'statusColors', 'statusText','paymentColors','paymentStatus'));
+        return view('admin.orders.show', compact('order', 'statusColors', 'statusText', 'paymentColors', 'paymentStatus'));
     }
 
     /**
@@ -114,7 +115,7 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Order $order)
-    {   
+    {
         $request->validate([
             'status' => 'required',
         ], [
@@ -123,7 +124,7 @@ class OrderController extends Controller
         $order->status = $request->status;
         $order->staff_id = 1;
         $order->save();
-        return redirect()->route('orders.show',$order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');
+        return redirect()->route('orders.show', $order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');
     }
 
     /**
@@ -133,6 +134,4 @@ class OrderController extends Controller
     {
         //
     }
-   
-
 }

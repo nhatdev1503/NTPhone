@@ -15,7 +15,15 @@
         }
 
         body {
+            /* display: inline; */
             background-color: white;
+        }
+
+        .history-title {
+            font-size: 40px;
+            text-align: center;
+            color: #333333;
+            padding: 10px;
         }
     </style>
     <div class="container mt-5">
@@ -28,10 +36,11 @@
                 $statuses = [
                     'all' => 'Tất cả',
                     'pending' => 'Chờ xác nhận',
-                    'confirmed' => 'Đã xác nhận',
-                    'Đang vận chuyển' => 'Đang vận chuyển',
-                    'delivered' => 'Đã giao hàng',
-                    'canceled' => 'Đã hủy',
+                    'processing' => 'Đang đóng gói',
+                    'shipping' => 'Đang giao',
+                    'delivered' => 'Đã giao',
+                    'cancelled' => 'Hoàn hàng',
+                    'completed' => 'Hoàn thành',
                 ];
                 $currentStatus = request('status', 'all');
             @endphp
@@ -50,18 +59,37 @@
             <p class="text-danger">Không có đơn hàng nào.</p>
         @else
             @foreach ($orders as $order)
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Đơn hàng #{{ $order->id }}</h5>
+                <div class="card mb-4">
+                    <div class="card-body mb-3" style="line-height: 35px;">
+                        <h5 class="card-title">Đơn hàng {{ $order->order_code }}</h5>
                         <p><strong>Giá:</strong> {{ number_format($order->total_price, 0, ',', '.') }}đ</p>
                         <p><strong>Ngày đặt:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
                         <p><strong>Trạng thái:</strong>
-                            <span
-                                class="badge bg-{{ $order->status == 'delivered' ? 'success' : ($order->status == 'canceled' ? 'danger' : 'warning') }}">
-                                {{ $statuses[$order->status] ?? 'Không xác định' }}
+                            <?php $displayStatus = $order->status;
+                            
+                            $statusText = [
+                                'all' => 'Tất cả',
+                                'pending' => 'Chờ xác nhận',
+                                'processing' => 'Đang đóng gói',
+                                'shipped' => 'Đang giao',
+                                'delivered' => 'Đã giao',
+                                'cancelled' => 'Hoàn hàng',
+                                'completed' => 'Hoàn thành',
+                            ];
+                            $statusColors = [
+                                'pending' => 'warning',
+                                'processing' => 'primary',
+                                'shipped' => 'info',
+                                'delivered' => 'success',
+                                'cancelled' => 'danger',
+                                'completed' => 'secondary',
+                            ];
+                            ?>
+                            <span class="badge bg-{{ $statusColors[$order->status] ?? 'secondary' }}">
+                                {{ $statusText[$displayStatus] ?? 'Không xác định' }}
                             </span>
                         </p>
-                        <a href="{{ route('customer.order_detail', $order->id) }}" class="btn btn-info">Xem chi tiết</a>
+                        <a href="{{ route('customer.order_detail', $order->id) }}" class="btn btn-info mb-2" style="margin-top: 20px">Xem chi tiết</a>
                     </div>
                 </div>
             @endforeach

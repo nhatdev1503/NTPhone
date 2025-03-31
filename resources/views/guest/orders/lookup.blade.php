@@ -1,4 +1,4 @@
-@include('layouts.guest.header')
+{{-- @include('layouts.guest.header') --}}
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="row justify-content-center w-100 absolute top-56">
@@ -151,4 +151,4 @@
     });
 </script>
 
-@include('layouts.guest.footer')
+{{-- @include('layouts.guest.footer') --}}
