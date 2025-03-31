@@ -4866,13 +4866,13 @@
             </div>
 
             <ul class="menu">
-                <li class="menu-trang-chu"><a href="#">
+                <li class="menu-trang-chu"><a href="{{ route('customer.index') }}">
                     <span>Trang chủ</span>
                 </a>
                 </li>
                 @foreach ($categoriess as $category)
                     <li class="menu-{{ strtolower($category->slug ?? str_replace(' ', '-', $category->name)) }}">
-                        <a href="#">
+                        <a href="{{ route('customer.category', ['id' => $category->id]) }}">
                             <span>{{ $category->name }}</span>
                         </a>
                     </li>

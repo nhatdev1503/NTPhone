@@ -28,9 +28,19 @@ class CustomerController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $products = Product::where('category_id', $id)->paginate(24);
+        $products = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
+                            ->leftJoin('product_variants', function ($join) {
+                                $join->on('products.id', '=', 'product_variants.product_id')
+                                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
+                            })
+                            ->where('products.category_id', $id)
+                            ->where('products.status', 'active')
+                            ->orderBy('products.priority', 'desc')
+                            ->paginate(12);
 
-        return view('customer.danhmuc', compact('category', 'products'));
+        $groupedProducts = $products->chunk(4);
+
+        return view('customer.danhmuc', compact('category', 'products', 'groupedProducts'));
     }
     public function warranty()
     {
