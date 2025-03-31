@@ -15,6 +15,9 @@
     lucide.createIcons();
   </script>
   <title>Admin Panel</title>
+<style>
+  .validate_error {margin-top:5px; color:red; font-size:12px;}
+</style>
 </head>
 <body class="bg-gray-100 text-gray-900">
   <div class="flex min-h-screen">
@@ -36,15 +39,27 @@
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-box"></i>
+          <a href="{{ route('colors_storages.index') }}"> Màu - Dung lượng</a>
+        </li>
+        <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
+          <i class="lucide lucide-box"></i>
           <a href="{{ route('products.index') }}">Quản lí sản phẩm</a>
+        </li>
+        <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
+          <i class="lucide lucide-box"></i>
+          <a href="{{ route('orders.index') }}">Quản lí đơn hàng</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-tag"></i>
           <a href="{{ route('discounts.index') }}">Quản lí khuyến mãi</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
+          <i class="lucide lucide-tag"></i>
+          <a href="{{ route('discounts.index') }}">Quản lí bài viết</a>
+        </li>
+        <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-phone-call"></i>
-          <a href="#">Quản lí liên hệ</a>
+          <a href="{{ route('contacts.index') }}">Quản lí liên hệ</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-users"></i>

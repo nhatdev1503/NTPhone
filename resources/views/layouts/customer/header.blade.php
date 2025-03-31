@@ -4885,11 +4885,9 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <div class="cart">
-                    <a href="/"><i class="fa fa-heart"></i>
-                        </i>
-                    </a>
-                </div>
+                <a href="/" class="cart">
+                    <i class="topzone-cart"></i>
+                </a>
                 <div class="cart">
                     <!-- Checkbox ẩn để làm trigger -->
                     <input type="checkbox" id="userMenuToggle" class="peer hidden">
@@ -4900,6 +4898,7 @@
                     </label>
 
                     <!-- Dropdown Menu -->
+
                     <div
                         class="hidden peer-checked:flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá
@@ -4919,6 +4918,18 @@
                 <a href="/" class="cart">
                     <i class="topzone-cart"></i>
                 </a>
+=======
+                    <div class="hidden peer-checked:flex flex-col absolute right-0 mt-6 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
+                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá nhân</a>
+                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Lịch sử mua hàng</a>
+                      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đổi mật khẩu</a>
+                      <form action="{{ route('auth.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Đăng xuất</button>
+                      </form>
+                    </div>
+                  </div>
+>>>>>>> fitle-by-category
                 <div class="view-cart">
                     <i class="topzone-cohang"></i>
                     <span>Đã thêm sản phẩm vào giỏ hàng</span>

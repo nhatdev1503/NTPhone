@@ -91,7 +91,8 @@ class DiscountController extends Controller
      * Update the specified resource in storage.
      */
     public function update(DiscountRequest $request, Discount $discount)
-    {
+    {   
+        
         $discount->update($request->validated());
 
         return redirect()->route('discounts.index')->with('success', 'Chỉnh sửa voucher thành công');

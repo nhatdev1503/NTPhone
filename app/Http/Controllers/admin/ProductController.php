@@ -5,12 +5,13 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
+use App\Models\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -36,7 +37,9 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        $colors = Color::all();
+        $storages = Storage::all();
+        return view('admin.products.create', compact('categories','colors','storages'));
     }
     public function getVariants($id)
     {
@@ -87,20 +90,12 @@ class ProductController extends Controller
             $imagePath = 'uploads/products/' . $imageName;
         }
 
-        $miniImagePath = null;
-        if ($request->hasFile('mini_image')) {
-            $miniImage = $request->file('mini_image');
-            $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
-            $miniImage->move($uploadPath, $miniImageName);
-            $miniImagePath = 'uploads/products/' . $miniImageName;
-        }
         // Lưu sản phẩm
         $product = Product::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image' => $imagePath,
-            'mini_image' => $miniImagePath,
             'screen' => $request->screen,
             'os' => $request->os,
             'rear_camera' => $request->rear_camera,
@@ -115,7 +110,7 @@ class ProductController extends Controller
             foreach ($request->file('mini_images') as $miniImage) {
                 $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
                 $miniImage->move($uploadPath, $miniImageName);
-                $miniImagePath = 'uploads/products/' . $miniImageName;
+                $miniImagePath = 'uploads/products/mini' . $miniImageName;
 
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -151,7 +146,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('admin.products.edit', compact('product', 'categories'));
+        $colors = Color::all();
+        $storages = Storage::all();
+        return view('admin.products.edit', compact('product', 'categories','colors','storages'));
     }
 
     public function update(Request $request, $id)

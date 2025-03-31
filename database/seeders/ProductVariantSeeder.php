@@ -30,9 +30,10 @@ class ProductVariantSeeder extends Seeder
                 DB::table('product_variants')->insert([
                     'product_id'   => $productId,
                     'color'        => $faker->randomElement($colors),
+                    'hax_code'        => rand(1000000, 20000000),
                     'storage'      => $faker->randomElement($storages),
-                    'origin_price' => $faker->randomFloat(2, 500, 1000),
-                    'price'        => $faker->randomFloat(2, 1000, 2000),
+                    'origin_price' => rand(1000000, 20000000),
+                    'price'        => rand(1000000, 20000000),
                     'stock'        => rand(10, 100),
                     'status' => $faker->randomElement($statuses),
                     'created_at'   => now(),

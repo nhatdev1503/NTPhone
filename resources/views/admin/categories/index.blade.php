@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
-    <h2 class="mb-4">Quản Lý Danh Mục</h2>
+    <h2 class="mb-4 display-6">Quản lí danh mục</h2>
 
     <!-- Hiển thị thông báo -->
     @if(session('success'))
@@ -10,7 +10,7 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="col-md-6 text-end">
+    <div class="col-md-6 text-start mb-3">
         <a href="{{ route('categories.create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i> Thêm mới
         </a>
@@ -24,6 +24,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên danh mục</th>
+                        <th>Ảnh</th>
                         <th>Mô tả</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td><strong>{{ $category->name }}</strong></td>
+                            <td><img src="{{ asset($category->image) }}" alt="{{ $category->name }}" width="50" height="50"></td>
                             <td>{{ $category->description }}</td>
                             <td>
                                 @if ($category->status === 'active')
@@ -43,9 +45,8 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning"
-                                    title="Chỉnh sửa">
-                                    <i class="fa fa-edit"></i>
+                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">
+                                    Sửa
                                 </a>
                                 <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
                                     class="d-inline">
@@ -53,10 +54,8 @@
                                     @method('PUT')
                                     <button type="submit"
                                         class="btn btn-sm {{ $category->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                        title="{{ $category->status == 'active' ? 'Ngừng bán' : 'Mở bán' }}"
                                         onclick="return confirm('{{ $category->status == 'active' ? 'Bạn có chắc chắn muốn vô hiệu hóa danh mục này?' : 'Bạn có chắc chắn muốn mở khóa danh mục này?' }}')">
-                                        <i
-                                            class="fa {{ $category->status == 'active' ? 'fa-ban' : 'fa-check' }}"></i>
+                                        {{ $category->status == 'active' ? 'Khóa' : '-Mở-' }}
                                     </button>
                                 </form>
                             </td>

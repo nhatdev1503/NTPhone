@@ -14,14 +14,13 @@
                                 <a href="#" class="main-contain">
                                     <label>Mới</label>
                                     <div class="img-slide">
-                                        <img src="https://cdn.tgdd.vn/Products/Images/42/334864/s16/iphone-16e-black-thumbtz-650x650.png"
-                                            class="img-fluid" alt="iPhone 16e 128GB">
+                                        <img src="{{  asset('storage/' . $product->image)}}"
+                                            class="img-fluid" alt="{{ $product->name }}">
                                     </div>
-                                    <h3>iPhone 16e 128GB</h3>
+                                    <h3>{{ $product->name }}</h3>
                                     <span class="box-price">
-                                        16.490.000₫
-                                        <strike>16.990.000₫</strike>
-                                        <small>-2%</small>
+                                        {{ number_format($product->price) }}₫
+                                        <strike>{{ number_format($product->origin_price) }}₫</strike>
                                     </span>
                                 </a>
                             </div>

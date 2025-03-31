@@ -125,7 +125,7 @@
                     <input type="hidden" id="category-status" value="{{ $product->category->status }}">
 
                     <div class="mt-4">
-                        <h5 class="text-primary">Danh sách biến thể</h5>
+                        <h3 class="mb-2" style="font-size:larger">Danh sách biến thể: </h3>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead class="table-dark">
@@ -142,15 +142,21 @@
                                 <tbody>
                                     @foreach ($product->variants as $index => $variant)
                                         <tr class="text-center" data-id="{{ $variant->id }}">
-                                            <td>{{ $index + 1 }}</td>
+                                            <td class="text-center align-middle">{{ $index + 1 }}</td>
                                             <td>
-                                                <input type="text" class="form-control text-center variant-input"
-                                                    name="color" value="{{ $variant->color }}">
+                                                    <select class="form-control text-center variant-input" name="color">
+                                                        @foreach ($colors as $color)
+                                                            <option value="{{ $color->name }}" @if ($variant->color == $color->name) selected @endif >{{ $color->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control text-center variant-input"
-                                                    name="storage" value="{{ $variant->storage }}">
-                                            </td>
+                                                <select class="form-control text-center variant-input" name="storage">
+                                                    @foreach ($storages as $storage)
+                                                        <option value="{{ $storage->size }}" @if ($variant->storage == $storage->size) selected @endif >{{ $storage->size }}</option>
+                                                    @endforeach
+                                                </select>
+                                        </td>
                                             <td>
                                                 <input type="number" class="form-control text-center variant-input"
                                                     name="origin_price" value="{{ $variant->origin_price }}">
@@ -195,10 +201,9 @@
                                 <label class="form-label">Màu sắc</label>
                                 <select class="form-control variant_color" onchange="toggleInput(this, 'variant_color')">
                                     <option value="" disabled selected>Chọn màu</option>
-                                    @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
-                                        <option value="{{ $color }}">{{ $color }}</option>
+                                    @foreach ($colors as $color)
+                                        <option value="{{ $color->name }}">{{ $color->name }}</option>
                                     @endforeach
-                                    <option value="other">Khác</option>
                                 </select>
                                 <input type="text" id="variant_color" class="form-control mt-2 d-none"
                                     placeholder="Nhập màu sắc">
@@ -208,10 +213,9 @@
                                 <select class="form-control variant_storage"
                                     onchange="toggleInput(this, 'variant_storage')">
                                     <option value="" disabled selected>Chọn dung lượng</option>
-                                    @foreach (['8GB', '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB'] as $storage)
-                                        <option value="{{ $storage }}">{{ $storage }}</option>
+                                    @foreach ($storages as $storage)
+                                        <option value="{{ $storage->size }}">{{ $storage->size }}</option>
                                     @endforeach
-                                    <option value="other">Khác</option>
                                 </select>
                                 <input type="text" id="variant_storage" class="form-control mt-2 d-none"
                                     placeholder="Nhập dung lượng">

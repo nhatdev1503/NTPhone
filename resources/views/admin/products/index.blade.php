@@ -1,11 +1,9 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container my-5" style="max-width: 95%; min-width: 1200px;">
+    <div class="container" style="max-width: 95%; min-width: 1200px;">
+        <h2 class="mb-4 display-6">Quản lí sản phẩm</h2>
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">Danh sách sản phẩm</h3>
-            </div>
             <div class="card-body">
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -32,7 +30,7 @@
                         </a>
                     </div>
                 </div> --}}
-                <div class="col-md-6 text-end">
+                <div class="col-md-6 text-start">
                     <a href="{{ route('products.create') }}" class="btn btn-success">
                         <i class="fa fa-plus"></i> Thêm mới
                     </a>
@@ -70,9 +68,6 @@
                         </a>
                     </div>
                 </form>
-                <div class="alert alert-info">
-                    Hiển thị {{ $products->count() }} sản phẩm trên tổng số {{ $products->total() }} sản phẩm.
-                </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover align-middle">
                         <thead class="table-dark">
@@ -111,13 +106,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info"
-                                            title="Xem chi tiết">
-                                            <i class="fa fa-eye"></i>
+                                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-info">
+                                            Xem
                                         </a>
-                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning"
-                                            title="Chỉnh sửa">
-                                            <i class="fa fa-edit"></i>
+                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
+                                            Sửa
                                         </a>
                                         <form action="{{ route('products.destroy', $product->id) }}" method="POST"
                                             class="d-inline">
@@ -125,10 +118,8 @@
                                             @method('PUT')
                                             <button type="submit"
                                                 class="btn btn-sm {{ $product->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                                title="{{ $product->status == 'active' ? 'Ngừng bán' : 'Mở bán' }}"
                                                 onclick="return confirm('{{ $product->status == 'active' ? 'Bạn có chắc chắn muốn ngừng bán sản phẩm này?' : 'Bạn có chắc chắn muốn mở bán sản phẩm này?' }}')">
-                                                <i
-                                                    class="fa {{ $product->status == 'active' ? 'fa-ban' : 'fa-check' }}"></i>
+                                                {{ $product->status == 'active' ? 'Khóa' : '-Mở-' }}
                                             </button>
                                         </form>
 
@@ -162,7 +153,17 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $products->links() }}
+                    <div class="flex items-center justify-between mt-4">
+                        <p class="text-gray-600">
+                            Hiển thị <span class="font-medium">{{ $products->firstItem() }}</span> đến 
+                            <span class="font-medium">{{ $products->lastItem() }}</span> của 
+                            <span class="font-medium">{{ $products->total() }}</span> kết quả
+                        </p>
+                    
+                        <div>
+                            {{ $products->links() }}
+                        </div>
+                    </div>
                 </div>
                 {{-- <div class="d-flex justify-content-center">
                 
@@ -171,51 +172,71 @@
         </div>
     </div>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".product-row").forEach(function (row) {
-            row.addEventListener("click", function () {
-                let productId = this.getAttribute("data-product-id");
-                let variantRow = document.getElementById("variants-" + productId);
-                let icon = document.getElementById("icon-" + productId);
-                let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                // Toggle hiển thị hàng biến thể
-                if (variantRow.style.display === "none") {
-                    variantRow.style.display = "table-row";
-                    icon.classList.remove("fa-chevron-down");
-                    icon.classList.add("fa-chevron-up");
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".product-row").forEach(function (row) {
+                row.addEventListener("click", function (event) {
+                    // Ngăn chặn sự kiện khi click vào nút bên trong
+                    if (event.target.tagName === "A" || event.target.tagName === "BUTTON") {
+                        return;
+                    }
     
-                    // Gọi API lấy danh sách biến thể
-                    fetch(`/admin/products/${productId}/variants`)
-                        .then(response => response.json())
-                        .then(variants => {
-                            let variantList = document.getElementById("variant-list-" + productId);
-                            variantList.innerHTML = ""; // Xóa nội dung cũ
-                            if (variants.length > 0) {
-                                variants.forEach(variant => {
-                                    let row = `
-                                        <tr>
-                                            <td>${variant.storage}</td>
-                                            <td>${variant.color}</td>
-                                            <td>${variant.origin_price}</td>
-                                            <td>${variant.price}</td>
-                                            <td>${variant.stock}</td>
-                                        </tr>
-                                        
-                                    `;
-                                    variantList.innerHTML += row;
-                                });
-                            } else {
-                                variantList.innerHTML = `<tr><td colspan="7" class="text-center">Không có biến thể nào.</td></tr>`; 
-                            }
-                            variantList.innerHTML += addVariant;
-                        });
-                } else {
-                    variantRow.style.display = "none";
-                    icon.classList.remove("fa-chevron-up");
-                    icon.classList.add("fa-chevron-down");
-                }
+                    let productId = this.getAttribute("data-product-id");
+                    let variantRow = document.getElementById("variants-" + productId);
+                    let icon = document.getElementById("icon-" + productId);
+    
+                    if (!variantRow) {
+                        console.error("Không tìm thấy hàng biến thể cho sản phẩm ID: " + productId);
+                        return;
+                    }
+    
+                    // Toggle hiển thị hàng biến thể
+                    if (variantRow.style.display === "none") {
+                        variantRow.style.display = "table-row";
+                        icon.classList.remove("fa-chevron-down");
+                        icon.classList.add("fa-chevron-up");
+    
+                        // Gọi API lấy danh sách biến thể
+                        fetch(`/admin/products/${productId}/variants`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Lỗi tải biến thể từ API");
+                                }
+                                return response.json();
+                            })
+                            .then(variants => {
+                                let variantList = document.getElementById("variant-list-" + productId);
+                                variantList.innerHTML = ""; // Xóa nội dung cũ
+    
+                                if (variants.length > 0) {
+                                    variants.forEach(variant => {
+                                        let row = `
+                                            <tr>
+                                                <td>${variant.storage}</td>
+                                                <td>${variant.color}</td>
+                                                <td>${variant.origin_price}</td>
+                                                <td>${variant.price}</td>
+                                                <td>${variant.stock}</td>
+                                            </tr>
+                                        `;
+                                        variantList.innerHTML += row;
+                                    });
+                                } else {
+                                    variantList.innerHTML = `<tr><td colspan="5" class="text-center">Không có biến thể nào.</td></tr>`;
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Lỗi Fetch API:", error);
+                                let variantList = document.getElementById("variant-list-" + productId);
+                                variantList.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Lỗi tải biến thể.</td></tr>`;
+                            });
+    
+                    } else {
+                        variantRow.style.display = "none";
+                        icon.classList.remove("fa-chevron-up");
+                        icon.classList.add("fa-chevron-down");
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>    
 @endsection

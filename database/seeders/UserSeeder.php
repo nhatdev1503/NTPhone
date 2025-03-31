@@ -46,23 +46,8 @@ class UserSeeder extends Seeder
             'phone' => $faker->phoneNumber,
             'address' => $faker->address,
             'avatar' => 'default.jpg',
-            'status' => 'active',
             'role' => 'staff',
         ]);
 
-        // Fake thêm user khách hàng và nhân viên
-        for ($i = 0; $i < 50; $i++) {
-            User::create([
-                'username' => $faker->userName,
-                'fullname' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'),
-                'phone' => $faker->phoneNumber,
-                'address' => $faker->address,
-                'avatar' => 'default.jpg',
-                'status' => $faker->randomElement($statuses),
-                'role' => $faker->randomElement($roles),
-            ]);
-        }
     }
 }

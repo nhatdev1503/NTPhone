@@ -1,13 +1,11 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-5" style="max-width: 95%; min-width: 1200px;">
+    <div class="container mt-2" style="max-width: 95%; min-width: 1200px;">
+        <h2 class="mb-4 display-6">Thêm mới sản phẩm</h2>
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card shadow-lg">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3 class="mb-0">Thêm sản phẩm mới</h3>
-                    </div>
                     <div class="card-body">
 
                         @if ($errors->any())
@@ -57,7 +55,8 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label for="mini_image" class="form-label">Ảnh mini (Có thể chọn nhiều ảnh)</label>
-                                    <input type="file" class="form-control" id="mini_image" name="mini_images[]" multiple>
+                                    <input type="file" class="form-control" id="mini_image" name="mini_images[]"
+                                        multiple>
                                 </div>
                             </div>
 
@@ -114,55 +113,44 @@
                             </div>
 
                             <!-- Biến thể sản phẩm -->
-                            <div id="variant-section">
-                                <h4 class="text-center mt-4">Thêm biến thể</h4>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Màu sắc</label>
-                                        <select class="form-control variant_color"
-                                            onchange="toggleInput(this, 'variant_color')">
-                                            <option value="" disabled selected>Chọn màu</option>
-                                            @foreach (['Green', 'Red', 'Black', 'Pink', 'White', 'Silver', 'Blue', 'Purple', 'Yellow', 'Gold'] as $color)
-                                                <option value="{{ $color }}">{{ $color }}</option>
-                                            @endforeach
-                                            <option value="other">Khác</option>
-                                        </select>
-                                        <input type="text" id="variant_color" class="form-control mt-2 d-none"
-                                            placeholder="Nhập màu sắc">
+                            <div class="bg-white p-6 shadow-lg rounded-lg">
+                                <h4 class="text-center text-lg font-semibold mb-4">Thêm biến thể</h4>
+
+                                <!-- Chọn màu sắc và dung lượng -->
+                                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                    <h4 class="text-lg font-semibold">Chọn màu sắc</h4>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                                        @foreach ($colors as $color)
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" class="form-checkbox text-blue-500 variant-color"
+                                                    value="{{ $color->name }}">
+                                                <span>{{ $color->name }}</span>
+                                            </label>
+                                        @endforeach
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Dung lượng</label>
-                                        <select class="form-control variant_storage"
-                                            onchange="toggleInput(this, 'variant_storage')">
-                                            <option value="" disabled selected>Chọn dung lượng</option>
-                                            @foreach (['8GB', '16GB', '32GB', '64GB', '128GB', '256GB', '512GB', '1TB', '2TB'] as $storage)
-                                                <option value="{{ $storage }}">{{ $storage }}</option>
-                                            @endforeach
-                                            <option value="other">Khác</option>
-                                        </select>
-                                        <input type="text" id="variant_storage" class="form-control mt-2 d-none"
-                                            placeholder="Nhập dung lượng">
+                                    <h4 class="text-lg font-semibold mt-3">Chọn dung lượng</h4>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                                        @foreach ($storages as $storage)
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" class="form-checkbox text-blue-500 variant-storage"
+                                                    value="{{ $storage->size }}">
+                                                <span>{{ $storage->size }}</span>
+                                            </label>
+                                        @endforeach
                                     </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Giá gốc</label>
-                                        <input type="number" class="form-control" id="variant_origin_price">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Giá giảm</label>
-                                        <input type="number" class="form-control" id="variant_price">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label">Kho hàng</label>
-                                        <input type="number" class="form-control" id="variant_stock">
-                                    </div>
-                                    <div class="col-md-1 d-flex align-items-end">
-                                        <button type="button" class="btn btn-success" id="add-variant">+</button>
-                                    </div>
+                                    <button type="button"
+                                        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                        id="generate-variants">Đồng ý</button>
                                 </div>
 
-                                <h5 class="mt-5">Danh sách biến thể cần thêm: </h5>
-                                <ul class="list-group" id="variant-list"></ul>
+                                <!-- Danh sách biến thể -->
+                                <h5 class="mt-4 font-semibold">Danh sách biến thể</h5>
+                                <ul id="variant-list" class="space-y-2"></ul>
+                                <div id="variant-hidden-inputs">
+                                    <input type="hidden" name="variants[]" value="">
+                                </div>
                             </div>
+
 
                             <div class="text-center mt-4">
                                 <a href="{{ route('products.index') }}" class="btn btn-secondary">Danh sách</a>
@@ -179,84 +167,114 @@
     </div>
 
     <script>
-        function toggleInput(selectElement, inputId) {
-            let inputField = document.getElementById(inputId);
+        document.addEventListener("DOMContentLoaded", function () {
+    let variants = []; // Mảng lưu trữ biến thể
 
-            if (selectElement.value === "other") {
-                inputField.classList.remove("d-none"); // Hiện ô nhập
-                inputField.setAttribute("required", "true");
-            } else {
-                inputField.classList.add("d-none"); // Ẩn ô nhập
-                inputField.removeAttribute("required");
-            }
+    // Xử lý khi nhấn "Đồng ý"
+    document.getElementById("generate-variants").addEventListener("click", function () {
+        let selectedColors = Array.from(document.querySelectorAll(".variant-color:checked")).map(el => el.value);
+        let selectedStorages = Array.from(document.querySelectorAll(".variant-storage:checked")).map(el => el.value);
+
+        if (selectedColors.length === 0 || selectedStorages.length === 0) {
+            alert("Vui lòng chọn ít nhất một màu sắc và một dung lượng!");
+            return;
         }
-        document.getElementById("add-variant").addEventListener("click", function() {
-            let color = document.querySelector(".variant_color").value;
-            let storage = document.querySelector(".variant_storage").value;
-            const origin_price = document.getElementById("variant_origin_price").value;
-            const price = document.getElementById("variant_price").value;
-            const stock = document.getElementById("variant_stock").value;
-            const inputColor = document.getElementById("variant_color").value;
-            const inputStorage = document.getElementById("variant_storage").value;
-            if (color == "other") {
-                color = inputColor;
-            }
-            if (storage == "other") {
-                storage = inputStorage;
-            }
-            if (!color || !storage || !origin_price || !price || !stock) {
-                alert("Vui lòng điền đầy đủ thông tin biến thể!");
-                return;
-            }
-            if (origin_price < price) {
-                alert("Giá giảm phải bé hơn giá gốc!");
-                return;
-            }
-            let exists = false;
-            document.querySelectorAll("#variant-list li").forEach(function(item) {
-                console.log(`Checking: ${item.dataset.color} | ${item.dataset.storage}`);
-                if (item.dataset.color === color && item.dataset.storage === storage) {
-                    exists = true;
+
+        selectedColors.forEach(color => {
+            selectedStorages.forEach(storage => {
+                let exists = variants.some(v => v.color === color && v.storage === storage);
+                if (!exists) {
+                    variants.push({ color, storage, origin_price: 0, price: 0, stock: 0 });
                 }
             });
+        });
 
-            if (exists) {
-                alert("Biến thể với màu và dung lượng này đã tồn tại!");
-                return;
+        renderVariantList();
+    });
+
+    // Hiển thị danh sách biến thể
+    function renderVariantList() {
+        let variantList = document.getElementById("variant-list");
+        let hiddenInputsContainer = document.getElementById("variant-hidden-inputs");
+
+        variantList.innerHTML = ""; // Xóa danh sách cũ
+        hiddenInputsContainer.innerHTML = ""; // Xóa input hidden cũ
+
+        variants.forEach((variant, index) => {
+            let variantItem = document.createElement("li");
+            variantItem.classList.add("p-3", "bg-gray-100", "rounded-lg", "cursor-pointer", "mt-2");
+            variantItem.dataset.index = index;
+
+            variantItem.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span>${variant.color} | ${variant.storage}</span>
+                    <button type="button" class="text-red-500 remove-variant">Xóa</button>
+                </div>
+                <div class="hidden mt-2 space-y-2 variant-inputs">
+                    <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá gốc" data-index="${index}" data-key="origin_price" value="${variant.origin_price}">
+                    <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá giảm" data-index="${index}" data-key="price" value="${variant.price}">
+                    <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Kho hàng" data-index="${index}" data-key="stock" value="${variant.stock}">
+                </div>
+            `;
+            variantList.appendChild(variantItem);
+        });
+
+        updateHiddenInputs();
+    }
+
+    // Toggle mở/đóng input khi click vào biến thể
+    document.getElementById("variant-list").addEventListener("click", function (e) {
+        let listItem = e.target.closest("li");
+
+        if (e.target.classList.contains("remove-variant")) {
+            let index = listItem.dataset.index;
+            variants.splice(index, 1);
+            renderVariantList();
+            return;
+        }
+
+        // Nếu click vào input, không toggle
+        if (e.target.tagName === "INPUT") {
+            return;
+        }
+
+        if (listItem) {
+            let inputs = listItem.querySelector(".variant-inputs");
+            inputs.classList.toggle("hidden");
+        }
+    });
+
+    // Xử lý nhập dữ liệu biến thể
+    document.getElementById("variant-list").addEventListener("input", function (e) {
+        if (e.target.classList.contains("variant-input")) {
+            let index = e.target.dataset.index;
+            let key = e.target.dataset.key;
+            let value = e.target.value;
+
+            if (variants[index]) {
+                variants[index][key] = value;
             }
 
-            // Tạo input hidden để gửi biến thể lên server
-            const input = document.createElement("input");
+            updateHiddenInputs();
+        }
+    });
+
+    // Cập nhật input hidden để gửi lên server
+    function updateHiddenInputs() {
+        let hiddenInputsContainer = document.getElementById("variant-hidden-inputs");
+        hiddenInputsContainer.innerHTML = "";
+
+        variants.forEach(variant => {
+            let input = document.createElement("input");
             input.type = "hidden";
             input.name = "variants[]";
-            input.value = JSON.stringify({
-                color,
-                storage,
-                origin_price,
-                price,
-                stock
-            });
-
-            document.getElementById("variant-section").appendChild(input);
-
-            // Thêm vào danh sách hiển thị
-            const variantList = document.getElementById("variant-list");
-            const li = document.createElement("li");
-            li.classList.add("list-group-item");
-            li.dataset.color = color;
-            li.dataset.storage = storage;
-            li.innerHTML = `${color}   |   ${storage}   |   Giá gốc: ${origin_price}   |   Giá bán: ${price}   |   Kho: ${stock}
-                <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>`;
-
-            variantList.appendChild(li);
+            input.value = JSON.stringify(variant);
+            hiddenInputsContainer.appendChild(input);
         });
+    }
+});
 
-        // Xóa biến thể khỏi danh sách
-        document.getElementById("variant-list").addEventListener("click", function(e) {
-            if (e.target.classList.contains("remove-variant")) {
-                e.target.parentElement.remove();
-            }
-        });
+
     </script>
 
 @endsection

@@ -3,7 +3,7 @@
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 px-4">
     <div class="w-full max-w-md bg-white p-8 rounded-3xl shadow-2xl relative">
         <div class="text-center mb-6">
-            <h2 class="text-3xl font-extrabold text-gray-800">Chào Mừng Trở Lại 👋</h2>
+            <h2 class="text-3xl text-gray-800">Chào Mừng Trở Lại 👋</h2>
             <p class="text-gray-500">Đăng nhập để tiếp tục</p>
         </div>
 
@@ -37,7 +37,7 @@
             </button>
         </form>
         @if (session('success'))
-            <div class="alert alert-success">
+            <div class="text-center alert alert-success mt-3">
                 {{ session('success') }}
             </div>
         @endif

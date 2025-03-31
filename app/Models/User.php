@@ -19,6 +19,7 @@ class User extends Authenticatable
         'address',
         'avatar',
         'status',
+        'block_reason',
         'role',
     ];
 
@@ -45,5 +46,9 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+    public function getTotalUsersAttribute()
+    {
+        return self::count();
     }
 }

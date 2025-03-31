@@ -29,15 +29,23 @@
                                     <li class="list-group-item"><strong>Số điện thoại:</strong> {{ $user->phone }}</li>
                                     <li class="list-group-item"><strong>Địa chỉ:</strong> {{ $user->address }}</li>
                                     <li class="list-group-item"><strong>Vai trò:</strong>
-                                        <span class="badge badge-{{ $user->role == 'admin' ? 'danger' : 'primary' }}">
+                                        <span>
                                             {{ ucfirst($user->role) }}
                                         </span>
                                     </li>
                                     <li class="list-group-item"><strong>Trạng thái:</strong>
-                                        <span class="badge badge-{{ $user->status == 'active' ? 'success' : 'danger' }}">
+                                        <span class="text-{{ $user->status == 'active' ? 'success' : 'danger' }}">
                                             {{ $user->status == 'active' ? 'Đang hoạt động' : 'Ngừng hoạt động' }}
                                         </span>
                                     </li>
+
+                                    @if ($user->block_reason)
+                                        <li class="list-group-item"><strong>Lí do Khóa:</strong>
+                                            <span class="">
+                                                {{ $user->block_reason }}
+                                            </span>
+                                        </li>
+                                    @endif
                                 </ul>
 
                                 <!-- Action Buttons -->
