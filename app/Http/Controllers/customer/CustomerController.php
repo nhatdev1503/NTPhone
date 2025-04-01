@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Post;
+use App\Models\PostImage;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
@@ -195,6 +197,19 @@ public function getAvailableColors(Request $request)
     /**
      * Show the form for creating a new resource.
      */
+    public function post_detail(String $id)
+    {
+        $post = Post::findOrFail($id);
+
+        $post_detail = PostImage::select('posts.*', 'post_images.*')
+                        ->join('posts', 'post_images.post_id', '=', 'posts.id')
+                        ->where('posts.id', $id)
+                        ->orderBy('post_images.position', 'asc')
+                        ->get();
+
+        return view('customer.post_detail', compact('post', 'post_detail'));
+    }
+
     public function show($id)
     {
         $product = Product::with('images')->findOrFail($id);
