@@ -10,7 +10,6 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\ProductVariant;
 use App\Models\ProductImage;
 class CustomerController extends Controller
 {
@@ -21,7 +20,6 @@ class CustomerController extends Controller
     {
         $banners = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
-
         return view('customer.index', compact('banners', 'categories'));
     }
 

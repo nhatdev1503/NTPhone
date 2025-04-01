@@ -66,13 +66,6 @@ class ProductController extends Controller
             'cpu' => 'nullable|string',
             'ram' => 'nullable|string',
             'battery' => 'nullable|string',
-            'base_price' => 'nullable',
-            'variants' => 'array',
-            // 'variants.*.color' => 'required|string|distinct',
-            // 'variants.*.storage' => 'required|string|distinct',
-            // 'variants.*.origin_price' => 'required|numeric',
-            // 'variants.*.price' => 'required|numeric',
-            // 'variants.*.stock' => 'required|integer',
         ]);
 
         // Tạo thư mục nếu chưa tồn tại
@@ -103,7 +96,6 @@ class ProductController extends Controller
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'battery' => $request->battery,
-            'base_price' => $request->base_price,
         ]);
         // Lưu ảnh mini 
         if ($request->hasFile('mini_images')) {

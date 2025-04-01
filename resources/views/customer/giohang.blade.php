@@ -36,7 +36,6 @@
                              </h1>
                          </div>
                      </div>
-<<<<<<< HEAD
                      <div class="row">
 
                          <div class="col-12 col-cart-left">
@@ -166,17 +165,6 @@
                              </div>
                          </div>
                      </div>
-=======
-                     <div class="cart-container">
-                        <h1 class="title_cart">
-                            <span>🛒 Giỏ hàng của bạn</span>
-                        </h1>
-                        <p class="empty_cart">Hiện tại giỏ hàng đang trống!</p>
-                        <p><a href="/trangchu" class="shop-now-btn">Đi tới mua sắm nào!</a></p>
-                    </div>
-                    
-                     
->>>>>>> ebadd290b9701eb91b109ea87b4e2da59907a251
                  </div>
              </div>
          </section>
@@ -1192,67 +1180,5 @@
      </script>
 
  </div>
-<<<<<<< HEAD:resources/views/customer/giohang.blade.php
-
-
-
-
-
 
  @include('layouts.customer.footer')
-=======
- @include('layouts.footer')
-
-
- <style>
-    .cart-container {
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #f9f9f9; /* Nền sáng tinh tế */
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
-    max-width: 600px;
-    margin: 0 auto; /* Canh giữa container */
-}
-
-.title_cart {
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.empty_cart {
-    font-size: 18px;
-    color: #888; /* Màu xám nhẹ nhàng */
-    margin-bottom: 30px;
-}
-
-.shop-now-btn {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none; /* Loại bỏ gạch chân */
-    background-color: #007bff; /* Màu xanh chủ đạo */
-    border-radius: 8px;
-    border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Hiệu ứng đổ bóng nút */
-}
-
-.shop-now-btn:hover {
-    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
-    box-shadow: 0 6px 8px rgba(0, 123, 255, 0.5); /* Đổ bóng nổi bật hơn */
-    transform: translateY(-2px); /* Hiệu ứng nhô lên */
-}
-
-.shop-now-btn:active {
-    background-color: #004494; /* Màu đậm hơn khi nhấn */
-    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-    transform: translateY(0); /* Trở lại trạng thái bình thường */
-}
-
- </style>
->>>>>>> 6ade668521471cf4c66d15f451a752fabbe47637:resources/views/giaodien_web/giohang.blade.php
