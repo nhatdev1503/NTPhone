@@ -147,6 +147,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Lịch sử mua hàng
     Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
+
+    // Chi tiết bài viết
+    Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
 });
 
 
