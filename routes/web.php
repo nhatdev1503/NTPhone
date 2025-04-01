@@ -205,3 +205,13 @@ Route::prefix('customer')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
 });
+
+
+//product_detail---------------------------------------------------------------------
+
+Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
+Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
+Route::get('/api/get-price', [CustomerController::class, 'getPrice']);
+Route::get('/customer/product_detail/{id}', [CustomerController::class, 'product_detail'])
+    ->name('customer.product_detail');
+
