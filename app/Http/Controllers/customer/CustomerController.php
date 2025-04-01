@@ -5,7 +5,9 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductVariant;
@@ -27,9 +29,19 @@ class CustomerController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $products = Product::where('category_id', $id)->paginate(24);
+        $products = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
+                            ->leftJoin('product_variants', function ($join) {
+                                $join->on('products.id', '=', 'product_variants.product_id')
+                                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
+                            })
+                            ->where('products.category_id', $id)
+                            ->where('products.status', 'active')
+                            ->orderBy('products.priority', 'desc')
+                            ->paginate(12);
 
-        return view('customer.danhmuc', compact('category', 'products'));
+        $groupedProducts = $products->chunk(4);
+
+        return view('customer.danhmuc', compact('category', 'products', 'groupedProducts'));
     }
     public function warranty()
     {
@@ -163,6 +175,24 @@ public function getAvailableColors(Request $request)
         $carts = Cart::where('user_id', $user->id)->with('product_variant.product.category')->get();
 
         return view('customer.giohang', compact('carts'));
+    }
+    public function payment()
+    {
+        return redirect()->back()->with('success', 'Thêm màu sắc thành công!');
+    }
+    public function postCart(){
+        $user = Auth::user();
+        $carts = Cart::where('user_id', $user->id)->with('product_variant.product.category')->get();
+
+        return view('customer.giohang', compact('carts'));
+    }
+    public function postPayment(Request $request)
+    {
+        $product_variant_id = ProductVariant::where('product_id', $request->product_id)
+                                                ->where('color', $request->product_variant_color)
+                                                ->where('storage', $request->product_variant_storage)
+                                                ->value('id');
+        return redirect()->back()->with('success', 'Thêm màu sắc thành công!');
     }
     /**
      * Show the form for creating a new resource.

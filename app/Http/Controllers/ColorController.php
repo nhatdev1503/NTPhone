@@ -27,8 +27,32 @@ class ColorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Color::create($request->all()); 
+    {   
+        $request->validate([
+            'hax_code' => [
+                'required', 
+                'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/',
+            ],
+            'name' => [
+                'required',
+                'string',
+                'max:50',
+                'regex:/^[a-zA-ZÀ-Ỹà-ỹ\s]+$/u' // Chỉ chấp nhận chữ cái và khoảng trắng
+            ],
+        ], [
+            'hax_code.required' => 'Mã màu là bắt buộc.',
+            'hax_code.regex' => 'Mã màu phải có định dạng hợp lệ (ví dụ: #FF5733).',
+            
+            'name.required' => 'Tên màu không được để trống.',
+            'name.string' => 'Tên màu phải là chuỗi ký tự.',
+            'name.max' => 'Tên màu không được vượt quá 50 ký tự.',
+            'name.regex' => 'Tên màu chỉ được chứa chữ cái và khoảng trắng.',
+        ]);
+        
+        Color::create([
+            'name' => $request->name,
+            'hax_code' => $request->hax_code,
+        ]);
         return redirect()->back()->with('success', 'Thêm màu sắc thành công!');
     }
 

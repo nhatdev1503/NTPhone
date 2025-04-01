@@ -24,6 +24,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên danh mục</th>
+                        <th>Ảnh</th>
                         <th>Mô tả</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td><strong>{{ $category->name }}</strong></td>
+                            <td><img src="{{ asset($category->image) }}" alt="{{ $category->name }}" width="50" height="50"></td>
                             <td>{{ $category->description }}</td>
                             <td>
                                 @if ($category->status === 'active')

@@ -16,12 +16,16 @@
         <div class="card mb-4">
             <div class="card-header">Thêm Danh Mục</div>
             <div class="card-body">
-                <form action="{{ route('categories.store') }}" method="POST">
+                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Tên danh mục</label>
                         <input type="text" name="name" id="name" class="form-control"
                             placeholder="Nhập tên danh mục" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Ảnh danh mục</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Mô tả</label>

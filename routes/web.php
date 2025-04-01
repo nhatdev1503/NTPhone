@@ -214,3 +214,4 @@ Route::get('/get-available-colors', [CustomerController::class, 'getAvailableCol
 Route::get('/api/get-price', [CustomerController::class, 'getPrice']);
 Route::get('/customer/product_detail/{id}', [CustomerController::class, 'product_detail'])
     ->name('customer.product_detail');
+

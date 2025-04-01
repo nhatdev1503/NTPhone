@@ -520,8 +520,14 @@
                                     <div id="main-form-tks-programid-null-447"></div>
                                 </div>
                             </div>
+                            <form action="" id="">
+                                <input type="hidden" name="color" value="">
+                                <input type="hidden" name="storage" value="">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            </form>
                         </div>
                     </div>
+
                     <link href="//cdn.tgdd.vn/crmweb/survey/js/survey.min.v202503300610.css" rel="stylesheet" type="text/css">
                     <script defer="defer" async="async" src="//cdn.tgdd.vn/crmweb/survey/js/survey.min.v202503300610.js"></script>
                 </div>
@@ -688,6 +694,17 @@
                     <div class="close-popup-success" onclick="popupSuccessHide()">Đóng</div>
                 </div>
             </div>
+            <div class="wrap_rating" data-ismb="false" data-objectid="289472" data-objecttype="2" data-irt="true"
+                data-siteid="16"
+                data-urlimg="https://cdn.tgdd.vn/Products/Images/44/289472/s16/mac-topzone-Recovered-1-650x650.png"
+                data-url="http://www.topzone.vn/mac/apple-macbook-air-m2-2022-16gb-256gb"
+                data-title="MacBook Air 13 inch M2 8GPU"></div>
+
+            <div class="wrap_cmt" data-objectid="289472" data-objecttype="162" data-irt="false"
+                data-isstaging="False" data-siteid="16"
+                data-urlimg="https://cdn.tgdd.vn/Products/Images/44/289472/s16/mac-topzone-Recovered-1-650x650.png"
+                data-url="http://www.topzone.vn/mac/apple-macbook-air-m2-2022-16gb-256gb"
+                data-title="MacBook Air 13 inch M2 8GPU"></div>
         </div>
     
    
@@ -1137,6 +1154,21 @@ document.addEventListener("DOMContentLoaded", function() {
             handleVariantClick(event, "color-sp");
         });
     });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("product_buy");
+    const addToCartBtn = document.querySelector(".btn-ins.blue");
+    const buyNowBtn = document.querySelector(".btn-ins.red");
+    const inputColor = document.querySelector("input[name='product_variant_color']");
+    const inputStorage = document.querySelector("input[name='product_variant_storage']");
+
+    function validateSelection() {
+        if (!inputColor.value || !inputStorage.value) {
+            alert("Vui lòng chọn đầy đủ màu sắc và dung lượng trước khi tiếp tục.");
+            return false;
+        }
+        return true;
+    }
 
     // Gọi khi tải trang để hiển thị biến thể đầu tiên hợp lệ và cập nhật giá
     updateAvailableColors();
@@ -1246,3 +1278,4 @@ function toggleActiveButton(activeButtonId, inactiveButtonId) {
 </script>
 
 @include('layouts.customer.footer')
+
