@@ -135,8 +135,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
     
     // Product detail
-    Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
-
+    // Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
+    Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
+    ->name('customer.product_detail');
     // Bao hanhhanh
     Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
     // Bao contactcontact
@@ -150,6 +151,13 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
+    // Trang thông tin cá nhân (profile)
+    Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
+    ->name('customer.profile');
+
+    // Route xử lý cập nhật thông tin profile (POST)
+    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+    ->name('customer.profile.update');
 });
 
 
@@ -165,40 +173,8 @@ Route::prefix('guest')->group(function () {
     // Bao contactcontact
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
 
-        
-    // Trang thông tin cá nhân (profile)
-    Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
-        ->name('customer.profile');
-    // Route xử lý cập nhật thông tin profile (POST)
-    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
-        ->name('customer.profile.update');
 });
 
-
-// //---------------------------------------------------------------------
-Route::get('/san-pham', function () {
-    return view('giaodien_web.sanpham');
-})->name('web.products');
-
-
-Route::get('/danh-muc/{id}', function ($id) {
-    $category = Category::with([
-        'products' => function ($query) {
-            $query->limit(24);
-        }
-    ])->findOrFail($id);
-
-    return view('giaodien_web.danhmuc', compact('category'));
-})->name('web.product.category');
-
-Route::get('/san-pham/{id}', function ($id) {
-
-    return view('giaodien_web.sanpham_chitiet', compact('id'));
-})->name('web.product.detail');
-//---------------------------------------------------------------------
-Route::get('/gio-hang', function () {
-    return view('giaodien_web.giohang');
-})->name('web.cart');
 
 Route::prefix('customer')->group(function () {
     // Lịch sử mua hàng
@@ -208,3 +184,11 @@ Route::prefix('customer')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
 });
+
+
+//product_detail---------------------------------------------------------------------
+
+Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
+Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
+Route::get('/api/get-price', [CustomerController::class, 'getPrice']);
+
