@@ -21,6 +21,7 @@ use App\Http\Controllers\staff\StaffController;
 use App\Http\Controllers\StorageController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\CustomerOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 
 // Route trang đăng nhập
 Route::get('/', function () {
@@ -88,6 +88,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     //Quản lí banner
     Route::resource('banners', BannerController::class);
     Route::put('/banners/{banner}/status', [BannerController::class, 'status'])->name('banners.status');
+    Route::get('/api/product_url', [BannerController::class, 'apiProductURL']);
 
     //Quản lí màu sắc, dung lượng
     Route::get('/colors_storages', [AdminController::class, 'color_storage'])->name('colors_storages.index');
@@ -122,14 +123,17 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 });
 
 //Route trang khách hàng
-Route::prefix('customer')->group(function () {
-    // Trang Dashboard Admin
+Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+    // Trang Dashboard Customer
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/payment', [CustomerController::class, 'payment'])->name('customer.payment');
+    Route::post('/payment', [CustomerController::class, 'postPayment'])->name('customer.postPayment');
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+    Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
 
     // Trang danh mục
-    //
-
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+    
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
 
@@ -138,7 +142,11 @@ Route::prefix('customer')->group(function () {
     // Bao contactcontact
     Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
     // Route giỏ hàng
-    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+
+    Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
+
+    // Lịch sử mua hàng
+    Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
 });
 
 
@@ -188,3 +196,21 @@ Route::get('/san-pham/{id}', function ($id) {
 Route::get('/gio-hang', function () {
     return view('giaodien_web.giohang');
 })->name('web.cart');
+
+Route::prefix('customer')->group(function () {
+    // Lịch sử mua hàng
+    Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
+
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
+});
+
+
+//product_detail---------------------------------------------------------------------
+
+Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
+Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
+Route::get('/api/get-price', [CustomerController::class, 'getPrice']);
+Route::get('/customer/product_detail/{id}', [CustomerController::class, 'product_detail'])
+    ->name('customer.product_detail');
