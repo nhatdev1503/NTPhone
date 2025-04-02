@@ -1,4 +1,3 @@
-
 @include('layouts.customer.header')
 
 @php
@@ -489,7 +488,6 @@
     // Khởi tạo tổng tiền khi tải trang
     updateTotals();
 </script>
-
 
 
 
