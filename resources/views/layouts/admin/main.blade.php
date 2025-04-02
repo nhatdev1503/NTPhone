@@ -9,11 +9,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Quill CSS -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
-<!-- Quill JS -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
 
   <script>
@@ -99,7 +97,94 @@
           </div>
         </div>
       </div>
+      <!-- Chat Widget -->
+    <div id="chat-widget" class="fixed bottom-4 right-4 w-16 h-16 bg-blue-600 text-white flex items-center justify-center rounded-full cursor-pointer shadow-lg" onclick="toggleChat()">
+      💬
+  </div>
 
+  <!-- Chat Box -->
+  <div id="chat-box" class="fixed bottom-20 right-4 w-80 bg-white border shadow-lg rounded-lg hidden">
+      <div class="bg-blue-600 text-white p-3 flex justify-between items-center" style="border-radius: 10px">
+          <span>Chat</span>
+          <button onclick="toggleChat()" class="text-white">✖</button>
+      </div>
+      <div id="chat-content" class="p-3 max-h-96 overflow-y-auto"></div>
+      <div class="p-3 border-t">
+          <input type="text" id="message-input" class="w-full p-2 border rounded" placeholder="Nhập tin nhắn...">
+          <button onclick="sendMessage()" class="w-full bg-blue-600 text-white p-2 mt-2 rounded">Gửi</button>
+      </div>
+  </div>
+
+  <script>
+      const userId = @json(Auth::id());
+      let selectedUser = null;
+      let chatOpen = false;
+
+      function toggleChat() {
+          const chatBox = document.getElementById('chat-box');
+          chatOpen = !chatOpen;
+          chatBox.style.display = chatOpen ? 'block' : 'none';
+
+          if (chatOpen) loadChats();
+      }
+
+      function loadChats() {
+          axios.get('/chats').then(response => {
+              let chats = response.data;
+              let chatContent = document.getElementById('chat-content');
+              chatContent.innerHTML = '';
+
+              Object.keys(chats).forEach(user => {
+                  let div = document.createElement('div');
+                  div.classList.add('p-2', 'cursor-pointer', 'border-b', 'hover:bg-gray-100');
+                  div.textContent = "Chat với user " + user;
+                  div.onclick = () => loadMessages(user);
+                  chatContent.appendChild(div);
+              });
+          });
+      }
+
+      function loadMessages(user) {
+          selectedUser = user;
+          axios.get(`/messages/${user}`).then(response => {
+              let messages = response.data;
+              let chatContent = document.getElementById('chat-content');
+              chatContent.innerHTML = '';
+
+              messages.forEach(msg => {
+                  let div = document.createElement('div');
+                  div.classList.add('p-2', msg.sender_id == userId ? 'text-right' : 'text-left');
+                  div.innerHTML = `<span class="inline-block p-2 rounded ${msg.sender_id == userId ? 'bg-blue-500 text-white' : 'bg-gray-200'}">${msg.message}</span>`;
+                  chatContent.appendChild(div);
+              });
+          });
+      }
+
+      function sendMessage() {
+          if (!selectedUser) {
+              alert("Chọn một cuộc trò chuyện trước!");
+              return;
+          }
+
+          let message = document.getElementById('message-input').value;
+          axios.post('/send-message', {
+              receiver_id: selectedUser,
+              message: message
+          }).then(() => {
+              document.getElementById('message-input').value = '';
+          });
+      }
+
+      window.Echo.channel('chat.' + userId)
+          .listen('MessageSent', (event) => {
+              if (selectedUser == event.message.sender_id || selectedUser == event.message.receiver_id) {
+                  let div = document.createElement('div');
+                  div.classList.add('p-2', event.message.sender_id == userId ? 'text-right' : 'text-left');
+                  div.innerHTML = `<span class="inline-block p-2 rounded ${event.message.sender_id == userId ? 'bg-blue-500 text-white' : 'bg-gray-200'}">${event.message.message}</span>`;
+                  document.getElementById('chat-content').appendChild(div);
+              }
+          });
+  </script>
       <!-- Page Content -->
       <div class="flex-1 p-8 bg-white rounded-lg shadow">
         @yield('content')

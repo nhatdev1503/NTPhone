@@ -10,10 +10,6 @@ class Post extends Model {
 
     protected $fillable = ['title', 'status','content'];
 
-    public function images() {
-        return $this->hasMany(PostImage::class);
-    }
-
     public function user() {
         return $this->belongsTo(User::class);
     }

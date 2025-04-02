@@ -154,11 +154,11 @@
                                 <input type="text" name="phone" id="phone" class="form-input" required
                                     value="{{ $user->phone }}">
                             </div>
-                            {{-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" id="email" class="form-input" required
                                     value="{{ $user->email }}">
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>

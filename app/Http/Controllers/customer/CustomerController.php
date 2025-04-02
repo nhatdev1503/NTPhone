@@ -312,7 +312,7 @@ public function getAvailableColors(Request $request)
 
         return $vnp_Url;
     }
-    public function checkout(Request $request)
+    public function cart_checkout(Request $request)
     {
         $request->validate([
             'fullname'       => 'required|string',
