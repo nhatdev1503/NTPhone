@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Quill CSS -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<!-- Quill JS -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
 
   <script>
@@ -55,7 +60,7 @@
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-tag"></i>
-          <a href="{{ route('discounts.index') }}">Quản lí bài viết</a>
+          <a href="{{ route('posts.index') }}">Quản lí bài viết</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-phone-call"></i>
@@ -86,7 +91,6 @@
           <!-- Dropdown Menu -->
           <div class="hidden peer-checked:flex flex-col absolute right-0 mt-2 w-56 bg-white text-gray-900 rounded-lg shadow-xl overflow-hidden z-50">
             <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Thông tin cá nhân</a>
-            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Lịch sử mua hàng</a>
             <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Đổi mật khẩu</a>
             <form action="{{ route('auth.logout') }}" method="POST">
               @csrf

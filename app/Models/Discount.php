@@ -12,7 +12,9 @@ class Discount extends Model
     protected $fillable = [
         'code',
         'discount_type',
+        'max_discount_value',
         'discount_value',
+        'min_order_value',
         'start_date',
         'expiration_date'
     ];

@@ -58,13 +58,7 @@ class DiscountController extends Controller
      */
     public function store(DiscountRequest $request)
     {
-        Discount::create([
-            'code' => $request->code,
-            'discount_type' => $request->discount_type,
-            'discount_value' => $request->discount_value,
-            'start_date' => $request->start_date,
-            'expiration_date' => $request->expiration_date
-        ]);
+        Discount::create($request->validated());
 
         return redirect()->route('discounts.index')->with('success', 'Tạo voucher thành công');
     }
@@ -72,9 +66,10 @@ class DiscountController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $voucher = Discount::findOrFail($id); // Tìm voucher theo ID
+        return view('admin.vouchers.show', compact('voucher'));
     }
 
     /**
@@ -82,9 +77,9 @@ class DiscountController extends Controller
      */
     public function edit($id)
     {
-        $discount = Discount::findOrFail($id);
+        $voucher = Discount::findOrFail($id);
 
-        return view('admin.vouchers.edit', compact('discount'));
+        return view('admin.vouchers.edit', compact('voucher'));
     }
 
     /**

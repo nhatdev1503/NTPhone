@@ -18,6 +18,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\guest\GuestController;
 use App\Http\Controllers\guest\OrderLookupController;
 use App\Http\Controllers\customer\CustomerController;
+use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\staff\StaffController;
 use App\Http\Controllers\StorageController;
 use App\Models\Category;
@@ -115,6 +116,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     // //Quản lí Liên hệ
     Route::resource('contacts', ContactController::class);
+
+    // //Quản lí bài viết
+    Route::resource('posts', PostController::class);
 });
 
 //Route trang nhân viên
