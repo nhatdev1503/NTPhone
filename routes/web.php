@@ -180,6 +180,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 });
 
 
+
 //Route trang khách vãng lai
 Route::prefix('guest')->group(function () {
     //Tra cuu don hang

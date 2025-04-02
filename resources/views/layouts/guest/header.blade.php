@@ -4885,7 +4885,7 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <a href="{{ route('web.cart') }}" class="cart">
+                <a href="" class="cart">
                     <i class="topzone-cart"></i>
                 </a>
                 <div class="cart relative">
