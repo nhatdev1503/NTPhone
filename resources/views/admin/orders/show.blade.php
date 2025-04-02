@@ -31,6 +31,9 @@
                                 {{ $statusText[$order->status] }}
                             </span>
                         </p>
+                        @if ($order->cancel_reason)
+                            <p><strong>Lý do Hủy:</strong> {{ $order->cancel_reason }}</p>
+                        @endif
                         <p><strong>Ngày Đặt:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
                     </div>
 
@@ -131,14 +134,20 @@
                             <option value="pending" @if ($order->status != 'cancelled') disabled @endif
                                 @if ($order->status == 'pending') selected @endif>Chờ xác nhận</option>
                             <option value="processing" @if ($order->status != 'pending') disabled @endif
-                                @if ($order->status == 'processing') selected @endif>Đang đóng gói</option>
+                                @if ($order->status == 'processing') selected @endif>Đang xử lí</option>
                             <option value="shipped" @if ($order->status != 'processing') disabled @endif
-                                @if ($order->status == 'shipped') selected @endif>Đang giao</option>
-                            <option value="delivered"@if ($order->status != 'shipped') disabled @endif
-                                @if ($order->status == 'delivered') selected @endif>Đã giao</option>
-                            <option value="cancelled"@if ($order->status == 'cancelled') disabled selected @endif>Hoàn hàng
+                                @if ($order->status == 'shipped') selected @endif>Đang giao hàng</option>
+                            <option value="delivered" @if ($order->status != 'shipped') disabled @endif
+                                @if ($order->status == 'delivered') selected @endif>Đã giao hàng</option>
+                            <option value="cancelled" @if ($order->status == 'cancelled') disabled selected @endif>Hủy
                             </option>
                         </select>
+                        <!-- Textarea nhập lý do hủy -->
+                        <div id="cancelReasonContainer" style="display: none;" class="mt-3">
+                            <label for="cancelReason">Lý do hủy:</label>
+                            <textarea name="cancel_reason" id="cancelReason" class="form-control" rows="3"
+                                placeholder="Nhập lý do hủy đơn hàng..."></textarea>
+                        </div>
                         <div class="mt-3 text-end">
                             <button type="submit" class="btn btn-success">Xác nhận</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -149,13 +158,21 @@
         </div>
     </div>
     <script>
-        function validateStatus() {
-            let status = document.getElementById('orderStatus').value;
-            if (!status) {
-                alert("Bạn phải cập nhật trạng thái khi xác nhận");
-                return false;
-            }
-            return true;
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            let orderStatus = document.getElementById("orderStatus");
+            let cancelReasonContainer = document.getElementById("cancelReasonContainer");
+            let cancelReason = document.getElementById("cancelReason");
+
+            // Xử lý khi thay đổi trạng thái đơn hàng
+            orderStatus.addEventListener("change", function() {
+                if (this.value === "cancelled") {
+                    cancelReasonContainer.style.display = "block";
+                    cancelReason.setAttribute("required", "required");
+                } else {
+                    cancelReasonContainer.style.display = "none";
+                    cancelReason.removeAttribute("required");
+                }
+            });
+        });
     </script>
 @endsection

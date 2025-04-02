@@ -16,6 +16,7 @@ class Order extends Model
         'discount_id',
         'total_price',
         'status',
+        'cancel_reason',
         'payment_method',
         'payment_status',
         'fullname',

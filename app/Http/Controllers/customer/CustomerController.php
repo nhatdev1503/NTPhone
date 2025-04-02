@@ -71,14 +71,15 @@ class CustomerController extends Controller
     //         ]);
     //     }
 
+
     //     // Hoặc xử lý thêm các logic khác nếu cần (thêm vào giỏ hàng)
     //     // Ví dụ: thêm sản phẩm vào giỏ hàng
     //     if ($data['action'] == 'add_to_cart') {
     //         $user = Auth::user();
     //         // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
     //         $cartItem = Cart::where('user_id', $user->id)
-    //             ->where('product_variant_id', $productVariant->id)
-    //             ->first();
+    //                         ->where('product_variant_id', $productVariant->id)
+    //                         ->first();
 
     //         if ($cartItem) {
     //             // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng lên
@@ -99,8 +100,6 @@ class CustomerController extends Controller
 
     //     // Xử lý các trường hợp khác nếu có
     // }
-
-
 
     public function contact()
     {
@@ -315,7 +314,7 @@ class CustomerController extends Controller
 
         return $vnp_Url;
     }
-    public function checkout(Request $request)
+    public function cart_checkout(Request $request)
     {
         $request->validate([
             'fullname'       => 'required|string',

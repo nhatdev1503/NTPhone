@@ -215,42 +215,6 @@
     script.src = 'https://widget.usersnap.com/global/load/5db733c0-bdad-43c4-a7d9-4b8f914c9cde?onload=onUsersnapCXLoad';
     document.getElementsByTagName('head')[0].appendChild(script);
 </script>
-<!-- Usersnap -->
-<!-- Chat Widget -->
-<div class="popup-boxchat">
-    <i class="boxchat-balloons"></i>
-    <div class="chat-window">
-        <div class="sp-onl">
-            <h4>Hỗ trợ trực tuyến</h4>
-            <i class="boxchat-closewindow"></i>
-        </div>
-        <ul>
-            <li>
-                <a href="tel:1900969642">
-                    <i class="boxchat-call"></i>
-                    <strong>
-                        1900.9696.42
-                        <span>(8:00 - 21:30)</span>
-                    </strong>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;" target="_self">
-                    <i class="boxchat-zalo"></i>
-                    <strong class="no-pointer">
-                        Chat Zalo
-                        <span>(7h30 - 22h00)</span>
-                    </strong>
-                </a>
-                <div class="stage">
-                    <div class="dot-stretching"></div>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="chat-widget-container"></div>
 
 <!-- End Chat Widget -->
 </body>
