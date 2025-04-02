@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,11 +47,15 @@ class Order extends Model
     public function getTotalRevenueAttribute()
     {
         return self::where('status', 'success')
-            ->where('payment_status', 'paid') 
+            ->where('payment_status', 'paid')
             ->sum('total_price');
     }
     public function getTotalOrdersAttribute()
     {
         return self::count();
+    }
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 }

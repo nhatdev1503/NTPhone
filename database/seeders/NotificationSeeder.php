@@ -14,7 +14,7 @@ class NotificationSeeder extends Seeder
 
         foreach (range(1, 50) as $index) {
             DB::table('notifications')->insert([
-                'user_id' => rand(1, 50),
+                'user_id' => rand(1, 2),
                 'order_id' => rand(1, 20),
                 'message' => $faker->sentence,
                 'is_read' => rand(0, 1),

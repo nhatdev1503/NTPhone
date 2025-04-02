@@ -8,6 +8,7 @@
             <img src="{{ asset('storage/' . $banner->image) }}" class="card-img-top" alt="{{ $banner->title }}" style="max-height: 400px; object-fit: cover;">
             <div class="card-body text-center">
                 <h2 class="card-title mb-4">{{ $banner->title ?? 'Không có tiêu đề' }}</h2>
+                <h2 class="card-title mb-4">Đường dẫn tới sản phẩm: <a href="{{ $banner->product_url }}">{{ $banner->product_name }}</a></h2>
                 <div class="d-flex justify-content-center gap-3">
                     <a href="{{ route('banners.index') }}" class="btn btn-secondary">Danh sách</a>
                     <a href="{{ route('banners.edit', $banner->id) }}" class="btn btn-primary">Chỉnh sửa</a>

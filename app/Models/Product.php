@@ -21,8 +21,9 @@ class Product extends Model
         'cpu',
         'ram',
         'battery',
-        'base_price',
-        'price',
+        'view',
+        'sold',
+        'priority',
         'status'
     ];
 
@@ -46,6 +47,9 @@ class Product extends Model
     public function getTotalProductsAttribute()
     {
         return self::count();
+    }
+    public function posts() {
+        return $this->hasMany(ProductPost::class)->orderBy('position');
     }
 }
 

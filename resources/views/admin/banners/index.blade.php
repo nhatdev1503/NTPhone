@@ -11,17 +11,17 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <!-- Banner Đang Sử Dụng -->
-        <h4 class="mb-3">Banner Đang Sử Dụng</h4>
+        <h4 class="mb-3">Banner đang hiển thị</h4>
         <ul class="list-group mb-4">
             @foreach ($banners->where('status', 'active') as $banner)
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}" class="rounded me-3"
-                            style="width: 80px; height: 80px; object-fit: cover;">
+                            style="width: 240px; height: 80px; object-fit: cover;">
                         <div>
                             <h6 class="mb-1">{{ $banner->title ?? 'Không có tiêu đề' }}</h6>
-                            <small>Trạng thái: <span class="text-success">Đang hiển thị</span></small>
+                            <small>Trạng thái: <span class="text-success">Đang hiển thị</span></small><br>
+                            <small>Đường dẫn tới sản phẩm: <a style="color:blue" href="{{ $banner->product_url }}">{{ $banner->product_name }}</a></small>
                         </div>
                     </div>
                     <div>
@@ -38,18 +38,17 @@
             @endforeach
         </ul>
 
-        <!-- Danh Sách Tất Cả Banner -->
-        <h4 class="mb-3">Danh Sách Banner Ngừng Hiển Thị</h4>
+        <h4 class="mb-3">Danh sách banner không hiển thị</h4>
         <ul class="list-group">
             @foreach ($banners->where('status', 'inactive') as $banner)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}"
-                                class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                class="rounded me-3" style="width: 240px; height: 80px; object-fit: cover;">
                             <div>
                                 <h6 class="mb-1">{{ $banner->title ?? 'Không có tiêu đề' }}</h6>
-                                <small>Trạng thái: <span
-                                        class="{{ $banner->status == 'active' ? 'text-success' : 'text-danger' }}">{{ $banner->status == 'active' ? 'Đang hiển thị' : 'Ngừng hiển thị' }}</span></small>
+                                <small>Trạng thái: <span>Không hiển thị</span></small><br>
+                                <small>Đường dẫn tới sản phẩm: <a style="color:blue" href="{{ $banner->product_url }}">{{ $banner->product_name }}</a></small>
                             </div>
                         </div>
                         <div>
@@ -75,9 +74,16 @@
             @endforeach
         </ul>
 
-        <!-- Hiển thị phân trang -->
-        <div class="d-flex justify-content-center mt-4">
-            {{ $banners->links('pagination::bootstrap-5') }}
+        <div class="flex items-center justify-between mt-4">
+            <p class="text-gray-600">
+                Hiển thị <span class="font-medium">{{ $banners->firstItem() }}</span> đến 
+                <span class="font-medium">{{ $banners->lastItem() }}</span> của 
+                <span class="font-medium">{{ $banners->total() }}</span> kết quả
+            </p>
+        
+            <div>
+                {{ $banners->links() }}
+            </div>
         </div>
         @if ($banners->isEmpty())
             <p class="text-center text-muted">Chưa có banner nào.</p>
