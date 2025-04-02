@@ -22,8 +22,8 @@ return new class extends Migration {
             $table->string('email');    
             $table->integer('total_price');
             $table->integer('discount_amount')->default(0);
-            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
-            $table->enum('payment_method', ['COD', 'VNPay','MoMo']);
+            $table->enum('status', ['pending', 'processing', 'shipped', 'delivered','completed', 'cancelled'])->default('pending');
+            $table->enum('payment_method', ['COD', 'VNPay']);
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->timestamps();
         });

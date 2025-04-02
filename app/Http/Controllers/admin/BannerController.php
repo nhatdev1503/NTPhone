@@ -3,6 +3,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,7 +29,19 @@ class BannerController extends Controller
     {
         $request->validate([
             'title' => 'nullable|string|max:255',
+            'product_name' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'title.string' => 'Tiêu đề phải là chuỗi ký tự.',
+            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+            
+            'product_name.string' => 'Tên sản phẩm phải là chuỗi ký tự.',
+            'product_name.max' => 'Tên sản phẩm không được vượt quá 255 ký tự.',
+            
+            'image.required' => 'Vui lòng chọn một hình ảnh.',
+            'image.image' => 'Tệp tải lên phải là hình ảnh.',
+            'image.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg, gif.',
+            'image.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
         ]);
 
         // Lưu ảnh
@@ -36,6 +49,8 @@ class BannerController extends Controller
 
         Banner::create([
             'title' => $request->title,
+            'product_name' => $request->product_name,
+            'product_url' => $request->product_url,
             'image' => $imagePath,
         ]);
 
@@ -60,23 +75,30 @@ class BannerController extends Controller
     {
         $request->validate([
             'title' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'product_name' => 'nullable|string|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'title.string' => 'Tiêu đề phải là chuỗi ký tự.',
+            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+            
+            'product_name.string' => 'Đường dẫn phải là chuỗi ký tự.',
+            'product_name.max' => 'Đường dẫn không được vượt quá 255 ký tự.',
+            
+            'image.image' => 'Tệp tải lên phải là hình ảnh.',
+            'image.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg, gif.',
+            'image.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
         ]);
     
         $banner = Banner::findOrFail($id);
-    
-        // Cập nhật tiêu đề nếu có
         $banner->title = $request->input('title', $banner->title);
+        $banner->product_name = $request->input('product_name', $banner->product_name);
+        $banner->product_url = $request->input('product_url', $banner->product_url);
     
-        // Xử lý hình ảnh nếu có
         if ($request->hasFile('image')) {
             try {
-                // Xóa ảnh cũ nếu tồn tại
                 if ($banner->image && Storage::exists('public/' . $banner->image)) {
                     Storage::delete('public/' . $banner->image);
                 }
-    
-                // Lưu ảnh mới
                 $imagePath = $request->file('image')->store('banners', 'public');
                 $banner->image = $imagePath;
             } catch (\Exception $e) {
@@ -95,6 +117,25 @@ class BannerController extends Controller
         ]);   
         return redirect()->route('banners.index')
             ->with('success', 'Cập nhật thành công');
+    }
+    public function apiProductURL(Request $request)
+    {
+        $query = $request->query('query');
+    // Tìm kiếm sản phẩm và danh mục theo tên
+    $products = Product::where('name', 'like', "%{$query}%")
+        ->where('status','active')
+        ->limit(5)
+        ->get(['id','name','image']);
+    $results = [];
+
+    foreach ($products as $product) {
+        $results[] = [
+            'name' => $product->name,
+            'url' => "/product_detail/{$product->id}",
+            'image' => $product->image
+        ];
+    }
+    return response()->json($results);
     }
 
 }

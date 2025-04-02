@@ -68,9 +68,6 @@
                         </a>
                     </div>
                 </form>
-                <div class="alert alert-info">
-                    Hiển thị {{ $products->count() }} sản phẩm trên tổng số {{ $products->total() }} sản phẩm.
-                </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover align-middle">
                         <thead class="table-dark">
@@ -156,7 +153,17 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $products->links() }}
+                    <div class="flex items-center justify-between mt-4">
+                        <p class="text-gray-600">
+                            Hiển thị <span class="font-medium">{{ $products->firstItem() }}</span> đến 
+                            <span class="font-medium">{{ $products->lastItem() }}</span> của 
+                            <span class="font-medium">{{ $products->total() }}</span> kết quả
+                        </p>
+                    
+                        <div>
+                            {{ $products->links() }}
+                        </div>
+                    </div>
                 </div>
                 {{-- <div class="d-flex justify-content-center">
                 

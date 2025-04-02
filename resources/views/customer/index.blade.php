@@ -68,7 +68,7 @@
                             $imgUrl = $images[$slug] ?? 'https://via.placeholder.com/150';
                         @endphp
                         <li>
-                            <a href="/{{ $slug }}">
+                            <a href="{{ route('customer.category',$category->id) }}">
                                 <div class="img-catesp cate{{ $slug }}">
                                     <img src="{{ $imgUrl }}" alt="" width="150" height="110">
                                 </div>
@@ -79,25 +79,27 @@
                 </ul>
                 @foreach ($categories as $category)
                     <div class="box-slide">
-                        <a href="iphone" class="logo-cate  ">
+                        <a href="{{ route('customer.category',$category->id) }}" class="logo-cate  ">
                             <i class="topzone-iconapple"></i>
                             <h2 class="title-text">{{ $category->name }}</h2>
                         </a>
                         <div class="slide-cate owl-carousel owl-theme" data-block="iPhone">
                             @foreach ($category->products as $product)
                                 <div class="item" data-pos="1" data-block="iPhone">
-                                    <a href="{{ route('customer.product_detail',$product->id) }}" class="main-contain">
+
+                                    <a href="{{ route('customer.product_detail', ['id' => $product->id]) }}"  class="main-contain">
+                                    
                                         <label>M&#x1EDB;i</label>
                                         <div class="img-slide">
                                             <img data-src="{{ asset($product->image) }}"
                                                 class="lazyload" alt="iPhone 16e 128GB" width=300 height=300>
                                         </div>
                                         <h3>{{ $product->name }}</h3>
-                                        <span class="box-price">
+                                        {{-- <span class="box-price">
                                             {{ number_format($product->price, 0, '', '.') }}&#x20AB;
-                                            <strike>{{ number_format($product->base_price, 0, '', '.') }}&#x20AB;</strike>
+                                            <strike>{{ number_format($product->origin_price, 0, '', '.') }}&#x20AB;</strike>
                                             <small>-{{ (int) str_replace(',', '', (100-($product->price/$product->base_price*100))) }}%</small>
-                                        </span>
+                                        </span> --}}
                                         <p class="item-txt-online orange">Online gia&#x301; re&#x309; qu&#xE1;</p>
                                     </a>
                                 </div>
