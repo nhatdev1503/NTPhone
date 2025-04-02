@@ -106,11 +106,6 @@
                                 <input type="text" class="form-control" id="battery" name="battery"
                                     value="{{ old('battery') }}" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="base_price" class="form-label">Giá cơ bản</label>
-                                <input type="number" class="form-control" id="base_price" name="base_price"
-                                    value="{{ old('base_price') }}" required>
-                            </div>
 
                             <!-- Biến thể sản phẩm -->
                             <div class="bg-white p-6 shadow-lg rounded-lg">
@@ -123,7 +118,7 @@
                                         @foreach ($colors as $color)
                                             <label class="flex items-center space-x-2">
                                                 <input type="checkbox" class="form-checkbox text-blue-500 variant-color"
-                                                    value="{{ $color->name }}">
+                                                    value="{{ $color->name }}" haxcode="{{ $color->hax_code }}">
                                                 <span>{{ $color->name }}</span>
                                             </label>
                                         @endforeach
@@ -172,7 +167,9 @@
 
     // Xử lý khi nhấn "Đồng ý"
     document.getElementById("generate-variants").addEventListener("click", function () {
-        let selectedColors = Array.from(document.querySelectorAll(".variant-color:checked")).map(el => el.value);
+        let selectedCheckboxes = Array.from(document.querySelectorAll(".variant-color:checked"));
+        let selectedColors = selectedCheckboxes.map(el => el.value);  
+        let selectedHaxCode = selectedCheckboxes.map(el => el.getAttribute("haxcode"));
         let selectedStorages = Array.from(document.querySelectorAll(".variant-storage:checked")).map(el => el.value);
 
         if (selectedColors.length === 0 || selectedStorages.length === 0) {
@@ -180,14 +177,17 @@
             return;
         }
 
-        selectedColors.forEach(color => {
+        selectedColors.forEach((color, index) => {
             selectedStorages.forEach(storage => {
+                let hax_code = selectedHaxCode[index]; 
+
                 let exists = variants.some(v => v.color === color && v.storage === storage);
                 if (!exists) {
-                    variants.push({ color, storage, origin_price: 0, price: 0, stock: 0 });
+                    variants.push({ color, hax_code, storage, origin_price: 0, price: 0, stock: 0 });
                 }
             });
         });
+
 
         renderVariantList();
     });
@@ -208,7 +208,6 @@
             variantItem.innerHTML = `
                 <div class="flex justify-between items-center">
                     <span>${variant.color} | ${variant.storage}</span>
-                    <button type="button" class="text-red-500 remove-variant">Xóa</button>
                 </div>
                 <div class="hidden mt-2 space-y-2 variant-inputs">
                     <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá gốc" data-index="${index}" data-key="origin_price" value="${variant.origin_price}">
@@ -272,9 +271,14 @@
             hiddenInputsContainer.appendChild(input);
         });
     }
-});
+    });
 
-
+    document.querySelector("form").addEventListener("submit", function (event) {
+        if (variants.length === 0) {
+            event.preventDefault(); // Ngăn form submit
+            alert("Vui lòng tạo ít nhất một biến thể trước khi thêm mới!");
+        }
+    });
     </script>
 
 @endsection
