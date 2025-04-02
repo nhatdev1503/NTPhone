@@ -39,7 +39,8 @@
     <meta property="og:locale" content="vi_VN" />
     <meta property="fb:pages" content="214993791879039" />
     <meta http-equiv="x-dns-prefetch-control" content="on">
-   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -49,6 +50,141 @@
 
     <style>
         
+        /*rating*/
+        .rating-comment {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+.rating-date {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #aaa;
+    text-align: right;
+}
+
+.rating-item:hover {
+    background-color: #f7fafc;
+    transition: background-color 0.3s ease;
+}
+
+.rating-item:last-child {
+    margin-bottom: 0;
+}
+
+.rating-comment p {
+    margin: 0;
+}
+        .ratings-list {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ratings-list h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.rating-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rating-user {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2d3748;
+}
+        .rating-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.rating-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.rating-subtitle {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.rating-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rating-stars {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.rating-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    font-size: 14px;
+    color: #666;
+}
+
+.star {
+    font-size: 40px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.3s;
+}
+.star.selected {
+    color: gold; /* Sao đã chọn */
+}
+
+.star:hover, .star.active {
+    color: gold;
+}
+
+.rating-comment {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.comment-box {
+    width: 80%;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.submit-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
 
          /* Ẩn các phần tử tab-content mặc định */
 .tab-content {
@@ -7037,7 +7173,7 @@
                     .owl-theme .owl-dots .owl-dot {
                         display: inline-block;
                         zoom: 1;
-                        *display: inline
+                        display: inline;
                     }
 
                     .owl-theme .owl-dots .owl-dot span {

@@ -13,6 +13,9 @@ use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductImage;
+use App\Models\Rating;
+use Illuminate\Support\Facades\DB;
+
 class CustomerController extends Controller
 {
     /**
@@ -55,44 +58,34 @@ class CustomerController extends Controller
             'action' => 'required|string',
         ]);
 
-        // Lấy thông tin biến thể sản phẩm
         $productVariant = ProductVariant::find($data['product_variant_id']);
 
-        // Kiểm tra hành động
         if ($data['action'] == 'buy_now') {
-            // Thực hiện các hành động thanh toán ngay, ví dụ chuyển hướng đến trang thanh toán
+            
             return redirect()->route('checkout.page', [
                 'product_variant_id' => $productVariant->id
             ]);
         }
-
-        // Hoặc xử lý thêm các logic khác nếu cần (thêm vào giỏ hàng)
-        // Ví dụ: thêm sản phẩm vào giỏ hàng
         if ($data['action'] == 'add_to_cart') {
             $user = Auth::user();
-            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
             $cartItem = Cart::where('user_id', $user->id)
                             ->where('product_variant_id', $productVariant->id)
                             ->first();
 
             if ($cartItem) {
-                // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng lên
+              
                 $cartItem->quantity += 1;
                 $cartItem->save();
             } else {
-                // Nếu chưa có, thêm sản phẩm vào giỏ hàng mới
+
                 Cart::create([
                     'user_id' => $user->id,
                     'product_variant_id' => $productVariant->id,
-                    'quantity' => 1, // Giả sử số lượng mặc định là 1
+                    'quantity' => 1, // 
                 ]);
             }
-
-            // Chuyển hướng về trang giỏ hàng
             return redirect()->route('cart');
-        }
-
-        // Xử lý các trường hợp khác nếu có
+        }   
     }
 
     public function contact()
@@ -101,16 +94,25 @@ class CustomerController extends Controller
     }
     public function product_detail($id)
     {
-        // Lấy sản phẩm theo ID, nếu không có thì báo lỗi 404
+        // Lấy sản phẩm theo ID
         $product = Product::with('variants', 'images')->findOrFail($id);
+        
+        $hasPurchased = DB::table('orders')
+        ->join('order_items', 'orders.id', '=', 'order_items.order_id')  // Kết nối với bảng order_items
+        ->where('orders.user_id', auth()->id())  // Kiểm tra user_id của người dùng đang đăng nhập
+        ->where('order_items.product_variant_id', $id)  // Kiểm tra sản phẩm đã mua (sử dụng product_variant_id thay vì product_id)
+        ->exists();  
+
+    
+        // Lấy danh sách đánh giá của sản phẩm
+        $ratings = Rating::where('product_id', $id)
+        ->join('users', 'ratings.user_id', '=', 'users.id')
+        ->select('users.fullname', 'ratings.review', 'ratings.rating', 'ratings.created_at')
+        ->get();
     
         // Lấy danh sách biến thể (RAM, SSD, màu sắc)
         $variants = $product->variants ?? collect();
-    
-        // Lọc danh sách màu sắc duy nhất
         $colors = $variants->unique('color');
-    
-        // Lọc danh sách dung lượng duy nhất
         $storages = $variants->unique('storage');
     
         // Lấy sản phẩm liên quan cùng danh mục
@@ -119,14 +121,15 @@ class CustomerController extends Controller
                                   ->limit(6)
                                   ->get();
     
-        // Lấy danh sách ảnh từ bảng product_images
+        // Lấy danh sách ảnh
         $productImages = $product->images ?? collect();
     
-        // Truyền dữ liệu vào view
-        return view('customer.product_detail', compact('product', 'variants', 'colors', 'storages', 'relatedProducts', 'productImages'));
+        // Truyền các biến vào view, bao gồm thông tin sản phẩm, biến thể, và thông tin đã mua
+        return view('customer.product_detail', compact(
+            'product', 'variants', 'colors', 'storages', 
+            'relatedProducts', 'productImages', 'ratings', 'hasPurchased'
+        ));
     }
-    
-
     public function getPrice(Request $request)
 {
     $productId = $request->query('product_id');
