@@ -9051,7 +9051,7 @@
 
 <body class="">
 
-    <header class=" ">
+    <header class="">
         <div class="head">
             <div class="logo-topzone">
                 {{-- <a href="/">
@@ -9082,7 +9082,7 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <a href="/" class="cart">
+                <a href="{{ route('customer.cart') }}" class="cart">
                     <i class="topzone-cart"></i>
                 </a>
                 <div class="cart">
