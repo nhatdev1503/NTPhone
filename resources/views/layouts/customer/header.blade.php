@@ -4854,7 +4854,7 @@
 
 <body class="">
 
-    <header class=" ">
+    <header class="">
         <div class="head">
             <div class="logo-topzone">
                 {{-- <a href="/">
@@ -4866,7 +4866,7 @@
             </div>
 
             <ul class="menu">
-                <li class="menu-trang-chu"><a href="#">
+                <li class="menu-trang-chu"><a href="/">
                     <span>Trang chủ</span>
                 </a>
                 </li>
@@ -4885,7 +4885,7 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <a href="/" class="cart">
+                <a href="{{ route('customer.cart') }}" class="cart">
                     <i class="topzone-cart"></i>
                 </a>
                 <div class="cart">
