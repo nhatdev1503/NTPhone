@@ -52,52 +52,52 @@ class CustomerController extends Controller
         return view('customer.warranty');
     }
     
-    public function checkout(Request $request)
-    {
-        $data = $request->validate([
-            'product_variant_id' => 'required|integer|exists:product_variants,id',
-            'action' => 'required|string',
-        ]);
+    // public function checkout(Request $request)
+    // {
+    //     $data = $request->validate([
+    //         'product_variant_id' => 'required|integer|exists:product_variants,id',
+    //         'action' => 'required|string',
+    //     ]);
 
-        // Lấy thông tin biến thể sản phẩm
-        $productVariant = ProductVariant::find($data['product_variant_id']);
+    //     // Lấy thông tin biến thể sản phẩm
+    //     $productVariant = ProductVariant::find($data['product_variant_id']);
 
-        // Kiểm tra hành động
-        if ($data['action'] == 'buy_now') {
-            // Thực hiện các hành động thanh toán ngay, ví dụ chuyển hướng đến trang thanh toán
-            return redirect()->route('checkout.page', [
-                'product_variant_id' => $productVariant->id
-            ]);
-        }
+    //     // Kiểm tra hành động
+    //     if ($data['action'] == 'buy_now') {
+    //         // Thực hiện các hành động thanh toán ngay, ví dụ chuyển hướng đến trang thanh toán
+    //         return redirect()->route('checkout.page', [
+    //             'product_variant_id' => $productVariant->id
+    //         ]);
+    //     }
 
-        // Hoặc xử lý thêm các logic khác nếu cần (thêm vào giỏ hàng)
-        // Ví dụ: thêm sản phẩm vào giỏ hàng
-        if ($data['action'] == 'add_to_cart') {
-            $user = Auth::user();
-            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
-            $cartItem = Cart::where('user_id', $user->id)
-                            ->where('product_variant_id', $productVariant->id)
-                            ->first();
+    //     // Hoặc xử lý thêm các logic khác nếu cần (thêm vào giỏ hàng)
+    //     // Ví dụ: thêm sản phẩm vào giỏ hàng
+    //     if ($data['action'] == 'add_to_cart') {
+    //         $user = Auth::user();
+    //         // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+    //         $cartItem = Cart::where('user_id', $user->id)
+    //                         ->where('product_variant_id', $productVariant->id)
+    //                         ->first();
 
-            if ($cartItem) {
-                // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng lên
-                $cartItem->quantity += 1;
-                $cartItem->save();
-            } else {
-                // Nếu chưa có, thêm sản phẩm vào giỏ hàng mới
-                Cart::create([
-                    'user_id' => $user->id,
-                    'product_variant_id' => $productVariant->id,
-                    'quantity' => 1, // Giả sử số lượng mặc định là 1
-                ]);
-            }
+    //         if ($cartItem) {
+    //             // Nếu sản phẩm đã có trong giỏ hàng, tăng số lượng lên
+    //             $cartItem->quantity += 1;
+    //             $cartItem->save();
+    //         } else {
+    //             // Nếu chưa có, thêm sản phẩm vào giỏ hàng mới
+    //             Cart::create([
+    //                 'user_id' => $user->id,
+    //                 'product_variant_id' => $productVariant->id,
+    //                 'quantity' => 1, // Giả sử số lượng mặc định là 1
+    //             ]);
+    //         }
 
-            // Chuyển hướng về trang giỏ hàng
-            return redirect()->route('cart');
-        }
+    //         // Chuyển hướng về trang giỏ hàng
+    //         return redirect()->route('cart');
+    //     }
 
-        // Xử lý các trường hợp khác nếu có
-    }
+    //     // Xử lý các trường hợp khác nếu có
+    // }
 
     public function contact()
     {
