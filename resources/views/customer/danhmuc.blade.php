@@ -23,7 +23,7 @@
                     @foreach ($group as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
                             <div class="item">
-                                <a href="#" class="main-contain">
+                                <a href="{{ route('customer.product_detail',$product->id) }}" class="main-contain">
                                     <label>Mới</label>
                                     <div class="img-slide">
                                         <img src="{{  asset('storage/' . $product->image)}}"

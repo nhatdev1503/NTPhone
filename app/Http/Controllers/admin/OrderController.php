@@ -76,16 +76,18 @@ class OrderController extends Controller
             'pending' => 'warning',
             'processing' => 'primary',
             'shipped' => 'dark',
-            'delivered' => 'success',
+            'delivered' => 'secondary',
+            'completed' => 'success',
             'cancelled' => 'danger',
         ];
 
         $statusText = [
             'pending' => 'Chờ xác nhận',
-            'processing' => 'Đang đóng gói',
-            'shipped' => 'Đang giao',
-            'delivered' => 'Đã giao',
-            'cancelled' => 'Hoàn hàng',
+            'processing' => 'Đang xử lí',
+            'shipped' => 'Đang giao hàng',
+            'delivered' => 'Đã giao hàng',
+            'completed' => 'Thành công',
+            'cancelled' => 'Hủy',
         ];
         $paymentColors = [
             'pending' => 'warning',
@@ -95,7 +97,7 @@ class OrderController extends Controller
 
         $paymentStatus = [
             'pending' => 'Chưa thanh toán',
-            'paid' => 'Thành công',
+            'paid' => 'Đã thanh toán',
             'failed' => 'Thất bại',
         ];
 
@@ -120,7 +122,13 @@ class OrderController extends Controller
         ], [
             'status.required' => 'Cần cập nhật trạng thái khi xác nhận',
         ]);
-        $order->status = $request->status;
+        if($request->status == 'cancelled'){
+            $order->status = 'cancelled';
+            $order->cancel_reason = $request->cancel_reason;
+        }else{
+            $order->status = $request->status;
+            $order->cancel_reason = null;
+        }
         $order->staff_id = 1;
         $order->save();
         return redirect()->route('orders.show',$order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');

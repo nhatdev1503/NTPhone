@@ -66,14 +66,33 @@ class ProductController extends Controller
             'cpu' => 'nullable|string',
             'ram' => 'nullable|string',
             'battery' => 'nullable|string',
-            'base_price' => 'nullable',
-            'variants' => 'array',
-            // 'variants.*.color' => 'required|string|distinct',
-            // 'variants.*.storage' => 'required|string|distinct',
-            // 'variants.*.origin_price' => 'required|numeric',
-            // 'variants.*.price' => 'required|numeric',
-            // 'variants.*.stock' => 'required|integer',
+        ], [
+            'name.required' => 'Tên sản phẩm không được để trống.',
+            'name.string' => 'Tên sản phẩm phải là một chuỗi.',
+            'name.max' => 'Tên sản phẩm không được vượt quá 255 ký tự.',
+        
+            'category_id.required' => 'Danh mục sản phẩm là bắt buộc.',
+            'category_id.exists' => 'Danh mục sản phẩm không hợp lệ.',
+        
+            'description.string' => 'Mô tả phải là một chuỗi.',
+        
+            'image.image' => 'Ảnh sản phẩm phải là một tệp hình ảnh.',
+            'image.mimes' => 'Ảnh sản phẩm phải có định dạng jpeg, png, jpg, gif hoặc svg.',
+            'image.max' => 'Ảnh sản phẩm không được vượt quá 2MB.',
+        
+            'mini_image.image' => 'Ảnh thu nhỏ phải là một tệp hình ảnh.',
+            'mini_image.mimes' => 'Ảnh thu nhỏ phải có định dạng jpeg, png, jpg, gif hoặc svg.',
+            'mini_image.max' => 'Ảnh thu nhỏ không được vượt quá 2MB.',
+        
+            'screen.string' => 'Thông tin màn hình phải là một chuỗi.',
+            'os.string' => 'Thông tin hệ điều hành phải là một chuỗi.',
+            'rear_camera.string' => 'Thông tin camera sau phải là một chuỗi.',
+            'front_camera.string' => 'Thông tin camera trước phải là một chuỗi.',
+            'cpu.string' => 'Thông tin CPU phải là một chuỗi.',
+            'ram.string' => 'Thông tin RAM phải là một chuỗi.',
+            'battery.string' => 'Thông tin pin phải là một chuỗi.',
         ]);
+        
 
         // Tạo thư mục nếu chưa tồn tại
         $uploadPath = public_path('uploads/products');
@@ -103,7 +122,6 @@ class ProductController extends Controller
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'battery' => $request->battery,
-            'base_price' => $request->base_price,
         ]);
         // Lưu ảnh mini 
         if ($request->hasFile('mini_images')) {
@@ -118,6 +136,7 @@ class ProductController extends Controller
                 ]);
             }
         }
+        dd($request->variants);
         // Lưu biến thể sản phẩm
         if ($request->variants) {
             foreach ($request->variants as $variant) {
@@ -125,6 +144,7 @@ class ProductController extends Controller
                 ProductVariant::create([
                     'product_id' => $product->id,
                     'color' => $variant['color'],
+                    'hax_code' => $variant['hax_code'],
                     'storage' => $variant['storage'],
                     'origin_price' => $variant['origin_price'],
                     'price' => $variant['price'],
@@ -167,15 +187,33 @@ class ProductController extends Controller
             'cpu' => 'nullable|string',
             'ram' => 'nullable|string',
             'battery' => 'nullable|string',
-            'base_price' => 'nullable',
-            'updatevariants' => 'array',
-            'variants' => 'array',
-            // 'variants.*.color' => 'required|string|distinct',
-            // 'variants.*.storage' => 'required|string|distinct',
-            // 'variants.*.origin_price' => 'required|numeric',
-            // 'variants.*.price' => 'required|numeric',
-            // 'variants.*.stock' => 'required|integer',
+        ], [
+            'name.required' => 'Tên sản phẩm không được để trống.',
+            'name.string' => 'Tên sản phẩm phải là một chuỗi.',
+            'name.max' => 'Tên sản phẩm không được vượt quá 255 ký tự.',
+        
+            'category_id.required' => 'Danh mục sản phẩm là bắt buộc.',
+            'category_id.exists' => 'Danh mục sản phẩm không hợp lệ.',
+        
+            'description.string' => 'Mô tả phải là một chuỗi.',
+        
+            'image.image' => 'Ảnh sản phẩm phải là một tệp hình ảnh.',
+            'image.mimes' => 'Ảnh sản phẩm phải có định dạng jpeg, png, jpg, gif hoặc svg.',
+            'image.max' => 'Ảnh sản phẩm không được vượt quá 2MB.',
+        
+            'mini_image.image' => 'Ảnh thu nhỏ phải là một tệp hình ảnh.',
+            'mini_image.mimes' => 'Ảnh thu nhỏ phải có định dạng jpeg, png, jpg, gif hoặc svg.',
+            'mini_image.max' => 'Ảnh thu nhỏ không được vượt quá 2MB.',
+        
+            'screen.string' => 'Thông tin màn hình phải là một chuỗi.',
+            'os.string' => 'Thông tin hệ điều hành phải là một chuỗi.',
+            'rear_camera.string' => 'Thông tin camera sau phải là một chuỗi.',
+            'front_camera.string' => 'Thông tin camera trước phải là một chuỗi.',
+            'cpu.string' => 'Thông tin CPU phải là một chuỗi.',
+            'ram.string' => 'Thông tin RAM phải là một chuỗi.',
+            'battery.string' => 'Thông tin pin phải là một chuỗi.',
         ]);
+        
         // Tạo thư mục nếu chưa tồn tại
         $uploadPath = public_path('uploads/products');
         if (!File::exists($uploadPath)) {
@@ -214,7 +252,6 @@ class ProductController extends Controller
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'battery' => $request->battery,
-            'base_price' => $request->base_price,
         ]);
         // Xóa ảnh mini cũ nếu được chọn
         if ($request->has('delete_mini_images')) {
@@ -260,6 +297,7 @@ class ProductController extends Controller
                 if ($variant) {
                     $variant->update([
                         'color' => $data['color'],
+                        'hax_code' => $data['hax_code'],
                         'storage' => $data['storage'],
                         'origin_price' => $data['origin_price'],
                         'price' => $data['price'],
@@ -277,6 +315,7 @@ class ProductController extends Controller
                 ProductVariant::create([
                     'product_id' => $product->id,
                     'color' => $variant['color'],
+                    'hax_code' => $variant['hax_code'],
                     'storage' => $variant['storage'],
                     'origin_price' => $variant['origin_price'],
                     'price' => $variant['price'],

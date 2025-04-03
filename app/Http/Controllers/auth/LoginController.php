@@ -31,6 +31,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
+            if ($user->status !== 'active') {
+                Auth::logout();  // Đăng xuất người dùng ngay lập tức
+                return back()->with(['block_reason' => $user->block_reason]);
+            }
             // Điều hướng theo Role
             switch ($user->role) {
                 case 'admin':
@@ -42,7 +46,7 @@ class LoginController extends Controller
             }
         }
 
-        return back()->withErrors(['message' => 'Thông tin đăng nhập không chính xác.']);
+        return back()->with(['message' => 'Thông tin đăng nhập không chính xác.']);
     }
 
     public function logout()

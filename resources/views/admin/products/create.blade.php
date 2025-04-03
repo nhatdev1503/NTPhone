@@ -7,17 +7,6 @@
             <div class="col-lg-8">
                 <div class="card shadow-lg">
                     <div class="card-body">
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
                         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
@@ -25,12 +14,17 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Tên sản phẩm</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        value="{{ old('name') }}" required>
+                                        value="{{ old('name') }}">
+                                    @if ($errors->has('name'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('name') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="category_id" class="form-label">Danh mục</label>
-                                    <select class="form-control" id="category_id" name="category_id" required>
+                                    <select class="form-control" id="category_id" name="category_id">
                                         <option value="" selected>Chọn danh mục</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
@@ -39,24 +33,44 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @if ($errors->has('category_id'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('category_id') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="description" class="form-label">Mô tả sản phẩm</label>
                                 <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
+                                @if ($errors->has('description'))
+                                    <div class="validate_error">
+                                        {{ $errors->first('description') }}
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="image" class="form-label">Ảnh sản phẩm</label>
-                                    <input type="file" class="form-control" id="image" name="image" required>
+                                    <input type="file" class="form-control" id="image" name="image">
+                                    @if ($errors->has('image'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('image') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="mini_image" class="form-label">Ảnh mini (Có thể chọn nhiều ảnh)</label>
                                     <input type="file" class="form-control" id="mini_image" name="mini_images[]"
                                         multiple>
+                                    @if ($errors->has('mini_image'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('mini_image') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -64,26 +78,46 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="screen" class="form-label">Màn hình</label>
                                     <input type="text" class="form-control" id="screen" name="screen"
-                                        value="{{ old('screen') }}" required>
+                                        value="{{ old('screen') }}">
+                                    @if ($errors->has('screen'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('screen') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="os" class="form-label">Hệ điều hành</label>
                                     <input type="text" class="form-control" id="os" name="os"
-                                        value="{{ old('os') }}" required>
+                                        value="{{ old('os') }}">
+                                    @if ($errors->has('os'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('os') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="screen" class="form-label">Camera trước</label>
                                     <input type="text" class="form-control" id="front_camera" name="front_camera"
-                                        value="{{ old('front_camera') }}" required>
+                                        value="{{ old('front_camera') }}">
+                                    @if ($errors->has('front_camera'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('front_camera') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="os" class="form-label">Camera sau</label>
                                     <input type="text" class="form-control" id="os" name="rear_camera"
-                                        value="{{ old('rear_camera') }}" required>
+                                        value="{{ old('rear_camera') }}">
+                                    @if ($errors->has('rear_camera'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('rear_camera') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -91,25 +125,35 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="cpu" class="form-label">CPU</label>
                                     <input type="text" class="form-control" id="cpu" name="cpu"
-                                        value="{{ old('cpu') }}" required>
+                                        value="{{ old('cpu') }}">
+                                    @if ($errors->has('cpu'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('cpu') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="ram" class="form-label">RAM</label>
                                     <input type="text" class="form-control" id="ram" name="ram"
-                                        value="{{ old('ram') }}" required>
+                                        value="{{ old('ram') }}">
+                                    @if ($errors->has('ram'))
+                                        <div class="validate_error">
+                                            {{ $errors->first('ram') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="battery" class="form-label">Dung lượng Pin</label>
                                 <input type="text" class="form-control" id="battery" name="battery"
-                                    value="{{ old('battery') }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="base_price" class="form-label">Giá cơ bản</label>
-                                <input type="number" class="form-control" id="base_price" name="base_price"
-                                    value="{{ old('base_price') }}" required>
+                                    value="{{ old('battery') }}">
+                                @if ($errors->has('battery'))
+                                    <div class="validate_error">
+                                        {{ $errors->first('battery') }}
+                                    </div>
+                                @endif
                             </div>
 
                             <!-- Biến thể sản phẩm -->
@@ -123,7 +167,7 @@
                                         @foreach ($colors as $color)
                                             <label class="flex items-center space-x-2">
                                                 <input type="checkbox" class="form-checkbox text-blue-500 variant-color"
-                                                    value="{{ $color->name }}">
+                                                    value="{{ $color->name }}" haxcode="{{ $color->hax_code }}">
                                                 <span>{{ $color->name }}</span>
                                             </label>
                                         @endforeach
@@ -167,48 +211,60 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    let variants = []; // Mảng lưu trữ biến thể
+        document.addEventListener("DOMContentLoaded", function() {
+            let variants = []; // Mảng lưu trữ biến thể
 
-    // Xử lý khi nhấn "Đồng ý"
-    document.getElementById("generate-variants").addEventListener("click", function () {
-        let selectedColors = Array.from(document.querySelectorAll(".variant-color:checked")).map(el => el.value);
-        let selectedStorages = Array.from(document.querySelectorAll(".variant-storage:checked")).map(el => el.value);
+            // Xử lý khi nhấn "Đồng ý"
+            document.getElementById("generate-variants").addEventListener("click", function() {
+                let selectedCheckboxes = Array.from(document.querySelectorAll(".variant-color:checked"));
+                let selectedColors = selectedCheckboxes.map(el => el.value);
+                let selectedHaxCode = selectedCheckboxes.map(el => el.getAttribute("haxcode"));
+                let selectedStorages = Array.from(document.querySelectorAll(".variant-storage:checked"))
+                    .map(el => el.value);
 
-        if (selectedColors.length === 0 || selectedStorages.length === 0) {
-            alert("Vui lòng chọn ít nhất một màu sắc và một dung lượng!");
-            return;
-        }
-
-        selectedColors.forEach(color => {
-            selectedStorages.forEach(storage => {
-                let exists = variants.some(v => v.color === color && v.storage === storage);
-                if (!exists) {
-                    variants.push({ color, storage, origin_price: 0, price: 0, stock: 0 });
+                if (selectedColors.length === 0 || selectedStorages.length === 0) {
+                    alert("Vui lòng chọn ít nhất một màu sắc và một dung lượng!");
+                    return;
                 }
+
+                selectedColors.forEach((color, index) => {
+                    selectedStorages.forEach(storage => {
+                        let hax_code = selectedHaxCode[index];
+
+                        let exists = variants.some(v => v.color === color && v.storage ===
+                            storage);
+                        if (!exists) {
+                            variants.push({
+                                color,
+                                hax_code,
+                                storage,
+                                origin_price : 0,
+                                price : 0,
+                                stock : 0
+                            });
+                        }
+                    });
+                });
+
+
+                renderVariantList();
             });
-        });
 
-        renderVariantList();
-    });
+            function renderVariantList() {
+                let variantList = document.getElementById("variant-list");
+                let hiddenInputsContainer = document.getElementById("variant-hidden-inputs");
 
-    // Hiển thị danh sách biến thể
-    function renderVariantList() {
-        let variantList = document.getElementById("variant-list");
-        let hiddenInputsContainer = document.getElementById("variant-hidden-inputs");
+                variantList.innerHTML = ""; 
+                hiddenInputsContainer.innerHTML = ""; 
 
-        variantList.innerHTML = ""; // Xóa danh sách cũ
-        hiddenInputsContainer.innerHTML = ""; // Xóa input hidden cũ
+                variants.forEach((variant, index) => {
+                    let variantItem = document.createElement("li");
+                    variantItem.classList.add("p-3", "bg-gray-100", "rounded-lg", "cursor-pointer", "mt-2");
+                    variantItem.dataset.index = index;
 
-        variants.forEach((variant, index) => {
-            let variantItem = document.createElement("li");
-            variantItem.classList.add("p-3", "bg-gray-100", "rounded-lg", "cursor-pointer", "mt-2");
-            variantItem.dataset.index = index;
-
-            variantItem.innerHTML = `
+                    variantItem.innerHTML = `
                 <div class="flex justify-between items-center">
                     <span>${variant.color} | ${variant.storage}</span>
-                    <button type="button" class="text-red-500 remove-variant">Xóa</button>
                 </div>
                 <div class="hidden mt-2 space-y-2 variant-inputs">
                     <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá gốc" data-index="${index}" data-key="origin_price" value="${variant.origin_price}">
@@ -216,65 +272,79 @@
                     <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Kho hàng" data-index="${index}" data-key="stock" value="${variant.stock}">
                 </div>
             `;
-            variantList.appendChild(variantItem);
-        });
+                    variantList.appendChild(variantItem);
+                });
 
-        updateHiddenInputs();
-    }
-
-    // Toggle mở/đóng input khi click vào biến thể
-    document.getElementById("variant-list").addEventListener("click", function (e) {
-        let listItem = e.target.closest("li");
-
-        if (e.target.classList.contains("remove-variant")) {
-            let index = listItem.dataset.index;
-            variants.splice(index, 1);
-            renderVariantList();
-            return;
-        }
-
-        // Nếu click vào input, không toggle
-        if (e.target.tagName === "INPUT") {
-            return;
-        }
-
-        if (listItem) {
-            let inputs = listItem.querySelector(".variant-inputs");
-            inputs.classList.toggle("hidden");
-        }
-    });
-
-    // Xử lý nhập dữ liệu biến thể
-    document.getElementById("variant-list").addEventListener("input", function (e) {
-        if (e.target.classList.contains("variant-input")) {
-            let index = e.target.dataset.index;
-            let key = e.target.dataset.key;
-            let value = e.target.value;
-
-            if (variants[index]) {
-                variants[index][key] = value;
+                updateHiddenInputs();
             }
 
-            updateHiddenInputs();
-        }
-    });
+            document.getElementById("variant-list").addEventListener("click", function(e) {
+                let listItem = e.target.closest("li");
 
-    // Cập nhật input hidden để gửi lên server
-    function updateHiddenInputs() {
-        let hiddenInputsContainer = document.getElementById("variant-hidden-inputs");
-        hiddenInputsContainer.innerHTML = "";
+                if (e.target.classList.contains("remove-variant")) {
+                    let index = listItem.dataset.index;
+                    variants.splice(index, 1);
+                    renderVariantList();
+                    return;
+                }
 
-        variants.forEach(variant => {
-            let input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "variants[]";
-            input.value = JSON.stringify(variant);
-            hiddenInputsContainer.appendChild(input);
+                if (e.target.tagName === "INPUT") {
+                    return;
+                }
+
+                if (listItem) {
+                    let inputs = listItem.querySelector(".variant-inputs");
+                    inputs.classList.toggle("hidden");
+                }
+            });
+
+            document.getElementById("variant-list").addEventListener("input", function(e) {
+                if (e.target.classList.contains("variant-input")) {
+                    let index = e.target.dataset.index;
+                    let key = e.target.dataset.key;
+                    let value = e.target.value;
+
+                    if (variants[index]) {
+                        variants[index][key] = value;
+
+                    }
+
+                    updateHiddenInputs();
+                }
+            });
+
+            function updateHiddenInputs() {
+                let hiddenInputsContainer = document.getElementById("variant-hidden-inputs");
+                hiddenInputsContainer.innerHTML = "";
+
+                variants.forEach(variant => {
+                    let input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = "variants[]";
+                    input.value = JSON.stringify(variant);
+                    hiddenInputsContainer.appendChild(input);
+                });
+            }
         });
-    }
-});
 
+        document.querySelector("form").addEventListener("submit", function(event) {
+            // Kiểm tra và xóa biến thể không hợp lệ (có giá trị 0 cho tất cả các trường)
+            variants = variants.filter(variant => {
+                // Giải mã JSON nếu cần và kiểm tra các trường giá trị
+                variant = JSON.parse(variant);
 
+                // Kiểm tra xem tất cả các trường có giá trị 0 hay không
+                return !(variant.origin_price === 0 && variant.price === 0 && variant.stock === 0);
+            });
+
+            // Nếu không còn biến thể hợp lệ nào, ngừng gửi form
+            if (variants.length === 0) {
+                event.preventDefault();  // Ngừng gửi form nếu không có biến thể hợp lệ
+                alert("Vui lòng tạo ít nhất một biến thể hợp lệ trước khi thêm mới!");
+            }
+
+            // Cập nhật các input ẩn với dữ liệu hợp lệ
+            updateHiddenInputs();
+        });
     </script>
-
 @endsection

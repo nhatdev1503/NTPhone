@@ -3,18 +3,6 @@
 @section('content')
     <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
         <div class="card shadow">
-            <div class="card-header bg-warning text-white">
-                <h3 class="mb-0">Chỉnh sửa sản phẩm</h3>
-            </div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="card-body">
                 <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -25,8 +13,12 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Tên sản phẩm</label>
-                                <input type="text" name="name" class="form-control" value="{{ $product->name }}"
-                                    required>
+                                <input type="text" name="name" class="form-control" value="{{ old('name',$product->name)}}">
+                                @if ($errors->has('name'))
+                                        <div class="validate_error" >
+                                            {{ $errors->first('name') }}
+                                        </div>
+                                    @endif
                             </div>
 
                             <div class="mb-3">
@@ -39,16 +31,31 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('category_id'))
+                                        <div class="validate_error" >
+                                            {{ $errors->first('category_id') }}
+                                        </div>
+                                    @endif
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Mô tả</label>
                                 <textarea name="description" class="form-control" rows="3">{{ $product->description }}</textarea>
+                                @if ($errors->has('description'))
+                                        <div class="validate_error" >
+                                            {{ $errors->first('description') }}
+                                        </div>
+                                    @endif
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Ảnh sản phẩm</label>
                                 <input type="file" name="image" class="form-control">
+                                @if ($errors->has('image'))
+                                        <div class="validate_error" >
+                                            {{ $errors->first('image') }}
+                                        </div>
+                                    @endif
                                 <img src="{{ asset($product->image) }}" alt="Ảnh sản phẩm" class="mt-2 img-thumbnail"
                                 width="120" height="150">
                             </div>
@@ -56,11 +63,16 @@
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Ảnh thu nhỏ (Mini Image)</label>
                                 <input type="file" name="mini_images[]" class="form-control" multiple>
+                                @if ($errors->has('mini_image'))
+                                        <div class="validate_error" >
+                                            {{ $errors->first('mini_image') }}
+                                        </div>
+                                    @endif
                                 <label class="form-label fw-bold text-danger">*Chọn ảnh muốn xóa</label>
                                 <div class="d-flex flex-wrap mt-2">
                                     @foreach ($product->images as $image)
                                         <div class="position-relative" style="margin-left: 20px">
-                                            <img src="{{ asset($image->mini_image) }}" alt="Ảnh thu nhỏ" class="img-thumbnail" width="80" height="100">
+                                            <img src="{{ asset($image->mini_image) }}" alt="Ảnh thu nhỏ" class="img-thumbnail" width="50" height="80">
                                             <input type="checkbox" name="delete_mini_images[]" value="{{ $image->id }}" class="position-absolute top-0 end-0">
                                         </div>
                                     @endforeach
@@ -113,11 +125,6 @@
                                 <input type="text" name="battery" class="form-control" value="{{ $product->battery }}"
                                     required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Giá cơ bản</label>
-                                <input type="text" name="base_price" class="form-control"
-                                    value="{{ $product->base_price }}" required>
-                            </div>
                         </div>
                     </div>
                     <!-- Danh sách biến thể -->
@@ -146,7 +153,7 @@
                                             <td>
                                                     <select class="form-control text-center variant-input" name="color">
                                                         @foreach ($colors as $color)
-                                                            <option value="{{ $color->name }}" @if ($variant->color == $color->name) selected @endif >{{ $color->name }}</option>
+                                                            <option value="{{ $color->name }}" data-hax="{{ $color->hax_code }}" @if ($variant->color == $color->name) selected @endif >{{ $color->name }}</option>
                                                         @endforeach
                                                     </select>
                                             </td>
@@ -195,30 +202,25 @@
 
                     <!-- Biến thể sản phẩm -->
                     <div id="variant-section">
-                        <h4 class="text-center mt-4">Thêm biến thể</h4>
+                        <h4 class="text-center mt-4 mb-5">Thêm biến thể</h4>
                         <div class="row">
                             <div class="col-md-2">
                                 <label class="form-label">Màu sắc</label>
-                                <select class="form-control variant_color" onchange="toggleInput(this, 'variant_color')">
+                                <select class="form-control variant_color">
                                     <option value="" disabled selected>Chọn màu</option>
                                     @foreach ($colors as $color)
-                                        <option value="{{ $color->name }}">{{ $color->name }}</option>
+                                        <option value="{{ $color->name }}" data-hax ="{{ $color->hax_code }}">{{ $color->name }}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" id="variant_color" class="form-control mt-2 d-none"
-                                    placeholder="Nhập màu sắc">
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Dung lượng</label>
-                                <select class="form-control variant_storage"
-                                    onchange="toggleInput(this, 'variant_storage')">
+                                <select class="form-control variant_storage">
                                     <option value="" disabled selected>Chọn dung lượng</option>
                                     @foreach ($storages as $storage)
                                         <option value="{{ $storage->size }}">{{ $storage->size }}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" id="variant_storage" class="form-control mt-2 d-none"
-                                    placeholder="Nhập dung lượng">
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label">Giá gốc</label>
@@ -256,16 +258,6 @@
         </div>
     </div>
     <script>
-        function toggleInput(selectElement, inputId) {
-            let inputField = document.getElementById(inputId);
-            if (selectElement.value === "other") {
-                inputField.classList.remove("d-none"); // Hiện ô nhập
-                inputField.setAttribute("required", "true");
-            } else {
-                inputField.classList.add("d-none"); // Ẩn ô nhập
-                inputField.removeAttribute("required");
-            }
-        }
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.querySelector("form");
             const variantSection = document.getElementById("variant-section");
@@ -285,6 +277,7 @@
                 return {
                     variantId: row.dataset.id,
                     color: row.querySelector("[name='color']").value,
+                    hax_code: row.querySelector("select[name='color']").selectedOptions[0].getAttribute('data-hax'),
                     storage: row.querySelector("[name='storage']").value,
                     origin_price: row.querySelector("[name='origin_price']").value,
                     price: row.querySelector("[name='price']").value,
@@ -331,18 +324,11 @@
 
             document.getElementById("add-variant").addEventListener("click", function() {
                 let color = document.querySelector(".variant_color").value;
+                let hax_code = document.querySelector(".variant_color").selectedOptions[0].getAttribute('data-hax');
                 let storage = document.querySelector(".variant_storage").value;
                 const origin_price = document.getElementById("variant_origin_price").value;
                 const price = document.getElementById("variant_price").value;
                 const stock = document.getElementById("variant_stock").value;
-                const inputColor = document.getElementById("variant_color").value;
-                const inputStorage = document.getElementById("variant_storage").value;
-                if (color == "other") {
-                    color = inputColor;
-                }
-                if (storage == "other") {
-                    storage = inputStorage;
-                }
                 if (!color || !storage || !origin_price || !price || !stock) {
                     alert("Vui lòng điền đầy đủ thông tin biến thể!");
                     return;
@@ -358,6 +344,7 @@
                 input.name = "variants[]";
                 input.value = JSON.stringify({
                     color,
+                    hax_code,
                     storage,
                     origin_price,
                     price,
@@ -409,7 +396,7 @@
 
                 document.querySelectorAll("tr[data-id]").forEach(row => {
                     const key =
-                        `${row.querySelector("input[name='color']").value.trim()}_${row.querySelector("input[name='storage']").value.trim()}`;
+                        `${row.querySelector("select[name='color']").value.trim()}_${row.querySelector("select[name='storage']").value.trim()}`;
                     if (existingVariants.has(key)) {
                         hasDuplicate = true;
                         console.log(`Duplicate detected: ${key}`);

@@ -20,10 +20,11 @@
                     <select name="status" class="form-control form-control-md fs-6 mt-2">
                         <option value="">-- Tất cả --</option>
                         <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ xác nhận</option>
-                        <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Đang đóng gói</option>
-                        <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Đang giao</option>
-                        <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Đã giao</option>
-                        <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
+                        <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Đang xử lí</option>
+                        <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Đang giao hàng</option>
+                        <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Đã giao hàng</option>
+                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
+                        <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Hủy</option>
                     </select>
                 </div>
 
@@ -110,15 +111,17 @@
                                         'pending' => 'badge bg-warning text-dark',
                                         'processing' => 'badge bg-primary',
                                         'shipped' => 'badge bg-dark',
-                                        'delivered' => 'badge bg-success',
+                                        'delivered' => 'badge bg-warning',
+                                        'completed' => 'badge bg-success',
                                         'cancelled' => 'badge bg-danger',
                                     ];
                                     $statusText = [
                                         'pending' => 'Chờ xác nhận',
-                                        'processing' => 'Đang đóng gói',
+                                        'processing' => 'Đang xử lí',
                                         'shipped' => 'Đang giao hàng',
                                         'delivered' => 'Đã giao hàng',
-                                        'cancelled' => 'Hoàn hàng',
+                                        'completed' => 'Hoàn thành',
+                                        'cancelled' => 'Hủy',
                                     ];
                                 @endphp
                                 <span class="{{ $statusColors[$order->status] }} p-2">

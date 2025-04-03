@@ -19,11 +19,11 @@
                             <div class="text-muted">Không có ảnh</div>
                         @endif
 
-                        <div class="d-flex justify-content-center flex-wrap gap-2">
-                            @foreach ($product->images->take(4) as $image)
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach ($product->images as $image)
                                 <div class="p-1">
                                     <img src="{{ asset($image->mini_image) }}" alt="Ảnh mini"
-                                        class="rounded shadow-sm border" width="80" height="100">
+                                        class="rounded shadow-sm border" width="50" height="80">
                                 </div>
                             @endforeach
                         </div>
@@ -114,8 +114,12 @@
                                 <td>{{ $product->battery }}</td>
                             </tr>
                             <tr>
-                                <th>Giá cơ bản</th>
-                                <td>{{ $product->base_price }}</td>
+                                <th>Lượt xem</th>
+                                <td>{{ $product->view }}</td>
+                            </tr>
+                            <tr>
+                                <th>Đã bán</th>
+                                <td>{{ $product->sold }}</td>
                             </tr>
                         </tbody>
                     </table>

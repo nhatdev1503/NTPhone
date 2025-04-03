@@ -54,9 +54,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($users as $index => $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $user->fullname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ ucfirst($user->role) }}</td>
@@ -76,7 +76,8 @@
                                 <button type="button"
                                     class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
                                     data-bs-toggle="modal" data-bs-target="#confirmModal"
-                                    onclick="setUserData('{{ $user->id }}', '{{ $user->status }}')">
+                                    data-user-id="{{ $user->id }}" data-user-status="{{ $user->status }}"
+                                    onclick="setUserData(this)">
                                     {{ $user->status == 'active' ? 'Khóa' : '-Mở-' }}
                                 </button>
                             @endif
@@ -86,21 +87,17 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="confirmModalLabel">Xác nhận
-                                                {{ $user->status == 'active' ? 'Khóa' : 'Mở khóa' }} Tài Khoản</h5>
+                                            <h5 class="modal-title" id="confirmModalLabel">Xác nhận</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                            <form action="{{ route('users.destroy', 'USER_ID') }}" method="POST"
+                                                id="confirmForm">
                                                 @csrf
                                                 @method('PUT')
-                                                @if ($user->status == 'active')
-                                                    <div class="mb-3">
-                                                        <label for="reason" class="form-label">Lý do</label>
-                                                        <textarea class="form-control" id="reason" name="block_reason" rows="3" required></textarea>
-                                                    </div>
-                                                @endif
+                                                <div id="modalBodyContent"></div>
+                                                <!-- Nội dung động sẽ được thêm vào đây -->
                                                 <button type="submit" class="btn btn-primary">Xác nhận</button>
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Hủy</button>
@@ -112,6 +109,8 @@
                         </td>
                     </tr>
                 @endforeach
+
+
             </tbody>
         </table>
 
@@ -119,11 +118,37 @@
         {{ $users->links() }}
     </div>
     <script>
-        function setUserData(userId, status) {
-            const form = document.getElementById('confirmForm');
-            form.action = `/users/${userId}`;
-            const modalTitle = document.getElementById('confirmModalLabel');
-            modalTitle.innerText = status === 'active' ? 'Xác nhận Khóa Tài Khoản' : 'Xác nhận Mở Khóa Tài Khoản';
+        function setUserData(button) {
+            // Lấy dữ liệu từ nút đã nhấn
+            var userId = button.getAttribute('data-user-id');
+            var userStatus = button.getAttribute('data-user-status');
+
+            // Cập nhật URL trong form (route có chứa user_id)
+            var form = document.getElementById('confirmForm');
+            form.action = form.action.replace('USER_ID', userId);
+
+            // Lấy phần modal body content
+            var modalBodyContent = document.getElementById('modalBodyContent');
+
+            // Kiểm tra trạng thái người dùng để thay đổi nội dung modal
+            if (userStatus == 'active') {
+                // Nếu tài khoản đang hoạt động, hiển thị yêu cầu khóa tài khoản
+                document.getElementById('confirmModalLabel').textContent = "Xác nhận Khóa Tài Khoản";
+                modalBodyContent.innerHTML = `
+            <div class="mb-3">
+                <label for="reason" class="form-label">Lý do</label>
+                <textarea class="form-control" id="reason" name="block_reason" rows="3" required></textarea>
+            </div>
+        `;
+            } else {
+                // Nếu tài khoản bị khóa, hiển thị yêu cầu mở khóa tài khoản
+                document.getElementById('confirmModalLabel').textContent = "Xác nhận Mở Khóa Tài Khoản";
+                modalBodyContent.innerHTML = `
+            <div class="alert alert-warning" role="alert">
+                Bạn đang mở khóa tài khoản này. Không cần nhập lý do.
+            </div>
+        `;
+            }
         }
     </script>
 @endsection

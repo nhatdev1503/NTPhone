@@ -4885,7 +4885,9 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <a href="/" class="cart">
+
+                <a href="" class="cart">
+
                     <i class="topzone-cart"></i>
                 </a>
                 <div class="cart relative">
