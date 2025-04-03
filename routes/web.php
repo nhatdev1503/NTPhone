@@ -26,6 +26,7 @@ use App\Http\Controllers\StorageController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerOrderController;
+use App\Http\Controllers\Customer\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,13 +144,25 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
     Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
 
+
+
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
-    
+
     // Product detail
     // Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
-    ->name('customer.product_detail');
+        ->name('customer.product_detail');
+    //rating
+
+    // Gửi đánh giá sản phẩm
+    Route::post('/rate-product/{productId}', [RatingController::class, 'storeRating'])->name('customer.rate.store');
+
+    Route::get('/product/{productId}/ratings', [RatingController::class, 'getRatings'])->name('customer.rate.list');
+
+    Route::put('/rate-product/{productId}', [RatingController::class, 'updateRating'])->name('customer.rate.update');
+
+    Route::delete('/rate-product/{productId}', [RatingController::class, 'deleteRating'])->name('customer.rate.delete');
     // Bao hanhhanh
     Route::get('/warranty', [CustomerController::class, 'warranty'])->name('customer.warranty');
     // Bao contactcontact
@@ -165,10 +178,11 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
     // Trang thông tin cá nhân (profile)
     Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
-    ->name('customer.profile');
+        ->name('customer.profile');
 
     // Route xử lý cập nhật thông tin profile (POST)
     Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+
     ->name('customer.profile.update');
     // Route giỏ hàng
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
@@ -203,14 +217,12 @@ Route::prefix('guest')->group(function () {
     Route::get('/warranty', [GuestController::class, 'warranty'])->name('guest.warranty');
     // Bao contactcontact
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
-
 });
 
 
 Route::prefix('customer')->group(function () {
     // Lịch sử mua hàng
     Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
-
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
@@ -225,4 +237,3 @@ Route::middleware('auth')->group(function () {
 Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
 Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
 Route::get('/api/get-price', [CustomerController::class, 'getPrice']);
-

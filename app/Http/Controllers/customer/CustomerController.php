@@ -16,6 +16,9 @@ use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductImage;
+use App\Models\Rating;
+use Illuminate\Support\Facades\DB;
+
 
 class CustomerController extends Controller
 {
@@ -53,6 +56,35 @@ class CustomerController extends Controller
         return view('customer.warranty');
     }
 
+        $productVariant = ProductVariant::find($data['product_variant_id']);
+
+        if ($data['action'] == 'buy_now') {
+            
+            return redirect()->route('checkout.page', [
+                'product_variant_id' => $productVariant->id
+            ]);
+        }
+        if ($data['action'] == 'add_to_cart') {
+            $user = Auth::user();
+            $cartItem = Cart::where('user_id', $user->id)
+                            ->where('product_variant_id', $productVariant->id)
+                            ->first();
+
+            if ($cartItem) {
+              
+                $cartItem->quantity += 1;
+                $cartItem->save();
+            } else {
+
+                Cart::create([
+                    'user_id' => $user->id,
+                    'product_variant_id' => $productVariant->id,
+                    'quantity' => 1, // 
+                ]);
+            }
+            return redirect()->route('cart');
+        }   
+    }
     // public function checkout(Request $request)
     // {
     //     $data = $request->validate([
@@ -107,32 +139,48 @@ class CustomerController extends Controller
     }
     public function product_detail($id)
     {
-        // Lấy sản phẩm theo ID, nếu không có thì báo lỗi 404
+        // Lấy sản phẩm theo ID
         $product = Product::with('variants', 'images')->findOrFail($id);
+
+        
+        $hasPurchased = DB::table('orders')
+        ->join('order_items', 'orders.id', '=', 'order_items.order_id')  // Kết nối với bảng order_items
+        ->where('orders.user_id', auth()->id())  // Kiểm tra user_id của người dùng đang đăng nhập
+        ->where('order_items.product_variant_id', $id)  // Kiểm tra sản phẩm đã mua (sử dụng product_variant_id thay vì product_id)
+        ->exists();  
+
+    
+        // Lấy danh sách đánh giá của sản phẩm
+        $ratings = Rating::where('product_id', $id)
+        ->join('users', 'ratings.user_id', '=', 'users.id')
+        ->select('users.fullname', 'ratings.review', 'ratings.rating', 'ratings.created_at')
+        ->get();
+    
 
         // Lấy danh sách biến thể (RAM, SSD, màu sắc)
 
         $variants = $product->variants ?? collect();
 
-        // Lọc danh sách màu sắc duy nhất
         $colors = $variants->unique('color');
 
-        // Lọc danh sách dung lượng duy nhất
         $storages = $variants->unique('storage');
 
         // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
-            ->where('id', '!=', $id)
-            ->limit(6)
-            ->get();
 
-        // Lấy danh sách ảnh từ bảng product_images
+                                  ->where('id', '!=', $id)
+                                  ->limit(6)
+                                  ->get();
+    
+        // Lấy danh sách ảnh
         $productImages = $product->images ?? collect();
-
-        // Truyền dữ liệu vào view
-        return view('customer.product_detail', compact('product', 'variants', 'colors', 'storages', 'relatedProducts', 'productImages'));
+    
+        // Truyền các biến vào view, bao gồm thông tin sản phẩm, biến thể, và thông tin đã mua
+        return view('customer.product_detail', compact(
+            'product', 'variants', 'colors', 'storages', 
+            'relatedProducts', 'productImages', 'ratings', 'hasPurchased'
+        ));
     }
-
 
     public function getPrice(Request $request)
     {
