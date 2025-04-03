@@ -9237,7 +9237,7 @@
 
                     <div
                         class="hidden peer-checked:flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
-                        <a href="{{ route('customer.profile') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá
+                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Thông tin cá
                             nhân</a>
                         <a href="{{ route('customer.order.history') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Lịch sử mua hàng</a>
                         <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Đổi mật khẩu</a>
