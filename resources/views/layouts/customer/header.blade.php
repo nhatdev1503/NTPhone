@@ -4922,13 +4922,10 @@
             <form class="form-search" onsubmit="return false;">
                 <div class="click-search">
                     <i class="topzone-search"></i>
-                    <input type="text" placeholder="Tìm kiếm sản phẩm">
+                    <input type="text" id="search" placeholder="Tìm kiếm sản phẩm">
                     <i class="topzone-delSearch"></i>
                 </div>
-                <button type="submit" class="submit-search" style="display:none">
-                </button>
-                <div class="sg-search">
-                </div>
+                <div class="sg-search" id="search-results" style="display: none;"></div>
             </form>
         </div>
     </header>

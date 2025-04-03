@@ -5,6 +5,18 @@
         <h2 style="font-size: 30px; font-weight: bold; margin: 30px 0 30px 0; color: white; text-align: center;">Danh mục
             {{ $category->name }}</h2>
 
+        <form action="{{ route('customer.filter', $category->id) }}" method="GET" style="margin: 30px 0 30px 0; padding-left: 15%;">
+            <label for="filter" style="color: white; margin-right: 10px;">Lọc theo giá:</label>
+            <select name="filter" id="filter" onchange="this.form.submit()">
+                <option value="">Chọn khoảng giá</option>
+                <option value="0-500000" {{ request('filter') == '0-500000' ? 'selected' : '' }}>Dưới 500.000 ₫</option>
+                <option value="500000-1000000" {{ request('filter') == '500000-1000000' ? 'selected' : '' }}>500.000 - 1.000.000 ₫</option>
+                <option value="1000000-5000000" {{ request('filter') == '1000000-5000000' ? 'selected' : '' }}>1.000.000 - 5.000.000 ₫</option>
+                <option value="5000000-10000000" {{ request('filter') == '5000000-10000000' ? 'selected' : '' }}>5.000.000 - 10.000.000 ₫</option>
+                <option value="10000000-100000000" {{ request('filter') == '10000000-100000000' ? 'selected' : '' }}>Trên 10.000.000 ₫</option>
+            </select>
+        </form>
+
         <div class="row">
             @foreach ($groupedProducts as $group)
                 <div class="slide-cate owl-carousel owl-theme">
