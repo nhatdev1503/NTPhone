@@ -176,6 +176,12 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
+
+    // Tìm kiếm
+    Route::get('/search', [CustomerController::class, 'search'])->name('customer.search');
+
+    // Lọc sản phẩm theo giá
+    Route::get('/filter/categories/{id}', [CustomerController::class, 'filterProducts'])->name('customer.filter');
 });
 
 
