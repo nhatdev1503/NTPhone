@@ -36,9 +36,14 @@
                 Đăng nhập
             </button>
         </form>
-        @if (session('success'))
-            <div class="text-center alert alert-success mt-3">
-                {{ session('success') }}
+        @if (session('message'))
+            <div class="bg-red-100 text-red-800 border border-red-400 rounded-lg p-4 text-center mt-3">
+                {{ session('message') }}
+            </div>
+        @endif
+        @if (session('block_reason'))
+            <div class="bg-red-100 text-red-800 border border-red-400 rounded-lg p-4 text-center mt-3">
+                Tài khoản của bạn bị khóa vì {{ session('block_reason') }}
             </div>
         @endif
         <p class="text-center text-sm text-gray-500 mt-6">

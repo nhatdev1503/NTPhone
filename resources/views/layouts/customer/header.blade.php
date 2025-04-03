@@ -9183,11 +9183,14 @@
                     }
     </style>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="">
 
-    <header class=" ">
+    <header class="">
         <div class="head">
             <div class="logo-topzone">
                 {{-- <a href="/">
@@ -9218,7 +9221,7 @@
                     <i class="topzone-search"></i>
                 </div>
 
-                <a href="/" class="cart">
+                <a href="{{ route('customer.cart') }}" class="cart">
                     <i class="topzone-cart"></i>
                 </a>
                 <div class="cart">
@@ -9265,3 +9268,68 @@
             </form>
         </div>
     </header>
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="fixed bottom-4 right-4 w-16 h-16 bg-green-600 text-white flex items-center justify-center rounded-full cursor-pointer shadow-lg" onclick="toggleChat()">
+        💬
+    </div>
+
+    <!-- Chat Box -->
+    <div id="chat-box" class="fixed bottom-20 right-4 w-80 bg-white border shadow-lg rounded-lg hidden">
+        <div class="bg-green-600 text-white p-3 flex justify-between items-center" style="border-radius: 10px;">
+            <span>Chat với Admin</span>
+            <button onclick="toggleChat()" class="text-white">✖</button>
+        </div>
+        <div id="chat-content" class="p-3 max-h-96 overflow-y-auto"></div>
+        <div class="p-3 border-t">
+            <input type="text" id="message-input" class="w-full p-2 border rounded" placeholder="Nhập tin nhắn...">
+            <button onclick="sendMessage()" class="w-full bg-green-600 text-white p-2 mt-2 rounded">Gửi</button>
+        </div>
+    </div>
+    <script>
+        const userId = @json(Auth::id());
+        const adminId = 1;
+        let chatOpen = false;
+
+        function toggleChat() {
+            const chatBox = document.getElementById('chat-box');
+            chatOpen = !chatOpen;
+            chatBox.style.display = chatOpen ? 'block' : 'none';
+
+            if (chatOpen) loadMessages();
+        }
+
+        function loadMessages() {
+            axios.get(`/messages/${adminId}`).then(response => {
+                let messages = response.data;
+                let chatContent = document.getElementById('chat-content');
+                chatContent.innerHTML = '';
+
+                messages.forEach(msg => {
+                    let div = document.createElement('div');
+                    div.classList.add('p-2', msg.sender_id == userId ? 'text-right' : 'text-left');
+                    div.innerHTML = `<span class="inline-block p-2 rounded ${msg.sender_id == userId ? 'bg-green-500 text-white' : 'bg-gray-200'}">${msg.message}</span>`;
+                    chatContent.appendChild(div);
+                });
+            });
+        }
+
+        function sendMessage() {
+            let message = document.getElementById('message-input').value;
+            axios.post('/send-message', {
+                receiver_id: adminId,
+                message: message
+            }).then(() => {
+                document.getElementById('message-input').value = '';
+            });
+        }
+
+        window.Echo.channel('chat.' + userId)
+            .listen('MessageSent', (event) => {
+                if (event.message.sender_id == adminId || event.message.receiver_id == adminId) {
+                    let div = document.createElement('div');
+                    div.classList.add('p-2', event.message.sender_id == userId ? 'text-right' : 'text-left');
+                    div.innerHTML = `<span class="inline-block p-2 rounded ${event.message.sender_id == userId ? 'bg-green-500 text-white' : 'bg-gray-200'}">${event.message.message}</span>`;
+                    document.getElementById('chat-content').appendChild(div);
+                }
+            });
+    </script>

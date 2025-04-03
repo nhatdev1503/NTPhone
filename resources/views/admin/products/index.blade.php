@@ -72,22 +72,22 @@
                     <table class="table table-striped table-hover align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>STT</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Danh mục</th>
                                 <th>Ảnh</th>
                                 <th>Màn hình</th>
                                 <th>Ram</th>
                                 <th>Pin</th>
-                                <th>Giá cơ bản</th>
+                                <th>CPU</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($products as $product)
+                            @forelse ($products as $index => $product)
                                 <tr class="product-row" data-product-id="{{ $product->id }}" style="cursor: pointer;">
-                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $index + 1 }}</td>
                                     <td>
                                         <i class="fa fa-chevron-down toggle-icon" id="icon-{{ $product->id }}"></i>
                                         {{ $product->name }}
@@ -97,7 +97,7 @@
                                     <td>{{ $product->screen }}</td>
                                     <td>{{ $product->ram }}</td>
                                     <td>{{ $product->battery }}</td>
-                                    <td>{{ $product->base_price }}</td>
+                                    <td>{{ $product->cpu }}</td>
                                     <td>
                                         @if ($product->status == 'active' && $product->category->status == 'active')
                                             <span class="badge bg-success">Hoạt động</span>

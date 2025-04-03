@@ -47,7 +47,7 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Code</th>
                         <th>Loại voucher</th>
                         <th>Giá trị</th>
@@ -58,16 +58,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($vouchers as $voucher)
+                    @foreach ($vouchers as $index => $voucher)
                         <tr>
-                            <td>{{ $voucher->id }}</td>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ $voucher->code }}</td>
-                            <td>{{ $voucher->discount_type }}</td>
-                            <td>{{ $voucher->discount_value }}
+                            <td>
                                 @if ($voucher->discount_type == 'fixed')
-                                    VND
+                                Cố đinh
+                            @elseif($voucher->discount_type == 'percentage')
+                                Phần trăm
+                            @endif
+                            </td>
+                            <td>
+                                @if ($voucher->discount_type == 'fixed')
+                                {{ number_format($voucher->discount_value, 0, ',', '.') }}
                                 @elseif($voucher->discount_type == 'percentage')
-                                    %
+                                {{ $voucher->discount_value }}%
                                 @endif
                             </td>
                             <td>{{ $voucher->start_date }}</td>
@@ -90,6 +96,7 @@
                             </td>
 
                             <td>
+                                <a href="{{ route('discounts.show', $voucher->id) }}" class="btn btn-primary">Xem</a>
                                 <a href="{{ route('discounts.edit', $voucher->id) }}" class="btn btn-warning">Sửa</a>
                             </td>
                         </tr>

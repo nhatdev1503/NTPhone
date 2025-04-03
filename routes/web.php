@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\admin\AdminController;
@@ -13,10 +14,13 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\guest\GuestController;
 use App\Http\Controllers\guest\OrderLookupController;
 use App\Http\Controllers\customer\CustomerController;
+use App\Http\Controllers\admin\PostController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\staff\StaffController;
 use App\Http\Controllers\StorageController;
 use App\Models\Category;
@@ -115,6 +119,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     // //Quản lí Liên hệ
     Route::resource('contacts', ContactController::class);
+
+    // //Quản lí bài viết
+    Route::resource('posts', PostController::class);
+
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chats/{userId}', [ChatController::class, 'getChats']);
+    Route::get('/messages/{senderId}/{receiverId}', [ChatController::class, 'getMessages']);
+    Route::post('/send-message', [ChatController::class, 'sendMessage']);
 });
 
 //Route trang nhân viên
@@ -170,8 +182,28 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Route xử lý cập nhật thông tin profile (POST)
     Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
-        ->name('customer.profile.update');
+
+    ->name('customer.profile.update');
+    // Route giỏ hàng
+    Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
+    Route::post('/cart/update/{id}', [CustomerController::class, 'updateCartQuantity'])->name('customer.cart.update');
+    Route::delete('/cart/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
+    Route::post('/cart/update-variant', [CustomerController::class, 'updateCartVariant'])->name('customer.cart.updateVariant');
+    Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
+    Route::delete('/customer/cart/delete/{id}', [CustomerController::class, 'delete'])->name('customer.cart.delete');
+    // Ví dụ cho trang thông báo kết quả đơn hàng
+    Route::get('/order/success', function () {
+        return view('customer.order_success');
+    })->name('customer.order.success');
+    // Route::get('/order/vnpay', function () {
+    //     return view('customer.order_vnpay');
+    // })->name('customer.order.vnpay');
+    Route::get('/order/vnpay/callback', [CustomerController::class, 'vnpayCallback'])->name('customer.order.vnpay.callback');
+    Route::get('/order/success', function () {
+        return view('customer.order_success');
+    })->name('customer.order.success');
 });
+
 
 
 //Route trang khách vãng lai
@@ -196,7 +228,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
 });
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/chats', [ChatController::class, 'getChats']);
+    Route::get('/messages/{userId}', [ChatController::class, 'getMessages']);
+    Route::post('/send-message', [ChatController::class, 'sendMessage']);
+});
 //product_detail---------------------------------------------------------------------
 Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
 Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);

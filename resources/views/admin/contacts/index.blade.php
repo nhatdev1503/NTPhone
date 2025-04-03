@@ -16,7 +16,6 @@
     <table class="w-full border-collapse border border-gray-300">
         <thead>
             <tr class="bg-gray-100">
-                <th class="border p-2">Tên</th>
                 <th class="border p-2">Email</th>
                 <th class="border p-2">Số điện thoại</th>
                 <th class="border p-2">Địa chỉ</th>
@@ -27,7 +26,6 @@
         <tbody>
             @foreach ($contacts as $contact)
                 <tr class="border">
-                    <td class="p-2">{{ $contact->name }}</td>
                     <td class="p-2">{{ $contact->email }}</td>
                     <td class="p-2">{{ $contact->phone }}</td>
                     <td class="p-2">{{ $contact->address }}</td>
