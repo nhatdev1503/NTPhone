@@ -54,7 +54,6 @@ class CustomerController extends Controller
     public function warranty()
     {
         return view('customer.warranty');
-<<<<<<< HEAD
     }
     public function checkout(Request $request)
     {
@@ -62,10 +61,6 @@ class CustomerController extends Controller
             'product_variant_id' => 'required|integer|exists:product_variants,id',
             'action' => 'required|string',
         ]);
-=======
-    
-
->>>>>>> 21ff5b2a289a863821fbba493dd9f8894a4ecb76
         $productVariant = ProductVariant::find($data['product_variant_id']);
 
         if ($data['action'] == 'buy_now') {
@@ -528,31 +523,26 @@ class CustomerController extends Controller
         return view('customer.post_detail', compact('post', 'post_detail'));
     }
 
-    public function filterProducts(Request $request, String $id)
+    public function show($id)
     {
-        $category = Category::findOrFail($id);
+        $product = Product::with('images')->findOrFail($id);
 
-        $productsQuery = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
-            ->leftJoin('product_variants', function ($join) {
-                $join->on('products.id', '=', 'product_variants.product_id')
-                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
-            })
-            ->where('products.category_id', $id)
-            ->where('products.status', 'active');
+        // Kiểm tra nếu product có images, nếu không, gán một collection rỗng
+        $productImages = $product->images ?? collect();
 
-        if ($request->has('filter') && $request->filter != '') {
-            $priceRange = explode('-', $request->filter);
-            if (count($priceRange) == 2) {
-                $minPrice = (int) $priceRange[0];
-                $maxPrice = (int) $priceRange[1];
-                $productsQuery->whereBetween('product_variants.price', [$minPrice, $maxPrice]);
-            }
-        }
+        return view('customer.product_detail', compact('product', 'productImages'));
+    }
 
-        $products = $productsQuery->orderBy('products.priority', 'desc')->paginate(12);
+    public function getProductImages(Request $request)
+    {
+        $productId = $request->query('product_id');
 
-        $groupedProducts = $products->chunk(4);
+        $images = ProductImage::where('product_id', $productId)
+            ->pluck('mini_images'); // Lấy danh sách đường dẫn ảnh mini
 
-        return view('customer.filterByCategory', compact('category', 'products', 'groupedProducts'));
+        return response()->json([
+            'success' => true,
+            'images' => $images,
+        ]);
     }
 }
