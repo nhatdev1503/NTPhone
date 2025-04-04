@@ -11,20 +11,15 @@
                         <div class="owl-carousel slider-img owl-loaded owl-drag" id="slider-defaults">
                             <div class="owl-stage-outer">
                                 <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all;">
-
-                                    <div class="owl-item slidenumber1" style="width: 600px;">
-                                        <div class="item-img" data-thumb="{{ $product->image ?: 'https://via.placeholder.com/650' }}">
-                                            <img class="owl-lazy" alt="Product Image" data-src="{{ $product->image ?: 'https://via.placeholder.com/650' }}" width="650" height="650">
-                                        </div>
-                                    </div>
-
+                                    <div class="item-img"
+                                    data-thumb="https://cdn.tgdd.vn/Products/Images/44/289472/s16/mac-topzone-Recovered-1-200x200.png">
+                                    <img class="owl-lazy" title="MacBook Air 13 inch M2 8GPU M&#xE0;u B&#x1EA1;c"
+                                        alt="MacBook Air 13 inch M2 8GPU M&#xE0;u B&#x1EA1;c"
+                                        src="{{ asset($product->image) }}"
+                                        width="650" height="650">
+                                </div>
                                     {{-- Danh sách ảnh từ $productImages --}}
                                     @foreach ($productImages as $index => $image)
-                                    <div class="owl-item slidenumber{{ $index + 2 }}" style="width: 600px;">
-                                        <div class="item-img" data-thumb="{{ $image->mini_image ?: 'https://via.placeholder.com/650' }}">
-                                            <img class="owl-lazy" alt="Product Image" data-src="{{ $image->mini_image ?: 'https://via.placeholder.com/650' }}" width="650" height="650">
-                                        </div>
-                                    </div>
                                     @endforeach
 
                                 </div>
@@ -74,7 +69,7 @@
 
                 <div class="color-sp">
                     <span id="selected-color">
-                        Màu : {{ optional($variants->where('status', 'active')->first())->color ?? 'N/A' }}
+                        Màu : 
                     </span>
                     <ul>
                         @foreach ($variants->where('status', 'active') as $variant)
@@ -113,14 +108,14 @@
 
 
                         <div class="bs_time">
-                           
-                       
+                            <span>Kết thúc sau</span>
+                            <div id="clock_oltk" class="clockv2" data-time="2025/03/30 23:59:00" data-reload="1"><b>05</b><i>:</i><b>49</b><i>:</i><b>47</b></div>
                             <div class="bs_count">
                                 <img src="https://cdnv2.tgdd.vn/webmwg/2024/ContentMwg/images/fs-iconfire.png">
                                 <span>
                                     <i style="width:100%"></i>
                                     @foreach ($product->variants as $variant)
-                                    
+                                    <p><b>Còn {{ $variant->stock }}</b> - {{ $variant->color }} - {{ $variant->ssd }}</p>
                                     @endforeach
                                 </span>
                             </div>
@@ -133,6 +128,11 @@
                             </p>
                         </div>
                         <div class="loyalty">
+                            <div class="loyalty__main">
+                                <img data-src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/logo.png" class=" ls-is-cached lazyloaded" width="24" height="24" src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/logo.png">
+                                <p class="loyalty__main__point"><b>+61.980</b> điểm tích lũy Quà Tặng VIP</p>
+                                <img data-src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/question_mark.png" class="loyalty__main__ic-tooltip ls-is-cached lazyloaded" width="20" height="20" src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/question_mark.png">
+                            </div>
                             <ul class="loyalty__tooltip">
                                 <li>Đây là điểm tích lũy tạm tính khi mua sản phẩm này. Số điểm thực tế có thể thay đổi và sẽ được hiển thị chính xác sau khi Quý khách hoàn tất đặt hàng.</li>
                                 <li>Tải <b>app Quà Tặng VIP</b> để tích và sử dụng điểm cho khách hàng thân thiết. <a href="https://www.topzone.vn/tekzone/tat-tan-tat-thong-tin-ve-app-tich-diem-hoan-toan-moi-1480642" target="_blank">Tìm hiểu thêm</a></li>
@@ -141,7 +141,7 @@
                         <div class="bs_rule">
                             <ul>
                                 <li>Giao hàng nhanh chóng (tuỳ khu vực)</li>
-                             
+                                <li>Mỗi số điện thoại chỉ mua 3 sản phẩm trong 1 tháng</li>
                                 <li>Giá và khuyến mãi có thể kết thúc sớm</li>
                             </ul>
                         </div>
@@ -165,13 +165,18 @@
                     </div>
                 </div>
                 <ul class="policy">
-<!--                     
+                    <li>
+                        <span>
+                            <i class="topzone-boxtskt"></i>
+                            Bộ sản phẩm gồm: Chuột ( Magic Mouse ), Bàn phím ( Magic Keyboard ), Cáp chuyển ( Cáp USB-C thành Lightning ), Adapter sạc ( 143W ), Dây nguồn ( 2m ), Sách hướng dẫn
+                        </span>
+                    </li>
                     <li>
                         <span>
                             <i class="topzone-doitra"></i>
                             Hư gì đổi nấy <b>12 tháng</b> tại 3044 siêu thị trên toàn quốc <a href="https://www.topzone.vn/bao-hanh-doi-tra"> Xem chi tiết chính sách bảo hành, đổi trả </a>
                         </span>
-                    </li> -->
+                    </li>
                     <li>
                         <span>
                             <i class="topzone-baohanhpolicy"></i>
@@ -179,10 +184,10 @@
                         </span>
                     </li>
                     <li>
-                        <!-- <span>
+                        <span>
                             <i class="topzone-giaohang"></i>
                             Giao hàng nhanh toàn quốc <a href="/giao-hang">Xem chi tiết</a>
-                        </span> -->
+                        </span>
                     </li>
                     <li>
                         <span>
@@ -191,7 +196,7 @@
                         </span>
                     </li>
                 </ul>
-                <!-- <div class="pr-loyalty">
+                <div class="pr-loyalty">
                     <div class="qr-download">
                         <img data-src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/qr.png?v=1" class=" ls-is-cached lazyloaded" width="72" height="72" src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/qr.png?v=1">
                         <p>Quét để tải App</p>
@@ -211,7 +216,7 @@
                             <img data-src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/appstore.png" class=" ls-is-cached lazyloaded" width="136" height="40" src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/promote_loyalty/appstore.png">
                         </a>
                     </div>
-                </div> -->
+                </div>
             </aside>
         </div>
     </div>
@@ -226,15 +231,15 @@
         </div>
 
         <div id="description" class="tab-content active">
-           
-            
+            <h3>Mô tả sản phẩm</h3>
+            <p>{{ $product->description }}</p>
         </div>
         <div class="specifications tab-content" id="tab-2">
             <div class="box-specifi">
                 <a href="javascript:;" class="active" data-group-id="11608" data-index="1">
                     <h3>Bộ xử lý</h3>
                 </a>
-                <ul class="text-specifi active" data-index="1" >
+                <ul class="text-specifi active">
                     <li>
                         <aside>
                             <strong>Công nghệ CPU:</strong>
@@ -282,7 +287,7 @@
                 <a href="javascript:;" class="active" data-group-id="11609" data-index="2">
                     <h3>Bộ nhớ RAM, Ổ cứng</h3>
                 </a>
-                <ul class="text-specifi active" data-index="2" >
+                <ul class="text-specifi active">
                     <li>
                         <aside>
                             <strong>RAM:</strong>
@@ -318,7 +323,7 @@
                 <a href="javascript:;" class="" data-group-id="11610" data-index="3">
                     <h3>Màn hình</h3>
                 </a>
-                <ul class="text-specifi" data-index="3">
+                <ul class="text-specifi">
                     <li>
                         <aside>
                             <strong>Kích thước màn hình:</strong>
@@ -350,7 +355,7 @@
                 <a href="javascript:;" class="" data-group-id="11906" data-index="4">
                     <h3>Đồ họa và Âm thanh</h3>
                 </a>
-                <ul class="text-specifi" data-index="4">
+                <ul class="text-specifi">
                     <li>
                         <aside>
                             <strong>Thiết kế card:</strong>
@@ -382,7 +387,7 @@
                 <a href="javascript:;" class="" data-group-id="11612" data-index="9">
                     <h3>Cổng kết nối &amp; tính năng mở rộng</h3>
                 </a>
-                <ul class="text-specifi" data-index="9" >
+                <ul class="text-specifi">
                     <li>
                         <aside>
                             <strong>Cổng giao tiếp:</strong>
@@ -414,7 +419,7 @@
                 <a href="javascript:;" class="" data-group-id="11615" data-index="10">
                     <h3>Kích thước &amp; khối lượng</h3>
                 </a>
-                <ul class="text-specifi" data-index="10" >
+                <ul class="text-specifi">
                     <li>
                         <aside>
                             <strong>Kích thước, khối lượng:</strong>
@@ -430,7 +435,7 @@
                 <a href="javascript:;" class="" data-group-id="11907" data-index="11">
                     <h3>Thông tin khác</h3>
                 </a>
-                <ul class="text-specifi" data-index="11"  >
+                <ul class="text-specifi">
                     <li>
                         <aside>
                             <strong>Bộ nguồn điện:</strong>
@@ -465,7 +470,8 @@
                 <p></p>
                 <p></p>
                 <h3><strong>Nội dung về tính năng</strong></h3>
-                <p>{{ $product->description }}</p>
+                <p>Máy tính để bàn tất cả trong một cực đỉnh, nay siêu mạnh mẽ với chip M3. Với màn hình 24 inch tuyệt đẹp<sup>1</sup>&nbsp;trong một thiết kế mang tính biểu tượng cùng camera, micrô và loa chất lượng đỉnh cao.&nbsp;<a href="https://www.topzone.vn/imac" target="_blank" title="Tham khảo các mẫu iMac hiện đang kinh doanh tại Topzone.vn.">iMac</a>&nbsp;là lựa chọn hoàn hảo cho cả công việc và giải trí.</p>
+                <h3><strong>Pháp lý</strong></h3>
                 <p>Hiện có sẵn các lựa chọn để nâng cấp. Các màu iMac có sẵn tại cửa hàng có thể thay đổi.</p>
                 <p><sup>1</sup>Kích thước thật của màn hình theo đường chéo là 23.5 inch.</p>
                 <!-- Khảo sát -->
@@ -971,7 +977,7 @@
                     item.style.opacity = "1";
                 } else {
                     item.style.display = "none"; // Ẩn màu sắc nếu dung lượng không khớp
-                    item.style.pointerEvents = "none"; 
+                    item.style.pointerEvents = "none"; // Vô hiệu hóa click
                     item.style.opacity = "0.5";
                 }
             });
@@ -1001,18 +1007,13 @@
             event.currentTarget.classList.add("active");
 
             if (type === "capacity") {
-                
                 selectedStorage = event.currentTarget.dataset.storage;
                 updateAvailableColors(); // Cập nhật màu sắc khi thay đổi dung lượng
                 updateStorageInfo(); // Cập nhật thông tin dung lượng
                 document.getElementById("storage").value = selectedStorage; // Gán giá trị dung lượng vào input hidden
-                
             } else if (type === "color-sp") {
                 selectedColor = event.currentTarget.dataset.color;
-                document.getElementById("color").value = selectedColor; 
-                // Cập nhật nội dung thẻ span hiển thị màu sắc đã chọn
-document.getElementById("selected-color").textContent = "Màu: " + selectedColor;
-
+                document.getElementById("color").value = selectedColor; // Gán giá trị màu vào input hidden
             }
 
             updatePrice(); // Cập nhật giá sau khi chọn dung lượng hoặc màu sắc
@@ -1052,7 +1053,6 @@ document.getElementById("selected-color").textContent = "Màu: " + selectedColor
         updatePrice();
         updateStorageInfo(); // Cập nhật thông tin dung lượng ngay khi trang tải
     });
-    
 </script>
 
 //Slider mini
@@ -1210,33 +1210,7 @@ document.getElementById("selected-color").textContent = "Màu: " + selectedColor
     }
 </script>
 <script>
-    document.getElementById("colorVariant").style.backgroundColor = "#{{ ltrim($variant->hax_code, '#') }}";
-</script>
-
-
-<script>
-    // Lấy tất cả các thẻ <a> trong .specifications
-    const tabs = document.querySelectorAll('.specifications .box-specifi a');
-
-    // Lặp qua từng thẻ <a>
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Lấy data-index của thẻ <a> hiện tại
-            const index = this.getAttribute('data-index');
-
-            // Tìm thẻ <ul> tương ứng với data-index
-            const ul = document.querySelector(`.specifications .box-specifi ul[data-index="${index}"]`);
-
-            // Kiểm tra xem thẻ <ul> có lớp 'active' không
-            if (ul.classList.contains('active')) {
-                // Nếu có, loại bỏ lớp 'active' để ẩn thẻ <ul>
-                ul.classList.remove('active');
-            } else {
-                // Nếu không, thêm lớp 'active' để hiển thị thẻ <ul>
-                ul.classList.add('active');
-            }
-        });
-    });
+    document.getElementById("colorVariant").style.backgroundColor = "{{ ltrim($variant->hax_code) }}";
 </script>
 
 @include('layouts.customer.footer')

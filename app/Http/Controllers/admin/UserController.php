@@ -16,11 +16,6 @@ class UserController extends Controller
     {
         $query = User::query();
 
-        // Lọc theo vai trò
-        if ($request->has('role') && !empty($request->role)) {
-            $query->where('role', $request->role);
-        }
-
         // Lọc theo trạng thái
         if ($request->has('status') && !empty($request->status)) {
             $query->where('status', $request->status);

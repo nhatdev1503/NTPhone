@@ -48,14 +48,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="role" class="form-label">Vai trò</label>
-                <select class="form-control" id="role" name="role">
-                    <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Nhân viên</option>
-                    <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Khách hàng</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
                 <label for="status" class="form-label">Trạng thái</label>
                 <select class="form-control" id="status" name="status">
                     <option value="active" {{ old('status', 'active') == 'active' ? 'selected' : '' }}>Hoạt động</option>

@@ -139,24 +139,37 @@ class ProductController extends Controller
             }
         }
         // Lưu biến thể sản phẩm
-        if ($request->variants) {
-            foreach ($request->variants as $variant) {
-                $variant = json_decode($variant, true);
-                if($variant['origin_price'] != null &&
-                $variant['price'] != null &&
-                $variant['stock'] != null ){
-                    // Nếu không có ID, tạo mới
-                    ProductVariant::create([
-                        'product_id' => $product->id,
-                        'color' => $variant['color'],
-                        'hax_code' => $variant['hax_code'],
-                        'storage' => $variant['storage'],
-                        'origin_price' => $variant['origin_price'],
-                        'price' => $variant['price'],
-                        'stock' => $variant['stock'],
-                    ]);
+        try{
+            if ($request->variants) {
+                foreach ($request->variants as $variant) {
+                    $variant = json_decode($variant, true);
+                    if($variant['origin_price'] != null &&
+                    $variant['price'] != null &&
+                    $variant['stock'] != null ){
+                        // Nếu không có ID, tạo mới
+                        ProductVariant::create([
+                            'product_id' => $product->id,
+                            'color' => $variant['color'],
+                            'hax_code' => $variant['hax_code'],
+                            'storage' => $variant['storage'],
+                            'origin_price' => $variant['origin_price'],
+                            'price' => $variant['price'],
+                            'stock' => $variant['stock'],
+                        ]);
+                    }
                 }
             }
+        } catch(\Exception $e){
+            ProductVariant::create([
+                'product_id' => $product->id,
+                'color' => null,
+                'hax_code' => null,
+                'storage' => null,
+                'origin_price' => $product->base_price,
+                'price' => $product->sale_price,
+                'stock' => null,
+            ]);
+            return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công.');
         }
 
         return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công.');

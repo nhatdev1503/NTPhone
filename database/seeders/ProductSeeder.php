@@ -28,6 +28,7 @@ class ProductSeeder extends Seeder
                 'view'        => rand(100, 2000),
                 'sold'        => rand(1, 100),
                 'priority'        => rand(1, 10),
+                'have_variant'        => rand(0, 1),
                 'status' => $faker->randomElement($statuses),
             ]);
         }

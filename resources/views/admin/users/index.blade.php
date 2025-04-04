@@ -13,14 +13,6 @@
         <form action="{{ route('users.index') }}" method="GET" class="mb-3">
             <div class="row">
                 <div class="col-md-4">
-                    <select name="role" class="form-control">
-                        <option value="">-- Tất cả vai trò --</option>
-                        <option value="staff" {{ request('role') == 'staff' ? 'selected' : '' }}>Nhân viên</option>
-                        <option value="customer" {{ request('role') == 'customer' ? 'selected' : '' }}>Khách hàng</option>
-                        <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
                     <select name="status" class="form-control">
                         <option value="">-- Tất cả trạng thái --</option>
                         <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Hoạt động</option>
@@ -48,7 +40,6 @@
                     <th>ID</th>
                     <th>Họ và tên</th>
                     <th>Email</th>
-                    <th>Vai trò</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
                 </tr>
@@ -60,7 +51,6 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $user->fullname }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ ucfirst($user->role) }}</td>
                         <td>
                             <span class="badge {{ $user->status == 'active' ? 'bg-success' : 'bg-danger' }}">
                                 {{ $user->status == 'active' ? 'Hoạt động' : 'Ngừng hoạt động' }}

@@ -232,6 +232,7 @@ class CustomerController extends Controller
         // Lấy danh sách màu sắc có sẵn cho dung lượng được chọn
         $availableColors = ProductVariant::where('product_id', $productId)
             ->where('storage', $storage)
+            ->distinct() // Loại bỏ các giá trị trùng lặp
             ->pluck('color') // Lấy danh sách màu
             ->toArray();
 

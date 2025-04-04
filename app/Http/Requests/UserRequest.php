@@ -22,7 +22,6 @@ class UserRequest extends FormRequest
             'password' => $userId ? 'nullable|min:6|max:20' : 'required|min:6',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
-            'role' => 'required|in:staff,customer',
             'status' => 'required|in:active,inactive',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
@@ -46,8 +45,6 @@ class UserRequest extends FormRequest
             'password.max' => 'Mật khẩu có nhiều nhất 20 ký tự.',
             'address.required' => 'Vui lòng nhập địa chỉ.',
             'phone.required' => 'Vui lòng nhập số điện thoại.',
-            'role.required' => 'Vui lòng chọn vai trò.',
-            'role.in' => 'Vai trò không hợp lệ.',
             'status.required' => 'Vui lòng chọn trạng thái.',
             'status.in' => 'Trạng thái không hợp lệ.',
             'avatar.image' => 'Tệp tải lên phải là hình ảnh.',

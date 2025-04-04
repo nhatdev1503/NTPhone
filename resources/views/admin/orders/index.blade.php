@@ -74,7 +74,6 @@
                         <th class="text-center">Thanh toán</th>
                         <th class="text-center">Trạng thái đơn</th>
                         <th class="text-center">Ngày đặt</th>
-                        <th class="text-center">Người xác nhận</th>
                         <th class="text-center">Hành động</th>
                     </tr>
                 </thead>
@@ -129,7 +128,6 @@
                                 </span>
                             </td>
                             <td>{{ $order->created_at->format('d/m/Y') }}</td>
-                            <td>{{ $order->staff->fullname ?? 'Chưa có' }}</td>
                             <td>
                                 <a href="{{ route('orders.show', $order->id) }}" class="btn btn-primary btn-md">Xem</a>
                             </td>

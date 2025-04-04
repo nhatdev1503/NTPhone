@@ -25,6 +25,7 @@ class Product extends Model
         'sale_price',
         'sold',
         'priority',
+        'have_variant',
         'status'
     ];
 

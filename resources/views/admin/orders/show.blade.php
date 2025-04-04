@@ -139,7 +139,7 @@
                                 @if ($order->status == 'shipped') selected @endif>Đang giao hàng</option>
                             <option value="delivered" @if ($order->status != 'shipped') disabled @endif
                                 @if ($order->status == 'delivered') selected @endif>Đã giao hàng</option>
-                            <option value="cancelled" @if ($order->status == 'cancelled') disabled selected @endif>Hủy
+                            <option value="cancelled" @if ($order->status == 'cancelled' || $order->payment_status = 'paid') disabled @endif @if ($order->status == 'cancelled') selected @endif>Hủy
                             </option>
                         </select>
                         <!-- Textarea nhập lý do hủy -->
