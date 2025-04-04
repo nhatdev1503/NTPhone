@@ -156,8 +156,38 @@
                                 @endif
                             </div>
 
+                            <div class="mb-3">
+                                <label for="battery" class="form-label">Giá gốc</label>
+                                <input type="number" class="form-control" id="battery" name="base_price"
+                                    value="{{ old('base_price') }}">
+                                @if ($errors->has('base_price'))
+                                    <div class="validate_error">
+                                        {{ $errors->first('base_price') }}
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="battery" class="form-label">Giá giảm</label>
+                                <input type="text" class="form-control" id="battery" name="sale_price"
+                                    value="{{ old('sale_price') }}">
+                                @if ($errors->has('sale_price'))
+                                    <div class="validate_error">
+                                        {{ $errors->first('sale_price') }}
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="product_type" class="form-label">Loại sản phẩm</label>
+                                <select class="form-control" id="product_type" name="product_type">
+                                    <option value="single" selected>Sản phẩm đơn</option>
+                                    <option value="variant">Sản phẩm có biến thể</option>
+                                </select>
+                            </div>
+                            
                             <!-- Biến thể sản phẩm -->
-                            <div class="bg-white p-6 shadow-lg rounded-lg">
+                            <div id="variant-section" class="bg-white p-6 shadow-lg rounded-lg" style="display: none;">
                                 <h4 class="text-center text-lg font-semibold mb-4">Thêm biến thể</h4>
 
                                 <!-- Chọn màu sắc và dung lượng -->
@@ -212,6 +242,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const productTypeSelect = document.getElementById("product_type");
+            const variantSection = document.getElementById("variant-section");
+
+            productTypeSelect.addEventListener("change", function() {
+                if (this.value === "variant") {
+                    variantSection.style.display = "block";
+                } else {
+                    variantSection.style.display = "none";
+                }
+            });
+
             let variants = []; // Mảng lưu trữ biến thể
 
             // Xử lý khi nhấn "Đồng ý"

@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Http\Controllers\admin\AdminController;
@@ -81,6 +80,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/productvariants/{id}/edit', [ProductVariantController::class, 'edit'])->name('productvariants.edit');
     Route::put('/productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
     Route::put('/productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
+    Route::put('/priority/{product}', [ProductController::class, 'priority'])->name('products.priority');
 
     // //Router Danh muc Quyet //
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

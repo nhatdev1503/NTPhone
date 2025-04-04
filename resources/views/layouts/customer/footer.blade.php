@@ -69,7 +69,7 @@
                 </a>
             </li>
             <li>
-                <span>Về thương hiệu TopZone</span>
+                <span>Về thương hiệu NTPhone</span>
 
                 <a href="/tekzone/tat-tan-tat-thong-tin-ve-app-tich-diem-hoan-toan-moi-1480642#gioithieu"
                     class="color-link">

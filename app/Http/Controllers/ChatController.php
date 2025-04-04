@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
@@ -42,6 +43,8 @@ class ChatController extends Controller
             'receiver_id' => $request->receiver_id,
             'message' => $request->message,
         ]);
+
+        Log::info('Phát sự kiện MessageSent:', ['message' => $message]);
 
         broadcast(new \App\Events\MessageSent($message))->toOthers();
 

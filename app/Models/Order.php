@@ -47,7 +47,7 @@ class Order extends Model
 
     public function getTotalRevenueAttribute()
     {
-        return self::where('status', 'success')
+        return self::where('status', 'completed')
             ->where('payment_status', 'paid')
             ->sum('total_price');
     }

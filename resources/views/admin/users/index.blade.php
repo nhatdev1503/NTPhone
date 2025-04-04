@@ -39,7 +39,7 @@
             </div>
         @endif
         <div class="alert alert-info">
-            Hiển thị {{ $users->count() }} tài khoản trên tổng số {{ $users->total() }} tài khoản.
+            Hiển thị {{ $users->count()-1 }} tài khoản trên tổng số {{ $users->total()-1 }} tài khoản.
         </div>
         <!-- Bảng danh sách tài khoản -->
         <table class="table table-bordered">
@@ -55,6 +55,7 @@
             </thead>
             <tbody>
                 @foreach ($users as $index => $user)
+                @if ($user->role != 'admin')
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $user->fullname }}</td>
@@ -72,7 +73,6 @@
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">
                                 Sửa
                             </a>
-                            @if ($user->role != 'admin')
                                 <button type="button"
                                     class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
                                     data-bs-toggle="modal" data-bs-target="#confirmModal"
@@ -80,7 +80,7 @@
                                     onclick="setUserData(this)">
                                     {{ $user->status == 'active' ? 'Khóa' : '-Mở-' }}
                                 </button>
-                            @endif
+                    
                             <!-- Modal -->
                             <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
                                 aria-hidden="true">
@@ -108,6 +108,7 @@
                             </div>
                         </td>
                     </tr>
+                @endif
                 @endforeach
 
 

@@ -152,7 +152,7 @@
                         </div>
                         <div class="buy-sp twoprice">
                             <!-- Nút Mua Ngay -->
-                            <a href="javascript:void(0)" onclick="buyNow(3, '{{ $variant->id }}', 1)" class="btn-buy red full">
+                            <a href="javascript:void(0)" onclick="buyNow()" class="btn-buy red full">
                                 MUA NGAY GIÁ {{ number_format($variant->price, 0, '', '.') }}₫
                             </a>
 
@@ -167,11 +167,13 @@
                         </div>
 
                         <!-- Form gửi dữ liệu -->
-                        <form id="form-buy-now" method="POST" style="display: none;">
+                        <form action="{{ route('customer.postCart') }}" id="form-buy-now" method="POST" style="display: none;">
                             @csrf
-                            <input type="hidden" name="product_variant_id" id="product_variant_id">
+                            <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
 
-                            <input type="hidden" name="action" id="action">
+                            <input type="hidden" name="color" id="color">
+
+                            <input type="hidden" name="storage" id="storage">
                         </form>
 
                     </div>
@@ -1022,8 +1024,10 @@
                 selectedStorage = event.currentTarget.dataset.storage;
                 updateAvailableColors(); // Cập nhật màu sắc khi thay đổi dung lượng
                 updateStorageInfo(); // Cập nhật thông tin dung lượng
+                document.getElementById("storage").value = selectedStorage; // Gán giá trị dung lượng vào input hidden
             } else if (type === "color-sp") {
                 selectedColor = event.currentTarget.dataset.color;
+                document.getElementById("color").value = selectedColor; // Gán giá trị màu vào input hidden
             }
 
             updatePrice(); // Cập nhật giá sau khi chọn dung lượng hoặc màu sắc
@@ -1148,14 +1152,7 @@
 
 //Buy
 <script>
-    function buyNow(action, variantId) {
-        console.log('Action: ', action); // In ra hành động
-        console.log('Variant ID: ', variantId); // In ra id của product_variant
-
-        // Thực hiện gửi dữ liệu tới form
-        document.getElementById('product_variant_id').value = variantId;
-        document.getElementById('action').value = action;
-
+    function buyNow() {
         // Tự động submit form
         document.getElementById('form-buy-now').submit();
     }

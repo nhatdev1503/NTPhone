@@ -21,7 +21,8 @@ class Product extends Model
         'cpu',
         'ram',
         'battery',
-        'view',
+        'base_price',
+        'sale_price',
         'sold',
         'priority',
         'status'

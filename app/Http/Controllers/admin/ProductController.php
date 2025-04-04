@@ -122,13 +122,15 @@ class ProductController extends Controller
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'battery' => $request->battery,
+            'base_price' => $request->base_price,
+            'sale_price' => $request->sale_price,
         ]);
         // Lưu ảnh mini 
         if ($request->hasFile('mini_images')) {
             foreach ($request->file('mini_images') as $miniImage) {
                 $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
                 $miniImage->move($uploadPath, $miniImageName);
-                $miniImagePath = 'uploads/products/mini' . $miniImageName;
+                $miniImagePath = 'uploads/products/' . $miniImageName;
 
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -136,20 +138,24 @@ class ProductController extends Controller
                 ]);
             }
         }
-        dd($request->variants);
         // Lưu biến thể sản phẩm
         if ($request->variants) {
             foreach ($request->variants as $variant) {
                 $variant = json_decode($variant, true);
-                ProductVariant::create([
-                    'product_id' => $product->id,
-                    'color' => $variant['color'],
-                    'hax_code' => $variant['hax_code'],
-                    'storage' => $variant['storage'],
-                    'origin_price' => $variant['origin_price'],
-                    'price' => $variant['price'],
-                    'stock' => $variant['stock'],
-                ]);
+                if($variant['origin_price'] != null &&
+                $variant['price'] != null &&
+                $variant['stock'] != null ){
+                    // Nếu không có ID, tạo mới
+                    ProductVariant::create([
+                        'product_id' => $product->id,
+                        'color' => $variant['color'],
+                        'hax_code' => $variant['hax_code'],
+                        'storage' => $variant['storage'],
+                        'origin_price' => $variant['origin_price'],
+                        'price' => $variant['price'],
+                        'stock' => $variant['stock'],
+                    ]);
+                }
             }
         }
 
@@ -252,6 +258,8 @@ class ProductController extends Controller
             'cpu' => $request->cpu,
             'ram' => $request->ram,
             'battery' => $request->battery,
+            'base_price' => $request->base_price,
+            'sale_price' => $request->sale_price,
         ]);
         // Xóa ảnh mini cũ nếu được chọn
         if ($request->has('delete_mini_images')) {
@@ -332,6 +340,15 @@ class ProductController extends Controller
     {
         $product->update([
             'status' => $product->status === 'active' ? 'inactive' : 'active'
+        ]);
+        return redirect()->route('products.index')
+            ->with('success', 'Cập nhật thành công');
+    }
+    public function priority(Product $product)
+    {
+        $maxPriorirty = Product::max('priority');
+        $product->update([
+            'priority' => $maxPriorirty + 1
         ]);
         return redirect()->route('products.index')
             ->with('success', 'Cập nhật thành công');

@@ -75,6 +75,18 @@
                                         {{ $product->variants->sum('stock') }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>Giá gốc:</th>
+                                    <td class="">
+                                        {{ $product->base_price }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Giá giảm:</th>
+                                    <td class="fw-bold">
+                                        {{ $product->sale_price }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

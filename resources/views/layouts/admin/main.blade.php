@@ -9,8 +9,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -55,10 +53,6 @@
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-tag"></i>
           <a href="{{ route('discounts.index') }}">Quản lí khuyến mãi</a>
-        </li>
-        <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
-          <i class="lucide lucide-tag"></i>
-          <a href="{{ route('posts.index') }}">Quản lí bài viết</a>
         </li>
         <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
           <i class="lucide lucide-phone-call"></i>
@@ -116,7 +110,7 @@
   </div>
 
   <script>
-      const userId = @json(Auth::id());
+      const userId = {{ auth()->user()->id }};
       let selectedUser = null;
       let chatOpen = false;
 
@@ -157,6 +151,9 @@
                   div.innerHTML = `<span class="inline-block p-2 rounded ${msg.sender_id == userId ? 'bg-blue-500 text-white' : 'bg-gray-200'}">${msg.message}</span>`;
                   chatContent.appendChild(div);
               });
+
+              // Cuộn xuống tin nhắn mới nhất
+              chatContent.scrollTop = chatContent.scrollHeight;
           });
       }
 
@@ -174,17 +171,8 @@
               document.getElementById('message-input').value = '';
           });
       }
-
-      window.Echo.channel('chat.' + userId)
-          .listen('MessageSent', (event) => {
-              if (selectedUser == event.message.sender_id || selectedUser == event.message.receiver_id) {
-                  let div = document.createElement('div');
-                  div.classList.add('p-2', event.message.sender_id == userId ? 'text-right' : 'text-left');
-                  div.innerHTML = `<span class="inline-block p-2 rounded ${event.message.sender_id == userId ? 'bg-blue-500 text-white' : 'bg-gray-200'}">${event.message.message}</span>`;
-                  document.getElementById('chat-content').appendChild(div);
-              }
-          });
   </script>
+  @vite('resources/js/private.js')
       <!-- Page Content -->
       <div class="flex-1 p-8 bg-white rounded-lg shadow">
         @yield('content')

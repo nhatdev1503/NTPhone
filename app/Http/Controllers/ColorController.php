@@ -37,7 +37,8 @@ class ColorController extends Controller
                 'required',
                 'string',
                 'max:50',
-                'regex:/^[a-zA-ZÀ-Ỹà-ỹ\s]+$/u' // Chỉ chấp nhận chữ cái và khoảng trắng
+                'regex:/^[a-zA-ZÀ-Ỹà-ỹ\s]+$/u', // Chỉ chấp nhận chữ cái và khoảng trắng
+                'unique:colors,name', // Kiểm tra duy nhất trong bảng colors
             ],
         ], [
             'hax_code.required' => 'Mã màu là bắt buộc.',
@@ -47,7 +48,9 @@ class ColorController extends Controller
             'name.string' => 'Tên màu phải là chuỗi ký tự.',
             'name.max' => 'Tên màu không được vượt quá 50 ký tự.',
             'name.regex' => 'Tên màu chỉ được chứa chữ cái và khoảng trắng.',
+            'name.unique' => 'Tên màu đã tồn tại, vui lòng chọn tên khác.',
         ]);
+        
         
         Color::create([
             'name' => $request->name,

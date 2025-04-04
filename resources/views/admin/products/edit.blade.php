@@ -40,7 +40,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Mô tả</label>
-                                <textarea name="description" class="form-control" rows="3">{{ $product->description }}</textarea>
+                                <textarea name="description" class="form-control" rows="3">{{ old('description',$product->description)}}</textarea>
                                 @if ($errors->has('description'))
                                         <div class="validate_error" >
                                             {{ $errors->first('description') }}
@@ -86,44 +86,48 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Màn hình</label>
-                                <input type="text" name="screen" class="form-control" value="{{ $product->screen }}"
-                                    required>
+                                <input type="text" name="screen" class="form-control" value="{{ old('screen',$product->screen)}}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Hệ điều hành</label>
-                                <input type="text" name="os" class="form-control" value="{{ $product->os }}"
-                                    required>
+                                <input type="text" name="os" class="form-control" value="{{ old('os',$product->os)}}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Camera sau</label>
                                 <input type="text" name="rear_camera" class="form-control"
-                                    value="{{ $product->rear_camera }}" required>
+                                    value="{{ old('rear_camera',$product->rear_camera)}}" >
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Camera trước</label>
                                 <input type="text" name="front_camera" class="form-control"
-                                    value="{{ $product->front_camera }}" required>
+                                    value="{{ old('front_camera',$product->front_camera)}}" >
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Vi xử lý</label>
-                                <input type="text" name="cpu" class="form-control" value="{{ $product->cpu }}"
-                                    required>
+                                <input type="text" name="cpu" class="form-control" value="{{ old('cpu',$product->cpu)}}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">RAM</label>
-                                <input type="text" name="ram" class="form-control" value="{{ $product->ram }}"
-                                    required>
+                                <input type="text" name="ram" class="form-control" value="{{ old('ram',$product->ram)}}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Pin</label>
-                                <input type="text" name="battery" class="form-control" value="{{ $product->battery }}"
-                                    required>
+                                <input type="text" name="battery" class="form-control" value="{{ old('battery',$product->battery)}}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Giá gốc</label>
+                                <input type="text" name="base_price" class="form-control" value="{{ $product->base_price }}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Giá giảm</label>
+                                <input type="text" name="sale_price" class="form-control" value="{{ $product->sale_price }}">
                             </div>
                         </div>
                     </div>
@@ -246,6 +250,14 @@
 
 
                     <div class="text-end">
+                        <form action="{{ route('products.priority',$product->id) }}" method="POST"
+                            class="d-inline">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit"
+                                class="btn btn-dark mt-5">Ưu tiên lên đầu
+                            </button>
+                        </form>
                         <button type="submit" id="submit-button" class="btn btn-success mt-5">
                             <i class="fa fa-save"></i> Lưu thay đổi
                         </button>
