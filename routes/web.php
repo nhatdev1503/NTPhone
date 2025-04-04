@@ -176,34 +176,13 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
-    // Trang thông tin cá nhân (profile)
-    Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
-        ->name('customer.profile');
 
-    // Route xử lý cập nhật thông tin profile (POST)
-    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+    // Tìm kiếm
+    Route::get('/search', [CustomerController::class, 'search'])->name('customer.search');
 
-    ->name('customer.profile.update');
-    // Route giỏ hàng
-    Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
-    Route::post('/cart/update/{id}', [CustomerController::class, 'updateCartQuantity'])->name('customer.cart.update');
-    Route::delete('/cart/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
-    Route::post('/cart/update-variant', [CustomerController::class, 'updateCartVariant'])->name('customer.cart.updateVariant');
-    Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
-    Route::delete('/customer/cart/delete/{id}', [CustomerController::class, 'delete'])->name('customer.cart.delete');
-    // Ví dụ cho trang thông báo kết quả đơn hàng
-    Route::get('/order/success', function () {
-        return view('customer.order_success');
-    })->name('customer.order.success');
-    // Route::get('/order/vnpay', function () {
-    //     return view('customer.order_vnpay');
-    // })->name('customer.order.vnpay');
-    Route::get('/order/vnpay/callback', [CustomerController::class, 'vnpayCallback'])->name('customer.order.vnpay.callback');
-    Route::get('/order/success', function () {
-        return view('customer.order_success');
-    })->name('customer.order.success');
+    // Lọc sản phẩm theo giá
+    Route::get('/filter/categories/{id}', [CustomerController::class, 'filterProducts'])->name('customer.filter');
 });
-
 
 
 //Route trang khách vãng lai
