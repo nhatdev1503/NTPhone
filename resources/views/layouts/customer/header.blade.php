@@ -49,7 +49,13 @@
 
 
     <style>
-        
+          .specifications .box-specifi ul {
+      display: none;
+  }
+  .specifications .box-specifi ul.active {
+      display: block;
+  }
+
         /*rating*/
         .rating-comment {
     margin-top: 10px;
