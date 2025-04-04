@@ -166,7 +166,9 @@ class CustomerController extends Controller
 
         $variants = $product->variants ?? collect();
 
-        $colors = $variants->unique('color');
+        $colors = $variants->uniqueStrict('color');
+
+
 
         $storages = $variants->unique('storage');
 

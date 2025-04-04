@@ -48,8 +48,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
 
-    <style>
-        
+    <style> 
         /*rating*/
         .rating-comment {
     margin-top: 10px;
