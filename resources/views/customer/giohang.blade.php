@@ -49,7 +49,7 @@
                                     data-cart-id="{{ $cart->id }}">
                                     <td>
                                         <div class="product-cell">
-                                            <img src="{{ asset('storage/' . $cart->product_variant->product->image) }}"
+                                            <img src="{{ asset( $cart->product_variant->product->image) }}"
                                                 alt="{{ $cart->product_variant->product->name }}" class="product-image">
                                             <div class="product-details">
                                                 <span class="product-name">

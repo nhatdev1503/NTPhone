@@ -95,11 +95,11 @@
                                                 class="lazyload" alt="iPhone 16e 128GB" width=300 height=300>
                                         </div>
                                         <h3>{{ $product->name }}</h3>
-                                        {{-- <span class="box-price">
-                                            {{ number_format($product->price, 0, '', '.') }}&#x20AB;
-                                            <strike>{{ number_format($product->origin_price, 0, '', '.') }}&#x20AB;</strike>
-                                            <small>-{{ (int) str_replace(',', '', (100-($product->price/$product->base_price*100))) }}%</small>
-                                        </span> --}}
+                                        <span class="box-price">
+                                            {{ number_format($product->sale_price, 0, '', '.') }}&#x20AB;
+                                            <strike>{{ number_format($product->base_price, 0, '', '.') }}&#x20AB;</strike>
+                                            <small>-{{ (int) str_replace(',', '', (100-($product->sale_price/$product->base_price*100))) }}%</small>
+                                        </span>
                                         <p class="item-txt-online orange">Online gia&#x301; re&#x309; qu&#xE1;</p>
                                     </a>
                                 </div>
@@ -111,20 +111,10 @@
         </div>
 
         <div class="intro-topzone">
-            <div class="video-topzone">
-                <div class="warpper-video">
-                    <video width="854" controls muted loop playsinline>
-                        <source src="https://cdnv2.tgdd.vn/webmwg/2024/tz/video/Gt-Topzone.mp4" type="video/mp4">
-                    </video>
-                    <div class="gradient-bg"></div>
-                    <img class="logov-topzone" src="https://cdnv2.tgdd.vn/webmwg/2024/tz/images/logo-video.png?v=4">
-                </div>
-            </div>
             <p>
                 Tại NTPhone, khách hàng yêu mến hệ sinh thái Apple sẽ tìm thấy đầy đủ và đa dạng nhất các sản phẩm như
                 iPhone, iPad, Apple Watch, MacBook và các phụ kiện Apple... với không gian mua sắm đẳng cấp, hiện đại.
             </p>
-            <a href="/gioi-thieu" target="_blank">Đọc thêm</a>
         </div>
         <div class="policy">
             <ul class="pr-policy">

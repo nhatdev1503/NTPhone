@@ -499,7 +499,7 @@ class CustomerController extends Controller
             // Thanh toán thành công
             $order->update([
                 'payment_status' => 'paid',
-                'status' => 'processing'
+                'status' => 'pending'
             ]);
             return redirect()->route('customer.order.success')
                 ->with('success', 'Thanh toán VNPay thành công. Đơn hàng của bạn đang được xử lý.');
