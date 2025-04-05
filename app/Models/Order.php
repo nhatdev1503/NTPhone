@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderDetail;
 
 class Order extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'order_code',
         'user_id',
@@ -39,6 +41,7 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'staff_id');
     }
+    
 
     public function discount()
     {
