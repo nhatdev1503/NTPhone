@@ -149,6 +149,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
 
+    // Lọc giá sản phẩm theo danh mục
+    Route::get('/filter/categories/{id}', [CustomerController::class, 'filterProducts'])->name('customer.filter');
+
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
