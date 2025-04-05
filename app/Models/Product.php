@@ -23,6 +23,7 @@ class Product extends Model
         'battery',
         'base_price',
         'sale_price',
+        'view',
         'sold',
         'priority',
         'have_variant',
@@ -37,6 +38,10 @@ class Product extends Model
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);
+    }
+    public function one_variant()
+    {
+        return $this->hasOne(ProductVariant::class);
     }
     public function colors()
     {

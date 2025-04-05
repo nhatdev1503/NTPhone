@@ -132,7 +132,7 @@ class BannerController extends Controller
         $results[] = [
             'name' => $product->name,
             'url' => "/product_detail/{$product->id}",
-            'image' => $product->image
+            'image' => asset($product->image)
         ];
     }
     return response()->json($results);

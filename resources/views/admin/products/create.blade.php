@@ -180,12 +180,21 @@
 
                             <div class="mb-3">
                                 <label for="product_type" class="form-label">Loại sản phẩm</label>
-                                <select class="form-control" id="product_type" name="product_type">
-                                    <option value="single" selected>Sản phẩm đơn</option>
-                                    <option value="variant">Sản phẩm có biến thể</option>
+                                <select class="form-control" id="product_type" name="have_variant">
+                                    <option value="0" selected>Sản phẩm đơn</option>
+                                    <option value="1">Sản phẩm có biến thể</option>
                                 </select>
                             </div>
-                            
+                            <div class="mb-3">
+                                <label for="battery" class="form-label">Số lượng: </label>
+                                <input type="text" class="form-control" id="product_stock" name="stock"
+                                    value="{{ old('stock') }}">
+                                @if ($errors->has('stock'))
+                                    <div class="validate_error">
+                                        {{ $errors->first('stock') }}
+                                    </div>
+                                @endif
+                            </div>
                             <!-- Biến thể sản phẩm -->
                             <div id="variant-section" class="bg-white p-6 shadow-lg rounded-lg" style="display: none;">
                                 <h4 class="text-center text-lg font-semibold mb-4">Thêm biến thể</h4>
@@ -244,12 +253,15 @@
         document.addEventListener("DOMContentLoaded", function() {
             const productTypeSelect = document.getElementById("product_type");
             const variantSection = document.getElementById("variant-section");
+            const productStock = document.getElementById("product_stock");
 
             productTypeSelect.addEventListener("change", function() {
-                if (this.value === "variant") {
+                if (this.value === "1") {
                     variantSection.style.display = "block";
+                    productStock.style.display = "none";
                 } else {
                     variantSection.style.display = "none";
+                    productStock.style.display = "block";
                 }
             });
 
@@ -272,21 +284,19 @@
                     selectedStorages.forEach(storage => {
                         let hax_code = selectedHaxCode[index];
 
-                        let exists = variants.some(v => v.color === color && v.storage ===
-                            storage);
+                        let exists = variants.some(v => v.color === color && v.storage === storage);
                         if (!exists) {
                             variants.push({
                                 color,
                                 hax_code,
                                 storage,
-                                origin_price : 0,
-                                price : 0,
-                                stock : 0
+                                origin_price: "",
+                                price: "",
+                                stock: ""
                             });
                         }
                     });
                 });
-
 
                 renderVariantList();
             });
@@ -304,15 +314,16 @@
                     variantItem.dataset.index = index;
 
                     variantItem.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <span>${variant.color} | ${variant.storage}</span>
-                </div>
-                <div class="hidden mt-2 space-y-2 variant-inputs">
-                    <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá gốc" data-index="${index}" data-key="origin_price" value="${variant.origin_price}">
-                    <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá giảm" data-index="${index}" data-key="price" value="${variant.price}">
-                    <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Kho hàng" data-index="${index}" data-key="stock" value="${variant.stock}">
-                </div>
-            `;
+                    <div class="flex justify-between items-center">
+                        <span>${variant.color} | ${variant.storage}</span>
+                        <button type="button" class="remove-variant text-red-500">Xóa</button>
+                    </div>
+                    <div class="hidden mt-2 space-y-2 variant-inputs">
+                        <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá gốc" data-index="${index}" data-key="origin_price" value="${variant.origin_price}">
+                        <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Giá giảm" data-index="${index}" data-key="price" value="${variant.price}">
+                        <input type="number" class="block w-full p-2 border rounded variant-input" placeholder="Kho hàng" data-index="${index}" data-key="stock" value="${variant.stock}">
+                    </div>
+                `;
                     variantList.appendChild(variantItem);
                 });
 
@@ -345,9 +356,16 @@
                     let key = e.target.dataset.key;
                     let value = e.target.value;
 
+                    if (key === "origin_price" || key === "price" || key === "stock") {
+                        if (value < 0) {
+                            alert("Giá gốc, giá giảm và kho hàng không được phép âm!");
+                            e.target.value = "";
+                            return;
+                        }
+                    }
+
                     if (variants[index]) {
                         variants[index][key] = value;
-
                     }
 
                     updateHiddenInputs();
@@ -359,6 +377,10 @@
                 hiddenInputsContainer.innerHTML = "";
 
                 variants.forEach(variant => {
+                    if (variant.origin_price === "" && variant.price === "" && variant.stock === "") {
+                        return; // Không lưu biến thể chưa nhập gì
+                    }
+
                     let input = document.createElement("input");
                     input.type = "hidden";
                     input.name = "variants[]";
@@ -366,26 +388,34 @@
                     hiddenInputsContainer.appendChild(input);
                 });
             }
-        });
 
-        document.querySelector("form").addEventListener("submit", function(event) {
-            // Kiểm tra và xóa biến thể không hợp lệ (có giá trị 0 cho tất cả các trường)
-            variants = variants.filter(variant => {
-                // Giải mã JSON nếu cần và kiểm tra các trường giá trị
-                variant = JSON.parse(variant);
+            document.querySelector("form").addEventListener("submit", function(event) {
+                if (productTypeSelect.value === "1" && variants.length === 0) {
+                    event.preventDefault();
+                    alert("Vui lòng tạo ít nhất một biến thể trước khi thêm mới!");
+                    return;
+                }
 
-                // Kiểm tra xem tất cả các trường có giá trị 0 hay không
-                return !(variant.origin_price === 0 && variant.price === 0 && variant.stock === 0);
+                variants = variants.filter(variant => {
+                    return !(variant.origin_price === "" && variant.price === "" && variant.stock === "");
+                });
+
+                if (variants.length === 1) {
+                    const variant = variants[0];
+                    if (variant.origin_price === "" && variant.price === "" && variant.stock === "") {
+                        event.preventDefault();
+                        alert("Biến thể duy nhất không được để trống tất cả các giá trị!");
+                        return;
+                    }
+                }
+
+                if (variants.length === 0 && productTypeSelect.value === "1") {
+                    event.preventDefault();
+                    alert("Vui lòng nhập thông tin cho ít nhất một biến thể hợp lệ!");
+                }
+
+                updateHiddenInputs();
             });
-
-            // Nếu không còn biến thể hợp lệ nào, ngừng gửi form
-            if (variants.length === 0) {
-                event.preventDefault();  // Ngừng gửi form nếu không có biến thể hợp lệ
-                alert("Vui lòng tạo ít nhất một biến thể hợp lệ trước khi thêm mới!");
-            }
-
-            // Cập nhật các input ẩn với dữ liệu hợp lệ
-            updateHiddenInputs();
         });
     </script>
 @endsection

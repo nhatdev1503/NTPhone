@@ -80,6 +80,7 @@
                                 <th>Ram</th>
                                 <th>Pin</th>
                                 <th>CPU</th>
+                                <th>Sản phẩm</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
@@ -98,6 +99,7 @@
                                     <td>{{ $product->ram }}</td>
                                     <td>{{ $product->battery }}</td>
                                     <td>{{ $product->cpu }}</td>
+                                    <td>{{ $product->have_variant == 1 ? 'Biến thể' : 'Đơn' }}</td>
                                     <td>
                                         @if ($product->status == 'active' && $product->category->status == 'active')
                                             <span class="badge bg-success">Hoạt động</span>
