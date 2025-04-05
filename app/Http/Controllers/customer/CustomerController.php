@@ -86,29 +86,48 @@ class CustomerController extends Controller
     }
 
     public function product_detail($id)
+
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
+
         $hasPurchased = DB::table('orders')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->where('orders.user_id', auth()->id())
             ->where('order_items.product_variant_id', $id)
             ->exists();
+
         $ratings = Rating::where('product_id', $id)
             ->join('users', 'ratings.user_id', '=', 'users.id')
             ->select('users.fullname', 'ratings.review', 'ratings.rating', 'ratings.created_at')
             ->get();
+    
+        // Lấy danh sách biến thể
         $variants = $product->variants ?? collect();
-        $colors = $variants->uniqueStrict('color');
+    
+        // Nhóm các biến thể theo màu sắc và giữ lại các thông tin bổ sung như giá
+        $colors = $variants->groupBy('color')->map(function ($group) {
+            return [
+                'color' => $group->first()->color,
+                'variants' => $group,  // Tất cả các biến thể với màu sắc này
+                'prices' => $group->pluck('price')->unique() // Lấy các giá khác nhau
+            ];
+        });
+    
+        // Lấy các biến thể bộ nhớ (storage) duy nhất
         $storages = $variants->unique('storage');
+    
+        // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $id)
             ->limit(6)
             ->get();
+
         $productImages = $product->images ?? collect();
+
         return view('customer.product_detail', compact(
             'product',
             'variants',
-            'colors',
+            'colors', // Truyền các màu sắc đã nhóm
             'storages',
             'relatedProducts',
             'productImages',
@@ -116,7 +135,7 @@ class CustomerController extends Controller
             'hasPurchased'
         ));
     }
-
+    
     public function getPrice(Request $request)
     {
         $productId = $request->query('product_id');
@@ -452,5 +471,6 @@ class CustomerController extends Controller
             'success' => true,
             'images' => $images,
         ]);
+
     }
 }

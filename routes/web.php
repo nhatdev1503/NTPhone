@@ -150,7 +150,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
 
     // Product detail
-    // Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
+    Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
         ->name('customer.product_detail');
     //rating
@@ -239,4 +239,5 @@ Route::middleware('auth')->group(function () {
 //product_detail---------------------------------------------------------------------
 Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
 Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
-Route::get('/api/get-price', [CustomerController::class, 'getPrice']);
+Route::get('/api/get-price', [CustomerController::class, 'getPrice'])->name('customer.getPrice');
+

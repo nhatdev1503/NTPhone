@@ -235,7 +235,19 @@
 
 
 
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1742954225872">
+<link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/ajaxcart.scss.css?1742954225872">
+<link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
 
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script>
         $(document).ready(function($) {
