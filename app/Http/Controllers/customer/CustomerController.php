@@ -127,7 +127,8 @@ class CustomerController extends Controller
 
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
-
+        $categoryId = $product->category_id;  
+        $products = Product::orderBy('priority', 'desc')->take(6)->get();
         $hasPurchased = DB::table('orders')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->where('orders.user_id', auth()->id())
@@ -156,16 +157,18 @@ class CustomerController extends Controller
     
         // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
-            ->where('id', '!=', $id)
-            ->limit(6)
-            ->get();
+        ->where('id', '!=', $id)
+        ->limit(6)
+        ->get();
 
         $productImages = $product->images ?? collect();
 
         return view('customer.product_detail', compact(
             'product',
             'variants',
-            'colors', // Truyền các màu sắc đã nhóm
+            'products',
+            'colors', 
+            'categoryId',
             'storages',
             'relatedProducts',
             'productImages',

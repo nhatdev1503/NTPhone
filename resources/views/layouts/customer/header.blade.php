@@ -64,6 +64,8 @@
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
     <script>
         var Bizweb = Bizweb || {};
         Bizweb.store = 'hoangkien.mysapo.net';
@@ -207,6 +209,7 @@
         }
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
+    
 </head>
 <body>
     <div class="opacity_menu"></div>
