@@ -1,5 +1,5 @@
 @include('layouts.customer.header')
-<div class="bodywrap" style="background-color: white;">
+<div class="bodywrap" style="background-color: white;"
 
 	<section class="bread-crumb">
 		<div class="container">
@@ -838,7 +838,7 @@
                                 <h3 class="product-name"><a class="line-clamp line-clamp-2" href="{{ url('product/' . $product->image) }}" title="{{ $product->name }}">{{ $product->name }}</a></h3>
                                 <div class="price-box">
                                     {{ number_format($product->sale_price) }}₫
-                                </div>
+                               </div>
                             </div>
                         </form>
                     </div>
@@ -1667,6 +1667,88 @@
 			lazy: true,
 			hashNavigation: true,
 			effect: 'fade',
+			thumbs: {
+				swiper: galleryThumbs
+			}
+		});
+		var swiper = new Swiper('.product-relate-swiper', {
+			slidesPerColumnFill: 'row',
+			direction: 'horizontal',
+			slidesPerView: 4,
+			spaceBetween: 20,
+			slidesPerGroup: 1,
+			slidesPerColumn: 1,
+			navigation: {
+				nextEl: '.product-relate-swiper .swiper-button-next',
+				prevEl: '.product-relate-swiper .swiper-button-prev',
+			},
+			breakpoints: {
+				280: {
+					slidesPerView: 2,
+					spaceBetween: 15
+				},
+				640: {
+					slidesPerView: 2,
+					spaceBetween: 15
+				},
+				768: {
+					slidesPerView: 3,
+					spaceBetween: 15
+				},
+				992: {
+					slidesPerView: 4,
+					spaceBetween: 15
+				},
+				1024: {
+					slidesPerView: 5,
+					spaceBetween: 20
+				}
+			}
+		});
+
+		$(document).ready(function() {
+			$("#lightgallery").lightGallery({
+				thumbnail: false
+			});
+		});
+	</script>
+	<script>
+
+	</script>
+	<script>
+		$(document).on('click', '.js-copy', function(e) {
+			e.preventDefault();
+			var copyText = $(this).attr('data-copy');
+			var copyTextarea = document.createElement("textarea");
+			copyTextarea.textContent = copyText;
+			copyTextarea.style.position = "fixed";
+			document.body.appendChild(copyTextarea);
+			copyTextarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(copyTextarea);
+			var cur_text = $(this).text();
+			var $cur_btn = $(this);
+			$(this).addClass("iscopied");
+			$(this).text("Đã lưu");
+			setTimeout(function() {
+				$cur_btn.removeClass("iscopied");
+				$cur_btn.text(cur_text);
+			}, 1500)
+		})
+	</script>
+
+
+
+	<script>
+		setTimeout(function() {
+			galleryTop.slideTo(0);
+		}, 1000);
+	</script>
+
+</div>
+
+@include('layouts.customer.footer')
+e',
 			thumbs: {
 				swiper: galleryThumbs
 			}
