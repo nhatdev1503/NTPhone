@@ -243,4 +243,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
 Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
 Route::get('/api/get-price', [CustomerController::class, 'getPrice'])->name('customer.getPrice');
+Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class, 'getRevenue']);
+Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
 
