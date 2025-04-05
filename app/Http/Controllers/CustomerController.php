@@ -253,7 +253,7 @@ class CustomerController extends Controller
             ->where('product_variant_id', $product_variant_id)
             ->first();
         if ($cartItem) {
-            $cartItem->quantity += 1;
+            $cartItem->quantity += $data['quantity'];
             $cartItem->save();
         } else {
             Cart::create([

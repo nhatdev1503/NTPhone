@@ -327,7 +327,7 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a title="Tra cứu đơn hàng" href="/apps/kiem-tra-don-hang" class="button-wishlist">
+                        <a title="Tra cứu đơn hàng" href="{{ route('customer.order.history') }}" class="button-wishlist">
                             Tra cứu<span>đơn hàng</span>
                         </a>
                     </div>

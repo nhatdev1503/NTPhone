@@ -205,7 +205,7 @@
                                                                     @else
                                                                         <div>Không có</div>
                                                                     @endif
-                                                                    <div><strong>Kho hàng:</strong> {{ $item->productVariant->storage ?? 'Không có' }}</div>
+                                                                    <div><strong>Dung lượng:</strong> {{ $item->productVariant->storage ?? 'Không có' }}</div>
                                                                 </td>
                                                                 <td>{{ number_format($item->price, 0, ',', '.') }}đ</td>
                                                                 <td>{{ $item->quantity }}</td>

@@ -80,13 +80,13 @@
                                 <tr>
                                     <th>Giá gốc:</th>
                                     <td class="">
-                                        {{ $product->base_price }}
+                                        {{ number_format($product->base_price, 0, ',', '.') }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Giá giảm:</th>
                                     <td class="fw-bold">
-                                        {{ $product->sale_price }}
+                                        {{ number_format($product->sale_price, 0, ',', '.') }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -168,10 +168,10 @@
                                             {{ $variant->storage }}
                                         </td>
                                         <td>
-                                            {{ $variant->origin_price }}
+                                            {{ number_format($variant->origin_price, 0, ',', '.') }}
                                         </td>
                                         <td>
-                                            {{ $variant->price }}
+                                            {{ number_format($variant->price, 0, ',', '.') }}
                                         </td>
                                         <td>
                                             {{ $variant->stock }}
