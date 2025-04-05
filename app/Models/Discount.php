@@ -9,14 +9,26 @@ class Discount extends Model
 {
     use HasFactory;
 
+    protected $table = 'discounts';
+
     protected $fillable = [
         'code',
         'discount_type',
-        'max_discount_value',
         'discount_value',
+        'max_discount_value',
         'min_order_value',
         'start_date',
-        'expiration_date'
+        'expiration_date',
+    ];
+
+    protected $casts = [
+        'discount_type' => 'string',
+        'discount_value' => 'decimal:2',
+        'max_discount_value' => 'integer',
+        'min_order_value' => 'integer',
+        'start_date' => 'date',
+        'expiration_date' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 }
-

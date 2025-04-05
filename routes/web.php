@@ -183,7 +183,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // Route xử lý cập nhật thông tin profile (POST)
     Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
 
-    ->name('customer.profile.update');
+        ->name('customer.profile.update');
     // Route giỏ hàng
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
     Route::post('/cart/update/{id}', [CustomerController::class, 'updateCartQuantity'])->name('customer.cart.update');
@@ -203,6 +203,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
         return view('customer.order_success');
     })->name('customer.order.success');
 });
+
+
+
 
 
 
