@@ -141,52 +141,53 @@ class CustomerController extends Controller
     public function contact()
     {
         return view('customer.contact');
-    }
-    public function product_detail($id)
+    }public function product_detail($id)
     {
         // Lấy sản phẩm theo ID
         $product = Product::with('variants', 'images')->findOrFail($id);
-
-
+    
+        // Kiểm tra xem người dùng đã mua sản phẩm này chưa
         $hasPurchased = DB::table('orders')
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')  // Kết nối với bảng order_items
-            ->where('orders.user_id', auth()->id())  // Kiểm tra user_id của người dùng đang đăng nhập
-            ->where('order_items.product_variant_id', $id)  // Kiểm tra sản phẩm đã mua (sử dụng product_variant_id thay vì product_id)
+            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->where('orders.user_id', auth()->id())
+            ->where('order_items.product_variant_id', $id)
             ->exists();
-
-
+    
         // Lấy danh sách đánh giá của sản phẩm
         $ratings = Rating::where('product_id', $id)
             ->join('users', 'ratings.user_id', '=', 'users.id')
             ->select('users.fullname', 'ratings.review', 'ratings.rating', 'ratings.created_at')
             ->get();
-
-
-        // Lấy danh sách biến thể (RAM, SSD, màu sắc)
-
+    
+        // Lấy danh sách biến thể
         $variants = $product->variants ?? collect();
-
-        $colors = $variants->uniqueStrict('color');
-
-
-
+    
+        // Nhóm các biến thể theo màu sắc và giữ lại các thông tin bổ sung như giá
+        $colors = $variants->groupBy('color')->map(function ($group) {
+            return [
+                'color' => $group->first()->color,
+                'variants' => $group,  // Tất cả các biến thể với màu sắc này
+                'prices' => $group->pluck('price')->unique() // Lấy các giá khác nhau
+            ];
+        });
+    
+        // Lấy các biến thể bộ nhớ (storage) duy nhất
         $storages = $variants->unique('storage');
-
+    
         // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
-
             ->where('id', '!=', $id)
             ->limit(6)
             ->get();
-
-        // Lấy danh sách ảnh
+    
+        // Lấy danh sách ảnh sản phẩm
         $productImages = $product->images ?? collect();
-
-        // Truyền các biến vào view, bao gồm thông tin sản phẩm, biến thể, và thông tin đã mua
+    
+        // Truyền các biến vào view
         return view('customer.product_detail', compact(
             'product',
             'variants',
-            'colors',
+            'colors', // Truyền các màu sắc đã nhóm
             'storages',
             'relatedProducts',
             'productImages',
@@ -194,7 +195,7 @@ class CustomerController extends Controller
             'hasPurchased'
         ));
     }
-
+    
     public function getPrice(Request $request)
     {
         $productId = $request->query('product_id');
@@ -526,26 +527,26 @@ class CustomerController extends Controller
         return view('customer.post_detail', compact('post', 'post_detail'));
     }
 
-    public function show($id)
-    {
-        $product = Product::with('images')->findOrFail($id);
+        public function show($id)
+        {
+            $product = Product::with('images')->findOrFail($id);
 
-        // Kiểm tra nếu product có images, nếu không, gán một collection rỗng
-        $productImages = $product->images ?? collect();
+            // Kiểm tra nếu product có images, nếu không, gán một collection rỗng
+            $productImages = $product->images ?? collect();
 
-        return view('customer.product_detail', compact('product', 'productImages'));
+            return view('customer.product_detail', compact('product', 'productImages'));
+        }
+
+        public function getProductImages(Request $request)
+        {
+            $productId = $request->query('product_id');
+
+            $images = ProductImage::where('product_id', $productId)
+                ->pluck('mini_images'); // Lấy danh sách đường dẫn ảnh mini
+
+            return response()->json([
+                'success' => true,
+                'images' => $images,
+            ]);
+        }
     }
-
-    public function getProductImages(Request $request)
-    {
-        $productId = $request->query('product_id');
-
-        $images = ProductImage::where('product_id', $productId)
-            ->pluck('mini_images'); // Lấy danh sách đường dẫn ảnh mini
-
-        return response()->json([
-            'success' => true,
-            'images' => $images,
-        ]);
-    }
-}
