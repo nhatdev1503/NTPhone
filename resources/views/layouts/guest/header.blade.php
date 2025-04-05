@@ -220,7 +220,7 @@
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
-                            src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872"
+                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
                             alt="Hoàng Kiên">
                     </picture>
                 </a>

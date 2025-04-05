@@ -143,6 +143,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/payment', [CustomerController::class, 'postPayment'])->name('customer.postPayment');
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
     Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
+    Route::get('/buynow', [CustomerController::class, 'buynow'])->name('customer.buynow');
 
 
 

@@ -24,46 +24,32 @@
                         </thead>
                         <tbody>
                             @php $subTotal = 0; @endphp
-                            @foreach ($carts as $cart)
-                                @php
-                                    $price = $cart->product_variant->price;
-                                    $itemSubTotal = $price * $cart->quantity;
-                                    $subTotal += $itemSubTotal;
-                                    $variants = \App\Models\ProductVariant::where(
-                                        'product_id',
-                                        $cart->product_variant->product_id,
-                                    )
-                                        ->where('status', 'active')
-                                        ->get();
-                                    $colors = $variants->pluck('color')->unique();
-                                    $storages = $variants->pluck('storage')->unique();
-                                @endphp
                                 <tr class="cart-item" data-price="{{ $price }}"
-                                    data-cart-id="{{ $cart->id }}"
-                                    data-default-color="{{ $cart->product_variant->color }}"
-                                    data-default-storage="{{ $cart->product_variant->storage }}">
+                                    data-cart-id=""
+                                    data-default-color="{{ $product_variant->color }}"
+                                    data-default-storage="{{ $product_variant->storage }}">
                                     <td>
                                         <div class="product-cell">
-                                            <img src="{{ asset($cart->product_variant->product->image) }}"
-                                                alt="{{ $cart->product_variant->product->name }}" class="product-image">
+                                            <img src="{{ asset($product_variant->product->image) }}"
+                                                alt="{{ $product_variant->product->name }}" class="product-image">
                                             <div class="product-details">
                                                 <span class="product-name">
-                                                    {{ $cart->product_variant->product->name ?? 'Sản phẩm không tồn tại' }}
+                                                    {{ $product_variant->product->name ?? 'Sản phẩm không tồn tại' }}
                                                 </span>
                                                 <div class="variant-info">
                                                     @if ($colors->count() <= 1 && $storages->count() <= 1)
                                                         <span class="variant-static">
-                                                            {{ $cart->product_variant->color }} -
-                                                            {{ $cart->product_variant->storage }}
+                                                            {{ $product_variant->color }} -
+                                                            {{ $product_variant->storage }}
                                                         </span>
                                                     @else
                                                         <div class="variant-selectors">
                                                             @if ($colors->count() > 1)
                                                                 <select class="variant-color"
-                                                                    data-cart-id="{{ $cart->id }}">
+                                                                    data-cart-id="">
                                                                     @foreach ($colors as $color)
                                                                         <option value="{{ $color }}"
-                                                                            {{ $cart->product_variant->color == $color ? 'selected' : '' }}>
+                                                                            {{ $product_variant->color == $color ? 'selected' : '' }}>
                                                                             {{ $color }}
                                                                         </option>
                                                                     @endforeach
@@ -71,10 +57,10 @@
                                                             @endif
                                                             @if ($storages->count() > 1)
                                                                 <select class="variant-storage"
-                                                                    data-cart-id="{{ $cart->id }}">
+                                                                    data-cart-id="">
                                                                     @foreach ($storages as $storage)
                                                                         <option value="{{ $storage }}"
-                                                                            {{ $cart->product_variant->storage == $storage ? 'selected' : '' }}>
+                                                                            {{ $product_variant->storage == $storage ? 'selected' : '' }}>
                                                                             {{ $storage }}
                                                                         </option>
                                                                     @endforeach
@@ -86,7 +72,7 @@
                                                         </div>
                                                     @endif
                                                     <button type="button" class="btn-delete"
-                                                        data-cart-id="{{ $cart->id }}" title="Xóa">
+                                                        data-cart-id="" title="Xóa">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </div>
@@ -96,12 +82,12 @@
                                     <td class="price-cell">
                                         <div class="quantity-control">
                                             <button type="button" class="btn-decrease"
-                                                data-cart-id="{{ $cart->id }}">-</button>
-                                            <input type="number" name="quantities[{{ $cart->id }}]"
-                                                value="{{ $cart->quantity }}" min="1" max="5"
-                                                class="qty-input" data-cart-id="{{ $cart->id }}">
+                                                data-cart-id="">-</button>
+                                            <input type="number" name="quantities[]"
+                                                value="" min="1" max="5"
+                                                class="qty-input" data-cart-id="">
                                             <button type="button" class="btn-increase"
-                                                data-cart-id="{{ $cart->id }}">+</button>
+                                                data-cart-id="">+</button>
                                         </div>
                                         <div class="price">
                                             {{ number_format($price, 0, ',', '.') }}₫
@@ -115,7 +101,6 @@
                                             class="item-checkbox">
                                     </td>
                                 </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>

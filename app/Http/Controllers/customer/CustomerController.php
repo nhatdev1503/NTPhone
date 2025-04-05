@@ -23,7 +23,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $banners = \App\Models\Banner::where('status', 'active')->get();
+        $banner = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
 
         $featuredProducts = Product::where('status', 'active')
@@ -32,13 +32,11 @@ class CustomerController extends Controller
                             ->limit(8)
                             ->get();
 
-        $bestSellingProducts = Product::orderBy('sold', 'desc')
-                            ->where('products.status', 'active')
-                            ->orderBy('products.priority', 'desc')
+        $bestSellingProducts = Product::orderBy('id', 'desc')
                             ->limit(8)
                             ->get();
 
-        return view('customer.index', compact('banners', 'categories', 'featuredProducts', 'bestSellingProducts'));
+        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts'));
     }
 
     public function categories(string $id)
@@ -127,7 +125,8 @@ class CustomerController extends Controller
 
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
-
+        $categoryId = $product->category_id;  
+        $products = Product::orderBy('priority', 'desc')->take(6)->get();
         $hasPurchased = DB::table('orders')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->where('orders.user_id', auth()->id())
@@ -156,16 +155,18 @@ class CustomerController extends Controller
     
         // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
-            ->where('id', '!=', $id)
-            ->limit(6)
-            ->get();
+        ->where('id', '!=', $id)
+        ->limit(6)
+        ->get();
 
         $productImages = $product->images ?? collect();
 
         return view('customer.product_detail', compact(
             'product',
             'variants',
-            'colors', // Truyền các màu sắc đã nhóm
+            'products',
+            'colors', 
+            'categoryId',
             'storages',
             'relatedProducts',
             'productImages',
@@ -225,7 +226,16 @@ class CustomerController extends Controller
         $voucherSession = session('voucher');
         return view('customer.shopcart', compact('carts', 'activeVouchers', 'voucherSession'));
     }
-
+    public function buynow()
+    {
+        $user = Auth::user();
+        $product_variant = ProductVariant::findOrFail(request('product_variant_id'));
+        $activeVouchers = Discount::where('start_date', '<=', now())
+            ->where('expiration_date', '>=', now())
+            ->get();
+        $voucherSession = session('voucher');
+        return view('customer.buynow', compact('product_variant', 'activeVouchers', 'voucherSession'));
+    }
     public function payment()
     {
         return redirect()->back()->with('success', 'Thêm màu sắc thành công!');
@@ -243,7 +253,7 @@ class CustomerController extends Controller
             ->where('product_variant_id', $product_variant_id)
             ->first();
         if ($cartItem) {
-            $cartItem->quantity += 1;
+            $cartItem->quantity += $data['quantity'];
             $cartItem->save();
         } else {
             Cart::create([

@@ -64,6 +64,8 @@
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
     <script>
         var Bizweb = Bizweb || {};
         Bizweb.store = 'hoangkien.mysapo.net';
@@ -207,6 +209,7 @@
         }
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
+    
 </head>
 <body>
     <div class="opacity_menu"></div>
@@ -230,7 +233,7 @@
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
-                            src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872"
+                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
                             alt="Hoàng Kiên">
                     </picture>
                 </a>
@@ -317,21 +320,6 @@
                 <div class="header-control d-none d-lg-flex">
                     <div class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-geo-alt" viewBox="0 0 16 16">
-                            <path
-                                d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                    </div>
-                    <div class="content">
-                        <a title="Hệ thống cửa hàng" href="/he-thong-cua-hang-hoang-kien" class="button-wishlist">
-                            Hệ thống<span>cửa hàng</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="header-control d-none d-lg-flex">
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-clipboard2-check" viewBox="0 0 16 16">
                             <path
                                 d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
@@ -358,7 +346,7 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a href="/cart" title="Giỏ hàng">
+                        <a href="{{ route('customer.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
                             Sản phẩm <span class=" count_item_pr">3</span>
                         </a>
@@ -386,26 +374,24 @@
                     </div>
                     <span>Thông tin</span>
                     <ul>
-                        <li class="li-account"><a rel="nofollow" href="/account/login" title="Đăng nhập">
+                        <li class="li-account">
+                            <a rel="nofollow" href="{{ route('customer.profile') }}" title="Thông tin tài khoản">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                     fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                     <path fill-rule="evenodd"
-                                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z">
-                                    </path>
-                                    <path fill-rule="evenodd"
-                                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z">
-                                    </path>
+                                          d="M8 9a5 5 0 0 0-5 5v.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14a5 5 0 0 0-5-5z"/>
                                 </svg>
-                                Đăng nhập</a>
+                                Thông tin tài khoản
+                            </a>
                         </li>
                         <li class="li-account">
                             <form action="{{ route('auth.logout') }}" method="POST">
                                 @csrf
-                                @method('PUT')
-                                <button type="submit" >
-                                        Đăng xuất </button>
+                                <button type="submit">
+                                    Đăng xuất
+                                </button>
                             </form>
-                            
                         </li>
                     </ul>
                 </div>

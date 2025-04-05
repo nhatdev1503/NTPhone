@@ -243,14 +243,6 @@
 
 
                     <div class="text-end">
-                        <form action="{{ route('products.priority',$product->id) }}" method="POST"
-                            class="d-inline">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit"
-                                class="btn btn-dark mt-5">Ưu tiên lên đầu
-                            </button>
-                        </form>
                         <button type="submit" id="submit-button" class="btn btn-success mt-5">
                             <i class="fa fa-save"></i> Lưu thay đổi
                         </button>
@@ -258,6 +250,13 @@
                             <i class="fa fa-arrow-left"></i> Quay lại
                         </a>
                     </div>
+                </form>
+                <form action="{{ route('products.priority',$product->id) }}" method="POST"
+                    class="d-inline">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-primary mb-20" style="margin-bottom:20px">Đưa lên đầu trang
+                    </button>
                 </form>
             </div>
         </div>
