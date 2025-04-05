@@ -86,7 +86,7 @@
                                                 title="{{ $category->name }}">
                                                 <picture>
                                                     <img width="130" height="130"
-                                                        src="{{ asset('storage/' . $category->image) }}"
+                                                        src="{{ asset( $category->image) }}"
                                                         alt="{{ $category->name }}">
                                                 </picture>
                                             </a>
@@ -220,7 +220,7 @@
         <div class="container">
             <div class="block-background">
                 <h3 class="title-index p-5">
-                    <a class="title-name" href="/collections/all" title="Sản phẩm bán chạy">Sản phẩm bán chạy
+                    <a class="title-name" href="/collections/all" title="Sản phẩm bán chạy">Sản phẩm mới nhất
                     </a>
                 </h3>
                 <div class="row">

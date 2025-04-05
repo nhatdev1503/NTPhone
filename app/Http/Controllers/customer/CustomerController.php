@@ -23,7 +23,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $banners = \App\Models\Banner::where('status', 'active')->get();
+        $banner = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
 
         $featuredProducts = Product::where('status', 'active')
@@ -32,13 +32,11 @@ class CustomerController extends Controller
                             ->limit(8)
                             ->get();
 
-        $bestSellingProducts = Product::orderBy('sold', 'desc')
-                            ->where('products.status', 'active')
-                            ->orderBy('products.priority', 'desc')
+        $bestSellingProducts = Product::orderBy('id', 'desc')
                             ->limit(8)
                             ->get();
 
-        return view('customer.index', compact('banners', 'categories', 'featuredProducts', 'bestSellingProducts'));
+        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts'));
     }
 
     public function categories(string $id)
@@ -225,7 +223,16 @@ class CustomerController extends Controller
         $voucherSession = session('voucher');
         return view('customer.shopcart', compact('carts', 'activeVouchers', 'voucherSession'));
     }
-
+    public function buynow()
+    {
+        $user = Auth::user();
+        $product_variant = ProductVariant::findOrFail(request('product_variant_id'));
+        $activeVouchers = Discount::where('start_date', '<=', now())
+            ->where('expiration_date', '>=', now())
+            ->get();
+        $voucherSession = session('voucher');
+        return view('customer.buynow', compact('product_variant', 'activeVouchers', 'voucherSession'));
+    }
     public function payment()
     {
         return redirect()->back()->with('success', 'Thêm màu sắc thành công!');

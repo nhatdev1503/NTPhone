@@ -76,8 +76,8 @@
                                 {{ $voucher->discount_value }}%
                                 @endif
                             </td>
-                            <td>{{ $voucher->start_date }}</td>
-                            <td>{{ $voucher->expiration_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($voucher->start_date)->format('m/d/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($voucher->expiration_date)->format('m/d/Y') }}</td>
                             <td>
                                 @php
                                     $now = now();
