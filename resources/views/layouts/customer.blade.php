@@ -22,5 +22,4 @@
     @include('layouts.customer.footer')
 
 </body>
-
 </html>
