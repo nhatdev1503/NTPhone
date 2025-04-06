@@ -577,7 +577,7 @@
                                         flex-direction: column;
                                         /* Stack buttons */
                                         gap: 10px;
-                                
+
                                     }
 
                                     .button-phone {
@@ -585,10 +585,11 @@
                                         /* Make contact smaller */
                                         text-align: center;
                                     }
-									.layout-product .input_number_product .btn_num svg{
-										width: 33px;
-										height: 20px;
-									}
+
+                                    .layout-product .input_number_product .btn_num svg {
+                                        width: 33px;
+                                        height: 20px;
+                                    }
                                 </style>
                                 <script>
                                     let currentStock = 0; // Variable to store current variant stock
@@ -890,7 +891,8 @@
 
                                         <div class="group-button">
                                             {{-- Nút Mua ngay --}}
-                                            <button type="button" style="width: 100%" class="btn-buyNow" {{-- Update onclick to use the new route and action type --}}
+                                            <button type="button" style="width: 100%" class="btn-buyNow"
+                                                {{-- Update onclick to use the new route and action type --}}
                                                 onclick="submitForm('{{ route('customer.buyNowDirect') }}', 'buy_now_direct')">
                                                 Mua ngay
                                             </button>
@@ -1020,7 +1022,8 @@
                                         },
                                         error: function(jqXHR, textStatus, errorThrown) {
                                             console.error('AJAX Error:', textStatus, errorThrown, jqXHR.responseText);
-                                            let errorMessage = 'Có lỗi kết nối hoặc lỗi máy chủ. Vui lòng thử lại.'; // More specific default error
+                                            let errorMessage =
+                                            'Có lỗi kết nối hoặc lỗi máy chủ. Vui lòng thử lại.'; // More specific default error
                                             // Try to get a more specific error from the response, if available
                                             if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                                                 errorMessage = jqXHR.responseJSON.message;
@@ -1060,138 +1063,222 @@
 
     {{-- Chèn khối đánh giá/bình luận vào đây --}}
     <div class="container review-comment-container" style="margin-top: 30px; margin-bottom: 30px;">
-        {{-- Thêm margin để tạo khoảng cách --}}
         <div class="row">
             <div class="col-12">
-                <div class="block-background review-comment-section"
-                    style="padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px;height: 310px;">
+                <div class="block-background review-comment-section">
                     <div class="product-tab e-tabs not-dqtab" id="tab-reviews-comments">
-                        <ul class="tabs tabs-title clearfix"
-                            style="margin-bottom: 15px; padding-left: 0; list-style: none; border-bottom: 1px solid #dee2e6; display: flex;">
-                            <li class="tab-link active" data-tab="#tab-reviews"
-                                style="margin-bottom: -1px; margin-right: 5px;">
-                                <h3 class="tab-title-heading"
-                                    style="font-size: 0.95rem; padding: 10px 15px; margin: 0; cursor: pointer; border: 1px solid transparent; border-top-left-radius: .25rem; border-top-right-radius: .25rem; display: block;">
-                                    Đánh giá</h3>
+                        <ul class="tabs tabs-title clearfix">
+                            <li class="tab-link active" data-tab="#tab-reviews">
+                                <h3 class="tab-title-heading">Đánh giá</h3>
                             </li>
-                            <li class="tab-link" data-tab="#tab-comments" style="margin-right: 5px;">
-                                <h3 class="tab-title-heading"
-                                    style="font-size: 0.95rem; padding: 10px 15px; margin: 0; cursor: pointer; border: 1px solid transparent; border-top-left-radius: .25rem; border-top-right-radius: .25rem; display: block;">
-                                    Bình luận</h3>
+                            <li class="tab-link" data-tab="#tab-comments">
+                                <h3 class="tab-title-heading">Bình luận</h3>
                             </li>
                         </ul>
-                        <div class="tab-float" style="height: 440px;">
-                            {{-- Tab Đánh giá --}}
-                            <div id="tab-reviews" class="tab-content active content_extab">
-                                <div class="rte" style="max-height: 441px; overflow-y: auto; padding-right: 10px;">
-                                    {{-- Adjust max-height and ensure scroll --}}
-                                    <h5>Đánh giá của khách hàng</h5>
-                                    @if (isset($ratings) && !$ratings->isEmpty())
-                                        @foreach ($ratings as $rating)
-                                            <div class="review-item"
-                                                style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                                                <p style="margin-bottom: 5px;"><strong
-                                                        style="font-weight: 600;">{{ $rating->user->fullname ?? 'Khách' }}</strong>
-                                                    - <small style="color: #6c757d;">
-                                                        {{ str_repeat('⭐', $rating->rating) }}</small>
-                                                </p>
-                                                <p style="margin-bottom: 0; font-size: 1rem;">{{ $rating->review }}
-                                                </p>
-                                                <p style="margin-bottom: 5px; color: #ffc107;">
-                                                    {{ $rating->created_at->format('d/m/Y H:i') }} </p>
 
+                        {{-- Tab Đánh giá --}}
+                        <div id="tab-reviews" class="tab-content active">
+                            <div class="review-summary mb-4">
+                                <div class="row align-items-center">
+                                    <div class="col-md-3 text-center">
+                                        <div class="rating-score">
+                                            <div class="score">{{ number_format($ratings->avg('rating'), 1) }}</div>
+                                            <div class="stars">
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    <i class="fas fa-star" style="color: {{ $i <= round($ratings->avg('rating')) ? '#ffc107' : '#ddd' }};"></i>
+                                                @endfor
                                             </div>
-                                        @endforeach
-                                    @else
-                                        <p>Chưa có đánh giá nào cho sản phẩm này.</p>
-                                    @endif
-
-                                    {{-- Form gửi đánh giá --}}
-                                    @auth
-                                        @if ($canRateProduct)
-                                            <form action="{{ route('customer.ratings.store') }}" method="POST"
-                                                style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
-                                                @csrf
-                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                                                <div class="form-group">
-                                                    <label for="rating"
-                                                        style="margin-bottom: .5rem; font-weight: 500;">Đánh giá
-                                                        (sao)
-                                                        :</label>
-                                                    <select name="rating" id="rating"
-                                                        class="form-control form-control-sm" required
-                                                        style="width: auto; display: inline-block; margin-left: 5px; padding: .25rem .5rem; font-size: .875rem; line-height: 1.5; border-radius: .2rem;">
-                                                        <option value="5">5 ⭐</option>
-                                                        <option value="4">4 ⭐</option>
-                                                        <option value="3">3 ⭐</option>
-                                                        <option value="2">2 ⭐</option>
-                                                        <option value="1">1 ⭐</option>
-                                                    </select>
+                                            <div class="total-ratings">{{ $ratings->count() }} đánh giá</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        {{-- Rating bars --}}
+                                        <div class="rating-bars">
+                                            @for($i = 5; $i >= 1; $i--)
+                                                @php
+                                                    $count = $ratings->where('rating', $i)->count();
+                                                    $percentage = $ratings->count() > 0 ? ($count / $ratings->count()) * 100 : 0;
+                                                @endphp
+                                                <div class="rating-bar-item">
+                                                    <div class="bar-label">{{ $i }} <span class="star">★</span></div>
+                                                    <div class="bar-container">
+                                                        <div class="bar" style="width: {{ $percentage }}%"></div>
+                                                    </div>
+                                                    <div class="bar-count">{{ $count }}</div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="review"
-                                                        style="margin-bottom: .5rem; font-weight: 500;"></label>
-                                                    <textarea name="review" id="review" rows="3" class="form-control form-control-sm" required
-                                                        style="padding: .25rem .5rem; font-size: .875rem; line-height: 1.5; border-radius: .2rem; width: 100%;"></textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-sm"
-                                                    style="padding: .25rem .5rem; font-size: .875rem; line-height: 1.5; border-radius: .2rem;">Gửi
-                                                    đánh giá</button>
-                                            </form>
-                                        @else
-                                            <p style="margin-top: 20px; font-size: 0.9rem; color: #6c757d;">Bạn cần mua sản
-                                                phẩm này để viết đánh giá.</p>
-                                        @endif
-                                    @else
-                                        <p style="margin-top: 20px; font-size: 0.9rem;">Vui lòng <a
-                                                href="{{ route('login') }}">đăng nhập</a> để viết đánh giá.</p>
-                                    @endauth
+                                            @endfor
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            {{-- Tab Bình luận --}}
-                            <div id="tab-comments" class="tab-content content_extab">
-                                <div class="rte">
-                                    @if (isset($comments) && !$comments->isEmpty())
-                                        <div class="comments-container">
-                                            @foreach ($comments as $comment)
-                                                <div class="comment-item">
-                                                    <p>
-                                                        <strong>{{ $comment->user->fullname ?? 'Khách' }}</strong> -
-                                                        <small>
-                                                            @if ($comment->created_at)
-                                                                {{ $comment->created_at->format('d/m/Y H:i') }}
-                                                            @else
-                                                                (không có ngày)
-                                                            @endif
-                                                        </small>
-                                                    </p>
-                                                    <p>{{ $comment->content }}</p>
+                            <div class="reviews-list">
+                                @if(isset($ratings) && !$ratings->isEmpty())
+                                    @foreach($ratings as $rating)
+                                        <div class="review-item">
+                                            <div class="review-header">
+                                                <div class="reviewer-info">
+                                                    <div class="avatar">
+                                                        <i class="fas fa-user-circle"></i>
+                                                    </div>
+                                                    <div class="reviewer-details">
+                                                        <div class="reviewer-name">{{ $rating->user->fullname ?? 'Khách' }}</div>
+                                                        <div class="review-date">{{ $rating->created_at->format('d/m/Y H:i') }}</div>
+                                                    </div>
                                                 </div>
-                                            @endforeach
+                                                <div class="review-rating">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <span class="star" style="color: {{ $i <= $rating->rating ? '#ffc107' : '#ddd' }};">★</span>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                            <div class="review-content">{{ $rating->review }}</div>
                                         </div>
-                                    @else
-                                        <p>Chưa có bình luận nào cho sản phẩm này.</p>
-                                    @endif
+                                    @endforeach
+                                @else
+                                    <div class="no-reviews">
+                                        <i class="fas fa-comment-alt"></i>
+                                        <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+                                    </div>
+                                @endif
+                            </div>
 
-                                    {{-- Form bình luận giữ nguyên --}}
-                                    @auth
-                                        <form action="{{ route('customer.comments.store') }}" method="POST">
+                            {{-- Form đánh giá --}}
+                            @auth
+                                @if($canRateProduct)
+                                    <div class="review-form">
+                                        {{-- Hiển thị lịch sử đánh giá của user --}}
+                                        @php
+                                            $userRating = $ratings->where('user_id', Auth::id())->first();
+                                        @endphp
+                                        
+                                        @if($userRating)
+                                            <div class="rating-history mb-4">
+                                                <div class="rating-history-header">
+                                                    <h5><i class="fas fa-history"></i> Đánh giá trước đây của bạn</h5>
+                                                </div>
+                                                <div class="previous-rating">
+                                                    <div class="rating-info">
+                                                        <div class="rating-stars">
+                                                            @for($i = 1; $i <= 5; $i++)
+                                                                <span class="star" style="color: {{ $i <= $userRating->rating ? '#ffc107' : '#ddd' }};">★</span>
+                                                            @endfor
+                                                        </div>
+                                                        <div class="rating-date">
+                                                            <i class="far fa-clock"></i>
+                                                            {{ $userRating->created_at->format('d/m/Y H:i') }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="rating-content">
+                                                        <div class="content-header">
+                                                            <i class="fas fa-comment-alt"></i>
+                                                            <span>Nội dung đánh giá:</span>
+                                                        </div>
+                                                        <div class="content-text">{{ $userRating->review }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        <form action="{{ route('customer.ratings.store') }}" method="POST" class="rating-form">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                            <div class="form-group">
-                                                <label for="comment_content"></label>
-                                                <textarea name="content" id="comment_content" rows="3" class="form-control form-control-sm" required></textarea>
+                                            <div class="rating-input">
+                                                <label>Chọn đánh giá của bạn:</label>
+                                                <div class="star-rating">
+                                                    <input type="radio" id="star5" name="rating" value="5" class="star-input" required />
+                                                    <label for="star5" class="star-label" title="5 sao">★</label>
+                                                    
+                                                    <input type="radio" id="star4" name="rating" value="4" class="star-input" required />
+                                                    <label for="star4" class="star-label" title="4 sao">★</label>
+                                                    
+                                                    <input type="radio" id="star3" name="rating" value="3" class="star-input" required />
+                                                    <label for="star3" class="star-label" title="3 sao">★</label>
+                                                    
+                                                    <input type="radio" id="star2" name="rating" value="2" class="star-input" required />
+                                                    <label for="star2" class="star-label" title="2 sao">★</label>
+                                                    
+                                                    <input type="radio" id="star1" name="rating" value="1" class="star-input" required />
+                                                    <label for="star1" class="star-label" title="1 sao">★</label>
+                                                </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-sm">Gửi bình luận</button>
+
+                                            <div class="form-group">
+                                                <label for="review">Nội dung đánh giá:</label>
+                                                <textarea name="review" id="review" rows="4" class="form-control" required
+                                                    placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."></textarea>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
                                         </form>
-                                    @else
-                                        <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết bình luận.</p>
-                                    @endauth
+                                    </div>
+                                @else
+                                    <div class="review-notice">
+                                        <i class="fas fa-info-circle"></i>
+                                        <p>Bạn cần mua sản phẩm này để viết đánh giá.</p>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="review-notice">
+                                    <i class="fas fa-user-circle"></i>
+                                    <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết đánh giá.</p>
                                 </div>
+                            @endauth
+                        </div>
+
+                        {{-- Tab Bình luận --}}
+                        <div id="tab-comments" class="tab-content">
+                            <div class="comments-list">
+                                @if (isset($comments) && !$comments->isEmpty())
+                                    @foreach ($comments as $comment)
+                                        <div class="comment-item">
+                                            <div class="comment-header">
+                                                <div class="commenter-info">
+                                                    <div class="avatar">
+                                                        <i class="fas fa-user-circle"></i>
+                                                    </div>
+                                                    <div class="commenter-details">
+                                                        <div class="commenter-name">
+                                                            {{ $comment->user->fullname ?? 'Khách' }}</div>
+                                                        <div class="comment-date">
+                                                            {{ $comment->created_at->format('d/m/Y H:i') }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-content">{{ $comment->content }}</div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="no-comments">
+                                        <i class="fas fa-comments"></i>
+                                        <p>Chưa có bình luận nào cho sản phẩm này.</p>
+                                    </div>
+                                @endif
                             </div>
+
+                            {{-- Form bình luận --}}
+                            @auth
+                                <div class="comment-form">
+                                    <h4>Viết bình luận của bạn</h4>
+                                    <form action="{{ route('customer.comments.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                                        <div class="form-group">
+                                            <textarea name="content" class="form-control" rows="3" required
+                                                placeholder="Chia sẻ suy nghĩ của bạn về sản phẩm này..."></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="comment-notice">
+                                    <i class="fas fa-user-circle"></i>
+                                    <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết bình luận.</p>
+                                </div>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -1200,120 +1287,506 @@
     </div>
 
     <style>
-        /* Style cho section bình luận */
+        /* Style cho section đánh giá và bình luận */
+        .review-comment-container {
+            position: relative;
+            z-index: 1;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
         .review-comment-section {
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            height: 310px;
-            overflow: hidden;
-            /* Ẩn phần thừa */
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Style cho tabs */
+        .tabs-title {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .tab-link {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .tab-link.active {
+            border-bottom-color: #007bff;
+            color: #007bff;
         }
 
         .tab-content {
-            height: 100%;
+            display: none;
+            position: relative;
+            z-index: 2;
         }
 
-        .rte {
-            max-height: 441px;
-            overflow-y: hidden;
-            /* Tắt scroll dọc */
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Style cho phần tổng quan đánh giá */
+        .rating-summary {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rating-score {
+            text-align: center;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffc107;
+            line-height: 1;
+        }
+
+        .stars {
+            margin: 10px 0;
+        }
+
+        .total-ratings {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .rating-bars {
+            padding: 10px 0;
+        }
+
+        .rating-bar-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .bar-label {
+            width: 60px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .bar-container {
+            flex: 1;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            background: #ffc107;
+            border-radius: 4px;
+        }
+
+        .bar-count {
+            width: 40px;
+            text-align: left;
+            margin-left: 10px;
+            color: #6c757d;
+        }
+
+        /* Style cho danh sách đánh giá */
+        .review-item,
+        .comment-item {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .review-item:last-child,
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header,
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-info,
+        .commenter-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .avatar i {
+            font-size: 24px;
+            color: #6c757d;
+        }
+
+        .reviewer-details,
+        .commenter-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reviewer-name,
+        .commenter-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .review-date,
+        .comment-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .review-content,
+        .comment-content {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .review-images {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .review-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Style cho form đánh giá và bình luận */
+        .review-form,
+        .comment-form {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .rating-input {
+            margin-bottom: 20px;
+        }
+
+        /* Style cho star rating */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ddd;
+            padding: 5px;
+            transition: color 0.2s ease;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #ffc107;
+        }
+
+        /* Style cho stars trong review */
+        .stars {
+            display: flex;
+            gap: 5px;
+        }
+
+        .stars i {
+            font-size: 16px;
+            color: #ddd;
+            transition: color 0.2s ease;
+        }
+
+        .stars i.fa-star {
+            color: #ffc107;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .btn-primary {
+            background: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        /* Style cho thông báo */
+        .review-notice,
+        .comment-notice,
+        .no-reviews,
+        .no-comments {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+        }
+
+        .review-notice i,
+        .comment-notice i,
+        .no-reviews i,
+        .no-comments i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Custom scrollbar */
+        .reviews-list,
+        .comments-list {
+            max-height: 500px;
+            overflow-y: auto;
             padding-right: 10px;
         }
 
-        /* Container cho danh sách bình luận */
-        .comments-container {
-            display: flex;
-            flex-wrap: nowrap;
-            /* Không xuống dòng */
-            transition: transform 0.5s ease-in-out;
-            /* Hiệu ứng chuyển động mượt */
-            height: 97px;
-            /* Chiều cao cố định cho bình luận */
-            align-items: center;
-            justify-content: center;
+        .reviews-list::-webkit-scrollbar,
+        .comments-list::-webkit-scrollbar {
+            width: 6px;
         }
 
-        /* Mỗi item bình luận */
-        .comment-item {
-            flex: 0 0 33.33%;
-            max-width: 33.33%;
-            margin: 0 10px;
-            /* padding: 15px; */
+        .reviews-list::-webkit-scrollbar-track,
+        .comments-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .reviews-list::-webkit-scrollbar-thumb,
+        .comments-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .reviews-list::-webkit-scrollbar-thumb:hover,
+        .comments-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .star {
+            font-size: 16px;
+            transition: color 0.2s ease;
+        }
+
+        .bar-label .star {
+            color: #ffc107;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        .review-rating .star {
+            font-size: 14px;
+        }
+
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ddd;
+            padding: 5px;
+            transition: color 0.2s ease;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #ffc107;
+        }
+
+        .rating-history .stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .rating-history .star {
+            font-size: 18px;
+        }
+
+        .rating-history {
             background: #f8f9fa;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            height: 129px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        /* Style cho tên và thời gian */
-        .comment-item p:first-child {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
+        .rating-history-header {
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .comment-item strong {
-            color: #343a40;
-            font-weight: 600;
-        }
-
-        .comment-item small {
-            color: #6c757d;
-            font-size: 0.85rem;
-        }
-
-        /* Style cho nội dung bình luận */
-        .comment-item p:last-child {
+        .rating-history-header h5 {
             margin: 0;
-            font-size: 0.9rem;
             color: #495057;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            /* Thêm dấu ... nếu nội dung dài */
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            /* Giới hạn 3 dòng */
-            -webkit-box-orient: vertical;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Form bình luận */
-        form {
+        .rating-history-header i {
+            color: #6c757d;
+        }
 
-            border-top: 1px solid #eee;
+        .rating-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+        }
+
+        .rating-stars .star {
+            font-size: 20px;
+        }
+
+        .rating-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rating-content {
+            background: #fff;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #495057;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .content-header i {
+            color: #6c757d;
+        }
+
+        .content-text {
+            color: #212529;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const commentsContainer = document.querySelector('#tab-comments .comments-container');
-            const commentItems = document.querySelectorAll('#tab-comments .comment-item');
-            const totalComments = commentItems.length;
-            let currentIndex = 0;
+            // Xử lý chuyển tab
+            const tabLinks = document.querySelectorAll('.tab-link');
+            tabLinks.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    tabLinks.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
 
-            // Tính số nhóm 3 bình luận
-            const groupSize = 3;
-            const totalGroups = Math.ceil(totalComments / groupSize);
+                    const tabId = this.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.querySelector(tabId).classList.add('active');
+                });
+            });
 
-            // Hàm chuyển đổi bình luận
-            function slideComments() {
-                currentIndex = (currentIndex + 1) % totalGroups; // Quay vòng
-                const offset = -currentIndex * 100; // Dịch chuyển 100% chiều rộng mỗi lần
-                commentsContainer.style.transform = `translateX(${offset}%)`;
+            // Preview hình ảnh khi upload
+            const imageInput = document.querySelector('input[type="file"]');
+            if (imageInput) {
+                imageInput.addEventListener('change', function() {
+                    const previewContainer = document.createElement('div');
+                    previewContainer.className = 'review-images';
+
+                    Array.from(this.files).forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'review-image';
+                            previewContainer.appendChild(img);
+                        }
+                        reader.readAsDataURL(file);
+                    });
+
+                    const existingPreview = this.parentElement.querySelector('.review-images');
+                    if (existingPreview) {
+                        existingPreview.remove();
+                    }
+                    this.parentElement.appendChild(previewContainer);
+                });
             }
-
-            // Tự động chạy mỗi 3 giây
-            let autoSlide = setInterval(slideComments, 3000);
-
-            // Dừng khi hover
-            commentsContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
-            commentsContainer.addEventListener('mouseleave', () => autoSlide = setInterval(slideComments, 3000));
-
-            // Điều chỉnh container để chứa đủ các nhóm
-            commentsContainer.style.width = `${totalGroups * 100}%`;
         });
     </script>
 
