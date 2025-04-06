@@ -32,144 +32,274 @@
     .card-body {
         line-height: 30px;
     }
+
+
+
+    .order-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-radius: 8px;
+        border: 1px solid #f0f0f0;
+        background-color: #fff;
+        margin-bottom: 16px;
+    }
+
+    .order-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .product-image {
+        width: 100px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-title {
+        font-weight: bold;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .product-other {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 6px;
+    }
+
+    .btn-cancel {
+        background-color: #e0e0e0;
+        border: none;
+        padding: 2px 10px;
+        border-radius: 6px;
+        color: #444;
+        cursor: not-allowed;
+        width: fit-content;
+        font-size: 14px;
+    }
+
+    .order-right {
+        text-align: right;
+    }
+
+    .order-date {
+        font-size: 12px;
+        color: #999;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .product-price {
+        color: red;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 8px 0;
+    }
+
+    .btn-detail {
+        color: #d10024;
+        border: 1px solid #d10024;
+        padding: 6px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .btn-detail:hover {
+        background-color: #d10024;
+        color: #fff;
+    }
+
+    .card-footer {
+        position: absolute;
+        right: 0;
+        background: none;
+        bottom: 0;
+        margin-top: 30px;
+    }
+
+    .card-footer>a {
+        padding: 8px;
+    }
+
+    .cancel-reason h4 {
+        color: #333333;
+        font-size: 18px;
+        margin-bottom: 10px;
+        margin-left: 0;
+    }
+
+    /* Nội dung lý do hủy */
+    .cancel-reason p {
+        color: #333;
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: center
+    }
 </style>
+
 <div class="container mt-5 content">
     <div class="card shadow-sm">
-        <div class="card-header  text-white">
-            <h4 class="mb-0">Chi tiết đơn hàng: {{ $order->order_code }}</h4>
+        <div class="card-header text-white">
+            <h4 class="mb-0">Chi tiết đơn hàng</h4>
         </div>
+
         <div class="card-body">
             <!-- Thông tin đơn hàng -->
-
             <div class="mb-4">
-                <h6>Sản phẩm</h6>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Hình ảnh</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Biến thể</th> <!-- Cột "Biến thể" sẽ chứa màu sắc và số lượng kho -->
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="card mb-4">
+                    <div class="card-body mb-3" style="line-height: 35px;">
+                        <h5 class="card-title">Đơn hàng {{ $order->order_code }}</h5>
+
+                        @php
+                            $statusText = [
+                                'pending' => 'Chờ xác nhận',
+                                'processing' => 'Đang đóng gói',
+                                'shipped' => 'Đang giao',
+                                'delivered' => 'Đã giao',
+                                'cancelled' => 'Hoàn hàng',
+                                'completed' => 'Hoàn thành',
+                            ];
+                        @endphp
+
                         @foreach ($order->orderItems as $item)
-                            @if ($item->productVariant && $item->productVariant->product)
-                                <tr>
-                                    <td>
-                                        <!-- Bao bọc hình ảnh trong thẻ a để khi click vào sẽ chuyển đến trang chi tiết sản phẩm -->
-                                        <a
-                                            href="{{ route('customer.product_detail', $item->productVariant->product->id) }}">
-                                            <img src="{{ asset($item->productVariant->product->image) }}"
-                                                alt="{{ $item->productVariant->product->name }}"
-                                                style="width: 50px; height: 50px; object-fit: cover;">
+                            @php
+                                $product = $item->productVariant->product ?? null;
+                                $variant = $item->productVariant;
+                                $color = $variant->color ?? 'Không rõ';
+                            @endphp
+                            @if ($product)
+                                <div class="order-card">
+                                    <div class="order-left">
+                                        <a href="{{ route('customer.product_detail', $product->id) }}">
+                                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                                                class="product-image">
                                         </a>
-                                    </td>
-                                    <td>
-                                        <!-- Liên kết đến trang chi tiết sản phẩm -->
-                                        <a href="{{ route('customer.product_detail', $item->productVariant->product->id) }}"
-                                            class="text-decoration-none text-dark">
-                                            {{ $item->productVariant->product->name }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <!-- Hiển thị thông tin biến thể: màu sắc với thanh màu -->
-                                        <div><strong>Màu sắc:</strong></div>
-                                        @if ($item->productVariant->color)
-                                            <div
-                                                style="width: 30px; height: 30px; background-color: {{ $item->productVariant->color }}; border-radius: 50%; display: inline-block;">
-                                            </div>
-                                        @else
-                                            <div>Không có</div>
-                                        @endif
-                                        <div><strong>Dung lượng:</strong>
-                                            {{ $item->productVariant->storage ?? 'Không có' }}</div>
-                                    </td>
-                                    <td>{{ number_format($item->price, 0, ',', '.') }}đ</td>
-                                    <td>{{ $item->quantity }}</td>
-                                </tr>
-                            @else
-                                <tr>
-                                    <td colspan="5" class="text-center text-warning">Sản phẩm không còn tồn tại</td>
-                                </tr>
+                                        <div class="product-info">
+                                            <p class="product-title">{{ $product->name }}</p>
+                                            <p class="product-other">Màu: {{ $color }}</p>
+                                            <p class="product-other">Số lượng: {{ $item->quantity }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="order-right">
+                                        <span class="order-date">{{ $order->created_at->format('d/m/Y H:i') }}</span>
+                                        <button class="btn-cancel" disabled>
+                                            {{ $statusText[$order->status] ?? 'Không xác định' }}
+                                        </button>
+
+                                        <p class="product-price">{{ number_format($order->total_price, 0, ',', '.') }}đ
+                                        </p>
+                                    </div>
+                                    @if ($order->status == 'cancelled')
+                                    @endif
+
+                                </div>
                             @endif
                         @endforeach
-                    </tbody>
-                </table>
+                        @if ($order->status == 'cancelled')
+                            <div class="cancel-reason">
+                                <h4>Lý do hủy:</h4>
+                                <p>{{ $order->cancel_reason }}</p>
+                            </div>
+                        @endif
+                        <!-- Phần xác nhận đã nhận hàng -->
+                        @if ($order->status == 'delivered')
+                            <div class="card-footer">
+                                <a href="#" class="btn-detail"
+                                    onclick="event.preventDefault(); confirmReceivedOrder('{{ $order->id }}', '{{ $order->order_code }}')">
+                                    Xác nhận đã nhận hàng
+                                </a>
 
-                <p><i class="bi bi-calendar3 me-2"></i><strong>Ngày đặt hàng:</strong>
-                    {{ $order->created_at->format('d/m/Y H:i') }}</p>
-                @php
-                    $statusMappings = [
-                        'pending' => 'Chờ xác nhận',
-                        'confirmed' => 'Đã xác nhận',
-                        'shipped' => 'Đang giao',
-                        'delivered' => 'Đã giao',
-                        'canceled' => 'Đã hủy',
-                    ];
-                    $statusColors = [
-                        'pending' => 'warning',
-                        'processing' => 'primary',
-                        'shipped' => 'info',
-                        'delivered' => 'success',
-                        'cancelled' => 'danger',
-                        'completed' => 'secondary',
-                    ];
-                @endphp
-
-                <p class="bi bi-truck-front me-3"><strong>Trạng thái:</strong>
-                    <span class="badge bg-{{ $statusColors[$order->status] ?? 'secondary' }}">
-                        {{ $statusMappings[$order->status] ?? 'Không xác định' }}
-                    </span>
-                </p>
-                <p><i class="bi bi-cash-stack me-2"></i><strong>Tổng tiền:</strong>
-                    {{ number_format($order->total_price, 0, ',', '.') }} đ</p>
-            </div>
-
-            <!-- Thông tin khách hàng -->
-            <div class="mb-4">
-                <div class="card border">
-                    <div class="card-header text-white">
-                        <h5 class="mb-0">Thông tin khách hàng</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><i class="bi bi-person-fill me-2"></i><strong>Họ và tên:</strong> {{ $order->fullname }}</p>
-                        <p><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> {{ $order->email }}</p>
-                        <p><i class="bi bi-telephone-fill me-2"></i><strong>Số điện thoại:</strong>
-                            {{ $order->phone ?? 'Chưa cập nhật' }}</p>
-                        <p><i class="bi bi-geo-alt-fill me-2"></i><strong>Địa chỉ:</strong>
-                            {{ $order->address ?? 'Chưa cập nhật' }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Thông tin thanh toán -->
-            <div class="mb-4">
-                <div class="card border">
-                    <div class="card-header text-white">
-                        <h5 class="mb-0">Thông tin thanh toán</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><i class="bi bi-credit-card-2-front-fill me-2"></i><strong>Phương thức thanh toán:</strong>
-                            {{ $order->payment_method ?? 'Chưa cập nhật' }}</p>
-                        <p><i class="bi bi-check-circle-fill me-2"></i><strong>Tình trạng thanh toán:</strong>
-                            @php
-                                $paymentStatusText = [
-                                    'pending' => 'Đang chờ xử lý',
-                                    'paid' => 'Đã thanh toán',
-                                    'failed' => 'Thanh toán thất bại',
-                                ];
-                            @endphp
-                            {{ $paymentStatusText[$order->payment_status] ?? 'Chưa cập nhật' }}
-                        </p>
-
-                        <p><i class="bi bi-card-text me-2"></i><strong>Ghi chú:</strong>
-                            {{ $order->payment_note ?? 'Không có' }}</p>
+                                <!-- Form xác nhận đã nhận hàng (ẩn) -->
+                                <form id="received-form-{{ $order->id }}"
+                                    action="{{ route('customer.order.confirm_received', $order->id) }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    @method('PATCH') <!-- Giả lập phương thức PATCH -->
+                                </form>
+                            </div>
+                        @endif
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                            function confirmReceivedOrder(orderId, orderCode) {
+                                Swal.fire({
+                                    title: 'Xác nhận đã nhận hàng',
+                                    text: `Bạn đã nhận được đơn hàng ${orderCode} chưa?`,
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Xác nhận',
+                                    cancelButtonText: 'Hủy bỏ',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        document.getElementById('received-form-' + orderId).submit();
+                                    }
+                                });
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
+        <!-- Thông tin khách hàng -->
+        <div class="mb-4">
+            <div class="card border">
+                <div class="card-header text-white">
+                    <h5 class="mb-0">Thông tin khách hàng</h5>
+                </div>
+                <div class="card-body">
+                    <p><i class="bi bi-person-fill me-2"></i><strong>Họ và tên:</strong> {{ $order->fullname }}</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> {{ $order->email }}</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i><strong>Số điện thoại:</strong>
+                        {{ $order->phone ?? 'Chưa cập nhật' }}</p>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i><strong>Địa chỉ:</strong>
+                        {{ $order->address ?? 'Chưa cập nhật' }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông tin thanh toán -->
+        <div class="mb-4">
+            <div class="card border">
+                <div class="card-header text-white">
+                    <h5 class="mb-0">Thông tin thanh toán</h5>
+                </div>
+                <div class="card-body">
+                    <p><i class="bi bi-credit-card-2-front-fill me-2"></i><strong>Phương thức thanh toán:</strong>
+                        {{ $order->payment_method ?? 'Chưa cập nhật' }}</p>
+                    <p><i class="bi bi-check-circle-fill me-2"></i><strong>Tình trạng thanh toán:</strong>
+                        @php
+                            $paymentStatusText = [
+                                'pending' => 'Đang chờ xử lý',
+                                'paid' => 'Đã thanh toán',
+                                'failed' => 'Thanh toán thất bại',
+                            ];
+                        @endphp
+                        {{ $paymentStatusText[$order->payment_status] ?? 'Chưa cập nhật' }}
+                    </p>
+
+                    <p><i class="bi bi-card-text me-2"></i><strong>Ghi chú:</strong>
+                        {{ $order->payment_note ?? 'Không có' }}</p>
+                </div>
+            </div>
+        </div>
+
         <div class="card-footer text-end">
             <a href="{{ route('customer.order.history') }}" class="btn btn-outline-secondary">Quay lại lịch sử đơn
                 hàng</a>

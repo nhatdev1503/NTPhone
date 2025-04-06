@@ -176,6 +176,14 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // Lịch sử mua hàng
     Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
 
+    Route::patch('order/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('customer.order.cancel');
+
+    Route::patch('/orders/{order}/confirm-received', [OrderController::class, 'confirmReceived'])->name('customer.order.confirm_received');
+
+
+
+
+
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
     // Trang thông tin cá nhân (profile)
@@ -252,4 +260,3 @@ Route::get('/get-available-colors', [CustomerController::class, 'getAvailableCol
 Route::get('/api/get-price', [CustomerController::class, 'getPrice'])->name('customer.getPrice');
 Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class, 'getRevenue']);
 Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
-

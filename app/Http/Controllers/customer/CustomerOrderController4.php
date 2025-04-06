@@ -39,33 +39,72 @@ class CustomerOrderController4 extends Controller
         return view('customer.order_detail', compact('order'));
     }
     public function show($id)
-{
-    $order = Order::with(['orderDetails.product', 'customer', 'payment'])->findOrFail($id);
-    return view('customer.orders.detail', compact('order'));
-}
-public function showCustomerOrder($id)
-{
-    // Tìm đơn hàng kèm các quan hệ liên quan
-    $order = Order::with(['orderDetails', 'customer', 'discount'])->find($id);
+    {
+        $order = Order::with(['orderDetails.product', 'customer', 'payment'])->findOrFail($id);
+        return view('customer.orders.detail', compact('order'));
+    }
+    public function showCustomerOrder($id)
+    {
+        // Tìm đơn hàng kèm các quan hệ liên quan
+        $order = Order::with(['orderDetails', 'customer', 'discount'])->find($id);
 
-    // Kiểm tra nếu đơn hàng không tồn tại
-    if (!$order) {
-        return redirect()->route('customer.order.history')->with('error', 'Không tìm thấy đơn hàng.');
+        // Kiểm tra nếu đơn hàng không tồn tại
+        if (!$order) {
+            return redirect()->route('customer.order.history')->with('error', 'Không tìm thấy đơn hàng.');
+        }
+
+        // Tính tổng tiền sản phẩm
+        $tongTienSanPham = 0;
+        foreach ($order->orderDetails as $detail) {
+            $tongTienSanPham += $detail->price * $detail->quantity;
+        }
+
+        // Lấy số tiền giảm giá (nếu có)
+        $discountAmount = $order->discount?->amount ?? 0;
+
+        // Tính tổng tiền phải thanh toán
+        $totalPayable = max(0, $tongTienSanPham - $discountAmount);
+
+        // Trả về view với đầy đủ biến
+        return view('customer.order_detail', compact('order', 'tongTienSanPham', 'discountAmount', 'totalPayable'));
     }
 
-    // Tính tổng tiền sản phẩm
-    $tongTienSanPham = 0;
-    foreach ($order->orderDetails as $detail) {
-        $tongTienSanPham += $detail->price * $detail->quantity;
+    // app/Http/Controllers/OrderController.php
+    public function cancel($id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Kiểm tra nếu đơn hàng đã thanh toán online
+        if ($order->payment_status == 'completed') {
+            // Nếu đã thanh toán, không thể hủy
+            return redirect()->route('customer.order.history')->with('error', 'Không thể hủy đơn hàng vì đã thanh toán online.');
+        }
+
+        // Kiểm tra trạng thái đơn hàng (Chờ xác nhận hoặc Đang đóng gói)
+        if (in_array($order->status, ['pending', 'processing'])) {
+            // Cập nhật trạng thái đơn hàng thành "Đã hủy"
+            $order->status = 'cancelled';
+            $order->save();
+
+            // Thông báo thành công
+            return redirect()->route('customer.order.history')->with('success', 'Đơn hàng đã bị hủy');
+        }
+
+        // Nếu không thể hủy
+        return redirect()->route('customer.order.history')->with('error', 'Không thể hủy đơn hàng này');
     }
+    public function confirmReceived($orderId)
+    {
+        $order = Order::findOrFail($orderId);
 
-    // Lấy số tiền giảm giá (nếu có)
-    $discountAmount = $order->discount?->amount ?? 0;
+        // Kiểm tra nếu đơn hàng có trạng thái "Đã giao"
+        if ($order->status == 'delivered') {
+            $order->status = 'completed'; // Chuyển trạng thái thành "Hoàn thành"
+            $order->save();
 
-    // Tính tổng tiền phải thanh toán
-    $totalPayable = max(0, $tongTienSanPham - $discountAmount);
+            return redirect()->route('customer.order.history')->with('success', 'Đơn hàng đã được xác nhận hoàn thành');
+        }
 
-    // Trả về view với đầy đủ biến
-    return view('customer.order_detail', compact('order', 'tongTienSanPham', 'discountAmount', 'totalPayable'));
-}
+        return redirect()->route('customer.order.history')->with('error', 'Không thể xác nhận đơn hàng');
+    }
 }

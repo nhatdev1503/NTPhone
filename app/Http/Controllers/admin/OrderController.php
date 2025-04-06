@@ -21,8 +21,8 @@ class OrderController extends Controller
             $keyword = $request->keyword;
             $query->where(function ($q) use ($keyword) {
                 $q->where('fullname', 'like', "%$keyword%")
-                  ->orWhere('email', 'like', "%$keyword%")
-                  ->orWhere('phone', 'like', "%$keyword%");
+                    ->orWhere('email', 'like', "%$keyword%")
+                    ->orWhere('phone', 'like', "%$keyword%");
             });
         }
 
@@ -101,7 +101,7 @@ class OrderController extends Controller
             'failed' => 'Thất bại',
         ];
 
-        return view('admin.orders.show', compact('order', 'statusColors', 'statusText','paymentColors','paymentStatus'));
+        return view('admin.orders.show', compact('order', 'statusColors', 'statusText', 'paymentColors', 'paymentStatus'));
     }
 
     /**
@@ -116,22 +116,22 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Order $order)
-    {   
+    {
         $request->validate([
             'status' => 'required',
         ], [
             'status.required' => 'Cần cập nhật trạng thái khi xác nhận',
         ]);
-        if($request->status == 'cancelled'){
+        if ($request->status == 'cancelled') {
             $order->status = 'cancelled';
             $order->cancel_reason = $request->cancel_reason;
-        }else{
+        } else {
             $order->status = $request->status;
             $order->cancel_reason = null;
         }
         $order->staff_id = 1;
         $order->save();
-        return redirect()->route('orders.show',$order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');
+        return redirect()->route('orders.show', $order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');
     }
 
     /**
@@ -141,6 +141,58 @@ class OrderController extends Controller
     {
         //
     }
-   
+    // public function cancel($id)
+    // {
+    //     $order = Order::findOrFail($id);
 
+    //     // Kiểm tra trạng thái trước khi cho hủy
+    //     if (!in_array($order->status, ['pending', 'processing'])) {
+    //         return redirect()->back()->with('error', 'Không thể hủy đơn hàng ở trạng thái hiện tại.');
+    //     }
+
+    //     $order->status = 'cancelled';
+    //     $order->save();
+
+    //     return redirect()->back()->with('success', 'Đơn hàng đã được hủy thành công.');
+    // }
+    public function confirmReceived($orderId)
+    {
+        $order = Order::find($orderId);
+
+        if (!$order) {
+            return redirect()->back()->with('error', 'Đơn hàng không tồn tại.');
+        }
+
+
+        if ($order->status !== 'delivered') {
+            return redirect()->back()->with('error', 'Đơn hàng không thể xác nhận vì không phải trạng thái đã giao.');
+        }
+
+
+        $order->status = 'completed';
+        $order->save();
+
+
+        return redirect()->route('customer.order_detail', $order->id)
+            ->with('success', 'Đơn hàng đã được xác nhận là đã nhận.');
+    }
+    public function cancelOrder($orderId, Request $request)
+    {
+        $order = Order::find($orderId);
+        if (!$order) {
+            return redirect()->back()->with('error', 'Đơn hàng không tồn tại.');
+        }
+        if (!in_array($order->status, ['pending', 'processing'])) {
+            return redirect()->back()->with('error', 'Đơn hàng không thể hủy.');
+        }
+
+        
+        $order->status = 'cancelled';  
+        $order->cancel_reason = $request->input('cancel_reason');  
+        $order->save(); 
+
+        // Trả về thông báo thành công
+        return redirect()->route('customer.order.history')->with('success', 'Đơn hàng đã được hủy thành công.');
+    }
+    
 }
