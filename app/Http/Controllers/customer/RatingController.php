@@ -15,11 +15,20 @@ class RatingController extends Controller
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'rating' => 'required|integer|min:1|max:5',
-            'review' => 'nullable|string|max:1000', // Increased max length
+            'review' => 'nullable|string|max:1000',
         ]);
 
         $userId = Auth::id();
         $productId = $request->input('product_id');
+
+        // Check if user has already rated this product
+        $existingRating = Rating::where('product_id', $productId)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($existingRating) {
+            return redirect()->back()->with('error', 'Bạn đã đánh giá sản phẩm này rồi.');
+        }
 
         // Check if the user has purchased and the order is completed
         $canRate = DB::table('orders')
@@ -27,22 +36,20 @@ class RatingController extends Controller
             ->join('product_variants', 'order_items.product_variant_id', '=', 'product_variants.id')
             ->where('orders.user_id', $userId)
             ->where('product_variants.product_id', $productId)
-            ->where('orders.status', 'completed') // Check for completed order status
+            ->where('orders.status', 'completed')
             ->exists();
 
         if (!$canRate) {
             return redirect()->back()->with('error', 'Bạn chỉ có thể đánh giá sản phẩm sau khi đơn hàng hoàn thành.');
         }
 
-        Rating::updateOrCreate(
-            ['product_id' => $productId, 'user_id' => $userId],
-            [
-                'rating' => $request->input('rating'),
-                'review' => $request->input('review')
-            ]
-        );
+        Rating::create([
+            'product_id' => $productId,
+            'user_id' => $userId,
+            'rating' => $request->input('rating'),
+            'review' => $request->input('review')
+        ]);
 
-        // Redirect back with success message
         return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm!');
     }
 
