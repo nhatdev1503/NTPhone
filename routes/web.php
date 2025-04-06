@@ -44,7 +44,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
+Route::post( '/login', [LoginController::class, 'login'])->name('auth.login');
 
 // Route đăng ký
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
@@ -125,9 +125,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('posts', PostController::class);
 
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-    Route::get('/chats/{userId}', [ChatController::class, 'getChats']);
-    Route::get('/messages/{senderId}/{receiverId}', [ChatController::class, 'getMessages']);
-    Route::post('/send-message', [ChatController::class, 'sendMessage']);
+    Route::post('/chat/send-message', [ChatController::class, 'sendMessage'])->name('chat.send-message');
+    Route::post('/chat/get-room-id', [ChatController::class, 'getRoomId'])->name('chat.get-room-id');
+    Route::post('/chat/get-data', [ChatController::class, 'getDataChatAdmin'])->name('chat.getDataChatAdmin');
+    Route::post('/chat/message/delete', [ChatController::class, 'deleteMessage'])->name('chat.message.delete');
 });
 
 //Route trang nhân viên
@@ -138,6 +139,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 
 //Route trang khách hàng
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+
+    // chat
+    Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chatClient.sendMessage');
+    Route::post('/getDataChatClient', [ChatController::class, 'getDataChatClient'])->name('chat.getDataChatClient');
     // Trang Dashboard Customer
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/payment', [CustomerController::class, 'payment'])->name('customer.payment');
