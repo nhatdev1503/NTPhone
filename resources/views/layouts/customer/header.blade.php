@@ -9,7 +9,7 @@
     <meta name="robots" content="noodp,index,follow" />
     <meta name="description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
-    <title>Apple Store - Hoàng Kiên iPhone, iPad and more..... </title>
+    <title>Shop NTPhone </title>
     <meta name="keywords" content="Cập nhật sau" />
     <meta property="og:type" content="website">
     <meta property="og:title" content="Apple Store - Hoàng Kiên iPhone, iPad and more.....">
@@ -61,9 +61,7 @@
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+{{-- 
     <script>
         var Bizweb = Bizweb || {};
         Bizweb.store = 'hoangkien.mysapo.net';
@@ -80,6 +78,7 @@
             return v.toString(16);
         });
     </script>
+
     <script>
         (function() {
             function asyncLoad() {
@@ -124,7 +123,8 @@
             window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad,
                 false);
         })();
-    </script>
+    </script> --}}
+
     <script>
         window.BizwebAnalytics = window.BizwebAnalytics || {};
         window.BizwebAnalytics.meta = window.BizwebAnalytics.meta || {};

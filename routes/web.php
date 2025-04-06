@@ -145,8 +145,6 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
     Route::get('/buynow', [CustomerController::class, 'buynow'])->name('customer.buynow');
 
-
-
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
 
@@ -190,8 +188,8 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
         ->name('customer.profile.update');
     // Route giỏ hàng
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
-    Route::post('/cart/update/{id}', [CustomerController::class, 'updateCartQuantity'])->name('customer.cart.update');
-    Route::delete('/cart/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
+    Route::post('/cart/update/{id}', [CustomerController::class, 'updateCartQuantity'])->name('customer.cart.updateQuantity');
+    Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
     Route::post('/cart/update-variant', [CustomerController::class, 'updateCartVariant'])->name('customer.cart.updateVariant');
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
     Route::delete('/customer/cart/delete/{id}', [CustomerController::class, 'delete'])->name('customer.cart.delete');
@@ -206,12 +204,16 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/order/success', function () {
         return view('customer.order_success');
     })->name('customer.order.success');
+    Route::post('/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
+
+    // Cart routes
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+    Route::post('/cart/add', [CustomerController::class, 'addToCart'])->name('customer.cart.add');
+    Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
+    Route::get('/cart/check-status/{id}', [CustomerController::class, 'checkProductStatus'])->name('customer.cart.check-status');
+    Route::post('/cart/check-stock/{id}', [CustomerController::class, 'checkStock'])->name('customer.cart.check-stock');
+    Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
 });
-
-
-
-
-
 
 //Route trang khách vãng lai
 Route::prefix('guest')->group(function () {
@@ -226,13 +228,17 @@ Route::prefix('guest')->group(function () {
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
 });
 
-
 Route::prefix('customer')->group(function () {
     // Lịch sử mua hàng
     Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
 });
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
+    Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
+    Route::post('/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
+    Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
+    Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
 });
 
 Route::middleware('auth')->group(function () {
