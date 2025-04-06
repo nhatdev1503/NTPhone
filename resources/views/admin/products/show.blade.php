@@ -34,7 +34,7 @@
                             <tbody>
                                 <tr>
                                     <th>Tên:</th>
-                                    <td><span class="fw-bold text-dark fs-5" >{{ $product->name }}</span></td>
+                                    <td><span class="fw-bold text-dark fs-5">{{ $product->name }}</span></td>
                                 </tr>
                                 <tr>
                                     <th>Trạng thái:</th>
@@ -57,18 +57,20 @@
                                     <th>Mô tả:</th>
                                     <td>{{ $product->description }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Các màu đang được bán:</th>
-                                    <td class="">
-                                        {{ $product->variants->pluck('color')->unique()->join(', ') ?: 'Không có biến thể' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Dung lượng máy đang được bán:</th>
-                                    <td class="">
-                                        {{ $product->variants->pluck('storage')->unique()->join(', ') ?: 'Không có biến thể' }}
-                                    </td>
-                                </tr>
+                                @if ($product->have_variant == 1)
+                                    <tr>
+                                        <th>Các màu đang được bán:</th>
+                                        <td class="">
+                                            {{ $product->variants->pluck('color')->unique()->join(', ') ?: 'Không có biến thể' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dung lượng máy đang được bán:</th>
+                                        <td class="">
+                                            {{ $product->variants->pluck('storage')->unique()->join(', ') ?: 'Không có biến thể' }}
+                                        </td>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <th>Tổng số lượng:</th>
                                     <td class="fw-bold">
@@ -78,13 +80,13 @@
                                 <tr>
                                     <th>Giá gốc:</th>
                                     <td class="">
-                                        {{ $product->base_price }}
+                                        {{ number_format($product->base_price, 0, ',', '.') }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Giá giảm:</th>
                                     <td class="fw-bold">
-                                        {{ $product->sale_price }}
+                                        {{ number_format($product->sale_price, 0, ',', '.') }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -137,7 +139,8 @@
                     </table>
                 </div>
 
-                <!-- Danh sách biến thể -->
+                @if ($product->have_variant == 1)
+                    <!-- Danh sách biến thể -->
                 <div class="mt-4">
                     <h3 class="mb-2" style="font-size:larger">Danh sách biến thể: </h3>
                     <div class="table-responsive">
@@ -152,7 +155,6 @@
                                     <th>Số lượng</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
-                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -166,10 +168,10 @@
                                             {{ $variant->storage }}
                                         </td>
                                         <td>
-                                            {{ $variant->origin_price }}
+                                            {{ number_format($variant->origin_price, 0, ',', '.') }}
                                         </td>
                                         <td>
-                                            {{ $variant->price }}
+                                            {{ number_format($variant->price, 0, ',', '.') }}
                                         </td>
                                         <td>
                                             {{ $variant->stock }}
@@ -180,17 +182,6 @@
                                         <td>
                                             {{ $variant->updated_at->format('d/m/Y') }}
                                         </td>
-                                        <td>
-                                            @php
-                                                $isActive =
-                                                    $product->category->status === 'active' &&
-                                                    $product->status === 'active' &&
-                                                    $variant->status === 'active';
-                                            @endphp
-
-                                            <span
-                                                class="btn btn-{{ $isActive ? 'primary' : 'danger' }}">{{ $isActive ? 'Đang bán' : 'Ngừng bán' }}</span>
-                                        </td>
 
                                     </tr>
                                 @endforeach
@@ -198,6 +189,8 @@
                         </table>
                     </div>
                 </div>
+                
+                @endif
 
                 <div class="card-footer text-end">
                     <a href="{{ route('products.index') }}" class="btn btn-secondary">

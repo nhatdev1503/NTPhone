@@ -39,10 +39,14 @@ class ProductController extends Controller
         $categories = Category::all();
         $colors = Color::all();
         $storages = Storage::all();
-        return view('admin.products.create', compact('categories','colors','storages'));
+        return view('admin.products.create', compact('categories', 'colors', 'storages'));
     }
     public function getVariants($id)
     {
+        $pro = Product::findOrFail($id);
+        if($pro->have_variant == 0){
+            return response()->json([]);
+        }
         $product = Product::with([
             'variants' => function ($query) {
                 $query->orderBy('storage', 'desc'); // Sắp xếp theo storage tăng dần
@@ -66,6 +70,10 @@ class ProductController extends Controller
             'cpu' => 'nullable|string',
             'ram' => 'nullable|string',
             'battery' => 'nullable|string',
+            'stock' => 'required_if:have_variant,0|nullable|integer|min:0',
+        
+            'base_price' => 'required|numeric|min:0',
+            'sale_price' => 'required|numeric|min:0|lte:base_price',
         ], [
             'name.required' => 'Tên sản phẩm không được để trống.',
             'name.string' => 'Tên sản phẩm phải là một chuỗi.',
@@ -91,9 +99,19 @@ class ProductController extends Controller
             'cpu.string' => 'Thông tin CPU phải là một chuỗi.',
             'ram.string' => 'Thông tin RAM phải là một chuỗi.',
             'battery.string' => 'Thông tin pin phải là một chuỗi.',
-        ]);
         
-
+            'stock.required_if' => 'Số lượng tồn kho là bắt buộc khi sản phẩm không có biến thể.',
+            'stock.integer' => 'Số lượng tồn kho phải là số nguyên.',
+            'stock.min' => 'Số lượng tồn kho không được âm.',
+        
+            'base_price.required' => 'Giá gốc là bắt buộc.',
+            'base_price.numeric' => 'Giá gốc phải là số.',
+            'base_price.min' => 'Giá gốc không được âm.',
+            'sale_price.required' => 'Giá giảm là bắt buộc.',
+            'sale_price.numeric' => 'Giá giảm phải là số.',
+            'sale_price.min' => 'Giá giảm mãi không được âm.',
+            'sale_price.lte' => 'Giá giảm không được lớn hơn giá gốc.',
+        ]);
         // Tạo thư mục nếu chưa tồn tại
         $uploadPath = public_path('uploads/products');
         if (!File::exists($uploadPath)) {
@@ -124,6 +142,7 @@ class ProductController extends Controller
             'battery' => $request->battery,
             'base_price' => $request->base_price,
             'sale_price' => $request->sale_price,
+            'have_variant' => $request->have_variant,
         ]);
         // Lưu ảnh mini 
         if ($request->hasFile('mini_images')) {
@@ -138,14 +157,15 @@ class ProductController extends Controller
                 ]);
             }
         }
-        // Lưu biến thể sản phẩm
-        try{
+        
+        if ($request->have_variant == 1) {
+            // Lưu biến thể sản phẩm
             if ($request->variants) {
                 foreach ($request->variants as $variant) {
                     $variant = json_decode($variant, true);
-                    if($variant['origin_price'] != null &&
-                    $variant['price'] != null &&
-                    $variant['stock'] != null ){
+                    if (
+                        $variant != null 
+                    ) {
                         // Nếu không có ID, tạo mới
                         ProductVariant::create([
                             'product_id' => $product->id,
@@ -156,20 +176,22 @@ class ProductController extends Controller
                             'price' => $variant['price'],
                             'stock' => $variant['stock'],
                         ]);
+                    }else {
+                        return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công. Vui lòng thêm biến thể để có thể sử dụng.');
                     }
                 }
             }
-        } catch(\Exception $e){
+        }else{
+            // Nếu không có biến thể, đặt giá trị mặc định cho các trường liên quan
             ProductVariant::create([
                 'product_id' => $product->id,
                 'color' => null,
                 'hax_code' => null,
                 'storage' => null,
-                'origin_price' => $product->base_price,
-                'price' => $product->sale_price,
-                'stock' => null,
+                'origin_price' => $request->base_price,
+                'price' => $request->sale_price,
+                'stock' => $request->stock,
             ]);
-            return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công.');
         }
 
         return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công.');
@@ -187,7 +209,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $colors = Color::all();
         $storages = Storage::all();
-        return view('admin.products.edit', compact('product', 'categories','colors','storages'));
+        return view('admin.products.edit', compact('product', 'categories', 'colors', 'storages'));
     }
 
     public function update(Request $request, $id)
@@ -206,6 +228,10 @@ class ProductController extends Controller
             'cpu' => 'nullable|string',
             'ram' => 'nullable|string',
             'battery' => 'nullable|string',
+            'stock' => 'required_if:have_variant,0|nullable|integer|min:0',
+        
+            'base_price' => 'required|numeric|min:0',
+            'sale_price' => 'required|numeric|min:0|lte:base_price',
         ], [
             'name.required' => 'Tên sản phẩm không được để trống.',
             'name.string' => 'Tên sản phẩm phải là một chuỗi.',
@@ -231,8 +257,20 @@ class ProductController extends Controller
             'cpu.string' => 'Thông tin CPU phải là một chuỗi.',
             'ram.string' => 'Thông tin RAM phải là một chuỗi.',
             'battery.string' => 'Thông tin pin phải là một chuỗi.',
-        ]);
         
+            'stock.required_if' => 'Số lượng tồn kho là bắt buộc khi sản phẩm không có biến thể.',
+            'stock.integer' => 'Số lượng tồn kho phải là số nguyên.',
+            'stock.min' => 'Số lượng tồn kho không được âm.',
+        
+            'base_price.required' => 'Giá gốc là bắt buộc.',
+            'base_price.numeric' => 'Giá gốc phải là số.',
+            'base_price.min' => 'Giá gốc không được âm.',
+            'sale_price.required' => 'Giá giảm là bắt buộc.',
+            'sale_price.numeric' => 'Giá giảm phải là số.',
+            'sale_price.min' => 'Giá giảm mãi không được âm.',
+            'sale_price.lte' => 'Giá giảm không được lớn hơn giá gốc.',
+        ]);
+        // dd($request->all());
         // Tạo thư mục nếu chưa tồn tại
         $uploadPath = public_path('uploads/products');
         if (!File::exists($uploadPath)) {
@@ -286,14 +324,14 @@ class ProductController extends Controller
                 }
             }
         }
-    
+
         // Thêm ảnh mini mới nếu có
         if ($request->hasFile('mini_images')) {
             foreach ($request->file('mini_images') as $miniImage) {
                 $miniImageName = time() . '_mini_' . $miniImage->getClientOriginalName();
                 $miniImage->move(public_path('uploads/products/'), $miniImageName);
                 $miniImagePath = 'uploads/products/' . $miniImageName;
-    
+
                 // Lưu vào bảng `product_images`
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -302,48 +340,62 @@ class ProductController extends Controller
             }
         }
         // dd($request->updatevariants);
-        if ($request->has('updatevariants')) {
-            foreach ($request->updatevariants as $variantData) {
-                // Giải mã JSON thành mảng PHP
-                $data = json_decode($variantData, true);
-
-                // Kiểm tra xem variantId có hợp lệ không
-                if (!isset($data['variantId'])) {
-                    continue; // Bỏ qua nếu không có ID
+        if($product->have_variant == 1){
+            if ($request->has('updatevariants')) {
+                foreach ($request->updatevariants as $variantData) {
+                    // Giải mã JSON thành mảng PHP
+                    $data = json_decode($variantData, true);
+    
+                    // Kiểm tra xem variantId có hợp lệ không
+                    if (!isset($data['variantId'])) {
+                        continue; // Bỏ qua nếu không có ID
+                    }
+    
+                    // Tìm biến thể trong DB
+                    $variant = ProductVariant::findOrFail($data['variantId']);
+                    // Nếu tìm thấy, cập nhật dữ liệu
+                    if ($variant) {
+                        $variant->update([
+                            'color' => $data['color'],
+                            'hax_code' => $data['hax_code'],
+                            'storage' => $data['storage'],
+                            'origin_price' => $data['origin_price'],
+                            'price' => $data['price'],
+                            'stock' => $data['stock'],
+                            // 'status' => $data['status']
+                        ]);
+                    }
                 }
-
-                // Tìm biến thể trong DB
-                $variant = ProductVariant::findOrFail($data['variantId']);
-                // Nếu tìm thấy, cập nhật dữ liệu
-                if ($variant) {
-                    $variant->update([
-                        'color' => $data['color'],
-                        'hax_code' => $data['hax_code'],
-                        'storage' => $data['storage'],
-                        'origin_price' => $data['origin_price'],
-                        'price' => $data['price'],
-                        'stock' => $data['stock'],
-                        'status' => $data['status']
+    
+            }
+            // Lưu biến thể sản phẩm
+            if ($request->has('variants')) {
+                foreach ($request->variants as $variant) {
+                    $variant = json_decode($variant, true);
+                    ProductVariant::create([
+                        'product_id' => $product->id,
+                        'color' => $variant['color'],
+                        'hax_code' => $variant['hax_code'],
+                        'storage' => $variant['storage'],
+                        'origin_price' => $variant['origin_price'],
+                        'price' => $variant['price'],
+                        'stock' => $variant['stock'],
                     ]);
                 }
             }
-
         }
-        // Lưu biến thể sản phẩm
-        if ($request->has('variants')) {
-            foreach ($request->variants as $variant) {
-                $variant = json_decode($variant, true);
-                ProductVariant::create([
-                    'product_id' => $product->id,
-                    'color' => $variant['color'],
-                    'hax_code' => $variant['hax_code'],
-                    'storage' => $variant['storage'],
-                    'origin_price' => $variant['origin_price'],
-                    'price' => $variant['price'],
-                    'stock' => $variant['stock'],
-                ]);
-            }
+        else{
+            // Nếu không có biến thể, đặt giá trị mặc định cho các trường liên quan
+            ProductVariant::where('product_id', $product->id)->update([
+                'color' => null,
+                'hax_code' => null,
+                'storage' => null,
+                'origin_price' => $request->base_price,
+                'price' => $request->sale_price,
+                'stock' => $request->stock,
+            ]);
         }
+        
 
 
         return redirect()->route('products.show', $id)->with('success', 'Sản phẩm đã được cập nhật thành công.');

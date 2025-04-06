@@ -24,25 +24,61 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $banners = \App\Models\Banner::where('status', 'active')->get();
+        $banner = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
-        return view('customer.index', compact('banners', 'categories'));
+
+        $featuredProducts = Product::where('status', 'active')
+                            ->orderBy('priority', 'desc')
+                            ->orderBy('created_at', 'desc')
+                            ->limit(8)
+                            ->get();
+
+        $bestSellingProducts = Product::orderBy('id', 'desc')
+                            ->limit(8)
+                            ->get();
+
+        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts'));
     }
 
     public function categories(string $id)
     {
         $category = Category::findOrFail($id);
         $products = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
+                    ->leftJoin('product_variants', function ($join) {
+                        $join->on('products.id', '=', 'product_variants.product_id')
+                            ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
+                    })
+                    ->where('products.category_id', $id)
+                    ->where('products.status', 'active')
+                    ->orderBy('products.priority', 'desc')
+                    ->paginate(12);
+
+        return view('customer.categories', compact('category', 'products'));
+    }
+    public function filterProducts(Request $request, String $id)
+    {
+        $category = Category::findOrFail($id);
+
+        $productsQuery = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
             ->leftJoin('product_variants', function ($join) {
                 $join->on('products.id', '=', 'product_variants.product_id')
                     ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
             })
             ->where('products.category_id', $id)
-            ->where('products.status', 'active')
-            ->orderBy('products.priority', 'desc')
-            ->paginate(12);
-        $groupedProducts = $products->chunk(4);
-        return view('customer.danhmuc', compact('category', 'products', 'groupedProducts'));
+            ->where('products.status', 'active');
+
+        if ($request->has('filter') && $request->filter != '') {
+            $priceRange = explode('-', $request->filter);
+            if (count($priceRange) == 2) {
+                $minPrice = (int) $priceRange[0];
+                $maxPrice = (int) $priceRange[1];
+                $productsQuery->whereBetween('product_variants.price', [$minPrice, $maxPrice]);
+            }
+        }
+
+        $products = $productsQuery->orderBy('products.priority', 'desc')->paginate(12);
+
+        return view('customer.filterByCategory', compact('category', 'products'));
     }
 
     public function warranty()
@@ -90,7 +126,8 @@ class CustomerController extends Controller
 
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
-
+        $categoryId = $product->category_id;  
+        $products = Product::orderBy('priority', 'desc')->take(6)->get();
         $hasPurchased = DB::table('orders')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->where('orders.user_id', auth()->id())
@@ -119,16 +156,18 @@ class CustomerController extends Controller
     
         // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
-            ->where('id', '!=', $id)
-            ->limit(6)
-            ->get();
+        ->where('id', '!=', $id)
+        ->limit(6)
+        ->get();
 
         $productImages = $product->images ?? collect();
 
         return view('customer.product_detail', compact(
             'product',
             'variants',
-            'colors', // Truyền các màu sắc đã nhóm
+            'products',
+            'colors', 
+            'categoryId',
             'storages',
             'relatedProducts',
             'productImages',

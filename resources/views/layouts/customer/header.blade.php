@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#000" />
@@ -12,15 +11,12 @@
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <title>Shop NTPhone </title>
     <meta name="keywords" content="Cập nhật sau" />
-
-
     <meta property="og:type" content="website">
     <meta property="og:title" content="Apple Store - Hoàng Kiên iPhone, iPad and more.....">
     <meta property="og:image"
         content="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872">
     <meta property="og:image:secure_url"
         content="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872">
-
     <meta property="og:description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <meta property="og:url" content="https://www.hoangkien.com/">
@@ -45,37 +41,26 @@
     </script>
     <link rel="preload" as='style' type="text/css"
         href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.scss.css?1742954225872">
-
     <link rel="preload" as='style' type="text/css"
         href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/index.scss.css?1742954225872">
-
     <link rel="preload" as='style' type="text/css"
         href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/bootstrap-4-3-min.css?1742954225872">
-
     <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/bootstrap-4-3-min.css?1742954225872"
         rel="stylesheet" type="text/css" media="all" />
     <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/main.scss.css?1742954225872" rel="stylesheet"
         type="text/css" media="all" />
-
     <link href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/index.scss.css?1742954225872" rel="stylesheet"
         type="text/css" media="all" />
-
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1742954225872">
+    <link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/ajaxcart.scss.css?1742954225872">
+    <link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
 
 
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 {{-- 
     <script>
         var Bizweb = Bizweb || {};
@@ -140,27 +125,17 @@
         })();
     </script> --}}
 
-
     <script>
         window.BizwebAnalytics = window.BizwebAnalytics || {};
         window.BizwebAnalytics.meta = window.BizwebAnalytics.meta || {};
         window.BizwebAnalytics.meta.currency = 'VND';
         window.BizwebAnalytics.tracking_url = '/s';
-
         var meta = {};
-
-
         for (var attr in meta) {
             window.BizwebAnalytics.meta[attr] = meta[attr];
         }
     </script>
-
-
     <script src="/dist/js/stats.min.js?v=96f2ff2"></script>
-
-
-
-
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -173,17 +148,12 @@
             a.src = g;
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
         ga('create', 'UA-61144205-1', 'auto');
         ga('send', 'pageview');
     </script>
     <script>
         window.enabled_enhanced_ecommerce = false;
     </script>
-
-
-
-
     <!--Facebook Pixel Code-->
     <script>
         ! function(f, b, e, v, n, t, s) {
@@ -218,43 +188,16 @@
     </noscript>
     <!--DO NOT MODIFY-->
     <!--End Facebook Pixel Code-->
-
-
-
     <script>
         var eventsListenerScript = document.createElement('script');
         eventsListenerScript.async = true;
-
         eventsListenerScript.src = "/dist/js/store_events_listener.min.js?v=8ee4227";
-
         document.getElementsByTagName('head')[0].appendChild(eventsListenerScript);
     </script>
-
-
-
-
-
-
-
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1742954225872">
-<link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/ajaxcart.scss.css?1742954225872">
-<link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
-
-
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-<!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
     <script>
         $(document).ready(function($) {
             awe_lazyloadImage();
         });
-
         function awe_lazyloadImage() {
             var ll = new LazyLoad({
                 elements_selector: ".lazyload",
@@ -265,24 +208,20 @@
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
 </head>
-
 <body>
     <div class="opacity_menu"></div>
     <div class="banner-top d-none d-md-block" style="background: #01000d">
         <div class="container">
             <a href="" title="Banner top">
                 <picture>
-
                     <source media="(max-width: 567px)"
                         srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/banner_top.jpg?1742954225872">
                     <img alt="Banner top" width="1270" height="47"
                         src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner_top.jpg?1742954225872">
                 </picture>
-
             </a>
         </div>
     </div>
-
     <header class="header header-scroll">
         <div class="container">
             <div class="header-top d-flex     align-items-center" style="    justify-content: space-between;">
@@ -291,11 +230,11 @@
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
-                            src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872"
+                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
                             alt="Hoàng Kiên">
                     </picture>
                 </a>
-                <div class="icon-menu vertical-menu-category d-none d-lg-block">
+                <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
                     <span class="menu-icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -305,24 +244,15 @@
                                 class=""></path>
                         </svg>
                     </span>
-                    <span class="vertical-heading-text">Danh mục</span>
+                    <span class="vertical-heading-text" style="position: absolute; top:8px; left:35px">Danh mục</span>
                 </div>
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
-
-
-
-
-
-
-
-
-
-                            <div class="nav_item nav-item lv1 li_check ">
-                                <a href="/dien-thoai" title="Điện thoại"
-                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1742954225872')">Điện
-                                    thoại
+							@foreach ($categoriess as $category )
+							<div class="nav_item nav-item lv1 li_check ">
+                                <a href="{{ route('customer.category',$category->id) }}" title="Điện thoại"
+                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1742954225872')">{{ $category->name }}
                                     <i class="fas fa-angle-right">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -331,342 +261,9 @@
                                         </svg>
                                     </i>
                                 </a>
-
-                                <div class="ul_content_right_1">
-                                    <div class="row">
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-16-16plus-16pro-16promax" title="iPhone 16 Series">iPhone
-                                                16 Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-16-pro-max"
-                                                        title="iPhone 16 Pro Max">iPhone 16 Pro Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-16-pro"
-                                                        title="iPhone 16 Pro">iPhone 16 Pro</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-16-plus"
-                                                        title="iPhone 16 Plus">iPhone 16 Plus</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-16"
-                                                        title="iPhone 16">iPhone 16</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-15-15plus-15pro-15pro-max"
-                                                title="iPhone 15 Series">iPhone 15 Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-15-pro-max"
-                                                        title="iPhone 15 Pro Max">iPhone 15 Pro Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-15-pro"
-                                                        title="iPhone 15 Pro">iPhone 15 Pro</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-15-plus"
-                                                        title="iPhone 15 Plus">iPhone 15 Plus</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-15"
-                                                        title="iPhone 15">iPhone 15</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-14-14plus-14pro-14pro-max"
-                                                title="iPhone 14 Series">iPhone 14 Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-14-pro-max"
-                                                        title="iPhone 14 Pro Max">iPhone 14 Pro Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-14-pro"
-                                                        title="iPhone 14 Pro">iPhone 14 Pro</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-14-plus"
-                                                        title="iPhone 14 Plus">iPhone 14 Plus</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-14"
-                                                        title="iPhone 14">iPhone 14</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-13-13pro-13pro-max" title="iPhone 13 Series">iPhone 13
-                                                Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-13-pro-max"
-                                                        title="iPhone 13 Pro Max">iPhone 13 Pro Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-13-pro"
-                                                        title="iPhone 13 Pro">iPhone 13 Pro</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-13"
-                                                        title="iPhone 13">iPhone 13</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-12mini-12-12pro-12pro-max"
-                                                title="iPhone 12 Series">iPhone 12 Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-12-pro-max"
-                                                        title="iPhone 12 Pro Max">iPhone 12 Pro Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-12-pro"
-                                                        title="iPhone 12 Pro">iPhone 12 Pro</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-12"
-                                                        title="iPhone 12">iPhone 12</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a
-                                                        href="/apple-iphone-12-mini-64gb-99-like-new"
-                                                        title="iPhone 12 mini">iPhone 12 mini</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-11-11-pro-11-pro-max" title="iPhone 11 Series">iPhone 11
-                                                Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-11-pro-max"
-                                                        title="iPhone 11 Pro Max">iPhone 11 Pro Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-11-pro"
-                                                        title="iPhone 11 Pro">iPhone 11 Pro</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-11"
-                                                        title="iPhone 11">iPhone 11</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-xs-xs-max" title="iPhone XR/XS/XSM Series">iPhone
-                                                XR/XS/XSM Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-xs-max"
-                                                        title="iPhone XS Max">iPhone XS Max</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-xs"
-                                                        title="iPhone XS">iPhone XS</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-xr"
-                                                        title="iPhone XR">iPhone XR</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/iphone-8-plus" title="iPhone 8 Series">iPhone 8 Series</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-8-plus-1"
-                                                        title="iPhone 8 Plus">iPhone 8 Plus</a></div>
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-8-1"
-                                                        title="iPhone 8G">iPhone 8G</a></div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4">
-
-                                            <a href="/se-2020" title="iPhone SE 2020">iPhone SE 2020</a>
-
-                                            <div class="ul_content_right_2">
-
-                                                <div class="nav_item nav-item lv3"><a href="/iphone-se-2020"
-                                                        title="iPhone SE 2020">iPhone SE 2020</a></div>
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
                             </div>
-
-
-
-
-
-                            <div class="nav_item nav-item lv1 li_check ">
-                                <a href="/phu-kien" title="Phụ kiện"
-                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_2.png?1742954225872')">Phụ
-                                    kiện
-                                    <i class="fas fa-angle-right">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                            <path
-                                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                        </svg>
-                                    </i>
-                                </a>
-
-                                <div class="ul_content_right_1">
-                                    <div class="row">
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/phu-kien-apple"
-                                                title="Củ sạc iPhone, iPad">Củ sạc iPhone, iPad</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a
-                                                href="/cap-sac-iphone-ipad" title="Cáp sạc iPhone, iPad">Cáp sạc
-                                                iPhone, iPad</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/tai-nghe"
-                                                title="Tai nghe">Tai nghe</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/phu-kien-hoco"
-                                                title="Pin sạc dự phòng">Pin sạc dự phòng</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a
-                                                href="/phu-kien-khac-case-dcl" title="Phụ kiện khác (Case, DCL..)">Phụ
-                                                kiện khác (Case, DCL..)</a></div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-                            <div class="nav_item nav-item lv1 li_check ">
-                                <a href="/linh-kien" title="Linh Kiện"
-                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_3.png?1742954225872')">Linh
-                                    Kiện
-                                    <i class="fas fa-angle-right">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                            <path
-                                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                        </svg>
-                                    </i>
-                                </a>
-
-                                <div class="ul_content_right_1">
-                                    <div class="row">
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a
-                                                href="/pin-eu-dung-luong-cao" title="Pin EU Dung Lượng Cao">Pin EU
-                                                Dung Lượng Cao</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/pin-eu"
-                                                title="Pin EU Dung Lượng Chuẩn">Pin EU Dung Lượng Chuẩn</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a
-                                                href="/man-hinh-iphone-ipad" title="Màn hình">Màn hình</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/camera"
-                                                title="Camera">Camera</a></div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-                            <div class="nav_item nav-item lv1 li_check ">
-                                <a href="/blogs/all" title="Tin tức"
-                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_4.png?1742954225872')">Tin
-                                    tức
-                                    <i class="fas fa-angle-right">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                            <path
-                                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                        </svg>
-                                    </i>
-                                </a>
-
-                                <div class="ul_content_right_1">
-                                    <div class="row">
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a
-                                                href="/huong-dan-thu-thuat" title="Hướng dẫn, thủ thuật">Hướng dẫn,
-                                                thủ thuật</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/tin-tuc"
-                                                title="Tin công nghệ">Tin công nghệ</a></div>
-
-
-
-                                        <div class="nav_item nav-item lv2 col-lg-4 col-md-4"><a href="/bai-viet"
-                                                title="Ngoài lề">Ngoài lề</a></div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-
+							@endforeach
+                            
                         </div>
                     </div>
                 </div>
@@ -686,7 +283,6 @@
                                         d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
                                     </path>
                                 </svg> </button>
-
                             <div class="search-suggest">
                                 <ul class="smart-search-title">
                                     <li data-tab="#tab-search-1" class="active"><a href="javascript:void(0)"
@@ -700,13 +296,10 @@
                                     <div class="list-search2 list-search-style" id="tab-search-2">
                                     </div>
                                 </div>
-
                             </div>
-
                         </form>
                     </div>
                 </div>
-
                 <div class="header-control d-none d-xl-flex ">
                     <div class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -724,21 +317,6 @@
                 <div class="header-control d-none d-lg-flex">
                     <div class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-geo-alt" viewBox="0 0 16 16">
-                            <path
-                                d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                    </div>
-                    <div class="content">
-                        <a title="Hệ thống cửa hàng" href="/he-thong-cua-hang-hoang-kien" class="button-wishlist">
-                            Hệ thống<span>cửa hàng</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="header-control d-none d-lg-flex">
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-clipboard2-check" viewBox="0 0 16 16">
                             <path
                                 d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
@@ -749,19 +327,25 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a title="Tra cứu đơn hàng" href="/apps/kiem-tra-don-hang" class="button-wishlist">
+                        <a title="Tra cứu đơn hàng" href="{{ route('customer.order.history') }}" class="button-wishlist">
                             Tra cứu<span>đơn hàng</span>
                         </a>
                     </div>
                 </div>
                 <div class="header-control d-none header-cart block-cart d-lg-flex">
                     <div title="Giỏ hàng" class="icon">
-                        <svg ...></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 40 40">
+                            <defs></defs>
+                            <g id="ic-cart">
+                                <path id="shopping-bag" class="cls-1"
+                                    d="M35.91,36.17,33.24,10.75a1,1,0,0,0-1-.94h-5V8.67a6.47,6.47,0,1,0-12.93,0V9.81h-5a1.05,1.05,0,0,0-1,.94L5.52,36.17a1,1,0,0,0,.93,1.15H34.87a1,1,0,0,0,1.05-1A.41.41,0,0,0,35.91,36.17ZM16.35,8.67a4.38,4.38,0,1,1,8.75,0V9.81H16.35ZM7.73,35.24l2.45-23.33h4.07v2.3a1,1,0,0,0,1,1.09,1,1,0,0,0,1.09-1V11.91H25.1v2.3a1,1,0,0,0,1,1.09,1,1,0,0,0,1.09-1V11.91h4.07l2.45,23.33Z" />
+                            </g>
+                        </svg>
                     </div>
                     <div class="content">
-                        <a href="{{ route('customer.cart') }}" class="cart" title="Giỏ hàng">
+                        <a href="{{ route('customer.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
-                            Sản phẩm <span class="count_item_pr">3</span>
+                            Sản phẩm <span class=" count_item_pr">3</span>
                         </a>
                     </div>
                     <div class="top-cart-content">
@@ -787,39 +371,25 @@
                     </div>
                     <span>Thông tin</span>
                     <ul>
-
-                        <li class="li-account"><a rel="nofollow" href="/account/login" title="Đăng nhập">
+                        <li class="li-account">
+                            <a rel="nofollow" href="{{ route('customer.profile') }}" title="Thông tin tài khoản">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                     fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                     <path fill-rule="evenodd"
-                                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z">
-                                    </path>
-                                    <path fill-rule="evenodd"
-                                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z">
-                                    </path>
+                                          d="M8 9a5 5 0 0 0-5 5v.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14a5 5 0 0 0-5-5z"/>
                                 </svg>
-                                Thông tin</a>
+                                Thông tin tài khoản
+                            </a>
                         </li>
                         <li class="li-account">
                             <form action="{{ route('auth.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                                        <path
-                                            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z">
-                                        </path>
-                                        <path fill-rule="evenodd"
-                                            d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z">
-                                        </path>
-                                    </svg>
-                                    Đăng Xuất</button>
+                                    Đăng xuất
+                                </button>
                             </form>
-
                         </li>
-
-
-
                     </ul>
                 </div>
                 <div class="menu-bar d-lg-none d-flex">
@@ -832,10 +402,5 @@
                     </svg>
                 </div>
             </div>
-
         </div>
-        
-        {{-- link sử dụng icon fontawesome --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </header>

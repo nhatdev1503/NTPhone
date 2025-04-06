@@ -91,7 +91,6 @@
           </div>
         </div>
       </div>
-  
       <!-- Page Content -->
       <div class="flex-1 p-8 bg-white rounded-lg shadow">
         @yield('content')

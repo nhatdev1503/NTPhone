@@ -143,9 +143,13 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/payment', [CustomerController::class, 'postPayment'])->name('customer.postPayment');
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
     Route::post('/cart', [CustomerController::class, 'postCart'])->name('customer.postCart');
+    Route::get('/buynow', [CustomerController::class, 'buynow'])->name('customer.buynow');
 
     // Trang danh mục
     Route::get('/categories/{id}', [CustomerController::class, 'categories'])->name('customer.category');
+
+    // Lọc giá sản phẩm theo danh mục
+    Route::get('/filter/categories/{id}', [CustomerController::class, 'filterProducts'])->name('customer.filter');
 
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
@@ -246,4 +250,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/api/get-product-images', [ProductController::class, 'getProductImages']);
 Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
 Route::get('/api/get-price', [CustomerController::class, 'getPrice'])->name('customer.getPrice');
+Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class, 'getRevenue']);
+Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
 

@@ -122,16 +122,24 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Giá gốc</label>
-                                <input type="text" name="base_price" class="form-control" value="{{ $product->base_price }}">
+                                <input type="text" name="base_price" class="form-control" value="{{ old('base_price',$product->base_price) }}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Giá giảm</label>
-                                <input type="text" name="sale_price" class="form-control" value="{{ $product->sale_price }}">
+                                <input type="text" name="sale_price" class="form-control" value="{{ old('sale_price',$product->sale_price) }}">
                             </div>
+                            @if ($product->have_variant == 0)
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Số lượng</label>
+                                <input type="text" name="stock" class="form-control" value="{{ old('stock',$product->one_variant->stock )}}">
+                            </div>
+                            @endif
+                            
                         </div>
                     </div>
-                    <!-- Danh sách biến thể -->
+                    @if ($product->have_variant == 1)
+                        <!-- Danh sách biến thể -->
                     <input type="hidden" id="product-status" value="{{ $product->status }}">
                     <input type="hidden" id="category-status" value="{{ $product->category->status }}">
 
@@ -147,7 +155,6 @@
                                         <th>Giá gốc</th>
                                         <th>Giá giảm</th>
                                         <th>Số lượng</th>
-                                        <th>Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -179,22 +186,6 @@
                                             <td>
                                                 <input type="number" class="form-control text-center variant-input"
                                                     name="stock" value="{{ $variant->stock }}">
-                                            </td>
-                                            <td>
-                                                <select name="status"
-                                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    @php
-                                                        $isActive =
-                                                            $product->category->status === 'active' &&
-                                                            $product->status === 'active' &&
-                                                            $variant->status === 'active';
-                                                    @endphp
-
-                                                    <option value="active" {{ $isActive ? 'selected' : '' }}>Đang bán
-                                                    </option>
-                                                    <option value="inactive" {{ !$isActive ? 'selected' : '' }}>Ngừng bán
-                                                    </option>
-                                                </select>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -246,18 +237,12 @@
                         <h5 class="mt-4">Danh sách thêm mới: </h5>
                         <ul class="list-group" id="variant-list"></ul>
                     </div>
+                    @endif
+                    
 
 
 
                     <div class="text-end">
-                        <form action="{{ route('products.priority',$product->id) }}" method="POST"
-                            class="d-inline">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit"
-                                class="btn btn-dark mt-5">Ưu tiên lên đầu
-                            </button>
-                        </form>
                         <button type="submit" id="submit-button" class="btn btn-success mt-5">
                             <i class="fa fa-save"></i> Lưu thay đổi
                         </button>
@@ -265,6 +250,13 @@
                             <i class="fa fa-arrow-left"></i> Quay lại
                         </a>
                     </div>
+                </form>
+                <form action="{{ route('products.priority',$product->id) }}" method="POST"
+                    class="d-inline">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-primary mb-20" style="margin-bottom:20px">Đưa lên đầu trang
+                    </button>
                 </form>
             </div>
         </div>
@@ -274,7 +266,6 @@
             const form = document.querySelector("form");
             const variantSection = document.getElementById("variant-section");
             let initialData = new Map();
-            let initialStatuses = new Map();
 
             // Lưu trạng thái ban đầu của biến thể
             document.querySelectorAll(".variant-input").forEach(input => {
@@ -282,7 +273,6 @@
                 const key =
                     `${row.querySelector("[name='color']").value}_${row.querySelector("[name='storage']").value}`;
                 initialData.set(key, JSON.stringify(getVariantData(row)));
-                initialStatuses.set(row.dataset.id, row.querySelector("[name='status']").value);
             });
 
             function getVariantData(row) {
@@ -293,8 +283,7 @@
                     storage: row.querySelector("[name='storage']").value,
                     origin_price: row.querySelector("[name='origin_price']").value,
                     price: row.querySelector("[name='price']").value,
-                    stock: row.querySelector("[name='stock']").value,
-                    status: row.querySelector("[name='status']").value
+                    stock: row.querySelector("[name='stock']").value
                 };
             }
 
@@ -338,11 +327,16 @@
                 let color = document.querySelector(".variant_color").value;
                 let hax_code = document.querySelector(".variant_color").selectedOptions[0].getAttribute('data-hax');
                 let storage = document.querySelector(".variant_storage").value;
-                const origin_price = document.getElementById("variant_origin_price").value;
-                const price = document.getElementById("variant_price").value;
-                const stock = document.getElementById("variant_stock").value;
-                if (!color || !storage || !origin_price || !price || !stock) {
+                const origin_price = parseFloat(document.getElementById("variant_origin_price").value);
+                const price = parseFloat(document.getElementById("variant_price").value);
+                const stock = parseInt(document.getElementById("variant_stock").value);
+
+                if (!color || !storage || isNaN(origin_price) || isNaN(price) || isNaN(stock)) {
                     alert("Vui lòng điền đầy đủ thông tin biến thể!");
+                    return;
+                }
+                if (origin_price < 0 || price < 0 || stock < 0) {
+                    alert("Giá gốc, giá giảm và kho hàng không được phép âm!");
                     return;
                 }
                 if (origin_price < price) {
@@ -375,7 +369,21 @@
 
             document.getElementById("variant-list").addEventListener("click", function(e) {
                 if (e.target.classList.contains("remove-variant")) {
-                    e.target.parentElement.remove();
+                    const li = e.target.parentElement;
+                    const color = li.dataset.color;
+                    const storage = li.dataset.storage;
+
+                    // Remove the corresponding hidden input
+                    const hiddenInputs = document.querySelectorAll("input[name='variants[]']");
+                    hiddenInputs.forEach(input => {
+                        const variant = JSON.parse(input.value);
+                        if (variant.color === color && variant.storage === storage) {
+                            input.remove();
+                        }
+                    });
+
+                    // Remove the list item
+                    li.remove();
                 }
             });
 
@@ -385,23 +393,6 @@
                 let productStatus = document.getElementById("product-status").value;
                 let categoryStatus = document.getElementById("category-status").value;
                 console.clear();
-
-                let statusChangedToActive = false;
-                document.querySelectorAll("select[name='status']").forEach(select => {
-                    let variantId = select.closest("tr").dataset.id;
-                    if (initialStatuses.get(variantId) !== "active" && select.value === "active") {
-                        statusChangedToActive = true;
-                    }
-                });
-
-                if (statusChangedToActive && (productStatus === "inactive" || categoryStatus ===
-                        "inactive")) {
-                    alert(
-                        "Không thể thay đổi trạng thái biến thể vì sản phẩm hoặc danh mục đang bị vô hiệu hóa."
-                    );
-                    event.preventDefault();
-                    return;
-                }
 
                 let existingVariants = new Set();
                 let hasDuplicate = false;
@@ -427,6 +418,24 @@
                 });
                 if (hasDuplicate) {
                     alert("Có biến thể bị trùng lặp trong danh sách. Vui lòng kiểm tra lại!");
+                    event.preventDefault();
+                    return;
+                }
+
+                let hasNegativeValues = false;
+
+                document.querySelectorAll("tr[data-id]").forEach(row => {
+                    const origin_price = parseFloat(row.querySelector("input[name='origin_price']").value);
+                    const price = parseFloat(row.querySelector("input[name='price']").value);
+                    const stock = parseInt(row.querySelector("input[name='stock']").value);
+
+                    if (origin_price < 0 || price < 0 || stock < 0) {
+                        hasNegativeValues = true;
+                    }
+                });
+
+                if (hasNegativeValues) {
+                    alert("Giá gốc, giá giảm và kho hàng không được phép âm!");
                     event.preventDefault();
                     return;
                 }

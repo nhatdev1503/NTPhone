@@ -88,6 +88,7 @@
                                 <div class="brand-info">
                                     <span class="brand-label">Thương hiệu:</span>
                                     <span class="brand-value">{{ $cart->product_variant->product->category->name }}</span>
+
                                 </div>
                                 <div class="stock-info">
                                     <span class="stock-label">Còn lại:</span>
