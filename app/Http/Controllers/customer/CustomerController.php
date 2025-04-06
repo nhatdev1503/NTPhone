@@ -1165,12 +1165,14 @@ class CustomerController extends Controller
             'redirect_url' => route('customer.cart.proceed-to-checkout') // Generate the redirect URL
         ]);
     }
-
     public function search(Request $request)
     {
         $query = $request->input('query');
 
-        $products = Product::where('name', 'LIKE', "%$query%")->paginate(12);
+        $products = Product::where('name', 'LIKE', "%$query%")
+                            ->where('status', 'active')
+                            ->orderBy('priority', 'desc')
+                            ->paginate(10);
 
         return view('customer.search', compact('products', 'query'));
     }
