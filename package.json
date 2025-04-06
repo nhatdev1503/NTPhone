@@ -3,16 +3,16 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "node_modules/.bin/vite build"
+        "build": "vite build"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.21",
         "axios": "^1.6.4",
         "laravel-echo": "^2.0.2",
         "laravel-vite-plugin": "^1.0.0",
-
-        "pusher-js": "^8.4.0",
         "postcss": "^8.5.3",
+        "pusher-js": "^8.4.0",
+        "sass": "^1.86.3",
         "tailwindcss": "^4.0.17",
         "vite": "^5.0.0"
     },

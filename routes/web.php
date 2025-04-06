@@ -26,6 +26,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerOrderController;
 use App\Http\Controllers\Customer\RatingController;
+use App\Http\Controllers\customer\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
+Route::post( '/login', [LoginController::class, 'login'])->name('auth.login');
 
 // Route đăng ký
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
@@ -124,9 +125,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('posts', PostController::class);
 
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-    Route::get('/chats/{userId}', [ChatController::class, 'getChats']);
-    Route::get('/messages/{senderId}/{receiverId}', [ChatController::class, 'getMessages']);
-    Route::post('/send-message', [ChatController::class, 'sendMessage']);
+    Route::post('/chat/send-message', [ChatController::class, 'sendMessage'])->name('chat.send-message');
+    Route::post('/chat/get-room-id', [ChatController::class, 'getRoomId'])->name('chat.get-room-id');
+    Route::post('/chat/get-data', [ChatController::class, 'getDataChatAdmin'])->name('chat.getDataChatAdmin');
+    Route::post('/chat/message/delete', [ChatController::class, 'deleteMessage'])->name('chat.message.delete');
 });
 
 //Route trang nhân viên
@@ -137,6 +139,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
 
 //Route trang khách hàng
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+
+    // chat
+    Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chatClient.sendMessage');
+    Route::post('/getDataChatClient', [ChatController::class, 'getDataChatClient'])->name('chat.getDataChatClient');
     // Trang Dashboard Customer
     Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/payment', [CustomerController::class, 'payment'])->name('customer.payment');
@@ -151,11 +157,15 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // Lọc giá sản phẩm theo danh mục
     Route::get('/filter/categories/{id}', [CustomerController::class, 'filterProducts'])->name('customer.filter');
 
+    // Trang tìm kiếm
+    Route::post('/search', [CustomerController::class, 'search'])->name('customer.search');
+
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
         ->name('customer.product_detail');
     //rating
+    Route::post('/ratings', [RatingController::class, 'store'])->name('customer.ratings.store');
 
     // Gửi đánh giá sản phẩm
     Route::post('/rate-product/{productId}', [RatingController::class, 'storeRating'])->name('customer.rate.store');
@@ -212,15 +222,17 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/order/success', function () {
         return view('customer.order_success');
     })->name('customer.order.success');
-    Route::post('/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
+    Route::match(['GET', 'POST'], '/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
 
     // Cart routes
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
-    Route::post('/cart/add', [CustomerController::class, 'addToCart'])->name('customer.cart.add');
+    Route::post('/cart/add', [CustomerController::class, 'postCart'])->name('customer.cart.add');
     Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
     Route::get('/cart/check-status/{id}', [CustomerController::class, 'checkProductStatus'])->name('customer.cart.check-status');
     Route::post('/cart/check-stock/{id}', [CustomerController::class, 'checkStock'])->name('customer.cart.check-stock');
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
+    Route::post('/buy-now-direct', [CustomerController::class, 'proceedDirectlyToCheckout'])->name('customer.buyNowDirect');
+    Route::post('/cart/update-quantity/{cartId}', [CustomerController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
 });
 
 //Route trang khách vãng lai
@@ -244,7 +256,6 @@ Route::prefix('customer')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
-    Route::post('/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
     Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
 });

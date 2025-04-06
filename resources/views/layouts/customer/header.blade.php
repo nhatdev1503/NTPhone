@@ -269,33 +269,18 @@
                 </div>
                 <div class="search-header">
                     <div class="search-smart">
-                        <form action="/search" method="get" class="header-search-form input-group search-bar"
-                            role="search">
-                            <input type="text" name="query" required
-                                class="input-group-field auto-search search-auto form-control"
-                                placeholder="Bạn cần tìm gì..." autocomplete="off">
-                            <input type="hidden" name="type" value="product">
-                            <button type="submit" class="btn icon-fallback-text" aria-label="Tìm kiếm"
-                                title="Tìm kiếm">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                    <path fill="#fff"
-                                        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
-                                    </path>
-                                </svg> </button>
-                            <div class="search-suggest">
-                                <ul class="smart-search-title">
-                                    <li data-tab="#tab-search-1" class="active"><a href="javascript:void(0)"
-                                            title="Sản phẩm">Sản phẩm</a></li>
-                                    <li data-tab="#tab-search-2"><a href="javascript:void(0)" title="Tin tức">Tin
-                                            tức</a></li>
-                                </ul>
-                                <div class="list-search-suggest">
-                                    <div class="list-search list-search-style active" id="tab-search-1">
-                                    </div>
-                                    <div class="list-search2 list-search-style" id="tab-search-2">
-                                    </div>
-                                </div>
+                        <form action="{{ route('customer.search') }}" method="POST" style="display: flex; justify-content: center; align-items: center;">
+                            <div class="search-container" style="display: flex; align-items: center; width: 100%;">
+                                @csrf
+                                <input type="text" name="query" placeholder="Bạn cần tìm gì..." style="padding-left: 10px; width: 300px; height: 30px;">
+                                <button type="submit" style="border: none; background-color: white; width: 30px; height: 30px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <path fill="#000"
+                                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                                        </path>
+                                    </svg>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -404,3 +389,37 @@
             </div>
         </div>
     </header>
+
+    {{-- Flash Message Display --}}
+    <div class="container" style="padding-top: 15px;">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ session('warning') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('info'))
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+    {{-- End Flash Message Display --}}
+
+    {{-- Assume main content (@yield or similar) follows here --}}
+
+</body>
+</html>

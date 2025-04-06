@@ -1066,6 +1066,21 @@
         </div>
     </div>
 </div>
+@vite('resources/js/app.js')
+<script type="module">
+	        const userId = @json(Auth::check() ? Auth::user()->id : null);
+	        console.log('Setting up Echo listener for user:', userId);
+	        Echo.private(`chat.${userId}`)
+            .listen('MessageSent', (e) => {
+                console.log('MessageSent event received:', e);
+                if (e !== null) {         
+                    console.log('Event data is not null, calling renderDataMessage');
+                    renderDataMessage(e)
+                } else {
+                    console.log('Event data is null, skipping renderDataMessage');
+                }
+            });
+</script>
 <script>
     $('.addThis_iconContact .item-contact,.addThis_listSharing .addThis_close').on('click', function(e) {
         if ($('.addThis_listSharing').hasClass('active')) {

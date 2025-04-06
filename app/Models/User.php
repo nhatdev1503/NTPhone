@@ -47,8 +47,34 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getTotalUsersAttribute()
     {
         return self::count();
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isClient()
+    {
+        return $this->role === 'customer';
+    }
+
+    public static function getAdmin()
+    {
+        return self::where('role', 'admin')->get();
+    }
+
+    public static function getUser()
+    {
+        return self::where('role', 'customer')->get();
     }
 }

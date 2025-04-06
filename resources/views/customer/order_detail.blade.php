@@ -153,8 +153,8 @@
     <div class="card shadow-sm">
         <div class="card-header text-white">
             <h4 class="mb-0">Chi tiết đơn hàng</h4>
+            <a href="{{ route('customer.order.history') }}" class="btn btn-outline-secondary">Quay lại lịch sử đơn hàng</a>
         </div>
-
         <div class="card-body">
             <!-- Thông tin đơn hàng -->
             <div class="mb-4">
@@ -201,6 +201,19 @@
 
                                         <p class="product-price">{{ number_format($order->total_price, 0, ',', '.') }}đ
                                         </p>
+                                        @if (in_array($order->status, ['completed', 'cancelled']))
+                                            @php
+                                                // Lấy sản phẩm đầu tiên trong đơn hàng
+                                                $firstItem = $order->orderItems->first();
+                                            @endphp
+
+                                            @if ($firstItem && $firstItem->productVariant && $firstItem->productVariant->product)
+                                                <a href="{{ route('customer.product_detail', $firstItem->productVariant->product->id) }}"
+                                                    class="btn-detail">
+                                                    Mua lại
+                                                </a>
+                                            @endif
+                                        @endif
                                     </div>
                                     @if ($order->status == 'cancelled')
                                     @endif
@@ -300,10 +313,7 @@
             </div>
         </div>
 
-        <div class="card-footer text-end">
-            <a href="{{ route('customer.order.history') }}" class="btn btn-outline-secondary">Quay lại lịch sử đơn
-                hàng</a>
-        </div>
+       
     </div>
 </div>
 @endsection

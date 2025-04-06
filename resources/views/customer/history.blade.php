@@ -324,6 +324,7 @@
                                         });
                                     </script>
                                 @endif
+                                
 
                                 <a href="{{ route('customer.order_detail', $order->id) }}" class="btn-detail">Xem chi
                                     tiết</a>
