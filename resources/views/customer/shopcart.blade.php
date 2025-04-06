@@ -5,13 +5,13 @@
 
 <div class="cart-page">
     <div class="cart-header">
-        <div class="container">
+    <div class="container">
             <h1>Giỏ hàng của bạn</h1>
             <div class="cart-steps">
                 <div class="step active">
                     <span class="step-number">1</span>
                     <span class="step-text">Giỏ hàng</span>
-                </div>
+    </div>
                 <div class="step-line"></div>
                 <div class="step">
                     <span class="step-number">2</span>
@@ -40,9 +40,9 @@
     </div>
     @else
     <div class="container">
-        <div id="notification-container" class="notification-container"></div>
+    <div id="notification-container" class="notification-container"></div>
         <form id="checkout-form" action="{{ route('customer.cart.proceed-to-checkout') }}" method="POST">
-            @csrf
+        @csrf
             <input type="hidden" name="selected_items" id="selected_items">
             <div class="cart-content">
                 <div class="cart-items">
@@ -80,7 +80,7 @@
                                 </label>
                             </div>
                             <div class="item-image">
-                                <img src="{{ asset($cart->product_variant->product->image) }}"
+                                    <img src="{{ asset($cart->product_variant->product->image) }}"
                                     alt="{{ $cart->product_variant->product->name }}">
                             </div>
                             <div class="item-info">
@@ -94,12 +94,12 @@
                                     <span class="stock-label">Còn lại:</span>
                                     <span class="stock-value" data-cart-id="{{ $cart->id }}">{{ $cart->product_variant->stock }}</span> sản phẩm
                                 </div>
-                                <div class="variant-info">
+                                        <div class="variant-info">
                                     @if ($colors->count() <= 1 && $storages->count() <= 1)
-                                        <span class="variant-static">
-                                            {{ $cart->product_variant->color }} -
-                                            {{ $cart->product_variant->storage }}
-                                        </span>
+                                            <span class="variant-static">
+                                                {{ $cart->product_variant->color }} -
+                                                {{ $cart->product_variant->storage }}
+                                            </span>
                                     @else
                                         <div class="variant-selectors">
                                             <select class="variant-color" data-cart-id="{{ $cart->id }}">
@@ -148,23 +148,23 @@
                                             class="quantity-input" data-cart-id="{{ $cart->id }}">
                                         <button type="button" class="btn-increase" data-cart-id="{{ $cart->id }}">
                                             <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
+                                            </button>
+                                        </div>
                                     <button type="button" class="btn-remove" data-cart-id="{{ $cart->id }}">
                                         <i class="fas fa-trash"></i>
                                         <span>Xóa</span>
                                     </button>
+                                    </div>
                                 </div>
-                            </div>
                             <div class="item-price">
                                 <div class="current-price">{{ number_format($price, 0, ',', '.') }}₫</div>
                                 <div class="item-total">{{ number_format($itemSubTotal, 0, ',', '.') }}₫</div>
-                            </div>
-                        </div>
+                                </div>
+                                </div>
                     @endforeach
-                </div>
+        </div>
 
-                <div class="cart-summary">
+        <div class="cart-summary">
                     <div class="summary-header">
                         <h2>Tổng tiền giỏ hàng</h2>
                     </div>
@@ -178,14 +178,14 @@
                                 <span>Tổng cộng</span>
                                 <span class="final-price">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
                             </div>
-                        </div>
-                        <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
+            </div>
+            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
                             Mua hàng (<span id="selected-items">0</span>)
-                        </button>
+            </button>
                     </div>
                 </div>
-            </div>
-        </form>
+        </div>
+    </form>
     </div>
     @endif
 </div>
@@ -205,8 +205,8 @@
 
     .cart-header {
         background: #fff;
-        padding: 2rem 0;
-        margin-bottom: 2rem;
+        padding: 10px;
+        margin-bottom: 20px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
@@ -439,6 +439,7 @@
         align-items: center;
         gap: 0.5rem;
     }
+
 
     .btn-remove:hover {
         color: #ff4444;
@@ -851,10 +852,10 @@
             gap: 1rem;
             max-width: 400px;
             border-left: 4px solid;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
+    }
+
+    .notification.show {
+        transform: translateX(0);
             opacity: 1;
         }
         
@@ -1305,6 +1306,66 @@
 
     // Initialize
     updateTotals();
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const buyNowVariantId = urlParams.get('buy_now');
+
+        if (buyNowVariantId) {
+            console.log('Buy Now Variant ID:', buyNowVariantId);
+            const checkboxes = document.querySelectorAll('.item-select'); // Adjust selector if needed
+            let itemFound = false;
+
+            checkboxes.forEach(checkbox => {
+                // Assume the checkbox value or a data attribute holds the variant ID
+                // Example: data-variant-id="123" or value="cart_id_related_to_variant_123"
+                // *** YOU MUST ADAPT THIS LINE based on your HTML structure ***
+                const checkboxVariantId = checkbox.dataset.variantId; // CHECK THIS!
+
+                if (checkboxVariantId === buyNowVariantId) {
+                    checkbox.checked = true;
+                    itemFound = true;
+                    console.log('Found and checked item for variant:', buyNowVariantId);
+                    // Optional: Scroll to the item
+                    // checkbox.closest('tr')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    checkbox.checked = false;
+                }
+            });
+
+            if (itemFound) {
+                // Trigger cart total update if you have a function for it
+                if (typeof updateCartTotal === 'function') { // Check if your update function exists
+                    updateCartTotal();
+                    console.log('Cart total updated.');
+                } else {
+                     console.warn('Function updateCartTotal() not found. Cart total might not reflect selection.');
+                     // You might need to manually trigger a change event on checkboxes if your total calculation depends on it
+                     checkboxes.forEach(cb => cb.dispatchEvent(new Event('change', { bubbles: true })));
+                }
+                // Remove the query parameter from URL to prevent re-triggering on refresh
+                 try {
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.delete('buy_now');
+                    window.history.replaceState({}, document.title, currentUrl.toString());
+                 } catch (e) {
+                     console.error('Error updating URL:', e);
+                     // Fallback for older browsers or complex URLs
+                     const newUrl = window.location.pathname + window.location.search.replace(/[?&]buy_now=\d+/, '').replace(/^&/, '?');
+                     window.history.replaceState({}, document.title, newUrl);
+                 }
+
+            } else {
+                console.warn('Buy Now item with variant ID', buyNowVariantId, 'not found in cart checkboxes.');
+            }
+        }
+    });
+
+    // Placeholder/Example for your cart update function if it exists
+    // function updateCartTotal() {
+    //    console.log('Updating cart total based on selections...');
+    //    // Add your logic here to recalculate and display the total based on checked checkboxes
+    // }
 </script>
 
 {{-- @include('layouts.customer.footer') --}}

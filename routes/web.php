@@ -26,6 +26,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerOrderController;
 use App\Http\Controllers\Customer\RatingController;
+use App\Http\Controllers\customer\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,6 +160,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
         ->name('customer.product_detail');
     //rating
+    Route::post('/ratings', [RatingController::class, 'store'])->name('customer.ratings.store');
 
     // Gửi đánh giá sản phẩm
     Route::post('/rate-product/{productId}', [RatingController::class, 'storeRating'])->name('customer.rate.store');
@@ -207,15 +209,17 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/order/success', function () {
         return view('customer.order_success');
     })->name('customer.order.success');
-    Route::post('/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
+    Route::match(['GET', 'POST'], '/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
 
     // Cart routes
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
-    Route::post('/cart/add', [CustomerController::class, 'addToCart'])->name('customer.cart.add');
+    Route::post('/cart/add', [CustomerController::class, 'postCart'])->name('customer.cart.add');
     Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
     Route::get('/cart/check-status/{id}', [CustomerController::class, 'checkProductStatus'])->name('customer.cart.check-status');
     Route::post('/cart/check-stock/{id}', [CustomerController::class, 'checkStock'])->name('customer.cart.check-stock');
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
+    Route::post('/buy-now-direct', [CustomerController::class, 'proceedDirectlyToCheckout'])->name('customer.buyNowDirect');
+    Route::post('/cart/update-quantity/{cartId}', [CustomerController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
 });
 
 //Route trang khách vãng lai
@@ -239,7 +243,6 @@ Route::prefix('customer')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
     Route::get('/cart', [CustomerController::class, 'cart'])->name('customer.cart');
-    Route::post('/cart/proceed-to-checkout', [CustomerController::class, 'proceedToCheckout'])->name('customer.cart.proceed-to-checkout');
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
     Route::delete('/cart/delete/{id}', [CustomerController::class, 'deleteCartItem'])->name('customer.cart.delete');
 });
@@ -255,4 +258,6 @@ Route::get('/get-available-colors', [CustomerController::class, 'getAvailableCol
 Route::get('/api/get-price', [CustomerController::class, 'getPrice'])->name('customer.getPrice');
 Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class, 'getRevenue']);
 Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
+
+Route::post('/comments', [CommentController::class, 'store'])->name('customer.comments.store')->middleware('auth');
 

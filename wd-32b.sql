@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 06, 2025 at 02:28 AM
+-- Generation Time: Apr 06, 2025 at 05:33 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -65,13 +65,17 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_variant_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(33, 1, 190, 3, NULL, NULL),
-(34, 1, 188, 3, NULL, NULL),
-(36, 1, 190, 3, NULL, NULL),
-(37, 2, 188, 5, NULL, '2025-04-05 19:25:54'),
-(39, 2, 190, 3, NULL, NULL),
-(42, 1, 190, 3, NULL, NULL),
-(43, 1, 188, 3, NULL, NULL);
+(37, 2, 187, 2, NULL, '2025-04-05 20:48:31'),
+(39, 2, 190, 2, NULL, '2025-04-05 20:35:33'),
+(42, 1, 184, 3, NULL, NULL),
+(48, 1, 184, 3, NULL, NULL),
+(49, 1, 188, 3, NULL, NULL),
+(50, 1, 184, 3, NULL, NULL),
+(51, 1, 188, 3, NULL, NULL),
+(52, 1, 184, 3, NULL, NULL),
+(53, 1, 188, 3, NULL, NULL),
+(54, 1, 184, 3, NULL, NULL),
+(55, 1, 188, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -158,6 +162,14 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `product_id`, `content`, `created_at`, `updated_at`) VALUES
+(101, 2, 75, 'xin chào ', '2025-04-09 05:20:40', NULL),
+(102, 2, 75, 'xin chào ', '2025-04-07 17:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -441,7 +453,10 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `order_code`, `user_id`, `staff_id`, `discount_id`, `fullname`, `address`, `phone`, `email`, `total_price`, `discount_amount`, `status`, `cancel_reason`, `payment_method`, `payment_status`, `created_at`, `updated_at`) VALUES
 (35, 'ORD1743887175', 2, NULL, 22, 'aaaaaaaaaaa', 'cccccccccccccccc', '678.301.3889', 'bbbbbbbbbbbbbb@example.com', 36500000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:06:15', '2025-04-05 14:06:15'),
 (36, 'ORD1743887840', 2, NULL, 22, 'bb', 'cccccccccccccc', '678.301.3889', 'bbbbb@example.com', 55000000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:17:20', '2025-04-05 14:17:20'),
-(37, 'ORD1743888278', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 53200000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:24:38', '2025-04-05 14:24:38');
+(37, 'ORD1743888278', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 53200000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:24:38', '2025-04-05 14:24:38'),
+(38, 'ORD1743909281', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 82000000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 20:14:41', '2025-04-05 20:14:41'),
+(39, 'ORD1743909618', 2, NULL, NULL, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'VNPay', 'pending', '2025-04-05 20:20:18', '2025-04-05 20:20:18'),
+(40, 'ORD1743910007', 2, 1, NULL, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'delivered', NULL, 'COD', 'pending', '2025-04-05 20:26:47', '2025-04-05 20:39:05');
 
 -- --------------------------------------------------------
 
@@ -466,7 +481,10 @@ CREATE TABLE `order_items` (
 INSERT INTO `order_items` (`id`, `order_id`, `product_variant_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
 (117, 35, 188, 2, 18500000, '2025-04-05 14:06:15', '2025-04-05 14:06:15'),
 (118, 36, 188, 3, 18500000, '2025-04-05 14:17:20', '2025-04-05 14:17:20'),
-(119, 37, 187, 3, 17900000, '2025-04-05 14:24:38', '2025-04-05 14:24:38');
+(119, 37, 187, 3, 17900000, '2025-04-05 14:24:38', '2025-04-05 14:24:38'),
+(120, 38, 184, 5, 16500000, '2025-04-05 20:14:41', '2025-04-05 20:14:41'),
+(121, 39, 185, 1, 15600000, '2025-04-05 20:20:18', '2025-04-05 20:20:18'),
+(122, 40, 186, 1, 16500000, '2025-04-05 20:26:47', '2025-04-05 20:26:47');
 
 -- --------------------------------------------------------
 
@@ -644,9 +662,9 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `color`, `hax_code`, `storage`, `origin_price`, `price`, `stock`, `status`, `created_at`, `updated_at`) VALUES
-(184, 75, 'Red', '#FF0000', '16GB', 17500000, 16500000, 5, 'active', '2025-04-02 20:18:06', '2025-04-02 20:18:06'),
-(185, 75, 'Blue', '#98A7C1', '8GB', 16500000, 15600000, 3, 'active', '2025-04-02 20:18:06', '2025-04-02 20:18:06'),
-(186, 75, 'Blue', '#98A7C1', '16GB', 17500000, 16500000, 2, 'active', '2025-04-02 20:18:06', '2025-04-02 20:18:06'),
+(184, 75, 'Red', '#FF0000', '16GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-05 20:14:41'),
+(185, 75, 'Blue', '#98A7C1', '8GB', 16500000, 15600000, 2, 'active', '2025-04-02 20:18:06', '2025-04-05 20:20:18'),
+(186, 75, 'Blue', '#98A7C1', '16GB', 17500000, 16500000, 1, 'active', '2025-04-02 20:18:06', '2025-04-05 20:26:47'),
 (187, 76, 'Red', '#FF0000', '8GB', 18900000, 17900000, 10, 'active', '2025-04-02 20:22:22', '2025-04-02 20:22:22'),
 (188, 76, 'Red', '#FF0000', '16GB', 19500000, 18500000, 15, 'active', '2025-04-02 20:22:22', '2025-04-02 20:22:22'),
 (189, 78, 'Red', '#FF0000', '8GB', 18500000, 17900000, 10, 'active', '2025-04-02 21:34:23', '2025-04-02 21:34:23'),
@@ -911,7 +929,7 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -935,7 +953,7 @@ ALTER TABLE `colors`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -977,13 +995,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

@@ -252,8 +252,8 @@
 
 .cart-header {
     background: #fff;
-    padding: 2rem 0;
-    margin-bottom: 2rem;
+    padding: 10px;
+    margin-bottom: 20px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -268,8 +268,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
-    padding: 1rem;
+    margin-bottom: 0;
+    padding: 10px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -612,7 +612,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
 }
 
 .back-buttons {

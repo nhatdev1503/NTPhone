@@ -1,4 +1,158 @@
 @include('layouts.customer.header')
+<style>
+/* Thêm CSS để hiển thị 5 sản phẩm trên hàng và các style khác */
+.section_product .col-lg-3 {
+    /* For large screens (lg), default is 4 columns (col-lg-3). We change it to 5 */
+    width: 20%; /* 100% / 5 = 20% */
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+
+/* Adjust for medium screens (md) if needed */
+@media (max-width: 991.98px) {
+    .section_product .col-md-4 {
+        /* Default is 3 columns (col-md-4). Change to maybe 3 or 4 */
+        width: 33.333%;
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+    }
+}
+
+/* Adjust for small screens (sm/xs) */
+@media (max-width: 767.98px) {
+    .section_product .col-6 {
+        /* Default is 2 columns (col-6). Keep as 2 or adjust if needed */
+        width: 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+.product-thumbnail {
+    position: relative;
+    overflow: hidden; /* Ensure content fits */
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-thumbnail .image_thumb img {
+    display: block;
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    aspect-ratio: 1 / 1; /* Make images square */
+    object-fit: cover; /* Cover the area without distortion */
+    transition: transform 0.3s ease;
+}
+
+.product-thumbnail:hover .image_thumb img {
+    transform: scale(1.05);
+}
+
+.tag-discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4d4f; /* Red background for discount */
+    color: white;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.product-info {
+    text-align: left;
+    padding: 0 5px; /* Add some padding */
+}
+
+.product-name a {
+    font-size: 0.85rem; /* Smaller font size */
+    color: #333;
+    text-decoration: none;
+    font-weight: 500; /* Slightly bolder */
+    height: 3em; /* Limit to 2 lines */
+    line-height: 1.5em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.product-name a:hover {
+    color: var(--shop-color-hover);
+}
+
+.price-box {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column; /* Stack prices vertically */
+    align-items: flex-start; /* Align prices to the left */
+    gap: 2px; /* Space between prices */
+}
+
+.price-box .sale-price {
+    font-size: 0.95rem; /* Slightly larger sale price */
+    font-weight: 600;
+    color: #d70018; /* Red color for sale price */
+}
+
+.price-box .origin-price {
+    font-size: 0.75rem; /* Smaller origin price */
+    color: #888;
+    text-decoration: line-through;
+}
+
+.product-sold {
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 5px;
+}
+.product-action .action { /* Hide action button by default */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.product-thumbnail:hover .action { /* Show on hover */
+    opacity: 1;
+    visibility: visible;
+}
+.btn-views {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-views:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.btn-views svg {
+    width: 16px;
+    height: 16px;
+}
+/* Ensure swiper structure doesn't interfere with column layout */
+.section_product .swiper-slide-pro {
+    width: 100% !important; /* Override swiper's width */
+    margin-right: 0 !important; /* Override swiper's margin */
+}
+.section_product .swiper-wrapper {
+     display: flex; /* Use flexbox for alignment */
+     flex-wrap: wrap; /* Allow items to wrap */
+     width: auto !important; /* Let container define width */
+     transform: none !important; /* Disable swiper transform */
+}
+</style>
 <div class="bodywrap">
     <h1 class="d-none">Hoàng Kiên - Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công
         nghệ các loại uy tín, chất lượng</h1>
@@ -169,47 +323,52 @@
                     </a>
                 </h3>
                 <div class="row">
-                    @foreach ($featuredProducts as $featuredProduct)
+                    @foreach ($featuredProducts as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide swiper-slide-pro">
-                                    <form action="/cart/add" method="post" class="variants product-action"
-                                        data-cart-form data-id="product-actions-42560501"
-                                        enctype="multipart/form-data">
-                                        <div class="product-thumbnail">
-                                            <a class="image_thumb scale_hover" href="{{ route('customer.product_detail',$featuredProduct->id) }}"
-                                                title="{{ $featuredProduct->name }}">
-                                                <img width="130" height="130"
-                                                    src="{{ asset($featuredProduct->image) }}"
-                                                    alt="{{ $featuredProduct->name }}">
-                                            </a>
-                                            <div class="tag-km">
-                                            </div>
-                                            <input class="hidden" type="hidden" name="variantId"
-                                                value="140112418" />
-                                            <div class="action">
-                                                <button class="btn-cart btn-views" title="Xem chi tiết"
-                                                    type="button"
-                                                    onclick="window.location.href='#'">
-                                                    <svg class="icon">
-                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                            xlink:href="#icon-detail"></use>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h3 class="product-name"><a class="line-clamp line-clamp-2"
-                                                    href="#" title="{{ $featuredProduct->name }}">{{ $featuredProduct->name }}</a></h3>
-                                            <div class="price-box">
-                                                {{ number_format($featuredProduct->sale_price) }}₫
-                                            </div>
-                                            <div class="wishlish-compare">
-                                            </div>
-                                        </div>
-                                    </form>
+                            <form action="{{ route('customer.postCart') }}" method="post" class="variants product-action" data-cart-form data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                @php
+                                    $firstVariant = $product->variants->first();
+                                    $displayPrice = $product->sale_price ?? 0;
+                                    $originPrice = $product->origin_price ?? 0;
+                                    $discountPercentage = $product->discount_percentage ?? 0;
+                                    $soldCount = $product->sold_count ?? 0;
+                                @endphp
+                                <input type="hidden" name="variantId" value="{{ $firstVariant->id ?? '' }}">
+
+                                <div class="product-thumbnail">
+                                    @if ($discountPercentage > 0)
+                                        <div class="tag-discount">-{{ $discountPercentage }}%</div>
+                                    @endif
+                                    <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
+                                        <img width="130" height="130"
+                                            src="{{ asset($product->image) }}"
+                                            alt="{{ $product->name }}"
+                                            loading="lazy"
+                                            onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
+                                    </a>
+                                    <div class="action">
+                                        <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views" title="Xem chi tiết">
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"></path></svg>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">
+                                        <a class="line-clamp line-clamp-2" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">{{ $product->name }}</a>
+                                    </h3>
+                                    <div class="price-box">
+                                        <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
+                                        @if ($originPrice > $displayPrice)
+                                            <span class="origin-price">{{ number_format($originPrice) }}₫</span>
+                                        @endif
+                                    </div>
+                                    @if($soldCount > 0)
+                                        <div class="product-sold">Đã bán: {{ $soldCount }}</div>
+                                    @endif
+                                </div>
+                            </form>
                         </div>
                     @endforeach
                 </div>
@@ -224,47 +383,50 @@
                     </a>
                 </h3>
                 <div class="row">
-                    @foreach ($bestSellingProducts as $bestSellingProduct)
+                    @foreach ($bestSellingProducts as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide swiper-slide-pro">
-                                    <form action="/cart/add" method="post" class="variants product-action"
-                                        data-cart-form data-id="product-actions-42560501"
-                                        enctype="multipart/form-data">
-                                        <div class="product-thumbnail">
-                                            <a class="image_thumb scale_hover" href="{{ route('customer.product_detail',$bestSellingProduct->id) }}"
-                                                title="{{ $bestSellingProduct->name }}">
-                                                <img width="130" height="130"
-                                                    src="{{ asset($bestSellingProduct->image) }}"
-                                                    alt="{{ $bestSellingProduct->name }}">
-                                            </a>
-                                            <div class="tag-km">
-                                            </div>
-                                            <input class="hidden" type="hidden" name="variantId"
-                                                value="140112418" />
-                                            <div class="action">
-                                                <button class="btn-cart btn-views" title="Xem chi tiết"
-                                                    type="button"
-                                                    onclick="window.location.href='#'">
-                                                    <svg class="icon">
-                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                            xlink:href="#icon-detail"></use>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h3 class="product-name"><a class="line-clamp line-clamp-2"
-                                                    href="#" title="{{ $bestSellingProduct->name }}">{{ $bestSellingProduct->name }}</a></h3>
-                                            <div class="price-box">
-                                                {{ number_format($bestSellingProduct->sale_price) }}₫
-                                            </div>
-                                            <div class="wishlish-compare">
-                                            </div>
-                                        </div>
-                                    </form>
+                            <form action="{{ route('customer.postCart') }}" method="post" class="variants product-action" data-cart-form data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                @php
+                                    $firstVariant = $product->variants->first();
+                                    $displayPrice = $product->sale_price ?? 0;
+                                    $originPrice = $product->origin_price ?? 0;
+                                    $discountPercentage = $product->discount_percentage ?? 0;
+                                    $soldCount = $product->sold_count ?? 0;
+                                @endphp
+                                <input type="hidden" name="variantId" value="{{ $firstVariant->id ?? '' }}">
+
+                                <div class="product-thumbnail">
+                                    @if ($discountPercentage > 0)
+                                        <div class="tag-discount">-{{ $discountPercentage }}%</div>
+                                    @endif
+                                    <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
+                                        <img width="130" height="130"
+                                            src="{{ asset($product->image) }}"
+                                            alt="{{ $product->name }}"
+                                            loading="lazy"
+                                            onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
+                                    </a>
+                                    <div class="action">
+                                        <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views" title="Xem chi tiết">
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"></path></svg>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="product-info">
+                                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">{{ $product->name }}</a></h3>
+                                    <div class="price-box">
+                                        <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
+                                        @if ($originPrice > $displayPrice)
+                                            <span class="origin-price">{{ number_format($originPrice) }}₫</span>
+                                        @endif
+                                    </div>
+                                    @if($soldCount > 0)
+                                        <div class="product-sold">Đã bán: {{ $soldCount }}</div>
+                                    @endif
+                                </div>
+                            </form>
                         </div>
                     @endforeach
                 </div>
