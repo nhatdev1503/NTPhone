@@ -947,4 +947,13 @@ class CustomerController extends Controller
             ]);
         }
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $products = Product::where('name', 'LIKE', "%$query%")->paginate(12);
+
+        return view('customer.search', compact('products', 'query'));
+    }
 }
