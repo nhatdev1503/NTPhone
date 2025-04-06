@@ -10,7 +10,7 @@
     <meta name="robots" content="noodp,index,follow" />
     <meta name="description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
-    <title>Apple Store - Hoàng Kiên iPhone, iPad and more..... </title>
+    <title>Shop NTPhone </title>
     <meta name="keywords" content="Cập nhật sau" />
 
 
@@ -76,7 +76,7 @@
 
 
 
-
+{{-- 
     <script>
         var Bizweb = Bizweb || {};
         Bizweb.store = 'hoangkien.mysapo.net';
@@ -93,6 +93,7 @@
             return v.toString(16);
         });
     </script>
+
     <script>
         (function() {
             function asyncLoad() {
@@ -137,7 +138,7 @@
             window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad,
                 false);
         })();
-    </script>
+    </script> --}}
 
 
     <script>
