@@ -16,21 +16,19 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
-
         // Validate thông tin cập nhật
         $data = $request->validate([
             'fullname' => 'required|string|max:255',
             'phone'    => 'nullable|string|max:20',
             'address'  => 'nullable|string|max:255',
-            'username' => 'required|string|max:255',
             'avatar'   => 'nullable|image|max:2048', // Tối đa 2MB
         ]);
 
         // Xử lý upload avatar nếu có
-        if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $data['avatar'] = $path;
-        }
+        // if ($request->hasFile('avatar')) {
+        //     $path = $request->file('avatar')->store('avatars', 'public');
+        //     $data['avatar'] = $path;
+        // }
 
         $user->update($data);
 

@@ -20,7 +20,6 @@ class UserRequest extends FormRequest
             'email' => 'required|email|unique:users,email' . ($userId ? ',' . $userId : ''),
             'username' => $userId ? 'nullable|min:6|max:20' : 'required|string|unique:users,username',
             'password' => $userId ? 'nullable|min:6|max:20' : 'required|min:6',
-            'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'status' => 'required|in:active,inactive',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

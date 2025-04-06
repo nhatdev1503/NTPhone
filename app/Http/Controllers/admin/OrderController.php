@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Order;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -84,9 +85,9 @@ class OrderController extends Controller
         $statusText = [
             'pending' => 'Chờ xác nhận',
             'processing' => 'Đang xử lí',
-            'shipped' => 'Đang giao hàng',
-            'delivered' => 'Đã giao hàng',
-            'completed' => 'Thành công',
+            'shipped' => 'Đang giao',
+            'delivered' => 'Đã giao',
+            'completed' => 'Hoàn thành',
             'cancelled' => 'Hủy',
         ];
         $paymentColors = [
@@ -122,13 +123,29 @@ class OrderController extends Controller
         ], [
             'status.required' => 'Cần cập nhật trạng thái khi xác nhận',
         ]);
+
         if($request->status == 'cancelled'){
+            // Cập nhật trạng thái đơn hàng
             $order->status = 'cancelled';
             $order->cancel_reason = $request->cancel_reason;
+            
+            // Trả lại số lượng sản phẩm cho từng biến thể
+            foreach($order->orderItems as $item) {
+                $variant = ProductVariant::find($item->product_variant_id);
+                if($variant) {
+                    $variant->stock += $item->quantity;
+                    $variant->save();
+                }
+            }
+        }else if($request->status == 'delivered'){
+            $order->status = 'delivered';
+            $order->cancel_reason = null;
+            $order->payment_status = 'paid';
         }else{
             $order->status = $request->status;
             $order->cancel_reason = null;
         }
+        
         $order->staff_id = 1;
         $order->save();
         return redirect()->route('orders.show',$order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');

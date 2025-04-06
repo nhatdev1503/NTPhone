@@ -733,6 +733,7 @@
         });
 <<<<<<< Updated upstream
     </script>
+
 </div>
 =======
 </script>
@@ -844,3 +845,4 @@
     })(jQuery);
 </script>
 @include('layouts.customer.footer')
+

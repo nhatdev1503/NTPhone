@@ -1,92 +1,137 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container mt-4" style="max-width: 95%; min-width: 1200px;">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="mb-4 display-6">Quản lý Banner</h2>
-            <a href="{{ route('banners.create') }}" class="btn btn-success">+ Thêm Banner</a>
+    <div class="p-6 bg-gray-900 min-h-screen text-white">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-blue-400">Quản lý Banner</h1>
+            <a href="{{ route('banners.create') }}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                <i class="bi bi-plus-lg"></i> Thêm Banner
+            </a>
         </div>
 
         @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="bg-green-500 text-white p-4 rounded-lg mb-6">
+                {{ session('success') }}
+            </div>
         @endif
 
-        <h4 class="mb-3">Banner đang hiển thị</h4>
-        <ul class="list-group mb-4">
-            @foreach ($banners->where('status', 'active') as $banner)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}" class="rounded me-3"
-                            style="width: 240px; height: 80px; object-fit: cover;">
-                        <div>
-                            <h6 class="mb-1">{{ $banner->title ?? 'Không có tiêu đề' }}</h6>
-                            <small>Trạng thái: <span class="text-success">Đang hiển thị</span></small><br>
-                            <small>Đường dẫn tới sản phẩm: <a style="color:blue" href="{{ $banner->product_url }}">{{ $banner->product_name }}</a></small>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="{{ route('banners.show', $banner->id) }}" class="btn btn-primary btn-sm">Xem</a>
-                        <a href="{{ route('banners.edit', $banner->id) }}" class="btn btn-warning btn-sm">Sửa</a>
-                        <form action="{{ route('banners.status', $banner->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                onclick="return confirm('Bạn có chắc chắn muốn ngừng hiển thị banner này?');">Ngừng hiển thị</button>
-                        </form>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
-
-        <h4 class="mb-3">Danh sách banner không hiển thị</h4>
-        <ul class="list-group">
-            @foreach ($banners->where('status', 'inactive') as $banner)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}"
-                                class="rounded me-3" style="width: 240px; height: 80px; object-fit: cover;">
+        <!-- Banner đang hiển thị -->
+        <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-8">
+            <div class="flex items-center gap-2 mb-4">
+                <i class="bi bi-play-circle-fill text-green-400 text-xl"></i>
+                <h2 class="text-xl font-semibold text-green-400">Banner đang hiển thị</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                @foreach ($banners->where('status', 'active') as $banner)
+                    <div class="bg-gray-700 rounded-lg p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <img src="{{ asset('storage/' . $banner->image) }}" 
+                                 alt="{{ $banner->title }}" 
+                                 class="rounded-lg"
+                                 style="width: 240px; height: 80px; object-fit: cover;">
                             <div>
-                                <h6 class="mb-1">{{ $banner->title ?? 'Không có tiêu đề' }}</h6>
-                                <small>Trạng thái: <span>Không hiển thị</span></small><br>
-                                <small>Đường dẫn tới sản phẩm: <a style="color:blue" href="{{ $banner->product_url }}">{{ $banner->product_name }}</a></small>
+                                <h3 class="text-lg font-medium mb-1">{{ $banner->title ?? 'Không có tiêu đề' }}</h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-xs">Đang hiển thị</span>
+                                    <span>•</span>
+                                    <a href="{{ $banner->product_url }}" class="text-blue-400 hover:text-blue-300">
+                                        {{ $banner->product_name }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <a href="{{ route('banners.show', $banner->id) }}" class="btn btn-primary btn-sm">Xem</a>
-                            <a href="{{ route('banners.edit', $banner->id) }}" class="btn btn-warning btn-sm">Sửa</a>
-                            <form action="{{ route('banners.status', $banner->id) }}" method="POST" class="d-inline">
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('banners.show', $banner->id) }}" 
+                               class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg transition-colors">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ route('banners.edit', $banner->id) }}" 
+                               class="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg transition-colors">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Banner không hiển thị -->
+        <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+            <div class="flex items-center gap-2 mb-4">
+                <i class="bi bi-pause-circle-fill text-red-400 text-xl"></i>
+                <h2 class="text-xl font-semibold text-red-400">Banner không hiển thị</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                @foreach ($banners->where('status', 'inactive') as $banner)
+                    <div class="bg-gray-700 rounded-lg p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <img src="{{ asset('storage/' . $banner->image) }}" 
+                                 alt="{{ $banner->title }}" 
+                                 class="rounded-lg"
+                                 style="width: 240px; height: 80px; object-fit: cover;">
+                            <div>
+                                <h3 class="text-lg font-medium mb-1">{{ $banner->title ?? 'Không có tiêu đề' }}</h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-300">
+                                    <span class="bg-red-500/20 text-red-400 px-2 py-1 rounded-full text-xs">Không hiển thị</span>
+                                    <span>•</span>
+                                    <a href="{{ $banner->product_url }}" class="text-blue-400 hover:text-blue-300">
+                                        {{ $banner->product_name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('banners.show', $banner->id) }}" 
+                               class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg transition-colors">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ route('banners.edit', $banner->id) }}" 
+                               class="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg transition-colors">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form action="{{ route('banners.status', $banner->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('PUT')
-                                <button type="submit"
-                                    class="btn btn-sm {{ $banner->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                    onclick="return confirm('{{ $banner->status == 'active' ? 'Bạn có chắc chắn muốn ngừng banner này?' : 'Bạn có chắc chắn muốn sử dụng banner này?' }}');">
-                                    {{ $banner->status == 'active' ? 'Ngừng hiển thị' : 'Hiển thị' }}
+                                <button type="submit" 
+                                        class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition-colors"
+                                        onclick="return confirm('Bạn có chắc chắn muốn hiển thị banner này?');">
+                                    <i class="bi bi-play-circle"></i>
                                 </button>
                             </form>
-                            <form action="{{ route('banners.destroy', $banner->id) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                            <form action="{{ route('banners.destroy', $banner->id) }}" method="POST" class="inline"
+                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa banner này?');">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger btn-sm">🗑 Xóa</button>
+                                <button type="submit" 
+                                        class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </form>
                         </div>
-                    </li>
-            @endforeach
-        </ul>
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-        <div class="flex items-center justify-between mt-4">
-            <p class="text-gray-600">
-                Hiển thị <span class="font-medium">{{ $banners->firstItem() }}</span> đến 
-                <span class="font-medium">{{ $banners->lastItem() }}</span> của 
-                <span class="font-medium">{{ $banners->total() }}</span> kết quả
+        <!-- Pagination -->
+        <div class="mt-6 flex items-center justify-between">
+            <p class="text-gray-400">
+                Hiển thị <span class="font-medium text-white">{{ $banners->firstItem() }}</span> đến 
+                <span class="font-medium text-white">{{ $banners->lastItem() }}</span> của 
+                <span class="font-medium text-white">{{ $banners->total() }}</span> kết quả
             </p>
-        
-            <div>
+            <div class="text-white">
                 {{ $banners->links() }}
             </div>
         </div>
+
         @if ($banners->isEmpty())
-            <p class="text-center text-muted">Chưa có banner nào.</p>
+            <div class="text-center py-8">
+                <i class="bi bi-image text-4xl text-gray-600 mb-2"></i>
+                <p class="text-gray-400">Chưa có banner nào.</p>
+            </div>
         @endif
     </div>
 @endsection

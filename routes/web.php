@@ -184,7 +184,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
 
     // Lịch sử mua hàng
-    Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
+    Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
@@ -193,7 +193,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
         ->name('customer.profile');
 
     // Route xử lý cập nhật thông tin profile (POST)
-    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+    Route::put('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
 
         ->name('customer.profile.update');
     // Route giỏ hàng
@@ -225,6 +225,12 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
     Route::post('/buy-now-direct', [CustomerController::class, 'proceedDirectlyToCheckout'])->name('customer.buyNowDirect');
     Route::post('/cart/update-quantity/{cartId}', [CustomerController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
+
+    // Order routes
+    Route::get('/order/history', [CustomerController::class, 'orderHistory'])->name('order.history');
+    Route::get('/order/{id}', [CustomerController::class, 'orderDetail'])->name('order_detail');
+    Route::post('/order/{id}/cancel', [CustomerController::class, 'cancelOrder'])->name('order.cancel');
+    Route::post('/order/{id}/confirm', [CustomerController::class, 'confirmOrder'])->name('order.confirm');
 });
 
 //Route trang khách vãng lai
@@ -265,4 +271,13 @@ Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class,
 Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
 
 Route::post('/comments', [CommentController::class, 'store'])->name('customer.comments.store')->middleware('auth');
+
+// Customer Profile Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/customer/profile', [CustomerController::class, 'profile'])->name('customer.profile');
+    Route::put('/customer/profile', [CustomerController::class, 'updateProfile'])->name('customer.profile.update');
+    Route::get('/customer/change-password', [CustomerController::class, 'changePassword'])->name('customer.change_password');
+    Route::put('/customer/change-password', [CustomerController::class, 'updatePassword'])->name('customer.change_password.update');
+    Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
+});
 

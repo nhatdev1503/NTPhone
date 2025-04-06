@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -787,7 +788,7 @@ class CustomerController extends Controller
     private function createOrder($userId, $data, $discountId, $discountAmount, $totalPrice, $orderItems)
     {
         $order = Order::create([
-            'order_code' => 'ORD' . time(),
+            'order_code' => 'ORD' . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT),
             'user_id' => $userId,
             'discount_id' => $discountId,
             'fullname' => $data['fullname'],
@@ -1175,5 +1176,117 @@ class CustomerController extends Controller
                             ->paginate(10);
 
         return view('customer.search', compact('products', 'query'));
+    }
+
+    public function orderDetail($id)
+    {
+        $order = Order::with(['orderItems.productVariant.product'])
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        return view('customer.order_detail', compact('order'));
+    }
+
+    public function cancelOrder(Request $request, $id)
+    {
+        $request->validate([
+            'cancel_reason' => 'required|string|min:10|max:500'
+        ]);
+        dd($request->all());
+        $order = Order::where('user_id', auth()->id())->findOrFail($id);
+
+        // Kiểm tra điều kiện hủy đơn hàng
+        if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid') {
+            $order->status = 'cancelled';
+            $order->cancel_reason = $request->cancel_reason;
+            $order->save();
+
+            return redirect()->route('customer.order.history')
+                ->with('success', 'Đơn hàng đã được hủy thành công.');
+        }
+
+        return redirect()->route('customer.order.history')
+            ->with('error', 'Không thể hủy đơn hàng này.');
+    }
+
+    public function profile()
+    {
+        return view('customer.profile');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . auth()->id(),
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        $user = auth()->user();
+        $user->update($request->only(['name', 'email', 'phone', 'address']));
+
+        return redirect()->route('customer.profile')
+            ->with('success', 'Thông tin cá nhân đã được cập nhật thành công.');
+    }
+
+    public function changePassword()
+    {
+        return view('customer.change_password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|current_password',
+            'new_password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+            'new_password_confirmation' => 'required|same:new_password',
+        ], [
+            'new_password.regex' => 'Mật khẩu mới phải chứa ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt.',
+        ]);
+
+        $user = auth()->user();
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('customer.change_password')
+            ->with('success', 'Mật khẩu đã được thay đổi thành công.');
+    }
+
+    public function orderHistory()
+    {
+        $orders = Order::where('user_id', auth()->id())
+            ->with(['orderItems.productVariant.product.images'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('customer.history', compact('orders'));
+    }
+
+    public function confirmOrder($id)
+    {
+        try {
+            $order = Order::where('user_id', auth()->id())->findOrFail($id);
+            
+            // Kiểm tra quyền xác nhận đơn hàng
+            if ($order->user_id !== auth()->id()) {
+                return back()->with('error', 'Bạn không có quyền xác nhận đơn hàng này.');
+            }
+
+            // Kiểm tra trạng thái đơn hàng
+            if ($order->status !== 'delivered') {
+                return back()->with('error', 'Chỉ có thể xác nhận đơn hàng đã được giao.');
+            }
+
+            // Cập nhật trạng thái đơn hàng
+            $order->status = 'completed';
+            $order->save();
+
+            return back()->with('success', 'Xác nhận đơn hàng thành công!');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Có lỗi xảy ra khi xác nhận đơn hàng.');
+        }
     }
 }
