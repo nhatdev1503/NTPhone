@@ -60,7 +60,7 @@ public function showCustomerOrder($id)
     }
 
     // Lấy số tiền giảm giá (nếu có)
-    $discountAmount = $order->discount?->amount ?? 0;
+    $discountAmount = $order->discount_amount ?? 0;
 
     // Tính tổng tiền phải thanh toán
     $totalPayable = max(0, $tongTienSanPham - $discountAmount);
