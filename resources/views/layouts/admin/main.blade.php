@@ -62,6 +62,10 @@
           <i class="lucide lucide-users"></i>
           <a href="{{ route('users.index') }}">Quản lí tài khoản</a>
         </li>
+        <li class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-600">
+          <i class="lucide lucide-users"></i>
+          <a href="{{ route('chat.index') }}">Trò chuyện</a>
+        </li>
       </ul>
     </div>
 
