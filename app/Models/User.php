@@ -48,14 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
-<<<<<<< Updated upstream
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-=======
->>>>>>> Stashed changes
     public function getTotalUsersAttribute()
     {
         return self::count();

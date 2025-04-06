@@ -403,20 +403,6 @@
                         chatInput.value = '';
                         fileInput.value = '';
                         
-                        // Add the sent message to the chat immediately
-                        const sentMessage = {
-                            sender: {
-                                id: userIdAdmin,
-                                name: 'You'
-                            },
-                            receiver: {
-                                id: userId
-                            },
-                            message: message,
-                            image: file ? URL.createObjectURL(file) : null
-                        };
-                      //  renderMessage(sentMessage, userIdAdmin, userId);
-                        
                     } catch (error) {
                         console.error('Error sending message:', error);
                         fileInput.value = '';
@@ -486,41 +472,30 @@
             const chatList = document.getElementById('users-conversation');
             let chatHTML = '';
 
-            if (e.sender.id === userIdAdmin) {
-                chatHTML += `
-                    <div class="chat-list right">
-                        <div class="user-chat-content">
-                            <p>${e.message}</p>
-                            ${e.image ? `
-                                <div class="chat-media">
-                                    <img src="${e.image}" alt="Image" style="max-width: 200px; border-radius: 8px;">
-                                </div>
-                            ` : ''}
-                            <p class="meta" style="color:#9b9b9b"><time datetime="2018">${formatDateTime(new Date())}</time></p>
-                        </div>
-                    </div>`;
-            } else {
-                chatHTML += `
-                    <div class="chat-list left">
+            // Check if the message is from the current user
+            const isCurrentUser = e.sender.id === userIdAdmin;
+            
+            chatHTML += `
+                <div class="chat-list ${isCurrentUser ? 'right' : 'left'}">
+                    ${!isCurrentUser ? `
                         <div class="chat-avatar">
                             <img src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="Avatar">
                         </div>
-                        <div class="user-chat-content">
-                            <p>${e.message}</p>
-                            ${e.image ? `
-                                <div class="chat-media">
-                                    <img src="${e.image}" alt="Image" style="max-width: 200px; border-radius: 8px;">
-                                </div>
-                            ` : ''}
-                            <p class="meta" style="color:#9b9b9b"><time datetime="2018">${formatDateTime(new Date())}</time></p>
-                        </div>
-                    </div>`;
-            }
+                    ` : ''}
+                    <div class="user-chat-content">
+                        <p>${e.message}</p>
+                        ${e.media_path ? `
+                            <div class="chat-media">
+                                <img src="${e.media_path}" alt="Image" style="max-width: 200px; border-radius: 8px;">
+                            </div>
+                        ` : ''}
+                        <p class="meta" style="color:#9b9b9b"><time datetime="2018">${formatDateTime(new Date())}</time></p>
+                    </div>
+                </div>`;
 
             chatList.insertAdjacentHTML('beforeend', chatHTML);
             chatList.scrollTop = chatList.scrollHeight;
         }
-
     }
     const fetchRoomId = async (userId) => {
             try {

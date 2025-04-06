@@ -1164,6 +1164,7 @@ class CustomerController extends Controller
             'success' => true,
             'redirect_url' => route('customer.cart.proceed-to-checkout') // Generate the redirect URL
         ]);
+    }
 
     public function search(Request $request)
     {
