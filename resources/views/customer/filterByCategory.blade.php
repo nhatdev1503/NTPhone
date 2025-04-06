@@ -2,7 +2,7 @@
 <div class="container my-4">
     @yield('content')
     <div class="container">
-        <h2 style="font-size: 30px; font-weight: bold; margin: 30px 0 30px 0; color: white; text-align: center;">Danh mục
+        <h2 style="font-size: 30px; font-weight: bold; margin: 30px 0 30px 0; text-align: center;">Danh mục
             {{ $category->name }}</h2>
 
         <form action="{{ route('customer.filter', $category->id) }}" method="GET"
@@ -22,12 +22,12 @@
             </select>
         </form>
 
-        <div class="row">
+        <div class="row d-flex flex-wrap">
             @if ($products->isEmpty())
-                <p style="color: white; text-align: center; width: 100%;">Không tìm thấy sản phẩm phù hợp.</p>
+                <p style="text-align: center; width: 100%;">Không tìm thấy sản phẩm phù hợp.</p>
             @else
                 @foreach ($products as $product)
-                    <div class="col-6 col-md-4 col-lg-3 mb-4">
+                    <div class="col-6 col-md-4 col-lg-3 mb-4 p-2" style="width: 20%;">
                         <div class="card border-0 shadow-sm">
                             <form action="/cart/add" method="post" class="variants product-action" data-cart-form
                                 data-id="product-actions-33911300" enctype="multipart/form-data">
