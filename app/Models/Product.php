@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderItem;
+use App\Models\ProductVariant;
+use App\Models\Category;
+use App\Models\ProductImage;
+use App\Models\Rating;
+use App\Models\Comment;
 
 class Product extends Model
 {
@@ -57,6 +63,28 @@ class Product extends Model
     }
     public function posts() {
         return $this->hasMany(ProductPost::class)->orderBy('position');
+    }
+
+    /**
+     * Lấy danh sách các mục đơn hàng liên quan đến sản phẩm này
+     * thông qua các biến thể sản phẩm.
+     */
+    public function orderItems()
+    {
+        return $this->hasManyThrough(OrderItem::class, ProductVariant::class);
+    }
+
+    /**
+     * Lấy các đánh giá của sản phẩm.
+     */
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
 
