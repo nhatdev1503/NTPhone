@@ -13,46 +13,14 @@
 						<div class="mailchimp-success"></div><!-- mailchimp-success end -->
 						<div class="mailchimp-error"></div><!-- mailchimp-error end -->
 					</div>
-					<script>
-						$('#mc-form').ajaxChimp({
-							language: 'en',
-							callback: mailChimpResponse,
-							url: 'https://facebook.us7.list-manage.com/subscribe/post?u=97ba6d3ba28239250923925a8&id=4ef3a755a8'
-						});
-						function mailChimpResponse(resp) {
-							if (resp.result === 'success') {
-								if(resp.msg == 'Thank you for subscribing!'){
-									$('.mailchimp-success').html('Cảm ơn bạn đã đăng ký!').fadeIn(900);
-								}else{
-									$('.mailchimp-success').html('' + resp.msg).fadeIn(900);
-								}
-								$('.mailchimp-error').fadeOut(100);
-							} else if (resp.result === 'error') {
-								if(resp.msg == '0 - Please enter a value'){
-									$('.mailchimp-error').html('Vui lòng nhập các trường thông tin').fadeIn(900);
-								}else if(resp.msg == '0 - An email address must contain a single @.'){
-									$('.mailchimp-error').html('Địa chỉ email phải chứa ký tự @').fadeIn(900);
-								}else if(resp.msg == 'This email cannot be added to this list. Please enter a different email address.'){
-									$('.mailchimp-error').html('Email này không thể được thêm vào danh sách này. Vui lòng nhập một địa chỉ email khác.').fadeIn(900);
-								}else if(resp.msg.includes('0 - The domain portion of the email address is invalid')){
-									$('.mailchimp-error').html('Phần tên miền của địa chỉ email không hợp lệ').fadeIn(900);
-								}else if(resp.msg.includes('0 - The username portion of the email address is empty')){
-									$('.mailchimp-error').html('Phần tên người dùng của địa chỉ email trống').fadeIn(900);
-								}else if(resp.msg == 'Thank you for subscribing!'){
-									$('.mailchimp-error').html('Cảm ơn bạn đã đăng ký!').fadeIn(900);
-								}else{
-									$('.mailchimp-error').html('' + resp.msg).fadeIn(900);
-								}
-							}
-						}
-					</script>
+					
 				</div>
 				<div class="col-12 col-md-6 col-lg-5 col-xl-6">
 					<div class="footer-social">
 						<span>Kết nối với chúng tôi:</span>
 						<ul class="social">
-							<li><a href="https://zalo.me/0813600999" title="Zalo"><img width="32" height="32" title="Zalo" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1742954225872"></a></li>
-							<li><a href="https://www.facebook.com/hoangkien.co" title="Facebook"><img width="32" height="32" title="Facebook" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1742954225872"></a></li>
+							<li><a href="https://zalo.me/0867023153" title="Zalo"><img width="32" height="32" title="Zalo" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1742954225872"></a></li>
+							<li><a href="https://web.facebook.com/?_rdc=1&_rdr#" title="Facebook"><img width="32" height="32" title="Facebook" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1742954225872"></a></li>
 							<li><a href="https://www.youtube.com/@hoangkienzin" title="Youtube"><img width="32" height="32" title="Youtube" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1742954225872"></a></li>
 							<li><a href="#" title="Google"><img width="32" height="32" title="Google" class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/google.png?1742954225872"></a></li>
 						</ul>
@@ -127,7 +95,7 @@
 								</svg>
 								TÌM CHI NHÁNH
 							</div>
-							<a href="/he-thong-cua-hang-hoang-kien" title="Hệ thống Hoàng Kiên">Hệ thống Hoàng Kiên</a>
+							<a href="/he-thong-cua-hang-hoang-kien" title="Hệ thống NTShop">Hệ thống NTShop</a>
 						</li>
 
 
@@ -264,7 +232,7 @@
 			<div class="row row-fix">
 				<div class="col-12 col-md-12 col-lg-12 col-xl-5 ft-info col-fix"> 
 					<a href="/" class="logo-ft" title="Logo">	
-						<img style="max-height: 50px;  width: auto;" width="414" height="85" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo-ft.png?1742954225872" alt="Hoàng Kiên">
+						<img style="max-height: 50px;  width: auto;" width="414" height="85" class="lazyload" src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"  data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo-ft.png?1742954225872" alt="NTShop">
 					</a>
 					<div class="content-ft">
 						Hệ thống bán lẻ iPhone chính hãng với giá tốt, có trả góp, giao hàng nhanh miễn phí.
@@ -353,7 +321,7 @@ Cơ Sở 4: 403 Ngô Gia Tự- P.2, Q.10 Hồ Chí Minh: 0707.678.707
 			<div class="row">
 
 				<div class="col-12 col-lg-12">
-					<span class="copy-right">Bản quyền thuộc về <b>Hoàng Kiên</b>.</span>
+					<span class="copy-right">Bản quyền thuộc về <b>NTShop</b>.</span>
 					<span class="opacity1">
 						Cung cấp bởi 
 						 <a href="https://www.sapo.vn/?utm_campaign=cpn:kho_theme-plm:footer&utm_source=Tu_nhien&utm_medium=referral&utm_content=fm:text_link-km:-sz:&utm_term=&campaign=kho_theme-sapo" rel="noopener" title="Sapo" target="_blank">Sapo</a> 
