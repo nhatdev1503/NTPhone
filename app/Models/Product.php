@@ -20,13 +20,6 @@ class Product extends Model
         'name',
         'description',
         'image',
-        'screen',
-        'os',
-        'rear_camera',
-        'front_camera',
-        'cpu',
-        'ram',
-        'battery',
         'base_price',
         'sale_price',
         'view',
@@ -72,14 +65,6 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasManyThrough(OrderItem::class, ProductVariant::class);
-    }
-
-    /**
-     * Lấy các đánh giá của sản phẩm.
-     */
-    public function ratings()
-    {
-        return $this->hasMany(Rating::class);
     }
 
     public function comments()

@@ -65,7 +65,7 @@ class CategoryController extends Controller
             File::makeDirectory($uploadPath, 0777, true, true);
         }
 
-        $imagePath = $product->image ?? null;
+        $imagePath = $category->image ?? null;
         if ($request->hasFile('image')) {
             // Xóa ảnh cũ nếu tồn tại
             if ($imagePath && File::exists(public_path($imagePath))) {
