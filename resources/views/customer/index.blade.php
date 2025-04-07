@@ -731,15 +731,9 @@
                 }
             }
         });
-<<<<<<< Updated upstream
     </script>
 
 </div>
-=======
-</script>
-
-    </div>
->>>>>>> Stashed changes
 <script>
     (function($) {
         "use strict";
