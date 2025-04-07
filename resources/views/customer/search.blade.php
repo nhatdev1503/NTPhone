@@ -8,9 +8,9 @@
             @if ($products->isEmpty())
                 <p style="margin-left: 5%; font-size: 20px;">Không tìm thấy sản phẩm nào.</p>
             @else
-                <div class="row">
+                <div class="row d-flex flex-wrap">
                     @foreach ($products as $product)
-                        <div class="col-6 col-md-4 col-lg-3 mb-4">
+                        <div class="col-6 col-md-4 col-lg-3 mb-4 p-2" style="width: 20%;">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide swiper-slide-pro">
                                     <form action="/cart/add" method="post" class="variants product-action" data-cart-form

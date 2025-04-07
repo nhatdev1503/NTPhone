@@ -9,7 +9,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MessageSent implements ShouldBroadcast
+class NotificationMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -17,25 +17,22 @@ class MessageSent implements ShouldBroadcast
     public $sender;
     public $receiver;
     public $message;
-    public $mediaPath;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($roomId, $sender, $receiver, $message , $mediaPath)
+    public function __construct($roomId, $sender, $receiver, $message )
     {
         $this->roomId = $roomId;
         $this->sender = $sender;
         $this->receiver = $receiver;
         $this->message = $message;
-        $this->mediaPath = $mediaPath;
 
         Log::info('Message Sent:', [
             'Room ID' => $roomId,
             'Sender' => $sender->username,
             'Receiver' => $receiver->username,
             'Message' => $message,
-            'Image' =>$mediaPath,
         ]);
     }
 
@@ -44,7 +41,7 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat.'.$this->roomId);
+        return new PrivateChannel('notification_message');
     }
 
     /**
@@ -64,18 +61,15 @@ class MessageSent implements ShouldBroadcast
             'roomId' => $this->roomId,
             'sender' => [
                 'id' => $this->sender->id,
-                'name' => $this->sender->username,
                 'username' => $this->sender->username,
                 'profile_picture' => $this->sender->profile_picture
             ],
             'receiver' => [
                 'id' => $this->receiver->id,
-                'name' => $this->receiver->username,
                 'username' => $this->receiver->username,
                 'profile_picture' => $this->receiver->profile_picture
             ],
             'message' => $this->message,
-            'image' =>$this->mediaPath,
         ];
     }
 }

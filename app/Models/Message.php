@@ -13,7 +13,17 @@ class Message extends Model
         'sender_id',
         'receiver_id',
         'message',
-        'is_read'
+        'media_path'
     ];
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
 }
 
