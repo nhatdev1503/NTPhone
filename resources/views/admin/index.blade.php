@@ -10,7 +10,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-xl font-semibold text-blue-400">Người Dùng</h2>
-                        <p id="total-products" class="text-4xl font-bold mt-2 text-white">{{ $totalUsers }}</p>
+                        <a href="{{ route('users.index') }}"><p id="total-products" class="text-4xl font-bold mt-2 text-white">{{ $totalUsers }}</p></a>
                     </div>
                     <div class="bg-blue-500 p-3 rounded-full">
                         <i class="bi bi-people text-2xl text-white"></i>
@@ -21,7 +21,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-xl font-semibold text-green-400">Sản Phẩm</h2>
-                        <p id="total-orders" class="text-4xl font-bold mt-2 text-white">{{ $totalProducts }}</p>
+                        <a href="{{ route('products.index') }}"><p id="total-orders" class="text-4xl font-bold mt-2 text-white">{{ $totalProducts }}</p></a>
                     </div>
                     <div class="bg-green-500 p-3 rounded-full">
                         <i class="bi bi-box text-2xl text-white"></i>
@@ -32,7 +32,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-xl font-semibold text-yellow-400">Đơn Hàng</h2>
-                        <p id="total-revenue" class="text-4xl font-bold mt-2 text-white">{{ $totalOrders }}</p>
+                        <a href="{{ route('orders.index') }}"><p id="total-revenue" class="text-4xl font-bold mt-2 text-white">{{ $totalOrders }}</p></a>
                     </div>
                     <div class="bg-yellow-500 p-3 rounded-full">
                         <i class="bi bi-cart text-2xl text-white"></i>

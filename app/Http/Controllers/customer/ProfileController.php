@@ -16,7 +16,6 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
-        // Validate thông tin cập nhật
         $data = $request->validate([
             'fullname' => 'required|string|max:255',
             'phone'    => 'nullable|string|max:20',

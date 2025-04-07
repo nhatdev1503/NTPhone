@@ -1190,19 +1190,41 @@ class CustomerController extends Controller
     public function cancelOrder(Request $request, $id)
     {
         $request->validate([
-            'cancel_reason' => 'required|string|min:10|max:500'
+            'cancel_reason' => 'required|string|max:500'
         ]);
-        dd($request->all());
-        $order = Order::where('user_id', auth()->id())->findOrFail($id);
-
+        
+        // Load đơn hàng với relationship orderItems
+        $order = Order::with('orderItems')
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+        
         // Kiểm tra điều kiện hủy đơn hàng
         if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid') {
-            $order->status = 'cancelled';
-            $order->cancel_reason = $request->cancel_reason;
-            $order->save();
+            DB::beginTransaction();
+            try {
+                // Cập nhật trạng thái đơn hàng
+                $order->status = 'cancelled';
+                $order->cancel_reason = $request->cancel_reason;
+                $order->save();
 
-            return redirect()->route('customer.order.history')
-                ->with('success', 'Đơn hàng đã được hủy thành công.');
+                // Khôi phục stock cho các biến thể sản phẩm
+                foreach ($order->orderItems as $item) {
+                    $variant = ProductVariant::find($item->product_variant_id);
+                    if ($variant) {
+                        $variant->stock += $item->quantity;
+                        $variant->save();
+                    }
+                }
+
+                DB::commit();
+                return redirect()->route('customer.order.history')
+                    ->with('success', 'Đơn hàng đã được hủy thành công.');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Error cancelling order: ' . $e->getMessage());
+                return redirect()->route('customer.order.history')
+                    ->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
+            }
         }
 
         return redirect()->route('customer.order.history')
