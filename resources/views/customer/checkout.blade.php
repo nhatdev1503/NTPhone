@@ -39,7 +39,7 @@
         <div id="notification-container" class="notification-container"></div>
         <form id="checkout-form" action="{{ route('customer.cart.checkout') }}" method="POST">
             @csrf
-            <input type="hidden" name="selected_items[]" value="{{ implode(',', $selectedCartIds) }}">
+            <input type="hidden" name="selected_items" value="{{ json_encode($selectedCartIds) }}">
             <input type="hidden" name="voucher_code" id="voucher_code_input">
             <input type="hidden" name="discount_amount" id="discount_amount_input">
             <input type="hidden" name="agree" value="1">
