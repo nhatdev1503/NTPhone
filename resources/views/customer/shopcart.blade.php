@@ -1291,11 +1291,12 @@
             },
             body: formData
         })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = response.url;
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
             } else {
-                throw new Error('Network response was not ok');
+                showNotification(data.message || 'Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại!', 'error');
             }
         })
         .catch(error => {
