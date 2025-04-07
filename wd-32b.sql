@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 06, 2025 at 05:33 AM
+-- Generation Time: Apr 07, 2025 at 07:21 AM
 -- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- PHP Version: 8.2.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,8 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `title`, `image`, `product_name`, `product_url`, `status`, `created_at`, `updated_at`) VALUES
-(12, 'Banner điện thoại Iphone 16e', 'banners/EogxWj9h4cy3roUQylIUJO0oqxmTT6QJ9DoJNpAq.jpg', 'Iphone 16 Pro Max', '/product_detail/76', 'inactive', '2025-04-04 01:41:35', '2025-04-04 02:07:41');
+(12, 'Banner điện thoại Iphone 16e', 'banners/EogxWj9h4cy3roUQylIUJO0oqxmTT6QJ9DoJNpAq.jpg', 'Iphone 16 Pro Max', '/product_detail/76', 'active', '2025-04-04 01:41:35', '2025-04-05 07:46:50'),
+(13, 'Banner iphone 14', 'banners/QYrl0KvcRMRjlWp0fgl4zeb88lrbxGeWCIOp3lYy.jpg', 'Iphone 16 Plus', '/product_detail/78', 'inactive', '2025-04-05 07:47:48', '2025-04-05 07:47:48');
 
 -- --------------------------------------------------------
 
@@ -65,17 +66,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_variant_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(37, 2, 187, 2, NULL, '2025-04-05 20:48:31'),
-(39, 2, 190, 2, NULL, '2025-04-05 20:35:33'),
-(42, 1, 184, 3, NULL, NULL),
-(48, 1, 184, 3, NULL, NULL),
-(49, 1, 188, 3, NULL, NULL),
-(50, 1, 184, 3, NULL, NULL),
-(51, 1, 188, 3, NULL, NULL),
-(52, 1, 184, 3, NULL, NULL),
-(53, 1, 188, 3, NULL, NULL),
-(54, 1, 184, 3, NULL, NULL),
-(55, 1, 188, 3, NULL, NULL);
+(42, 2, 189, 2, '2025-04-07 06:18:51', '2025-04-07 06:38:27');
 
 -- --------------------------------------------------------
 
@@ -99,8 +90,10 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `image`, `description`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'iPhone', 'uploads/categories/1743649909_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', 'Là sản phẩm điện thoại thông minh của hãng Apple', 'active', '2025-03-30 10:10:36', '2025-04-02 20:11:49'),
-(2, 'Samsung', 'uploads/categories/1743768305_z6114773208644_9f09949e6792ec96b73b83040bd3805e.jpg', 'Đẹp', 'active', '2025-04-04 05:05:05', '2025-04-04 05:05:05'),
-(3, 'Oppo', 'uploads/categories/1743768361_z6114769426427_5cbb00fe239402c3c70f67b62ae25251 - Copy.jpg', 'Đẹp', 'active', '2025-04-04 05:06:01', '2025-04-04 05:06:01');
+(2, 'Samsung', 'uploads/categories/1743768305_z6114773208644_9f09949e6792ec96b73b83040bd3805e.jpg', 'Là sản phẩm điện thoại thông minh của hãng Samsung', 'active', '2025-04-04 05:05:05', '2025-04-04 05:05:05'),
+(3, 'Oppo', 'uploads/categories/1743768361_z6114769426427_5cbb00fe239402c3c70f67b62ae25251 - Copy.jpg', 'Là sản phẩm điện thoại thông minh của hãng Oppo', 'active', '2025-04-04 05:06:01', '2025-04-04 05:06:01'),
+(9, 'Xiaomi', 'uploads/categories/1743768305_z6114773208644_9f09949e6792ec96b73b83040bd3805e.jpg', 'Là sản phẩm điện thoại thông minh của hãng Xiaomi', 'active', '2025-04-04 05:05:05', '2025-04-04 05:05:05'),
+(10, 'Bphone', 'uploads/categories/1743768361_z6114769426427_5cbb00fe239402c3c70f67b62ae25251 - Copy.jpg', 'Là sản phẩm điện thoại thông minh của hãng Bphone', 'active', '2025-04-04 05:06:01', '2025-04-04 05:06:01');
 
 -- --------------------------------------------------------
 
@@ -120,6 +113,21 @@ CREATE TABLE `chat_messages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `chat_messages`
+--
+
+INSERT INTO `chat_messages` (`id`, `sender_id`, `receiver_id`, `room_id`, `message`, `media_type`, `media_path`, `read_at`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 2, 'tự tin chưa', NULL, NULL, NULL, '2025-04-06 16:07:19', '2025-04-06 16:07:19'),
+(2, 1, 2, 2, 'làm gì', NULL, NULL, NULL, '2025-04-06 16:07:43', '2025-04-06 16:07:43'),
+(3, 1, 2, 2, 'làm gì', NULL, NULL, NULL, '2025-04-06 16:08:02', '2025-04-06 16:08:02'),
+(4, 1, 2, 2, '.', NULL, NULL, NULL, '2025-04-06 16:11:41', '2025-04-06 16:11:41'),
+(5, 1, 2, 2, 'xin chào', NULL, NULL, NULL, '2025-04-06 16:12:07', '2025-04-06 16:12:07'),
+(6, 1, 2, 2, 'lỗi', NULL, NULL, NULL, '2025-04-06 16:14:57', '2025-04-06 16:14:57'),
+(7, 2, 1, 2, 'xin chàp', NULL, NULL, NULL, '2025-04-07 05:43:59', '2025-04-07 05:43:59'),
+(8, 2, 1, 2, 'xin chàp', NULL, NULL, NULL, '2025-04-07 05:44:03', '2025-04-07 05:44:03'),
+(9, 2, 1, 2, '2', NULL, NULL, NULL, '2025-04-07 05:44:13', '2025-04-07 05:44:13');
 
 -- --------------------------------------------------------
 
@@ -168,8 +176,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `product_id`, `content`, `created_at`, `updated_at`) VALUES
-(101, 2, 75, 'xin chào ', '2025-04-09 05:20:40', NULL),
-(102, 2, 75, 'xin chào ', '2025-04-07 17:00:00', NULL);
+(101, 2, 76, 'chất đấy', '2025-04-07 05:15:26', '2025-04-07 05:15:26');
 
 -- --------------------------------------------------------
 
@@ -218,7 +225,7 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`id`, `code`, `discount_type`, `max_discount_value`, `discount_value`, `min_order_value`, `start_date`, `expiration_date`, `created_at`, `updated_at`) VALUES
-(22, 'G42F45DS5', 'percentage', 500000, '20.00', 20000000, '2025-04-04', '2025-04-07', '2025-04-04 01:56:32', '2025-04-04 01:56:32');
+(22, 'G42F45DS5', 'percentage', 1000000, '20.00', 20000000, '2025-04-02', '2025-04-30', '2025-04-04 01:56:32', '2025-04-30 05:04:41');
 
 -- --------------------------------------------------------
 
@@ -402,7 +409,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2025_03_27_170343_create_colors_table', 1),
 (19, '2025_03_27_170637_create_storages_table', 1),
 (22, '2025_03_30_141248_create_posts_table', 2),
-(23, '2025_04_05_132051_create_chat_messages_table', 3);
+(23, '2025_03_26_071356_create_order_details_table', 3),
+(24, '2025_03_26_084755_create_payments_table', 3),
+(25, '2025_04_05_132051_create_chat_messages_table', 3);
 
 -- --------------------------------------------------------
 
@@ -451,12 +460,34 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `order_code`, `user_id`, `staff_id`, `discount_id`, `fullname`, `address`, `phone`, `email`, `total_price`, `discount_amount`, `status`, `cancel_reason`, `payment_method`, `payment_status`, `created_at`, `updated_at`) VALUES
-(35, 'ORD1743887175', 2, NULL, 22, 'aaaaaaaaaaa', 'cccccccccccccccc', '678.301.3889', 'bbbbbbbbbbbbbb@example.com', 36500000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:06:15', '2025-04-05 14:06:15'),
-(36, 'ORD1743887840', 2, NULL, 22, 'bb', 'cccccccccccccc', '678.301.3889', 'bbbbb@example.com', 55000000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:17:20', '2025-04-05 14:17:20'),
-(37, 'ORD1743888278', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 53200000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 14:24:38', '2025-04-05 14:24:38'),
-(38, 'ORD1743909281', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 82000000, 500000, 'pending', NULL, 'COD', 'pending', '2025-04-05 20:14:41', '2025-04-05 20:14:41'),
-(39, 'ORD1743909618', 2, NULL, NULL, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'VNPay', 'pending', '2025-04-05 20:20:18', '2025-04-05 20:20:18'),
-(40, 'ORD1743910007', 2, 1, NULL, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'delivered', NULL, 'COD', 'pending', '2025-04-05 20:26:47', '2025-04-05 20:39:05');
+(23, 'ORD1743744455', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35800000, 0, 'delivered', NULL, 'COD', 'pending', '2025-04-03 22:27:35', '2025-04-05 08:30:57'),
+(24, 'ORD1743744795', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35800000, 0, 'completed', NULL, 'COD', 'paid', '2025-04-03 22:33:15', '2025-04-03 22:33:15'),
+(31, 'ORD1743911905', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 36000000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-05 20:58:25', '2025-04-05 20:58:25'),
+(32, 'ORD1744002764', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:12:44', '2025-04-07 05:12:44'),
+(33, 'ORD1744002841', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:14:01', '2025-04-07 05:14:01'),
+(34, 'ORD1744003075', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'cancelled', 'không bán nữa', 'COD', 'pending', '2025-04-07 05:17:55', '2025-04-07 06:11:52'),
+(35, 'ORD1744003200', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 17900000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:20:00', '2025-04-07 05:20:00'),
+(36, 'ORD1744003441', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:24:01', '2025-04-07 05:24:01'),
+(37, 'ORD1744003466', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 50700000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:24:26', '2025-04-07 05:24:26'),
+(38, 'ORD1744003506', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'cancelled', 'chê', 'COD', 'pending', '2025-04-07 05:25:06', '2025-04-07 06:05:54'),
+(39, 'ORD00627', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 06:19:19', '2025-04-07 06:19:19'),
+(40, 'ORD76925', 2, NULL, 22, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 48500000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-07 06:21:51', '2025-04-07 06:21:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `quantity` int NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -479,12 +510,35 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_variant_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(117, 35, 188, 2, 18500000, '2025-04-05 14:06:15', '2025-04-05 14:06:15'),
-(118, 36, 188, 3, 18500000, '2025-04-05 14:17:20', '2025-04-05 14:17:20'),
-(119, 37, 187, 3, 17900000, '2025-04-05 14:24:38', '2025-04-05 14:24:38'),
-(120, 38, 184, 5, 16500000, '2025-04-05 20:14:41', '2025-04-05 20:14:41'),
-(121, 39, 185, 1, 15600000, '2025-04-05 20:20:18', '2025-04-05 20:20:18'),
-(122, 40, 186, 1, 16500000, '2025-04-05 20:26:47', '2025-04-05 20:26:47');
+(103, 23, 189, 2, 17900000, '2025-04-03 22:27:35', '2025-04-03 22:27:35'),
+(104, 24, 187, 2, 17900000, '2025-04-03 22:33:15', '2025-04-03 22:33:15'),
+(114, 31, 188, 2, 18500000, '2025-04-05 20:58:25', '2025-04-05 20:58:25'),
+(115, 32, 184, 1, 16500000, '2025-04-07 05:12:44', '2025-04-07 05:12:44'),
+(116, 33, 185, 1, 15600000, '2025-04-07 05:14:01', '2025-04-07 05:14:01'),
+(117, 34, 186, 1, 16500000, '2025-04-07 05:17:55', '2025-04-07 05:17:55'),
+(118, 35, 187, 1, 17900000, '2025-04-07 05:20:00', '2025-04-07 05:20:00'),
+(119, 36, 186, 1, 16500000, '2025-04-07 05:24:01', '2025-04-07 05:24:01'),
+(120, 37, 189, 3, 16900000, '2025-04-07 05:24:26', '2025-04-07 05:24:26'),
+(121, 38, 186, 1, 16500000, '2025-04-07 05:25:06', '2025-04-07 05:25:06'),
+(122, 39, 185, 1, 15600000, '2025-04-07 06:19:19', '2025-04-07 06:19:19'),
+(123, 40, 186, 3, 16500000, '2025-04-07 06:21:51', '2025-04-07 06:21:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -542,6 +596,7 @@ CREATE TABLE `products` (
   `base_price` int DEFAULT NULL,
   `sale_price` int DEFAULT NULL,
   `sold` int DEFAULT NULL,
+  `view` int DEFAULT '0',
   `priority` int DEFAULT '0',
   `have_variant` tinyint(1) DEFAULT '0',
   `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
@@ -553,60 +608,18 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `image`, `screen`, `os`, `rear_camera`, `front_camera`, `cpu`, `ram`, `battery`, `base_price`, `sale_price`, `sold`, `priority`, `have_variant`, `status`, `created_at`, `updated_at`) VALUES
-(75, 1, 'Iphone 16e', 'Là sản phẩm cực kì chất lượng đến từ thương hiệu Apple', 'uploads/products/1743650286_iPhone-14-plus-thumb-den-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 0, 'active', '2025-04-02 20:18:06', '2025-04-02 21:21:48'),
-(76, 1, 'Iphone 16 Pro Max', 'Sản phẩm cực tốt đến từ thương hiệu Apple', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', '6.5 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '12GB', '5000mAh', 18500000, 17500000, NULL, 0, 0, 'active', '2025-04-02 20:22:22', '2025-04-02 21:21:02'),
-(78, 1, 'Iphone 16 Plus', 'Chip 18A nhân siêu mạnh', 'uploads/products/1743654863_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 18500000, 17900000, NULL, 0, 0, 'active', '2025-04-02 21:34:23', '2025-04-02 21:34:23'),
-(88, 2, 'error', 'Ducimus vel blanditiis sapiente assumenda rerum consequatur.', 'product.jpg', '6.5 inches', 'Android', '48MP', '32MP', 'Exynos 2200', '6GB', '5000mAh', NULL, NULL, 59, 2, 1, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(89, 1, 'eos', 'Culpa facilis sed magnam exercitationem ea.', 'product.jpg', '6.1 inches', 'Android', '48MP', '8MP', 'Exynos 2200', '6GB', '4500mAh', NULL, NULL, 31, 5, 0, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(90, 1, 'consectetur', 'Ratione neque nemo sequi et iste quod itaque a.', 'product.jpg', '6.5 inches', 'iOS', '108MP', '32MP', 'A16 Bionic', '12GB', '5000mAh', NULL, NULL, 44, 3, 0, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(91, 3, 'aut', 'Odio deserunt inventore tempora iure quia.', 'product.jpg', '6.5 inches', 'iOS', '108MP', '32MP', 'Exynos 2200', '8GB', '5000mAh', NULL, NULL, 23, 7, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(92, 2, 'et', 'Illum sint mollitia repellat.', 'product.jpg', '6.5 inches', 'Android', '12MP', '32MP', 'Snapdragon 8 Gen 2', '4GB', '4500mAh', NULL, NULL, 37, 2, 1, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(93, 1, 'pariatur', 'Soluta aliquid ex amet temporibus dolor voluptatum voluptas.', 'product.jpg', '6.8 inches', 'Android', '12MP', '32MP', 'A16 Bionic', '4GB', '4500mAh', NULL, NULL, 36, 5, 0, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(94, 3, 'accusantium', 'Blanditiis minus laborum dolorum.', 'product.jpg', '6.5 inches', 'iOS', '108MP', '8MP', 'Exynos 2200', '12GB', '4500mAh', NULL, NULL, 5, 4, 1, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(95, 1, 'maxime', 'Odit veritatis nobis ut illo assumenda dignissimos natus.', 'product.jpg', '6.8 inches', 'Android', '108MP', '32MP', 'Exynos 2200', '6GB', '5000mAh', NULL, NULL, 1, 2, 1, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(96, 1, 'officiis', 'Aliquid inventore earum corporis quod cumque architecto dolorem.', 'product.jpg', '6.5 inches', 'iOS', '48MP', '12MP', 'Snapdragon 8 Gen 2', '12GB', '4500mAh', NULL, NULL, 17, 4, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(97, 2, 'nobis', 'Vero veniam eos et omnis architecto alias.', 'product.jpg', '6.8 inches', 'Android', '12MP', '12MP', 'A16 Bionic', '12GB', '4500mAh', NULL, NULL, 96, 3, 1, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(98, 3, 'et', 'Commodi nulla nemo veniam temporibus.', 'product.jpg', '6.8 inches', 'Android', '48MP', '8MP', 'Exynos 2200', '4GB', '5000mAh', NULL, NULL, 8, 3, 0, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(99, 2, 'unde', 'Ut et consequatur ut.', 'product.jpg', '6.1 inches', 'Android', '48MP', '12MP', 'Exynos 2200', '8GB', '4000mAh', NULL, NULL, 60, 8, 1, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(100, 1, 'ullam', 'Rem commodi delectus rem impedit et.', 'product.jpg', '6.1 inches', 'Android', '12MP', '8MP', 'A16 Bionic', '8GB', '4000mAh', NULL, NULL, 3, 3, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(101, 1, 'vitae', 'Culpa dicta enim enim commodi alias.', 'product.jpg', '6.8 inches', 'Android', '12MP', '8MP', 'Snapdragon 8 Gen 2', '12GB', '5000mAh', NULL, NULL, 4, 1, 1, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(102, 3, 'et', 'Et quia laudantium eveniet odio eum in porro.', 'product.jpg', '6.1 inches', 'Android', '108MP', '8MP', 'Snapdragon 8 Gen 2', '12GB', '4500mAh', NULL, NULL, 42, 4, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(103, 1, 'sunt', 'Eveniet sit et laborum.', 'product.jpg', '6.8 inches', 'Android', '108MP', '8MP', 'A16 Bionic', '8GB', '5000mAh', NULL, NULL, 55, 10, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(104, 3, 'et', 'Vitae ut rerum et facilis in praesentium et.', 'product.jpg', '6.1 inches', 'iOS', '48MP', '8MP', 'Snapdragon 8 Gen 2', '8GB', '4500mAh', NULL, NULL, 83, 4, 0, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(105, 1, 'nemo', 'Fugiat numquam sed consequatur et minima quam est.', 'product.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'Snapdragon 8 Gen 2', '4GB', '4500mAh', NULL, NULL, 62, 2, 1, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(106, 3, 'ea', 'Totam dolor expedita voluptatibus laudantium.', 'product.jpg', '6.8 inches', 'iOS', '48MP', '8MP', 'A16 Bionic', '12GB', '5000mAh', NULL, NULL, 63, 2, 0, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(107, 2, 'voluptate', 'Commodi sunt placeat blanditiis sed facere.', 'product.jpg', '6.1 inches', 'Android', '12MP', '32MP', 'Exynos 2200', '12GB', '4000mAh', NULL, NULL, 59, 2, 1, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(108, 1, 'ut', 'Sit eos impedit totam consequuntur aut minima.', 'product.jpg', '6.5 inches', 'iOS', '12MP', '12MP', 'Exynos 2200', '6GB', '4500mAh', NULL, NULL, 21, 7, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(109, 3, 'aspernatur', 'Tenetur autem neque vitae harum et magnam odio.', 'product.jpg', '6.8 inches', 'Android', '12MP', '32MP', 'Exynos 2200', '8GB', '4500mAh', NULL, NULL, 66, 2, 1, 'inactive', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(110, 1, 'eveniet', 'Doloribus eaque impedit unde recusandae quae facilis.', 'product.jpg', '6.5 inches', 'Android', '48MP', '12MP', 'Snapdragon 8 Gen 2', '8GB', '4000mAh', NULL, NULL, 65, 8, 1, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(111, 2, 'qui', 'Omnis enim qui rerum id voluptate nesciunt.', 'product.jpg', '6.8 inches', 'iOS', '12MP', '32MP', 'Snapdragon 8 Gen 2', '12GB', '5000mAh', NULL, NULL, 74, 3, 0, 'active', '2025-04-04 05:07:59', '2025-04-04 05:07:59'),
-(112, 3, 'nihil', 'Eaque corporis ex voluptatibus eligendi eos reiciendis architecto.', 'product.jpg', '6.5 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '4GB', '4500mAh', NULL, NULL, 21, 7, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(113, 2, 'quos', 'Dignissimos enim amet vel dolorem.', 'product.jpg', '6.1 inches', 'Android', '48MP', '8MP', 'A16 Bionic', '12GB', '5000mAh', NULL, NULL, 8, 1, 0, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(114, 2, 'et', 'Placeat quasi sint fugit est autem.', 'product.jpg', '6.5 inches', 'iOS', '108MP', '32MP', 'A16 Bionic', '4GB', '4000mAh', NULL, NULL, 22, 7, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(115, 1, 'et', 'Placeat optio sunt quisquam.', 'product.jpg', '6.8 inches', 'iOS', '108MP', '12MP', 'A16 Bionic', '6GB', '4500mAh', NULL, NULL, 52, 8, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(116, 1, 'vero', 'Quae molestiae distinctio illum.', 'product.jpg', '6.5 inches', 'Android', '48MP', '12MP', 'Snapdragon 8 Gen 2', '4GB', '4500mAh', NULL, NULL, 72, 8, 0, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(117, 2, 'qui', 'Rerum earum sed odit nam ullam.', 'product.jpg', '6.8 inches', 'Android', '12MP', '12MP', 'A16 Bionic', '12GB', '4500mAh', NULL, NULL, 2, 8, 1, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(118, 1, 'dolor', 'Numquam et soluta culpa molestiae ut ut.', 'product.jpg', '6.5 inches', 'Android', '108MP', '32MP', 'Snapdragon 8 Gen 2', '8GB', '4000mAh', NULL, NULL, 21, 5, 1, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(119, 3, 'est', 'Sed eveniet hic aut delectus.', 'product.jpg', '6.1 inches', 'Android', '12MP', '8MP', 'Snapdragon 8 Gen 2', '12GB', '4000mAh', NULL, NULL, 43, 5, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(120, 1, 'dolor', 'Perferendis est ipsam ut et enim voluptatem modi quibusdam.', 'product.jpg', '6.8 inches', 'iOS', '108MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', NULL, NULL, 89, 10, 1, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(121, 1, 'eos', 'Natus recusandae mollitia ipsum.', 'product.jpg', '6.1 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '4500mAh', NULL, NULL, 79, 6, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(122, 2, 'et', 'Enim veritatis et amet labore autem molestiae.', 'product.jpg', '6.8 inches', 'Android', '12MP', '32MP', 'Exynos 2200', '4GB', '4500mAh', NULL, NULL, 62, 10, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(123, 1, 'qui', 'Eos vel reiciendis dolor totam aperiam id.', 'product.jpg', '6.5 inches', 'Android', '48MP', '12MP', 'Exynos 2200', '12GB', '4000mAh', NULL, NULL, 41, 1, 1, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(124, 1, 'voluptas', 'Cumque excepturi enim occaecati dolor ad atque.', 'product.jpg', '6.8 inches', 'Android', '108MP', '32MP', 'Snapdragon 8 Gen 2', '4GB', '5000mAh', NULL, NULL, 71, 6, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(125, 1, 'omnis', 'Ea facere est placeat soluta.', 'product.jpg', '6.8 inches', 'iOS', '108MP', '12MP', 'A16 Bionic', '6GB', '4000mAh', NULL, NULL, 88, 2, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(126, 1, 'dolores', 'Molestiae veniam beatae adipisci rerum.', 'product.jpg', '6.5 inches', 'Android', '12MP', '32MP', 'Snapdragon 8 Gen 2', '8GB', '4000mAh', NULL, NULL, 36, 9, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(127, 2, 'non', 'Ex voluptate quis debitis hic qui.', 'product.jpg', '6.8 inches', 'iOS', '108MP', '32MP', 'Snapdragon 8 Gen 2', '4GB', '5000mAh', NULL, NULL, 45, 4, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(128, 3, 'expedita', 'Enim incidunt praesentium qui voluptas ullam.', 'product.jpg', '6.1 inches', 'Android', '48MP', '12MP', 'A16 Bionic', '12GB', '5000mAh', NULL, NULL, 63, 8, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(129, 2, 'magnam', 'Cupiditate quia est officiis aspernatur doloremque.', 'product.jpg', '6.1 inches', 'iOS', '108MP', '32MP', 'A16 Bionic', '12GB', '4500mAh', NULL, NULL, 38, 8, 1, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(130, 1, 'quos', 'Debitis natus iusto excepturi autem sed.', 'product.jpg', '6.8 inches', 'Android', '12MP', '8MP', 'Exynos 2200', '8GB', '4000mAh', NULL, NULL, 67, 5, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(131, 1, 'corrupti', 'Natus non et sed veniam omnis et deleniti.', 'product.jpg', '6.1 inches', 'iOS', '108MP', '8MP', 'Snapdragon 8 Gen 2', '4GB', '4000mAh', NULL, NULL, 16, 5, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(132, 1, 'nihil', 'Quas assumenda neque optio consequuntur sunt.', 'product.jpg', '6.5 inches', 'Android', '48MP', '12MP', 'A16 Bionic', '4GB', '4500mAh', NULL, NULL, 90, 1, 0, 'inactive', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(133, 3, 'at', 'Et vel pariatur omnis.', 'product.jpg', '6.5 inches', 'Android', '12MP', '32MP', 'A16 Bionic', '6GB', '4500mAh', NULL, NULL, 77, 3, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(134, 3, 'et', 'Eveniet voluptatem quos dolor vel.', 'product.jpg', '6.1 inches', 'iOS', '48MP', '8MP', 'Snapdragon 8 Gen 2', '12GB', '4500mAh', NULL, NULL, 12, 6, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(135, 3, 'ea', 'Sit atque aliquid eos voluptate corporis animi magnam.', 'product.jpg', '6.8 inches', 'Android', '108MP', '8MP', 'Snapdragon 8 Gen 2', '8GB', '4500mAh', NULL, NULL, 18, 7, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(136, 1, 'ab', 'Repellendus itaque quia impedit mollitia cupiditate doloribus.', 'product.jpg', '6.1 inches', 'iOS', '48MP', '8MP', 'Snapdragon 8 Gen 2', '6GB', '4500mAh', NULL, NULL, 94, 7, 0, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00'),
-(137, 3, 'ducimus', 'Id repudiandae quis quae quibusdam.', 'product.jpg', '6.1 inches', 'Android', '48MP', '8MP', 'Snapdragon 8 Gen 2', '6GB', '5000mAh', NULL, NULL, 93, 4, 1, 'active', '2025-04-04 05:08:00', '2025-04-04 05:08:00');
+INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `image`, `screen`, `os`, `rear_camera`, `front_camera`, `cpu`, `ram`, `battery`, `base_price`, `sale_price`, `sold`, `view`, `priority`, `have_variant`, `status`, `created_at`, `updated_at`) VALUES
+(75, 1, 'Iphone 16e', 'Là sản phẩm cực kì chất lượng đến từ thương hiệu Apple', 'uploads/products/1743650286_iPhone-14-plus-thumb-den-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 13, 1, 'active', '2025-04-02 20:18:06', '2025-04-05 04:57:34'),
+(76, 1, 'Iphone 16 Pro Max', 'Sản phẩm cực tốt đến từ thương hiệu Apple', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', '6.5 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '12GB', '5000mAh', 18500000, 17500000, NULL, 0, 14, 1, 'active', '2025-04-02 20:22:22', '2025-04-05 04:57:42'),
+(78, 1, 'Iphone 16 Plus', 'Chip 18A nhân siêu mạnh', 'uploads/products/1743654863_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 18500000, 17900000, NULL, 0, 12, 1, 'active', '2025-04-02 21:34:23', '2025-04-05 04:57:24'),
+(149, 1, 'Iphone 16', 'Đẹp quá nhở', 'uploads/products/1743945139_iphone-16-xanh-mong-ket-thumbnew-600x600 (1).png', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 0, 1, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(150, 1, 'Iphone 15 Pro Max', 'Đẹp lắm', 'uploads/products/1743945590_iphone-15-pro-max-black-thumbnew-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '12GB', '5000mAh', 15900000, 14900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:19:50', '2025-04-06 13:19:50'),
+(151, 1, 'Iphone 15 Plus', 'Đẹp nhất 2024', 'uploads/products/1743946087_iphone-15-plus-xanh-la-128gb-thumb-600x600 (1).jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 18500000, 17400000, NULL, 0, 0, 1, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(152, 1, 'Iphone 15', 'Sản phẩm cực kì đẹp', 'uploads/products/1743946273_iphone-15-hong-thumb-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 0, 1, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(153, 1, 'Iphone 14 Plus', 'đẹp quá ạ', 'uploads/products/1743946664_iPhone-14-plus-thumb-den-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(154, 1, 'Iphone 14', 'Đẹp quá ạ', 'uploads/products/1743947111_iPhone-14-thumb-trang-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(155, 1, 'Iphone 13', 'Quá chi tiết', 'uploads/products/1743947585_iphone-13-midnight-2-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 14990000, 11900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(156, 1, 'Iphone 12', 'Dòng điện thoại thông minh được sản xuất bởi Apple Inc', 'uploads/products/1743948857_iphone-12-tim-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15900000, NULL, 0, 0, 1, 'active', '2025-04-06 14:14:17', '2025-04-06 14:14:17');
 
 -- --------------------------------------------------------
 
@@ -635,7 +648,31 @@ INSERT INTO `product_images` (`id`, `product_id`, `mini_image`, `created_at`, `u
 (37, 76, 'uploads/products/1743653763_mini_iphone-15-xanh-la-1.png', '2025-04-02 21:16:03', '2025-04-02 21:16:03'),
 (41, 78, 'uploads/products/1743654863_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-02 21:34:23', '2025-04-02 21:34:23'),
 (42, 78, 'uploads/products/1743654863_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-02 21:34:23', '2025-04-02 21:34:23'),
-(43, 78, 'uploads/products/1743654863_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-02 21:34:23', '2025-04-02 21:34:23');
+(43, 78, 'uploads/products/1743654863_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-02 21:34:23', '2025-04-02 21:34:23'),
+(57, 149, 'uploads/products/1743945139_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(58, 149, 'uploads/products/1743945139_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(59, 149, 'uploads/products/1743945139_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(60, 150, 'uploads/products/1743945590_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:19:50', '2025-04-06 13:19:50'),
+(61, 150, 'uploads/products/1743945590_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:19:50', '2025-04-06 13:19:50'),
+(62, 150, 'uploads/products/1743945590_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:19:51', '2025-04-06 13:19:51'),
+(63, 151, 'uploads/products/1743946087_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(64, 151, 'uploads/products/1743946087_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(65, 151, 'uploads/products/1743946087_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(66, 152, 'uploads/products/1743946273_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(67, 152, 'uploads/products/1743946273_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(68, 152, 'uploads/products/1743946273_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(69, 153, 'uploads/products/1743946664_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(70, 153, 'uploads/products/1743946664_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(71, 153, 'uploads/products/1743946664_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(72, 154, 'uploads/products/1743947111_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(73, 154, 'uploads/products/1743947111_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(74, 154, 'uploads/products/1743947111_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(75, 155, 'uploads/products/1743947585_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(76, 155, 'uploads/products/1743947585_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(77, 155, 'uploads/products/1743947585_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(78, 156, 'uploads/products/1743948857_mini_iphone-15-plus-128gb-xanh-la-3-750x500.jpg', '2025-04-06 14:14:17', '2025-04-06 14:14:17'),
+(79, 156, 'uploads/products/1743948857_mini_iphone-15-plus-green-2-638629458412751972-750x500.jpg', '2025-04-06 14:14:17', '2025-04-06 14:14:17'),
+(80, 156, 'uploads/products/1743948857_mini_iphone-15-plus-tem-99-4-750x500.jpg', '2025-04-06 14:14:17', '2025-04-06 14:14:17');
 
 -- --------------------------------------------------------
 
@@ -662,13 +699,41 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `color`, `hax_code`, `storage`, `origin_price`, `price`, `stock`, `status`, `created_at`, `updated_at`) VALUES
-(184, 75, 'Red', '#FF0000', '16GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-05 20:14:41'),
-(185, 75, 'Blue', '#98A7C1', '8GB', 16500000, 15600000, 2, 'active', '2025-04-02 20:18:06', '2025-04-05 20:20:18'),
-(186, 75, 'Blue', '#98A7C1', '16GB', 17500000, 16500000, 1, 'active', '2025-04-02 20:18:06', '2025-04-05 20:26:47'),
-(187, 76, 'Red', '#FF0000', '8GB', 18900000, 17900000, 10, 'active', '2025-04-02 20:22:22', '2025-04-02 20:22:22'),
-(188, 76, 'Red', '#FF0000', '16GB', 19500000, 18500000, 15, 'active', '2025-04-02 20:22:22', '2025-04-02 20:22:22'),
-(189, 78, 'Red', '#FF0000', '8GB', 18500000, 17900000, 10, 'active', '2025-04-02 21:34:23', '2025-04-02 21:34:23'),
-(190, 78, 'Red', '#FF0000', '16GB', 19000000, 18500000, 10, 'active', '2025-04-02 21:34:23', '2025-04-02 21:34:23');
+(184, 75, 'Red', '#FF0000', '16GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-07 05:12:44'),
+(185, 75, 'Blue', '#98A7C1', '8GB', 16500000, 15600000, 0, 'active', '2025-04-02 20:18:06', '2025-04-07 06:19:19'),
+(186, 75, 'Black', '#1D1D1F', '8GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-07 06:21:51'),
+(187, 76, 'Red', '#FF0000', '8GB', 18900000, 17900000, 9, 'active', '2025-04-02 20:22:22', '2025-04-07 05:20:00'),
+(188, 76, 'Red', '#FF0000', '16GB', 19500000, 18500000, 13, 'active', '2025-04-02 20:22:22', '2025-04-05 20:58:25'),
+(189, 78, 'Red', '#FF0000', '8GB', 18500000, 16900000, 7, 'active', '2025-04-02 21:34:23', '2025-04-07 05:24:26'),
+(190, 78, 'Red', '#FF0000', '16GB', 19000000, 17000000, 10, 'active', '2025-04-02 21:34:23', '2025-04-05 08:30:15'),
+(200, 149, 'Black', '#1D1D1F', '32GB', 16500000, 15600000, 10, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(201, 149, 'Black', '#1D1D1F', '64GB', 17500000, 16600000, 15, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(202, 149, 'Purple', '#DDD6F3', '32GB', 16900000, 16000000, 5, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(203, 149, 'Purple', '#DDD6F3', '64GB', 17900000, 16500000, 5, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
+(204, 150, 'Red', '#FF0000', '32GB', 15900000, 14900000, 10, 'active', '2025-04-06 13:19:51', '2025-04-06 13:19:51'),
+(205, 150, 'Red', '#FF0000', '64GB', 16500000, 15500000, 10, 'active', '2025-04-06 13:19:51', '2025-04-06 13:19:51'),
+(206, 150, 'Black', '#1D1D1F', '32GB', 16000000, 15100000, 5, 'active', '2025-04-06 13:19:51', '2025-04-06 13:19:51'),
+(207, 150, 'Black', '#1D1D1F', '64GB', 16700000, 15900000, 6, 'active', '2025-04-06 13:19:51', '2025-04-06 13:19:51'),
+(208, 151, 'Blue', '#98A7C1', '32GB', 18500000, 17400000, 15, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(209, 151, 'Blue', '#98A7C1', '64GB', 19400000, 18100000, 5, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(210, 151, 'Yellow', '#FDE58D', '32GB', 18500000, 17900000, 6, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(211, 151, 'Yellow', '#FDE58D', '64GB', 19500000, 17300000, 8, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
+(212, 152, 'Black Titanium', '#3F3A3C', '32GB', 16500000, 15600000, 12, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(213, 152, 'Black Titanium', '#3F3A3C', '64GB', 17500000, 16900000, 5, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(214, 152, 'Pink', '#F3BFCA', '32GB', 16000000, 15100000, 9, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(215, 152, 'Pink', '#F3BFCA', '64GB', 17500000, 16800000, 7, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(216, 153, 'Black', '#1D1D1F', '16GB', 16600000, 16000000, 10, 'active', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(217, 153, 'Black', '#1D1D1F', '32GB', 17500000, 16900000, 10, 'active', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(218, 153, 'Blue', '#98A7C1', '16GB', 16600000, 15900000, 5, 'active', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
+(219, 154, 'Black Titanium', '#3F3A3C', '16GB', 16500000, 15900000, 5, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(220, 154, 'Black Titanium', '#3F3A3C', '32GB', 17500000, 16900000, 6, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(221, 154, 'Pink', '#F3BFCA', '16GB', 16700000, 15500000, 6, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(222, 154, 'Pink', '#F3BFCA', '32GB', 17700000, 16500000, 15, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
+(223, 155, 'Red', '#FF0000', '8GB', 14990000, 11900000, 5, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(224, 155, 'Red', '#FF0000', '16GB', 15500000, 12500000, 9, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(225, 155, 'Black', '#1D1D1F', '8GB', 14990000, 11900000, 6, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(226, 156, 'Blue', '#98A7C1', '32GB', 15500000, 14900000, 5, 'active', '2025-04-06 14:14:17', '2025-04-06 14:14:17'),
+(227, 156, 'Blue', '#98A7C1', '64GB', 16500000, 15500000, 10, 'active', '2025-04-06 14:14:17', '2025-04-06 14:14:17');
 
 -- --------------------------------------------------------
 
@@ -691,7 +756,8 @@ CREATE TABLE `ratings` (
 --
 
 INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `rating`, `review`, `created_at`, `updated_at`) VALUES
-(1, 2, 75, 4, 'Đẹp quá bạn ơiiiii', '2025-04-01 07:38:37', NULL);
+(1, 2, 75, 4, 'Đẹp quá bạn ơiiiii', '2025-04-01 07:38:37', NULL),
+(2, 2, 76, 4, 'Đẹp quá ạ', '2025-04-06 14:33:02', '2025-04-06 14:33:02');
 
 -- --------------------------------------------------------
 
@@ -747,8 +813,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `username`, `password`, `phone`, `address`, `avatar`, `status`, `role`, `block_reason`, `created_at`, `updated_at`) VALUES
 (1, 'Admin User', 'admin@example.com', 'admin', '$2y$12$JfCPIg9hIZGAJBWw.wWbjuou.fanYY9PcpmWKeEQK5WpGG82jmMLO', '+1-856-372-7176', '492 Reba Gardens Suite 060\nKarianeburgh, AL 85523-9007', 'default.jpg', 'active', 'admin', NULL, '2025-03-30 10:10:35', '2025-03-30 10:10:35'),
-(2, 'Customer', 'customer@example.com', 'customer', '$2y$12$G9a6cSTqI0vO1dMyw/2CG.iQJUQZnRXqjgS6zm0KOofUnQ704L.8y', '678.301.3889', '43784 Luettgen Glens\nNorth Derrick, IL 54948', 'default.jpg', 'active', 'customer', NULL, '2025-03-30 10:10:36', '2025-04-04 02:06:13'),
-(4, 'Cao Văn Nhật', 'nhatnobi1503@gmail.com', 'nhatnobi1503', '$2y$12$Astq1WXxSHuLnhesRN63I.4VOXsD1MjohETPkI1T19eGrBvEaT9SK', '085965163', 'Nguyễn Hoàng ....', 'avatars/OEQ3Ao9d4AO7rsPzcwY2xt6TQcDf8rx5p2yhYggD.jpg', 'active', 'customer', NULL, '2025-04-04 00:42:34', '2025-04-04 02:05:27');
+(2, 'Customer', 'customer@example.com', 'customer', '$2y$12$G9a6cSTqI0vO1dMyw/2CG.iQJUQZnRXqjgS6zm0KOofUnQ704L.8y', '678.301.3889', '43784 Luettgen GlensNorth Derrick, IL 54948', 'avatar/ER4yi3EkSMuJnmJCoGxHin3pBuoDCA4WMMmJjZ35.jpg', 'active', 'customer', NULL, '2025-03-30 10:10:36', '2025-04-06 16:16:22'),
+(4, 'Cao Văn Nhật', 'nhatnobi1503@gmail.com', 'nhatnobi1503', '$2y$12$Astq1WXxSHuLnhesRN63I.4VOXsD1MjohETPkI1T19eGrBvEaT9SK', '085965163', 'Nguyễn Hoàng ....', 'avatars/OEQ3Ao9d4AO7rsPzcwY2xt6TQcDf8rx5p2yhYggD.jpg', 'active', 'customer', NULL, '2025-04-04 00:42:34', '2025-04-04 02:05:27'),
+(5, 'Trần Văn Quyết', 'quyet123@gmail.com', 'quyet123', '$2y$12$il8sSlwsR1xCa3WeuXRX6OZhMWGEkvDXBTapfDwy8XpItNXsH7Fm2', NULL, NULL, NULL, 'active', 'customer', NULL, '2025-04-05 04:46:16', '2025-04-05 04:46:16');
 
 --
 -- Indexes for dumped tables
@@ -851,12 +918,27 @@ ALTER TABLE `orders`
   ADD KEY `orders_discount_id_foreign` (`discount_id`);
 
 --
+-- Indexes for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_details_order_id_foreign` (`order_id`),
+  ADD KEY `order_details_product_id_foreign` (`product_id`);
+
+--
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_items_order_id_foreign` (`order_id`),
   ADD KEY `order_items_product_variant_id_foreign` (`product_variant_id`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payments_order_id_foreign` (`order_id`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -923,25 +1005,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `colors`
@@ -953,7 +1035,7 @@ ALTER TABLE `colors`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -983,7 +1065,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -998,10 +1080,22 @@ ALTER TABLE `orders`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
+-- AUTO_INCREMENT for table `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1019,25 +1113,25 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
 
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `storages`
@@ -1049,7 +1143,7 @@ ALTER TABLE `storages`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -1099,11 +1193,24 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `order_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_details_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_items_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`

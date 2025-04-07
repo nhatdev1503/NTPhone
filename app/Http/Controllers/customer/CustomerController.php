@@ -31,41 +31,24 @@ class CustomerController extends Controller
         $banner = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
 
-        // Lấy sản phẩm nổi bật với giá gốc và tính toán giảm giá
+        // Lấy sản phẩm nổi bật với đầy đủ thông tin
         $featuredProducts = Product::where('status', 'active')
             ->with(['variants' => function ($query) {
-                $query->select('product_id', 'price', 'origin_price')->orderBy('price', 'asc'); // Chọn giá gốc và giá bán, sắp xếp theo giá bán tăng dần
+                $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                    ->where('status', 'active')
+                    ->orderBy('price', 'asc');
+            }])
+            ->with(['ratings' => function($query) {
+                $query->select('product_id', 'rating');
             }])
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'desc')
-            ->limit(10) // Lấy 10 sản phẩm để đảm bảo có đủ cho 2 hàng 5 sản phẩm
+            ->limit(10)
             ->get()
             ->map(function ($product) {
                 $firstVariant = $product->variants->first();
-                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
-                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
-                    $product->origin_price = $firstVariant->origin_price; // Gán giá gốc vào thuộc tính của sản phẩm
-                } else {
-                    $product->discount_percentage = 0;
-                    $product->origin_price = $firstVariant ? $firstVariant->price : 0; // Nếu không có giá gốc hoặc giá gốc không hợp lệ, gán giá bán làm giá gốc
-                }
-                $product->sale_price = $firstVariant ? $firstVariant->price : 0; // Gán giá bán (sale_price)
-                // Tính số lượng đã bán (ví dụ)
-                $product->sold_count = $product->orderItems()->sum('quantity'); // Sửa 'sold' thành 'sold_count'
-
-                return $product;
-            });
-
-        // Lấy sản phẩm mới nhất với giá gốc và tính toán giảm giá
-        $bestSellingProducts = Product::where('status', 'active') // Thêm điều kiện status
-            ->with(['variants' => function ($query) {
-                $query->select('product_id', 'price', 'origin_price')->orderBy('price', 'asc');
-            }])
-            ->orderBy('id', 'desc')
-            ->limit(10) // Lấy 10 sản phẩm
-            ->get()
-            ->map(function ($product) {
-                $firstVariant = $product->variants->first();
+                
+                // Xử lý giá và giảm giá
                 if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
                     $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
                     $product->origin_price = $firstVariant->origin_price;
@@ -74,8 +57,93 @@ class CustomerController extends Controller
                     $product->origin_price = $firstVariant ? $firstVariant->price : 0;
                 }
                 $product->sale_price = $firstVariant ? $firstVariant->price : 0;
-                // Tính số lượng đã bán (ví dụ)
-                $product->sold_count = $product->orderItems()->sum('quantity'); // Cần có relationship orderItems trong model Product
+                
+                // Tính số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+                
+                // Lấy các màu sắc độc nhất
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+                
+                // Lấy các dung lượng độc nhất
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+                
+                // Tính điểm đánh giá trung bình
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
+
+                return $product;
+            });
+
+        // Lấy sản phẩm mới nhất với đầy đủ thông tin
+        $bestSellingProducts = Product::where('status', 'active')
+            ->with(['variants' => function ($query) {
+                $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                    ->where('status', 'active')
+                    ->orderBy('price', 'asc');
+            }])
+            ->with(['ratings' => function($query) {
+                $query->select('product_id', 'rating');
+            }])
+            ->orderBy('id', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($product) {
+                $firstVariant = $product->variants->first();
+                
+                // Xử lý giá và giảm giá
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                
+                // Tính số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+                
+                // Lấy các màu sắc độc nhất
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+                
+                // Lấy các dung lượng độc nhất
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+                
+                // Tính điểm đánh giá trung bình
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
 
                 return $product;
             });
