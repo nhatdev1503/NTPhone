@@ -4,7 +4,7 @@
 
 
         <div class="bodywrap">
-            <h1 class="d-none">Hoàng Kiên - Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ
+            <h1 class="d-none">NTShop - Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ
                 kiện công nghệ các loại uy tín, chất lượng</h1>
             <section class="section_slider">
                 <div class="home-slider swiper-container">

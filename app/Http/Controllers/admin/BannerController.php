@@ -112,11 +112,17 @@ class BannerController extends Controller
     }
     public function status(Banner $banner)
     {
-        $banner->update([
-            'status' => $banner->status === 'active' ? 'inactive' : 'active'
-        ]);   
+        // Nếu banner đang được chọn là inactive, chuyển tất cả banner khác sang inactive
+        if ($banner->status === 'inactive') {
+            // Cập nhật banner được chọn thành active
+            $banner->update(['status' => 'active']);
+            
+            // Cập nhật tất cả banner khác thành inactive
+            Banner::where('id', '!=', $banner->id)->update(['status' => 'inactive']);
+        }
+        
         return redirect()->route('banners.index')
-            ->with('success', 'Cập nhật thành công');
+            ->with('success', 'Cập nhật trạng thái banner thành công');
     }
     public function apiProductURL(Request $request)
     {

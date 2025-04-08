@@ -20,6 +20,7 @@ class RevenueController extends Controller
                 $date = Carbon::now()->subDays($i)->format('Y-m-d');
                 $labels[] = $date;
                 $values[] = DB::table('orders')
+                ->where('status', 'completed')
                     ->whereDate('created_at', $date)
                     ->sum('total_price');
             }
@@ -28,6 +29,7 @@ class RevenueController extends Controller
                 $month = Carbon::now()->subMonths($i)->format('Y-m');
                 $labels[] = $month;
                 $values[] = DB::table('orders')
+                ->where('status', 'completed')
                     ->whereYear('created_at', Carbon::now()->subMonths($i)->year)
                     ->whereMonth('created_at', Carbon::now()->subMonths($i)->month)
                     ->sum('total_price');

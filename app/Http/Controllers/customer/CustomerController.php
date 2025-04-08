@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -30,54 +31,122 @@ class CustomerController extends Controller
         $banner = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
 
-        // Lấy sản phẩm nổi bật với giá gốc và tính toán giảm giá
+        // Lấy sản phẩm nổi bật với đầy đủ thông tin
         $featuredProducts = Product::where('status', 'active')
-                            ->with(['variants' => function ($query) {
-                                $query->select('product_id', 'price', 'origin_price')->orderBy('price', 'asc'); // Chọn giá gốc và giá bán, sắp xếp theo giá bán tăng dần
-                            }])
-                            ->orderBy('priority', 'desc')
-                            ->orderBy('created_at', 'desc')
-                            ->limit(10) // Lấy 10 sản phẩm để đảm bảo có đủ cho 2 hàng 5 sản phẩm
-                            ->get()
-                            ->map(function ($product) {
-                                $firstVariant = $product->variants->first();
-                                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
-                                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
-                                    $product->origin_price = $firstVariant->origin_price; // Gán giá gốc vào thuộc tính của sản phẩm
-                                } else {
-                                    $product->discount_percentage = 0;
-                                    $product->origin_price = $firstVariant ? $firstVariant->price : 0; // Nếu không có giá gốc hoặc giá gốc không hợp lệ, gán giá bán làm giá gốc
-                                }
-                                $product->sale_price = $firstVariant ? $firstVariant->price : 0; // Gán giá bán (sale_price)
-                                // Tính số lượng đã bán (ví dụ)
-                                $product->sold_count = $product->orderItems()->sum('quantity'); // Sửa 'sold' thành 'sold_count'
+            ->with(['variants' => function ($query) {
+                $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                    ->where('status', 'active')
+                    ->orderBy('price', 'asc');
+            }])
+            ->with(['ratings' => function($query) {
+                $query->select('product_id', 'rating');
+            }])
+            ->orderBy('priority', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($product) {
+                $firstVariant = $product->variants->first();
+                
+                // Xử lý giá và giảm giá
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                
+                // Tính số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+                
+                // Lấy các màu sắc độc nhất
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+                
+                // Lấy các dung lượng độc nhất
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+                
+                // Tính điểm đánh giá trung bình
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
 
-                                return $product;
-                            });
+                return $product;
+            });
 
-        // Lấy sản phẩm mới nhất với giá gốc và tính toán giảm giá
-        $bestSellingProducts = Product::where('status', 'active') // Thêm điều kiện status
-                             ->with(['variants' => function ($query) {
-                                 $query->select('product_id', 'price', 'origin_price')->orderBy('price', 'asc');
-                             }])
-                             ->orderBy('id', 'desc')
-                             ->limit(10) // Lấy 10 sản phẩm
-                             ->get()
-                             ->map(function ($product) {
-                                $firstVariant = $product->variants->first();
-                                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
-                                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
-                                     $product->origin_price = $firstVariant->origin_price;
-                                } else {
-                                    $product->discount_percentage = 0;
-                                     $product->origin_price = $firstVariant ? $firstVariant->price : 0;
-                                }
-                                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
-                                // Tính số lượng đã bán (ví dụ)
-                                $product->sold_count = $product->orderItems()->sum('quantity'); // Cần có relationship orderItems trong model Product
+        // Lấy sản phẩm mới nhất với đầy đủ thông tin
+        $bestSellingProducts = Product::where('status', 'active')
+            ->with(['variants' => function ($query) {
+                $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                    ->where('status', 'active')
+                    ->orderBy('price', 'asc');
+            }])
+            ->with(['ratings' => function($query) {
+                $query->select('product_id', 'rating');
+            }])
+            ->orderBy('id', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($product) {
+                $firstVariant = $product->variants->first();
+                
+                // Xử lý giá và giảm giá
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                
+                // Tính số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+                
+                // Lấy các màu sắc độc nhất
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+                
+                // Lấy các dung lượng độc nhất
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+                
+                // Tính điểm đánh giá trung bình
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
 
-                                return $product;
-                             });
+                return $product;
+            });
 
         return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts'));
     }
@@ -167,18 +236,18 @@ class CustomerController extends Controller
     public function product_detail($id)
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
-        $categoryId = $product->category_id;  
+        $categoryId = $product->category_id;
         $products = Product::orderBy('priority', 'desc')->take(6)->get();
         $canRateProduct = false; // Rename variable for clarity
-        if (auth()->check()) { 
+        if (auth()->check()) {
             // Update the check to include completed order status
             $canRateProduct = DB::table('orders')
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+                ->join('order_items', 'orders.id', '=', 'order_items.order_id')
                 ->join('product_variants', 'order_items.product_variant_id', '=', 'product_variants.id')
-            ->where('orders.user_id', auth()->id())
+                ->where('orders.user_id', auth()->id())
                 ->where('product_variants.product_id', $product->id)
                 ->where('orders.status', 'completed') // Add completed status check
-            ->exists();
+                ->exists();
         }
 
         $ratings = Rating::where('product_id', $product->id)
@@ -186,7 +255,7 @@ class CustomerController extends Controller
             ->select('user_id', 'review', 'rating', 'created_at') // Chọn các trường cần thiết
             ->orderBy('created_at', 'desc') // Sắp xếp mới nhất lên đầu
             ->get();
-    
+
         // Lấy danh sách bình luận
         $comments = Comment::where('product_id', $product->id)
             ->with('user:id,fullname') // Eager load user info
@@ -195,7 +264,7 @@ class CustomerController extends Controller
 
         // Lấy danh sách biến thể
         $variants = $product->variants ?? collect();
-    
+
         // Nhóm các biến thể theo màu sắc và giữ lại các thông tin bổ sung như giá
         $colors = $variants->groupBy('color')->map(function ($group) {
             return [
@@ -204,10 +273,10 @@ class CustomerController extends Controller
                 'prices' => $group->pluck('price')->unique() // Lấy các giá khác nhau
             ];
         });
-    
+
         // Lấy các biến thể bộ nhớ (storage) duy nhất
         $storages = $variants->unique('storage');
-    
+
         // Lấy sản phẩm liên quan cùng danh mục
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $id)
@@ -258,11 +327,11 @@ class CustomerController extends Controller
         } else {
             // If the specific combination doesn't exist at all
             return response()->json([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Không tìm thấy phiên bản này',
                 'available' => false, // Explicitly set available to false
                 'stock' => 0          // Explicitly set stock to 0
-                 ], 404); 
+            ], 404);
         }
     }
 
@@ -281,14 +350,14 @@ class CustomerController extends Controller
     public function cart()
     {
         $user = Auth::user();
-        
+
         // Gộp các sản phẩm trùng lặp
         $this->mergeDuplicateCartItems($user->id);
-        
+
         $carts = Cart::where('user_id', $user->id)
             ->with('product_variant.product.category')
             ->get();
-            
+
         $activeVouchers = Discount::where('start_date', '<=', now())
             ->where('expiration_date', '>=', now())
             ->get();
@@ -300,13 +369,13 @@ class CustomerController extends Controller
     {
         // Lấy tất cả các sản phẩm trong giỏ hàng của user
         $cartItems = Cart::where('user_id', $userId)->get();
-        
+
         // Tạo mảng để theo dõi các sản phẩm đã xử lý
         $processedItems = [];
-        
+
         foreach ($cartItems as $item) {
             $key = $item->product_variant_id;
-            
+
             if (!isset($processedItems[$key])) {
                 // Nếu chưa xử lý sản phẩm này, thêm vào danh sách đã xử lý
                 $processedItems[$key] = $item;
@@ -314,10 +383,10 @@ class CustomerController extends Controller
                 // Nếu đã có sản phẩm này, cộng số lượng vào bản ghi đầu tiên
                 $existingItem = $processedItems[$key];
                 $newQuantity = min($existingItem->quantity + $item->quantity, 5); // Giới hạn tối đa 5
-                
+
                 $existingItem->quantity = $newQuantity;
                 $existingItem->save();
-                
+
                 // Xóa bản ghi trùng lặp
                 $item->delete();
             }
@@ -346,7 +415,7 @@ class CustomerController extends Controller
 
         if (!$product_variant || $product_variant->status !== 'active') {
             // Return JSON error instead of redirect
-             return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
         }
 
         $user = Auth::user();
@@ -358,33 +427,33 @@ class CustomerController extends Controller
 
         // If item already exists, return specific JSON response
         if ($cartItem) {
-             return response()->json(['success' => false, 'exists' => true, 'message' => 'Sản phẩm này đã có trong giỏ hàng.']);
+            return response()->json(['success' => false, 'exists' => true, 'message' => 'Sản phẩm này đã có trong giỏ hàng.']);
         }
-        
+
         // If item does not exist, proceed to create it
         $quantityToAdd = $data['quantity'];
 
         // Check quantity against stock
-         if ($product_variant->stock < $quantityToAdd) {
-             // Return JSON error instead of redirect
-              return response()->json(['success' => false, 'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."], 400);
-         }
+        if ($product_variant->stock < $quantityToAdd) {
+            // Return JSON error instead of redirect
+            return response()->json(['success' => false, 'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."], 400);
+        }
 
         // Create the new cart item
         try {
-             $newCartItem = Cart::create([
+            $newCartItem = Cart::create([
                 'user_id' => $user->id,
                 'product_variant_id' => $product_variant->id,
-                'quantity' => $quantityToAdd, 
+                'quantity' => $quantityToAdd,
             ]);
-             // Return JSON success response
+            // Return JSON success response
             // You might want to return the new cart count here as well
-             // $cartCount = Cart::where('user_id', $user->id)->count(); // Example
-             return response()->json(['success' => true, 'new_item' => true, 'message' => 'Đã thêm sản phẩm vào giỏ hàng.']); // Add cartCount if needed
-         } catch (\Exception $e) {
-             Log::error("Error adding item to cart: " . $e->getMessage());
-             return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi thêm vào giỏ hàng.'], 500);
-         }
+            // $cartCount = Cart::where('user_id', $user->id)->count(); // Example
+            return response()->json(['success' => true, 'new_item' => true, 'message' => 'Đã thêm sản phẩm vào giỏ hàng.']); // Add cartCount if needed
+        } catch (\Exception $e) {
+            Log::error("Error adding item to cart: " . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi thêm vào giỏ hàng.'], 500);
+        }
     }
 
     public function postPayment(Request $request)
@@ -454,7 +523,7 @@ class CustomerController extends Controller
         if (!$newVariant) {
             // Tìm các biến thể thay thế
             $alternativeVariants = $availableVariants->where('status', 'active')
-                ->where(function($query) use ($request) {
+                ->where(function ($query) use ($request) {
                     $query->where('color', $request->color)
                         ->orWhere('storage', $request->storage);
                 });
@@ -496,7 +565,7 @@ class CustomerController extends Controller
     {
         try {
             $cart = Cart::findOrFail($id);
-            
+
             // Kiểm tra xem cart có thuộc về user hiện tại không
             if ($cart->user_id !== auth()->id()) {
                 return response()->json([
@@ -563,24 +632,23 @@ class CustomerController extends Controller
             DB::beginTransaction();
 
             // Validate common checkout info
-        $request->validate([
-                // 'selected_items' => 'required|array', // No longer get items from request here
-                // 'selected_items.*' => 'exists:carts,id',
+            $request->validate([
+                'selected_items' => 'required|string', // Changed to string as we're sending JSON
                 'fullname' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:20',
                 'address' => 'required|string|max:255',
-            'payment_method' => 'required|in:COD,VNPay',
+                'payment_method' => 'required|in:COD,VNPay',
                 'voucher_code' => 'nullable|string',
-                // 'discount_amount' => 'nullable|numeric|min:0', // Recalculate based on server side
                 'agree' => 'required|accepted'
-        ]);
+            ]);
 
-        $user = Auth::user();
-            $checkoutItemIds = session('checkout_items', []);
-            $isBuyNow = session('is_buy_now', false);
-
-            if (empty($checkoutItemIds)) {
+            $user = Auth::user();
+            
+            // Decode the selected items from JSON
+            $selectedItems = json_decode($request->selected_items, true);
+            
+            if (empty($selectedItems)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Không có sản phẩm nào được chọn để thanh toán.'
@@ -590,99 +658,91 @@ class CustomerController extends Controller
             $subTotal = 0;
             $orderItemsData = [];
             $stockValidation = [];
-            $cartItemsToDelete = []; // Only for non-buy-now case
+            $cartItemsToDelete = [];
 
-            if ($isBuyNow) {
-                // --- Handle Buy Now Direct Item --- 
-                if (count($checkoutItemIds) !== 1) { // Should be an array with one item object
-                     throw new \Exception('Lỗi xử lý thông tin mua ngay (dữ liệu không hợp lệ).');
-                }
-                $buyNowItemData = $checkoutItemIds[0]; // Get the item object
+            // Check if this is a buy now flow
+            $isBuyNow = session('is_buy_now', false);
+            $checkoutItems = session('checkout_items', []);
 
-                if (!isset($buyNowItemData['variant_id']) || !isset($buyNowItemData['quantity'])) {
-                    throw new \Exception('Lỗi xử lý thông tin mua ngay (thiếu ID hoặc số lượng).');
-                }
-                
-                $buyNowVariantId = $buyNowItemData['variant_id'];
-                $quantity = $buyNowItemData['quantity'];
-                
-                $lockedVariant = ProductVariant::lockForUpdate()->find($buyNowVariantId);
+            if ($isBuyNow && !empty($checkoutItems)) {
+                // Handle buy now flow
+                foreach ($checkoutItems as $item) {
+                    $variant = ProductVariant::with('product')->find($item['variant_id']);
+                    if (!$variant || $variant->status !== 'active') {
+                        throw new \Exception("Phiên bản của sản phẩm {$variant->product->name} không còn kinh doanh.");
+                    }
+                    if ($variant->stock < $item['quantity']) {
+                        throw new \Exception("Sản phẩm {$variant->product->name} chỉ còn {$variant->stock} sản phẩm trong kho.");
+                    }
 
-                if (!$lockedVariant || $lockedVariant->status !== 'active') {
-                     throw new \Exception("Sản phẩm bạn muốn mua không còn kinh doanh.");
+                    $lockedVariant = ProductVariant::lockForUpdate()->find($variant->id);
+                    $stockValidation[] = [
+                        'variant_id' => $lockedVariant->id,
+                        'required_quantity' => $item['quantity'],
+                    ];
+                    $itemTotal = $lockedVariant->price * $item['quantity'];
+                    $subTotal += $itemTotal;
+                    $orderItemsData[] = [
+                        'product_variant_id' => $lockedVariant->id,
+                        'quantity' => $item['quantity'],
+                        'price' => $lockedVariant->price
+                    ];
                 }
-                if ($lockedVariant->stock < $quantity) {
-                     throw new \Exception("Sản phẩm chỉ còn {$lockedVariant->stock} sản phẩm trong kho.");
-                }
-
-                $stockValidation[] = [
-                    'variant_id' => $lockedVariant->id,
-                    'required_quantity' => $quantity,
-                ];
-                $itemTotal = $lockedVariant->price * $quantity;
-                $subTotal += $itemTotal;
-                $orderItemsData[] = [
-                    'product_variant_id' => $lockedVariant->id,
-                    'quantity' => $quantity,
-                    'price' => $lockedVariant->price
-                ];
-                 // --- End Handle Buy Now Direct Item ---
-            
             } else {
-                // --- Handle Cart Items --- 
-                $cartItems = Cart::whereIn('id', $checkoutItemIds)
-                    ->where('user_id', $user->id)
+                // Handle cart checkout flow
+                $carts = Cart::where('user_id', $user->id)
+                    ->whereIn('id', $selectedItems)
                     ->with(['product_variant.product'])
-            ->get();
+                    ->get();
 
-                if ($cartItems->count() !== count($checkoutItemIds)) {
-                    throw new \Exception('Một số sản phẩm trong giỏ hàng không hợp lệ.');
+                if ($carts->isEmpty()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Không tìm thấy sản phẩm đã chọn trong giỏ hàng của bạn.'
+                    ], 422);
                 }
 
-                foreach ($cartItems as $item) {
-                    $variant = $item->product_variant;
+                foreach ($carts as $cart) {
+                    $variant = $cart->product_variant;
                     $lockedVariant = ProductVariant::lockForUpdate()->find($variant->id);
 
                     if (!$lockedVariant || $lockedVariant->status !== 'active') {
                         throw new \Exception("Phiên bản của sản phẩm {$variant->product->name} không còn kinh doanh.");
                     }
-                    if ($lockedVariant->stock < $item->quantity) {
-                         throw new \Exception("Sản phẩm {$variant->product->name} chỉ còn {$lockedVariant->stock} sản phẩm trong kho.");
+                    if ($lockedVariant->stock < $cart->quantity) {
+                        throw new \Exception("Sản phẩm {$variant->product->name} chỉ còn {$lockedVariant->stock} sản phẩm trong kho.");
                     }
 
                     $stockValidation[] = [
                         'variant_id' => $lockedVariant->id,
-                        'required_quantity' => $item->quantity,
+                        'required_quantity' => $cart->quantity,
                     ];
-                    $itemTotal = $lockedVariant->price * $item->quantity;
+                    $itemTotal = $lockedVariant->price * $cart->quantity;
                     $subTotal += $itemTotal;
                     $orderItemsData[] = [
                         'product_variant_id' => $lockedVariant->id,
-                        'quantity' => $item->quantity,
+                        'quantity' => $cart->quantity,
                         'price' => $lockedVariant->price
                     ];
-                    $cartItemsToDelete[] = $item->id; // Mark for deletion
+                    $cartItemsToDelete[] = $cart->id;
                 }
-                 // --- End Handle Cart Items ---
             }
-
 
             // Xử lý voucher (common logic)
             $discountAmount = 0;
             $discountId = null;
             if ($request->voucher_code) {
-                 $voucher = Discount::where('code', $request->voucher_code)
+                $voucher = Discount::where('code', $request->voucher_code)
                     ->where('start_date', '<=', now())
-            ->where('expiration_date', '>=', now())
-            ->first();
+                    ->where('expiration_date', '>=', now())
+                    ->first();
 
-        if ($voucher) {
+                if ($voucher) {
                     if ($voucher->min_order_value && $subTotal < $voucher->min_order_value) {
-                        // Return JSON error specifically for voucher issue
-                         return response()->json([
+                        return response()->json([
                             'success' => false,
                             'message' => "Đơn hàng phải từ " . number_format($voucher->min_order_value, 0, ',', '.') . "₫ để áp dụng voucher này!",
-                            'error_type' => 'voucher_invalid' // Specific error type for JS
+                            'error_type' => 'voucher_invalid'
                         ], 422);
                     }
                     if ($voucher->discount_type === 'percentage') {
@@ -695,8 +755,7 @@ class CustomerController extends Controller
                     }
                     $discountId = $voucher->id;
                 } else {
-                     // Return JSON error if voucher code is provided but not found/valid
-                     return response()->json([
+                    return response()->json([
                         'success' => false,
                         'message' => "Mã voucher không hợp lệ hoặc đã hết hạn.",
                         'error_type' => 'voucher_invalid'
@@ -704,32 +763,29 @@ class CustomerController extends Controller
                 }
             }
 
-            $finalTotal = max(0, $subTotal - $discountAmount); // Ensure total is not negative
+            $finalTotal = max(0, $subTotal - $discountAmount);
 
             // Prepare common order data
             $orderData = $request->only(['fullname', 'email', 'phone', 'address', 'payment_method']);
 
             // Nếu thanh toán VNPay, lưu thông tin vào session và chuyển hướng
             if ($request->payment_method === 'VNPay') {
-                // Lưu thông tin đơn hàng vào session
                 session([
                     'pending_order' => [
                         'user_id' => $user->id,
-                        'cart_items_to_delete' => $cartItemsToDelete, // IDs to delete if successful
-                        'is_buy_now' => $isBuyNow,
+                        'cart_items_to_delete' => $cartItemsToDelete,
                         'order_data' => array_merge($orderData, [
-                             'discount_id' => $discountId,
-                             'discount_amount' => $discountAmount,
-                             'total_price' => $finalTotal
+                            'discount_id' => $discountId,
+                            'discount_amount' => $discountAmount,
+                            'total_price' => $finalTotal
                         ]),
                         'order_items' => $orderItemsData,
-                        'stock_validation' => $stockValidation // Use this structure for stock check
+                        'stock_validation' => $stockValidation
                     ]
                 ]);
 
                 DB::commit();
 
-                // Tạo URL thanh toán VNPay
                 $vnpayUrl = $this->createVnpayPaymentUrl($finalTotal);
                 return response()->json([
                     'success' => true,
@@ -740,7 +796,7 @@ class CustomerController extends Controller
             // Nếu COD, tạo đơn hàng ngay
             $order = $this->createOrder(
                 $user->id,
-                $orderData, // Pass filtered data
+                $orderData,
                 $discountId,
                 $discountAmount,
                 $finalTotal,
@@ -749,20 +805,20 @@ class CustomerController extends Controller
 
             // Cập nhật stock
             foreach ($stockValidation as $stockInfo) {
-                $variant = ProductVariant::find($stockInfo['variant_id']); // Re-find without lock
-                if($variant) {
+                $variant = ProductVariant::find($stockInfo['variant_id']);
+                if ($variant) {
                     $variant->stock -= $stockInfo['required_quantity'];
                     $variant->save();
                 }
             }
 
-            // Xóa items khỏi giỏ hàng (only if not buy now)
+            // Xóa items khỏi giỏ hàng (only for cart checkout)
             if (!$isBuyNow && !empty($cartItemsToDelete)) {
                 Cart::whereIn('id', $cartItemsToDelete)->delete();
             }
 
-            // Clear session data used for checkout
-            session()->forget(['checkout_items', 'is_buy_now']);
+            // Clear session data
+            session()->forget(['checkout_items', 'is_buy_now', 'buy_now_direct_item']);
 
             DB::commit();
 
@@ -770,16 +826,14 @@ class CustomerController extends Controller
                 'success' => true,
                 'redirect_url' => route('customer.order.success', ['order' => $order->id])
             ]);
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Checkout error: ' . $e->getMessage());
             Log::error($e->getTraceAsString());
-            
+
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage() ?: 'Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại!',
-                // 'error' => $e->getMessage() // Optionally include detailed error in dev
             ], 500);
         }
     }
@@ -787,7 +841,7 @@ class CustomerController extends Controller
     private function createOrder($userId, $data, $discountId, $discountAmount, $totalPrice, $orderItems)
     {
         $order = Order::create([
-            'order_code' => 'ORD' . time(),
+            'order_code' => 'ORD' . str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT),
             'user_id' => $userId,
             'discount_id' => $discountId,
             'fullname' => $data['fullname'],
@@ -801,7 +855,7 @@ class CustomerController extends Controller
             'payment_status' => $data['payment_method'] === 'COD' ? 'pending' : 'failed'
         ]);
 
-        
+
         // Tạo order items
         foreach ($orderItems as $item) {
             OrderItem::create([
@@ -916,7 +970,6 @@ class CustomerController extends Controller
             'success' => true,
             'images' => $images,
         ]);
-
     }
 
 
@@ -945,9 +998,9 @@ class CustomerController extends Controller
                 $subTotal = $variant->price * $buyNowItem['quantity'];
                 $selectedCartIds = ['buy_now_' . $variant->id]; // Use the pseudo ID
 
-                 // Clear any previous cart selection if proceeding with buy now
-                 session()->forget('selectedCartIds'); // Old key, might be redundant now
- 
+                // Clear any previous cart selection if proceeding with buy now
+                session()->forget('selectedCartIds'); // Old key, might be redundant now
+
                 // Store variant_id and quantity for the buy now item
                 $checkoutItem = [
                     'variant_id' => $variant->id,
@@ -957,55 +1010,55 @@ class CustomerController extends Controller
                 session()->forget('buy_now_direct_item'); // Clean up the temporary session
 
             } else {
-                 // Invalid variant or stock issue, redirect back with error
-                 session()->forget('buy_now_direct_item'); // Clear invalid item
-                 return redirect()->route('customer.index')->with('error', 'Sản phẩm bạn muốn mua ngay không hợp lệ hoặc đã hết hàng.');
+                // Invalid variant or stock issue, redirect back with error
+                session()->forget('buy_now_direct_item'); // Clear invalid item
+                return redirect()->route('customer.index')->with('error', 'Sản phẩm bạn muốn mua ngay không hợp lệ hoặc đã hết hàng.');
             }
             // --- End Handle Buy Now Direct ---
 
         } else {
-             // --- Handle Checkout from Cart --- 
-             $request->validate([
-                 'selected_items' => 'required|array|min:1',
-                 'selected_items.*' => 'exists:carts,id', // Validate actual cart IDs
-             ]);
-             $selectedCartIdsInput = $request->input('selected_items', []);
-             // Ensure selectedCartIdsInput is an array
-             if (!is_array($selectedCartIdsInput)) {
-                 // Attempt to decode if it's a JSON string (e.g., from JS fetch)
-                 $decoded = json_decode($selectedCartIdsInput, true);
-                 if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+            // --- Handle Checkout from Cart --- 
+            $request->validate([
+                'selected_items' => 'required|array|min:1',
+                'selected_items.*' => 'exists:carts,id', // Validate actual cart IDs
+            ]);
+            $selectedCartIdsInput = $request->input('selected_items', []);
+            // Ensure selectedCartIdsInput is an array
+            if (!is_array($selectedCartIdsInput)) {
+                // Attempt to decode if it's a JSON string (e.g., from JS fetch)
+                $decoded = json_decode($selectedCartIdsInput, true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
                     $selectedCartIds = array_map('intval', $decoded);
-                 } else {
+                } else {
                     // Fallback: try splitting by comma if it's a simple string
-                     $selectedCartIds = array_map('intval', explode(',', $selectedCartIdsInput));
-                 }
-             } else {
-                 $selectedCartIds = array_map('intval', $selectedCartIdsInput);
-             }
+                    $selectedCartIds = array_map('intval', explode(',', $selectedCartIdsInput));
+                }
+            } else {
+                $selectedCartIds = array_map('intval', $selectedCartIdsInput);
+            }
 
             if (empty($selectedCartIds)) {
-                 return redirect()->back()->with('error', 'Vui lòng chọn ít nhất một sản phẩm để thanh toán');
+                return redirect()->back()->with('error', 'Vui lòng chọn ít nhất một sản phẩm để thanh toán');
             }
 
-        $carts = Cart::where('user_id', $user->id)
-            ->whereIn('id', $selectedCartIds)
-            ->with('product_variant.product.category')
-            ->get();
+            $carts = Cart::where('user_id', $user->id)
+                ->whereIn('id', $selectedCartIds)
+                ->with('product_variant.product.category')
+                ->get();
 
-        if ($carts->isEmpty()) {
-                 return redirect()->back()->with('error', 'Không tìm thấy sản phẩm đã chọn trong giỏ hàng của bạn.');
-        }
+            if ($carts->isEmpty()) {
+                return redirect()->back()->with('error', 'Không tìm thấy sản phẩm đã chọn trong giỏ hàng của bạn.');
+            }
 
             // Recalculate subTotal based on selected cart items & check stock again (important)
-        $subTotal = 0;
-        foreach ($carts as $cart) {
-                 if($cart->product_variant->stock < $cart->quantity || $cart->product_variant->status !== 'active') {
+            $subTotal = 0;
+            foreach ($carts as $cart) {
+                if ($cart->product_variant->stock < $cart->quantity || $cart->product_variant->status !== 'active') {
                     return redirect()->route('customer.cart')->with('error', "Sản phẩm '{$cart->product_variant->product->name}' ({$cart->product_variant->color} - {$cart->product_variant->storage}) không đủ số lượng hoặc đã ngừng kinh doanh. Vui lòng kiểm tra lại giỏ hàng.");
-                 }
-            $subTotal += $cart->product_variant->price * $cart->quantity;
+                }
+                $subTotal += $cart->product_variant->price * $cart->quantity;
             }
-             // --- End Handle Checkout from Cart ---
+            // --- End Handle Checkout from Cart ---
         }
 
         // Get active vouchers (common for both flows)
@@ -1016,7 +1069,7 @@ class CustomerController extends Controller
         // No need to pre-validate voucher code here, let checkout page handle it
 
         // Store selected IDs (real or pseudo) in session for the final checkout step
-         // session(['checkout_items' => $selectedCartIds, 'is_buy_now' => !!$buyNowItem]); // REMOVE/COMMENT OUT - This overwrites correct data for buy now
+        // session(['checkout_items' => $selectedCartIds, 'is_buy_now' => !!$buyNowItem]); // REMOVE/COMMENT OUT - This overwrites correct data for buy now
 
         return view('customer.checkout', compact('carts', 'subTotal', 'activeVouchers', 'selectedCartIds'));
     }
@@ -1076,7 +1129,6 @@ class CustomerController extends Controller
                 'brand' => $product->category->name,
                 'max_quantity' => $variant->stock
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'available' => false,
@@ -1146,7 +1198,7 @@ class CustomerController extends Controller
         if ($product_variant->stock < $data['quantity']) {
             // Return JSON error
             // return redirect()->back()->with('error', "Rất tiếc, chỉ còn {$product_variant->stock} sản phẩm. Vui lòng chọn số lượng ít hơn.")->withInput();
-             return response()->json(['success' => false, 'message' => "Rất tiếc, chỉ còn {$product_variant->stock} sản phẩm. Vui lòng chọn số lượng ít hơn."], 400);
+            return response()->json(['success' => false, 'message' => "Rất tiếc, chỉ còn {$product_variant->stock} sản phẩm. Vui lòng chọn số lượng ít hơn."], 400);
         }
 
         // Store item details in session for checkout page (use a specific key)
@@ -1175,5 +1227,139 @@ class CustomerController extends Controller
                             ->paginate(10);
 
         return view('customer.search', compact('products', 'query'));
+    }
+
+    public function orderDetail($id)
+    {
+        $order = Order::with(['orderItems.productVariant.product'])
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        return view('customer.order_detail', compact('order'));
+    }
+
+    public function cancelOrder(Request $request, $id)
+    {
+        $request->validate([
+            'cancel_reason' => 'required|string|max:500'
+        ]);
+        
+        // Load đơn hàng với relationship orderItems
+        $order = Order::with('orderItems')
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+        
+        // Kiểm tra điều kiện hủy đơn hàng
+        if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid') {
+            DB::beginTransaction();
+            try {
+                // Cập nhật trạng thái đơn hàng
+                $order->status = 'cancelled';
+                $order->cancel_reason = $request->cancel_reason;
+                $order->save();
+
+                // Khôi phục stock cho các biến thể sản phẩm
+                foreach ($order->orderItems as $item) {
+                    $variant = ProductVariant::find($item->product_variant_id);
+                    if ($variant) {
+                        $variant->stock += $item->quantity;
+                        $variant->save();
+                    }
+                }
+
+                DB::commit();
+                return redirect()->route('customer.order.history')
+                    ->with('success', 'Đơn hàng đã được hủy thành công.');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Error cancelling order: ' . $e->getMessage());
+                return redirect()->route('customer.order.history')
+                    ->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->route('customer.order.history')
+            ->with('error', 'Không thể hủy đơn hàng này.');
+    }
+
+    public function profile()
+    {
+        return view('customer.profile');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . auth()->id(),
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        $user = auth()->user();
+        $user->update($request->only(['name', 'email', 'phone', 'address']));
+
+        return redirect()->route('customer.profile')
+            ->with('success', 'Thông tin cá nhân đã được cập nhật thành công.');
+    }
+
+    public function changePassword()
+    {
+        return view('customer.change_password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|current_password',
+            'new_password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+            'new_password_confirmation' => 'required|same:new_password',
+        ], [
+            'new_password.regex' => 'Mật khẩu mới phải chứa ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt.',
+        ]);
+
+        $user = auth()->user();
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('customer.change_password')
+            ->with('success', 'Mật khẩu đã được thay đổi thành công.');
+    }
+
+    public function orderHistory()
+    {
+        $orders = Order::where('user_id', auth()->id())
+            ->with(['orderItems.productVariant.product.images'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('customer.history', compact('orders'));
+    }
+
+    public function confirmOrder($id)
+    {
+        try {
+            $order = Order::where('user_id', auth()->id())->findOrFail($id);
+            
+            // Kiểm tra quyền xác nhận đơn hàng
+            if ($order->user_id !== auth()->id()) {
+                return back()->with('error', 'Bạn không có quyền xác nhận đơn hàng này.');
+            }
+
+            // Kiểm tra trạng thái đơn hàng
+            if ($order->status !== 'delivered') {
+                return back()->with('error', 'Chỉ có thể xác nhận đơn hàng đã được giao.');
+            }
+
+            // Cập nhật trạng thái đơn hàng
+            $order->status = 'completed';
+            $order->save();
+
+            return back()->with('success', 'Xác nhận đơn hàng thành công!');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Có lỗi xảy ra khi xác nhận đơn hàng.');
+        }
     }
 }

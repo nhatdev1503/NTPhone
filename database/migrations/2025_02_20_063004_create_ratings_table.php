@@ -9,12 +9,12 @@ return new class extends Migration {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_variant_id')->constrained()->onDelete('cascade');
+            $table->string('color')->nullable();
+            $table->string('storage')->nullable();
             $table->tinyInteger('rating')->unsigned(); 
             $table->text('review')->nullable(); 
             $table->timestamps();
-
-            $table->unique(['user_id', 'product_id']);
         });
     }
 

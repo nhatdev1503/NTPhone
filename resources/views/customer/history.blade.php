@@ -3,18 +3,26 @@
 @section('title', 'Lịch sử mua hàng')
 
 @section('content')
-    <style>
-        .history-title {
-            font-size: 40px;
-            text-align: center;
-            color: #333333;
-            padding: 10px;
-            text-transform: uppercase;
-        }
+<style>
+    .status-filter {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
 
-        body {
-            background-color: white;
-        }
+    .status-filter .btn {
+        padding: 0.5rem 1.25rem;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
 
         .order-card {
             display: flex;
@@ -135,28 +143,17 @@
     <div class="container mt-5 min-height">
         <h1 class="history-title mb-4">Lịch sử mua hàng</h1>
 
-        <!-- Tabs lọc trạng thái -->
-        <div class="d-flex mb-3">
-            @php
-                $statuses = [
-                    'all' => 'Tất cả',
-                    'pending' => 'Chờ xác nhận',
-                    'processing' => 'Đang đóng gói',
-                    'shipping' => 'Đang giao',
-                    'delivered' => 'Đã giao',
-                    'cancelled' => 'Hoàn hàng',
-                    'completed' => 'Hoàn thành',
-                ];
-                $currentStatus = request('status', 'all');
-            @endphp
+    .status-filter .btn-outline-secondary {
+        border: 1px solid #dee2e6;
+        color: #6c757d;
+        background: white;
+    }
 
-            @foreach ($statuses as $key => $label)
-                <a href="{{ route('customer.order.history', ['status' => $key]) }}"
-                    class="btn {{ $currentStatus == $key ? 'btn-danger' : 'btn-outline-secondary' }} mx-1">
-                    {{ $label }}
-                </a>
-            @endforeach
-        </div>
+    .status-filter .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+        color: #495057;
+        border-color: #e74c3c;
+    }
 
 
         <!-- Danh sách đơn hàng -->
@@ -224,6 +221,10 @@
                             </div>
 
 
+    .status-cancelled {
+        background: #f8d7da;
+        color: #721c24;
+    }
 
                             <div class="order-right">
 

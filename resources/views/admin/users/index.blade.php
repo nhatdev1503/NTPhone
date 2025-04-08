@@ -1,145 +1,126 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="container" style="max-width: 95%; min-width: 1200px;">
-        <h2 class="my-4 text-center fw-bold display-6">Quản lý tài khoản</h2>
-
-        <!-- Thêm nút "Thêm tài khoản" -->
-        <div class="mb-3">
-            <a href="{{ route('users.create') }}" class="btn btn-success">Thêm tài khoản</a>
+<div class="p-6 bg-gray-900 min-h-screen text-white">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2">
+                <i class="bi bi-people text-blue-400 text-2xl"></i>
+                <h1 class="text-2xl font-bold text-blue-400">Quản lý Tài Khoản</h1>
+            </div>
+            <a href="{{ route('users.create') }}" 
+                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                <i class="bi bi-plus-circle"></i> Thêm tài khoản
+            </a>
         </div>
 
-        <!-- Form lọc theo vai trò & trạng thái -->
-        <form action="{{ route('users.index') }}" method="GET" class="mb-3">
-            <div class="row">
-                <div class="col-md-4">
-                    <select name="status" class="form-control">
-                        <option value="">-- Tất cả trạng thái --</option>
-                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Hoạt động</option>
-                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Ngừng hoạt động
-                        </option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary">Lọc</button>
-                </div>
-            </div>
-        </form>
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @if(session('success'))
+            <div class="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-lg mb-6">
                 {{ session('success') }}
             </div>
         @endif
-        <div class="alert alert-info">
-            Hiển thị {{ $users->count()-1 }} tài khoản trên tổng số {{ $users->total()-1 }} tài khoản.
+
+        <!-- Form tìm kiếm -->
+        <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
+            <form action="{{ route('users.index') }}" method="GET">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Tìm kiếm</label>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Tìm theo tên, email...">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Vai trò</label>
+                        <select name="role" 
+                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Tất cả vai trò</option>
+                            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>Người dùng</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <button type="submit" 
+                            class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                            <i class="bi bi-search"></i> Tìm kiếm
+                        </button>
+                        <a href="{{ route('users.index') }}" 
+                            class="w-full bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reset
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <!-- Bảng danh sách tài khoản -->
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $index => $user)
-                @if ($user->role != 'admin')
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $user->fullname }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            <span class="badge {{ $user->status == 'active' ? 'bg-success' : 'bg-danger' }}">
-                                {{ $user->status == 'active' ? 'Hoạt động' : 'Ngừng hoạt động' }}
-                            </span>
-                        </td>
-                        <td>
-                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">
-                                Xem
-                            </a>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">
-                                Sửa
-                            </a>
-                                <button type="button"
-                                    class="btn btn-sm {{ $user->status == 'active' ? 'btn-danger' : 'btn-success' }}"
-                                    data-bs-toggle="modal" data-bs-target="#confirmModal"
-                                    data-user-id="{{ $user->id }}" data-user-status="{{ $user->status }}"
-                                    onclick="setUserData(this)">
-                                    {{ $user->status == 'active' ? 'Khóa' : '-Mở-' }}
-                                </button>
-                    
-                            <!-- Modal -->
-                            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="confirmModalLabel">Xác nhận</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('users.destroy', 'USER_ID') }}" method="POST"
-                                                id="confirmForm">
-                                                @csrf
-                                                @method('PUT')
-                                                <div id="modalBodyContent"></div>
-                                                <!-- Nội dung động sẽ được thêm vào đây -->
-                                                <button type="submit" class="btn btn-primary">Xác nhận</button>
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Hủy</button>
-                                            </form>
-                                        </div>
+
+        <div class="bg-blue-500/10 border border-blue-500/20 text-blue-400 p-4 rounded-lg mb-6">
+            Hiển thị {{ $users->count() }} tài khoản trên tổng số {{ $users->total() }} tài khoản.
+        </div>
+
+        <!-- Bảng tài khoản -->
+        <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-700/50">
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">STT</th>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Tên</th>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Email</th>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Số điện thoại</th>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Vai trò</th>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Trạng thái</th>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        @foreach($users as $index => $user)
+                            <tr class="hover:bg-gray-700/30 transition-colors">
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ $index + 1 }}</td>
+                                <td class="px-6 py-4 text-sm text-white font-medium">{{ $user->name }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ $user->email }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-300">{{ $user->phone }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full {{ $user->role === 'admin' ? 'bg-purple-500/10 text-purple-400' : 'bg-blue-500/10 text-blue-400' }}">
+                                        {{ $user->role === 'admin' ? 'Admin' : 'Người dùng' }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full {{ $user->status ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400' }}">
+                                        {{ $user->status ? 'Hoạt động' : 'Đã khóa' }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <a href="{{ route('users.show', $user->id) }}" 
+                                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm flex items-center gap-1 transition-colors">
+                                            <i class="bi bi-eye"></i> Xem
+                                        </a>
+                                        <a href="{{ route('users.edit', $user->id) }}" 
+                                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg text-sm flex items-center gap-1 transition-colors">
+                                            <i class="bi bi-pencil"></i> Sửa
+                                        </a>
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm flex items-center gap-1 transition-colors"
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?')">
+                                                <i class="bi bi-trash"></i> Xóa
+                                            </button>
+                                        </form>
                                     </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                @endif
-                @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
-
-            </tbody>
-        </table>
-
-        <!-- Hiển thị phân trang -->
-        {{ $users->links() }}
+            <div class="px-6 py-4 border-t border-gray-700">
+                {{ $users->links() }}
+            </div>
+        </div>
     </div>
-    <script>
-        function setUserData(button) {
-            // Lấy dữ liệu từ nút đã nhấn
-            var userId = button.getAttribute('data-user-id');
-            var userStatus = button.getAttribute('data-user-status');
-
-            // Cập nhật URL trong form (route có chứa user_id)
-            var form = document.getElementById('confirmForm');
-            form.action = form.action.replace('USER_ID', userId);
-
-            // Lấy phần modal body content
-            var modalBodyContent = document.getElementById('modalBodyContent');
-
-            // Kiểm tra trạng thái người dùng để thay đổi nội dung modal
-            if (userStatus == 'active') {
-                // Nếu tài khoản đang hoạt động, hiển thị yêu cầu khóa tài khoản
-                document.getElementById('confirmModalLabel').textContent = "Xác nhận Khóa Tài Khoản";
-                modalBodyContent.innerHTML = `
-            <div class="mb-3">
-                <label for="reason" class="form-label">Lý do</label>
-                <textarea class="form-control" id="reason" name="block_reason" rows="3" required></textarea>
-            </div>
-        `;
-            } else {
-                // Nếu tài khoản bị khóa, hiển thị yêu cầu mở khóa tài khoản
-                document.getElementById('confirmModalLabel').textContent = "Xác nhận Mở Khóa Tài Khoản";
-                modalBodyContent.innerHTML = `
-            <div class="alert alert-warning" role="alert">
-                Bạn đang mở khóa tài khoản này. Không cần nhập lý do.
-            </div>
-        `;
-            }
-        }
-    </script>
+</div>
 @endsection

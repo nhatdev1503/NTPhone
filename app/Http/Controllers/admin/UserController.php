@@ -84,7 +84,8 @@ class UserController extends Controller
             $avatarPath = $request->file('avatar')->store('avatar', 'public');
             $data['avatar'] = $avatarPath;
         }
-
+        $user->role = 'customer';
+        $user->save();
         $user->update($data);
 
         return redirect()->route('users.show',$user->id)->with('success', 'Cập nhật tài khoản thành công!');

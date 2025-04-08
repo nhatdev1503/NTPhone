@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Order;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -84,9 +85,9 @@ class OrderController extends Controller
         $statusText = [
             'pending' => 'Chờ xác nhận',
             'processing' => 'Đang xử lí',
-            'shipped' => 'Đang giao hàng',
-            'delivered' => 'Đã giao hàng',
-            'completed' => 'Thành công',
+            'shipped' => 'Đang giao',
+            'delivered' => 'Đã giao',
+            'completed' => 'Hoàn thành',
             'cancelled' => 'Hủy',
         ];
         $paymentColors = [
@@ -129,6 +130,7 @@ class OrderController extends Controller
             $order->status = $request->status;
             $order->cancel_reason = null;
         }
+        
         $order->staff_id = 1;
         $order->save();
         return redirect()->route('orders.show', $order->id)->with('success', 'Cập nhật trạng thái đơn hàng thành công');

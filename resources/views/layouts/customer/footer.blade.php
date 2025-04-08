@@ -5,10 +5,10 @@
                 <div class="col-12 col-md-6 col-lg-7 col-xl-6">
 
                     <form id="mc-form" class="newsletter-form" data-toggle="validator">
-                        <input aria-label="Địa chỉ Email" type="email" class="form-control"
+                        {{-- <input aria-label="Địa chỉ Email" type="email" class="form-control"
                             placeholder="Nhập email nhận tin khuyến mãi" name="EMAIL" required autocomplete="off" />
                         <button class="btn btn-default" type="submit" aria-label="Đăng ký nhận tin"
-                            name="subscribe">ĐĂNG KÝ</button>
+                            name="subscribe">ĐĂNG KÝ</button> --}}
                     </form>
                     <div class="mailchimp-alerts ">
                         <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
@@ -56,26 +56,22 @@
                     <div class="footer-social">
                         <span>Kết nối với chúng tôi:</span>
                         <ul class="social">
-                            <li><a href="https://zalo.me/0813600999" title="Zalo"><img width="32" height="32"
+                            <li><a href="https://zalo.me/0867023153" title="Zalo"><img width="32" height="32"
                                         title="Zalo" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1742954225872"></a>
                             </li>
-                            <li><a href="https://www.facebook.com/hoangkien.co" title="Facebook"><img width="32"
+                            <li><a href="https://web.facebook.com/?_rdc=1&_rdr#" title="Facebook"><img width="32"
                                         height="32" title="Facebook" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1742954225872"></a>
                             </li>
-                            <li><a href="https://www.youtube.com/@hoangkienzin" title="Youtube"><img width="32"
+                            <li><a href="https://www.youtube.com/@onepiceman.fan.3278" title="Youtube"><img width="32"
                                         height="32" title="Youtube" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1742954225872"></a>
                             </li>
-                            <li><a href="#" title="Google"><img width="32" height="32" title="Google"
-                                        class="lazyload"
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                        data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/google.png?1742954225872"></a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -305,7 +301,7 @@
                                 title="Cơ Sở 4: 403 Ngô Gia Tự- P.2, Q.10 Hồ Chí Minh: 0707.678.707">Cơ Sở 4: 403 Ngô
                                 Gia Tự- P.2, Q.10 Hồ Chí Minh: 0707.678.707</a></li>
 
-                        <li><a href="/" title="Mua hàng online: 0813.600.999">Mua hàng online: 0813.600.999</a>
+                        <li><a href="/" title="Mua hàng online: 0813.600.999">Mua hàng: 0867023153</a>
                         </li>
 
                     </ul>
@@ -440,11 +436,11 @@
             <div class="row">
 
                 <div class="col-12 col-lg-12">
-                    <span class="copy-right">Bản quyền thuộc về <b>Hoàng Kiên</b>.</span>
+                    <span class="copy-right">Bản quyền thuộc về <b>NTShop</b>.</span>
                     <span class="opacity1">
                         Cung cấp bởi
                         <a href="https://www.sapo.vn/?utm_campaign=cpn:kho_theme-plm:footer&utm_source=Tu_nhien&utm_medium=referral&utm_content=fm:text_link-km:-sz:&utm_term=&campaign=kho_theme-sapo"
-                            rel="noopener" title="Sapo" target="_blank">Sapo</a>
+                            rel="noopener" title="Sapo" target="_blank">WD-32</a>
                     </span>
                 </div>
 
@@ -454,6 +450,11 @@
     </div>
 </footer>
 
+<style>
+	.p-5 {
+	padding: 5px !important;
+}
+</style>
 <a href="#" class="backtop" title="Lên đầu trang">
     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-up" role="img"
         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-angle-up fa-w-10">

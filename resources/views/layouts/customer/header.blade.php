@@ -12,7 +12,7 @@
     <title>Shop NTPhone </title>
     <meta name="keywords" content="Cập nhật sau" />
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Apple Store - Hoàng Kiên iPhone, iPad and more.....">
+    <meta property="og:title" content="Apple Store - NTShop iPhone, iPad and more.....">
     <meta property="og:image"
         content="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872">
     <meta property="og:image:secure_url"
@@ -20,7 +20,7 @@
     <meta property="og:description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <meta property="og:url" content="https://www.hoangkien.com/">
-    <meta property="og:site_name" content="Hoàng Kiên">
+    <meta property="og:site_name" content="NTShop">
     <link rel="icon" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/favicon.png?1742954225872"
         type="image/x-icon" />
     <link rel="preload" as="script"
@@ -231,7 +231,7 @@
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
                             src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
-                            alt="Hoàng Kiên">
+                            alt="NTShop">
                     </picture>
                 </a>
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
@@ -313,7 +313,7 @@
                     </div>
                     <div class="content">
                         <a title="Tra cứu đơn hàng" href="{{ route('customer.order.history') }}" class="button-wishlist">
-                            Tra cứu<span>đơn hàng</span>
+                            Lịch sử<span>mua hàng</span>
                         </a>
                     </div>
                 </div>
@@ -330,7 +330,7 @@
                     <div class="content">
                         <a href="{{ route('customer.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
-                            Sản phẩm <span class=" count_item_pr">3</span>
+                            Sản phẩm <span class="count_item_pr">{{ \App\Models\Cart::where('user_id', auth()->id())->count() }}</span>
                         </a>
                     </div>
                     <div class="top-cart-content">
@@ -355,27 +355,17 @@
                         </svg>
                     </div>
                     <span>Thông tin</span>
-                    <ul>
-                        <li class="li-account">
-                            <a rel="nofollow" href="{{ route('customer.profile') }}" title="Thông tin tài khoản">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                     fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                    <path fill-rule="evenodd"
-                                          d="M8 9a5 5 0 0 0-5 5v.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14a5 5 0 0 0-5-5z"/>
-                                </svg>
-                                Thông tin tài khoản
-                            </a>
-                        </li>
-                        <li class="li-account">
-                            <form action="{{ route('auth.logout') }}" method="POST">
-                                @csrf
-                                <button type="submit">
-                                    Đăng xuất
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu">
+                        <a href="{{ route('customer.profile') }}" class="dropdown-item">
+                            <i class="bi bi-person"></i> Thông tin tài khoản
+                        </a>
+                        <form action="{{ route('auth.logout') }}" method="POST" class="dropdown-item">
+                            @csrf
+                            <button type="submit" class="btn btn-link p-0">
+                                <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="menu-bar d-lg-none d-flex">
                     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
@@ -423,3 +413,69 @@
 
 </body>
 </html>
+
+<style>
+    .account-header {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .account-header .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        min-width: 200px;
+        z-index: 1000;
+        padding: 8px 0;
+    }
+
+    .account-header:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        color: #2c3e50;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+        color: #e74c3c;
+    }
+
+    .dropdown-item i {
+        margin-right: 10px;
+        font-size: 1.1em;
+    }
+
+    .dropdown-item button {
+        width: 100%;
+        text-align: left;
+        color: #2c3e50;
+        text-decoration: none;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+
+    .dropdown-item button:hover {
+        color: #e74c3c;
+    }
+
+    .count_item_pr {
+        background: #e74c3c;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 500;
+    }
+</style>

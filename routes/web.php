@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerOrderController;
 use App\Http\Controllers\Customer\RatingController;
 use App\Http\Controllers\customer\CommentController;
+use App\Http\Controllers\admin\NewsController;
+use App\Http\Controllers\customer\NewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +131,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/chat/get-room-id', [ChatController::class, 'getRoomId'])->name('chat.get-room-id');
     Route::post('/chat/get-data', [ChatController::class, 'getDataChatAdmin'])->name('chat.getDataChatAdmin');
     Route::post('/chat/message/delete', [ChatController::class, 'deleteMessage'])->name('chat.message.delete');
+
+
+    // Quản lí bài viết ( New)
+    Route::get('news', [NewsController::class, 'index'])->name('news.index');
+   
+    
+    Route::get('news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news/upload-images', [NewsController::class, 'uploadImages'])->name('news.upload_images');
+
+    
+    Route::post('/admin/news/upload-editor-image', [NewsController::class, 'uploadEditorImage']);
+    Route::post('news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('news/{news}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
 //Route trang nhân viên
@@ -184,7 +201,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
 
     // Lịch sử mua hàng
-    Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
+    Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
 
     Route::patch('order/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('customer.order.cancel');
 
@@ -196,12 +213,17 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
+    
+    Route::get('/shownew/{id}', [NewController::class, 'show'])->name('customer.show');
+
+Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');
+
     // Trang thông tin cá nhân (profile)
     Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
         ->name('customer.profile');
 
     // Route xử lý cập nhật thông tin profile (POST)
-    Route::post('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
+    Route::put('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
 
         ->name('customer.profile.update');
     // Route giỏ hàng
@@ -233,6 +255,12 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/cart/checkout', [CustomerController::class, 'cart_checkout'])->name('customer.cart.checkout');
     Route::post('/buy-now-direct', [CustomerController::class, 'proceedDirectlyToCheckout'])->name('customer.buyNowDirect');
     Route::post('/cart/update-quantity/{cartId}', [CustomerController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
+
+    // Order routes
+    Route::get('/order/history', [CustomerController::class, 'orderHistory'])->name('order.history');
+    Route::get('/order/{id}', [CustomerController::class, 'orderDetail'])->name('order_detail');
+    Route::post('/order/{id}/cancel', [CustomerController::class, 'cancelOrder'])->name('order.cancel');
+    Route::post('/order/{id}/confirm', [CustomerController::class, 'confirmOrder'])->name('order.confirm');
 });
 
 //Route trang khách vãng lai
