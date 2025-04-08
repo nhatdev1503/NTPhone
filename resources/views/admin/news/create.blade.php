@@ -15,6 +15,14 @@
     </div>
 
     <div class="form-group">
+        <label for="thumbnail" style="color: black;">Thumbnail</label>
+        <input type="file" name="thumbnail" id="thumbnail" class="form-control-file" accept="image/*">
+        @error('thumbnail')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group">
         <label for="content" style="color: black;">Content</label>
         <textarea name="content" id="tinymce-editor" class="form-control" required>{{ old('content') }}</textarea>
         @error('content')
@@ -29,19 +37,19 @@
             <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Inactive</option>
         </select>
     </div>
-   
+
     <button type="submit" class="btn btn-success">Save</button>
     <a href="{{ route('news.index') }}" class="btn btn-secondary">Cancel</a>
-    
+
 </form>
     </div>
 
     {{-- TinyMCE CDN --}}
     <script src="https://cdn.tiny.cloud/1/rmmh49b4qpvs6yg7r9ov3mmjtz8ltfutkp4hxyfguni1fzfz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-   
+
 <script>
-    
-   tinymce.init({
+
+tinymce.init({
     selector: '#tinymce-editor',
     height: 500,
     plugins: 'image link media table code lists advlist fullscreen',
@@ -57,49 +65,53 @@
 
     file_picker_types: 'image',
     file_picker_callback: function(callback, value, meta) {
-    var input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.setAttribute('multiple', 'multiple');
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.setAttribute('multiple', 'multiple');
 
-    input.onchange = function() {
-        var files = input.files;
-        if (files.length > 0) {
-            var formData = new FormData();
-            for (let i = 0; i < files.length; i++) {
-                formData.append('images[]', files[i]);
-            }
-            fetch("{{ route('news.upload_images') }}",{ 
-
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        input.onchange = function() {
+            var files = input.files;
+            if (files.length > 0) {
+                var formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('images[]', files[i]);
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                
-                data.images.forEach(image => {
-                    
-                    callback(image.url, { alt: image.name });
+                fetch("{{ route('news.upload_images') }}",{ 
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    data.images.forEach(image => {
+                        callback(image.url, { alt: image.name });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error uploading images:', error);
                 });
-            })
-            .catch(error => {
-                console.error('Error uploading images:', error);
-            });
-        }
-    };
-    
-    input.click(); 
-}
+            }
+        };
 
+        input.click(); 
+    }
 });
+
 document.querySelector('form').addEventListener('submit', function(event) {
     console.log('Form is being submitted');
-    
 });
-
 </script>
+
+<style>
+    #thumbnail {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        margin-top: 10px;
+    }
+</style>
 
 @endsection

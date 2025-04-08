@@ -205,7 +205,8 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
-    
+     //  bài viết (newnew)
+    Route::get('/news', [NewController::class, 'index'])->name('customer.news');
     Route::get('/shownew/{id}', [NewController::class, 'show'])->name('customer.show');
 
 Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');

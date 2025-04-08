@@ -28,6 +28,7 @@ class NewsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         $news = new News();
@@ -36,6 +37,12 @@ class NewsController extends Controller
         $news->is_active = $request->is_active;
         $news->user_id = auth()->id();
         $news->published_at = now();
+        
+        if ($request->hasFile('thumbnail')) {
+            $thumbPath = $request->file('thumbnail')->store('news_thumbnails', 'public');
+            $news->thumbnail_path = $thumbPath;;
+        }
+    
         $news->save(); 
     
       
@@ -45,8 +52,8 @@ class NewsController extends Controller
             foreach ($matches[1] as $imageUrl) {
                 
                 if (Str::contains($imageUrl, 'storage/news_images/')) {
-                    $imagePath = str_replace('storage/', '', $imageUrl);
-    
+                    $parsedUrl = parse_url($imageUrl, PHP_URL_PATH);
+$imagePath = ltrim(str_replace('/storage/', '', $parsedUrl), '/');
                   
                     NewsImage::create([
                         'news_id' => $news->id,
