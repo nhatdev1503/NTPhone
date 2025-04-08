@@ -38,9 +38,13 @@ class CustomerController extends Controller
                     ->where('status', 'active')
                     ->orderBy('price', 'asc');
             }])
-            ->with(['ratings' => function($query) {
-                $query->select('product_id', 'rating');
-            }])
+
+            //
+            // ->with(['ratings' => function($query) {
+            //     $query->select('product_id', 'rating');
+            // }])
+            ->with('ratings')
+
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'desc')
             ->limit(10)

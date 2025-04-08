@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderItem;
@@ -28,7 +28,10 @@ class Product extends Model
         'have_variant',
         'status'
     ];
-
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'product_id', 'id');
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -71,5 +74,6 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    
 }
 
