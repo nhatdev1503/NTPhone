@@ -2,6 +2,13 @@
 
 @section('content')
 <style>
+    #usernampo{
+        color: black;
+
+    }
+    .fw-bold {
+        color: black ;
+    }
     /* Chat Container Styles */
 .chat-container {
     background: #fff;
@@ -192,6 +199,7 @@
 
 				.chat-list.left {
 					flex-direction: row;
+                    color: black;
 				}
 
 				.chat-avatar {
