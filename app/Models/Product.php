@@ -28,10 +28,19 @@ class Product extends Model
         'have_variant',
         'status'
     ];
-    public function ratings()
-    {
-        return $this->hasMany(Rating::class, 'product_id', 'id');
-    }
+   // Trong Product.php
+public function ratings()
+{
+    return $this->hasManyThrough(
+        Rating::class,
+        ProductVariant::class,
+        'product_id',            
+        'product_variant_id',    
+        'id',                    
+        'id'                     
+    );
+}
+
     public function category()
     {
         return $this->belongsTo(Category::class);

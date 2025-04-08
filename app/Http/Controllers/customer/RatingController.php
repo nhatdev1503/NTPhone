@@ -13,16 +13,16 @@ class RatingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id',
+            'product_variant_id' => 'required|exists:product_variants,id',
             'rating' => 'required|integer|min:1|max:5',
             'review' => 'nullable|string|max:1000',
         ]);
 
         $userId = Auth::id();
-        $productId = $request->input('product_id');
+        $variantId = $request->input('product_variant_id');
 
         // Check if user has already rated this product
-        $existingRating = Rating::where('product_id', $productId)
+        $existingRating = Rating::where('product_variant_id', $variantId)
             ->where('user_id', $userId)
             ->first();
 
@@ -32,21 +32,22 @@ class RatingController extends Controller
 
         // Check if the user has purchased and the order is completed
         $canRate = DB::table('orders')
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-            ->join('product_variants', 'order_items.product_variant_id', '=', 'product_variants.id')
-            ->where('orders.user_id', $userId)
-            ->where('product_variants.product_id', $productId)
-            ->where('orders.status', 'completed')
-            ->exists();
+        ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+        ->where('orders.user_id', $userId)
+        ->where('order_items.product_variant_id', $variantId)
+        ->where('orders.status', 'completed')
+        ->exists();
 
         if (!$canRate) {
             return redirect()->back()->with('error', 'Bạn chỉ có thể đánh giá sản phẩm sau khi đơn hàng hoàn thành.');
         }
 
         Rating::create([
-            'product_id' => $productId,
+            'product_variant_id' => $variantId,
             'user_id' => $userId,
             'rating' => $request->input('rating'),
+            'color' => $request->input('color'),
+            'storage' => $request->input('storage'),
             'review' => $request->input('review')
         ]);
 
@@ -54,23 +55,31 @@ class RatingController extends Controller
     }
 
     // Lấy danh sách đánh giá của một sản phẩm
-    public function getRatings($productId)
-    {
-        $ratings = Rating::where('product_id', $productId)
-        ->join('users', 'ratings.user_id', '=', 'users.id')  // Thực hiện join với bảng users để lấy fullname
-        ->select('users.fullname', 'ratings.review', 'ratings.rating', 'ratings.created_at')  // Chọn các trường cần thiết
-        ->orderBy('ratings.created_at', 'desc') // Order by rating creation time
+    public function getRatings($variantId)
+{
+    $ratings = Rating::where('product_variant_id', $variantId)
+        ->join('users', 'ratings.user_id', '=', 'users.id')
+        ->select(
+            'users.id as user_id',
+            'users.fullname',
+            'ratings.review',
+            'ratings.rating',
+            'ratings.created_at',
+            'ratings.color',
+            'ratings.storage'
+        )
+        ->orderBy('ratings.created_at', 'desc')
         ->get();
 
     return response()->json($ratings);
-    }
+}
 
     // Cập nhật đánh giá của người dùng
-    public function updateRating(Request $request, $productId)
+    public function updateRating(Request $request, $variantId)
     {
         $userId = auth()->id();
 
-        $rating = Rating::where('product_id', $productId)->where('user_id', $userId)->first();
+        $rating = Rating::where('product_variant_id', $variantId)->where('user_id', $userId)->first();
         if (!$rating) {
             return response()->json(['message' => 'Bạn chưa đánh giá sản phẩm này.'], 404);
         }
@@ -88,11 +97,11 @@ class RatingController extends Controller
         return response()->json(['message' => 'Cập nhật đánh giá thành công!']);
     }
 
-    public function deleteRating($productId)
+    public function deleteRating($variantId)
     {
         $userId = auth()->id();
 
-        $rating = Rating::where('product_id', $productId)->where('user_id', $userId)->first();
+        $rating = Rating::where('product_variant_id', $variantId)->where('user_id', $userId)->first();
         if (!$rating) {
             return response()->json(['message' => 'Bạn chưa đánh giá sản phẩm này.'], 404);
         }
