@@ -21,4 +21,8 @@ protected $fillable = ['title', 'content', 'is_active', 'user_id', 'published_at
     {
         return $this->belongsTo(User::class); 
     }
+    public function firstImage()
+{
+    return $this->hasOne(NewsImage::class)->latest(); 
+}
 }
