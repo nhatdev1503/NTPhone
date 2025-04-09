@@ -51,7 +51,7 @@ class CustomerController extends Controller
             ->get()
             ->map(function ($product) {
                 $firstVariant = $product->variants->first();
-                
+
                 // Xử lý giá và giảm giá
                 if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
                     $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
@@ -61,26 +61,26 @@ class CustomerController extends Controller
                     $product->origin_price = $firstVariant ? $firstVariant->price : 0;
                 }
                 $product->sale_price = $firstVariant ? $firstVariant->price : 0;
-                
+
                 // Tính số lượng đã bán
                 $product->sold_count = $product->orderItems()->sum('quantity');
-                
+
                 // Lấy các màu sắc độc nhất
                 $product->available_colors = $product->variants
                     ->unique('color')
-                    ->map(function($variant) {
+                    ->map(function ($variant) {
                         return [
                             'name' => $variant->color,
                             'hex_code' => $variant->hax_code
                         ];
                     })->values();
-                
+
                 // Lấy các dung lượng độc nhất
                 $product->available_storages = $product->variants
                     ->pluck('storage')
                     ->unique()
                     ->values();
-                
+
                 // Tính điểm đánh giá trung bình
                 $ratings = $product->ratings;
                 if ($ratings->isNotEmpty()) {
@@ -101,7 +101,7 @@ class CustomerController extends Controller
                     ->where('status', 'active')
                     ->orderBy('price', 'asc');
             }])
-            ->with(['ratings' => function($query) {
+            ->with(['ratings' => function ($query) {
                 $query->select('product_id', 'rating');
             }])
             ->orderBy('id', 'desc')
@@ -109,7 +109,7 @@ class CustomerController extends Controller
             ->get()
             ->map(function ($product) {
                 $firstVariant = $product->variants->first();
-                
+
                 // Xử lý giá và giảm giá
                 if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
                     $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
@@ -119,26 +119,26 @@ class CustomerController extends Controller
                     $product->origin_price = $firstVariant ? $firstVariant->price : 0;
                 }
                 $product->sale_price = $firstVariant ? $firstVariant->price : 0;
-                
+
                 // Tính số lượng đã bán
                 $product->sold_count = $product->orderItems()->sum('quantity');
-                
+
                 // Lấy các màu sắc độc nhất
                 $product->available_colors = $product->variants
                     ->unique('color')
-                    ->map(function($variant) {
+                    ->map(function ($variant) {
                         return [
                             'name' => $variant->color,
                             'hex_code' => $variant->hax_code
                         ];
                     })->values();
-                
+
                 // Lấy các dung lượng độc nhất
                 $product->available_storages = $product->variants
                     ->pluck('storage')
                     ->unique()
                     ->values();
-                
+
                 // Tính điểm đánh giá trung bình
                 $ratings = $product->ratings;
                 if ($ratings->isNotEmpty()) {
@@ -158,57 +158,113 @@ class CustomerController extends Controller
     public function categories(string $id)
     {
         $category = Category::findOrFail($id);
-        $products = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
-            ->leftJoin('product_variants', function ($join) {
-                $join->on('products.id', '=', 'product_variants.product_id')
-                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
-            })
-            ->where('products.category_id', $id)
-            ->where('products.status', 'active')
-            ->orderBy('products.priority', 'desc')
-            ->paginate(12);
+
+        $products = Product::where('category_id', $id)
+            ->where('status', 'active')
+            ->with([
+                'variants' => function ($query) {
+                    $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                        ->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                },
+                'ratings'
+            ])
+            ->orderBy('priority', 'desc')
+            ->paginate(15)
+            ->through(function ($product) {
+                $firstVariant = $product->variants->first();
+
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+
+                // Số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+
+                // Màu sắc
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function ($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+
+                // Dung lượng
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+
+                // Đánh giá
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
+
+                return $product;
+            });
 
         return view('customer.categories', compact('category', 'products'));
     }
-    public function filterByCategory(Request $request, String $id)
+    public function filterByCategory(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
 
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
-        $screen = $request->input('screen');
-        $os = $request->input('os');
-        $storage = $request->input('storage');
-        $ram = $request->input('ram');
-        $battery = $request->input('battery');
-        $cpu = $request->input('cpu');
 
-        $query = Product::query();
+        $products = Product::with([
+            'variants' => function ($query) {
+                $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                    ->where('status', 'active')
+                    ->orderBy('price', 'asc');
+            },
+            'ratings'
+        ])
+            ->where('category_id', $id)
+            ->where('status', 'active')
+            ->orderBy('priority', 'desc')
+            ->paginate(15);
 
-        $query->whereBetween('sale_price', [$minPrice, $maxPrice]);
-
-        // $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
-        //                     ->whereBetween('products.sale_price', [$minPrice, $maxPrice])
-        //                     ->when($screen, function ($query, $screen) {
-        //                         return $query->where('products.screen', $screen);
-        //                     })
-        //                     ->when($os, function ($query, $os) {
-        //                         return $query->where('products.os', $os);
-        //                     })
-        //                     ->when($storage, function ($query, $storage) {
-        //                         return $query->where('product_variants.storage', $storage);
-        //                     })
-        //                     ->when($ram, function ($query, $ram) {
-        //                         return $query->where('products.ram', $ram);
-        //                     })
-        //                     ->when($battery, function ($query, $battery) {
-        //                         return $query->where('products.battery', $battery);
-        //                     })
-        //                     ->when($cpu, function ($query, $cpu) {
-        //                         return $query->where('products.cpu', $cpu);
-        //                     });
-
-        $products = $query->paginate(15);
+            $products->getCollection()->transform(function ($product) use ($minPrice, $maxPrice) {
+                $firstVariant = $product->variants->first();
+            
+                if ($firstVariant && ($firstVariant->price < $minPrice || $firstVariant->price > $maxPrice)) {
+                    return null;
+                }
+            
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+            
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                $product->sold_count = $product->orderItems()->sum('quantity');
+            
+                $product->available_colors = $product->variants->pluck('hax_code', 'color')->map(function ($hex, $color) {
+                    return ['color' => $color, 'hex_code' => $hex];
+                })->values()->unique('color');
+            
+                $product->available_storages = $product->variants->pluck('storage')->unique()->values();
+            
+                return $product;
+            });
+            
+            $products->setCollection($products->getCollection()->filter());
 
         return view('customer.filterByCategory', compact('category', 'products'));
     }
@@ -217,37 +273,10 @@ class CustomerController extends Controller
     {
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
-        $screen = $request->input('screen');
-        $os = $request->input('os');
-        $storage = $request->input('storage');
-        $ram = $request->input('ram');
-        $battery = $request->input('battery');
-        $cpu = $request->input('cpu');
 
         $query = Product::query();
 
         $query->whereBetween('sale_price', [$minPrice, $maxPrice]);
-
-        // $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
-        //                     ->whereBetween('products.sale_price', [$minPrice, $maxPrice])
-        //                     ->when($screen, function ($query, $screen) {
-        //                         return $query->where('products.screen', $screen);
-        //                     })
-        //                     ->when($os, function ($query, $os) {
-        //                         return $query->where('products.os', $os);
-        //                     })
-        //                     ->when($storage, function ($query, $storage) {
-        //                         return $query->where('product_variants.storage', $storage);
-        //                     })
-        //                     ->when($ram, function ($query, $ram) {
-        //                         return $query->where('products.ram', $ram);
-        //                     })
-        //                     ->when($battery, function ($query, $battery) {
-        //                         return $query->where('products.battery', $battery);
-        //                     })
-        //                     ->when($cpu, function ($query, $cpu) {
-        //                         return $query->where('products.cpu', $cpu);
-        //                     });
 
         $products = $query->paginate(15);
 
@@ -319,7 +348,7 @@ class CustomerController extends Controller
             ->select('user_id', 'review', 'rating', 'created_at', 'color', 'storage')
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
 
         // Lấy danh sách bình luận
         $comments = Comment::where('product_id', $product->id)
@@ -352,11 +381,11 @@ class CustomerController extends Controller
 
         //rate bien the
         $selectedColor = request('color');
-$selectedStorage = request('storage');
-$selectedVariant = $product->variants()
-    ->where('color', $selectedColor)
-    ->where('storage', $selectedStorage)
-    ->first();
+        $selectedStorage = request('storage');
+        $selectedVariant = $product->variants()
+            ->where('color', $selectedColor)
+            ->where('storage', $selectedStorage)
+            ->first();
 
         return view('customer.product_detail', compact(
             'product',
@@ -718,10 +747,10 @@ $selectedVariant = $product->variants()
             ]);
 
             $user = Auth::user();
-            
+
             // Decode the selected items from JSON
             $selectedItems = json_decode($request->selected_items, true);
-            
+
             if (empty($selectedItems)) {
                 return response()->json([
                     'success' => false,
@@ -943,7 +972,7 @@ $selectedVariant = $product->variants()
                 'storage' => $variant->storage,
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
-                
+
             ]);
         }
 
@@ -1303,9 +1332,9 @@ $selectedVariant = $product->variants()
         $query = $request->input('query');
 
         $products = Product::where('name', 'LIKE', "%$query%")
-                            ->where('status', 'active')
-                            ->orderBy('priority', 'desc')
-                            ->paginate(10);
+            ->where('status', 'active')
+            ->orderBy('priority', 'desc')
+            ->paginate(10);
 
         return view('customer.search', compact('products', 'query'));
     }
@@ -1324,12 +1353,12 @@ $selectedVariant = $product->variants()
         $request->validate([
             'cancel_reason' => 'required|string|max:500'
         ]);
-        
+
         // Load đơn hàng với relationship orderItems
         $order = Order::with('orderItems')
             ->where('user_id', auth()->id())
             ->findOrFail($id);
-        
+
         // Kiểm tra điều kiện hủy đơn hàng
         if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid') {
             DB::beginTransaction();
@@ -1422,7 +1451,7 @@ $selectedVariant = $product->variants()
     {
         try {
             $order = Order::where('user_id', auth()->id())->findOrFail($id);
-            
+
             // Kiểm tra quyền xác nhận đơn hàng
             if ($order->user_id !== auth()->id()) {
                 return back()->with('error', 'Bạn không có quyền xác nhận đơn hàng này.');
@@ -1438,7 +1467,6 @@ $selectedVariant = $product->variants()
             $order->save();
 
             return back()->with('success', 'Xác nhận đơn hàng thành công!');
-
         } catch (\Exception $e) {
             return back()->with('error', 'Có lỗi xảy ra khi xác nhận đơn hàng.');
         }
