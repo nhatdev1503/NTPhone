@@ -28,8 +28,8 @@ class OrderItem extends Model
 
 
     // Quan hệ với bảng ProductVariant (chính là sản phẩm có biến thể)
-    public function productVariant()
-    {
-        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
-    }
+        public function productVariant()
+        {
+            return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+        }
 }

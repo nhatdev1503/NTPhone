@@ -1,571 +1,328 @@
 @extends('layouts.customer')
 
-@section('title', 'Chi tiết đơn hàng #' . $order->order_code)
+@section('title', 'Chi tiết đơn hàng ')
 
 @section('content')
-<style>
-    .order-detail {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        overflow: hidden;
-        margin: 2rem 0;
-    }
-
-    .order-header {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 2rem;
-        border-bottom: 1px solid #eee;
-        position: relative;
-    }
-
-    .order-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #e74c3c, #c0392b);
-    }
-
-    .order-header h2 {
-        color: #2c3e50;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-        font-weight: 600;
-    }
-
-    .order-status {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.6rem 1.2rem;
-        border-radius: 25px;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-    }
-
-    .order-status i {
-        margin-right: 0.5rem;
-        font-size: 1.1rem;
-    }
-
-    .status-pending {
-        background: #fff3cd;
-        color: #856404;
-        border: 1px solid #ffeeba;
-    }
-
-    .status-processing {
-        background: #cce5ff;
-        color: #004085;
-        border: 1px solid #b8daff;
-    }
-
-    .status-shipping {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-
-    .status-delivered {
-        background: #d1e7dd;
-        color: #0f5132;
-        border: 1px solid #badbcc;
-    }
-
-    .status-completed {
-        background: #d1e7dd;
-        color: #0f5132;
-        border: 1px solid #badbcc;
-    }
-
-    .status-cancelled {
-        background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-
-    .order-info {
-        padding: 2rem;
-    }
-
-    .info-section {
-        margin-bottom: 2.5rem;
-        background: #fff;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .info-section:last-child {
-        margin-bottom: 0;
-    }
-
-    .info-section h3 {
-        color: #2c3e50;
-        margin-bottom: 1.5rem;
-        font-size: 1.3rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-    }
-
-    .info-section h3 i {
-        margin-right: 0.8rem;
-        color: #e74c3c;
-    }
-
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .info-item {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .info-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .info-label {
-        color: #6c757d;
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-    }
-
-    .info-value {
-        color: #2c3e50;
-        font-weight: 600;
-        font-size: 1.1rem;
-    }
-
-    .order-items {
-        margin-top: 2rem;
-    }
-
-    .order-item {
-        display: flex;
-        align-items: center;
-        padding: 1.2rem;
-        border-bottom: 1px solid #eee;
-        transition: all 0.3s ease;
-    }
-
-    .order-item:hover {
-        background: #f8f9fa;
-    }
-
-    .order-item:last-child {
-        border-bottom: none;
-    }
-
-    .product-image {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-right: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .product-info {
-        flex: 1;
-    }
-
-    .product-name {
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        color: #2c3e50;
-    }
-
-    .product-variant {
-        color: #6c757d;
-        font-size: 0.95rem;
-        margin-bottom: 0.8rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .product-variant i {
-        margin-right: 0.5rem;
-        color: #e74c3c;
-    }
-
-    .product-price {
-        color: #e74c3c;
-        font-weight: 600;
-        font-size: 1.1rem;
-    }
-
-    .order-summary {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 2rem;
-        margin-top: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .summary-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    .summary-item:last-child {
-        margin-bottom: 0;
-        padding-bottom: 0;
-        border-bottom: none;
-        font-weight: 600;
-        font-size: 1.2rem;
-        color: #2c3e50;
-    }
-
-    .action-buttons {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    .btn {
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        font-size: 1rem;
-    }
-
-    .btn i {
-        margin-right: 0.5rem;
-    }
-
-    .btn-primary {
-        background: #e74c3c;
-        color: white;
-    }
-
-    .btn-primary:hover {
-        background: #c0392b;
-        transform: translateY(-2px);
-    }
-
-    .btn-danger {
-        background: #dc3545;
-        color: white;
-    }
-
-    .btn-danger:hover {
-        background: #c82333;
-        transform: translateY(-2px);
-    }
-
-    .cancel-reason {
-        background: #fff3cd;
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin-top: 1.5rem;
-        border: 1px solid #ffeeba;
-    }
-
-    .cancel-reason h4 {
-        color: #856404;
-        margin-bottom: 0.8rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-    }
-
-    .cancel-reason h4 i {
-        margin-right: 0.5rem;
-    }
-
-    .cancel-reason p {
-        color: #856404;
-        margin: 0;
-        line-height: 1.6;
-    }
-
-    .modal-content {
-        border-radius: 15px;
-        border: none;
-    }
-
-    .modal-header {
-        background: #f8f9fa;
-        border-bottom: 1px solid #dee2e6;
-        border-radius: 15px 15px 0 0;
-        padding: 1.5rem;
-    }
-
-    .modal-title {
-        font-weight: 600;
-        color: #2c3e50;
-    }
-
-    .modal-body {
-        padding: 1.5rem;
-    }
-
-    .modal-footer {
-        border-top: 1px solid #dee2e6;
-        padding: 1.5rem;
-    }
-
-    .form-control {
-        border-radius: 8px;
-        border: 1px solid #dee2e6;
-        padding: 0.8rem;
-        transition: all 0.3s ease;
-    }
-
-    .form-control:focus {
-        border-color: #e74c3c;
-        box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
-    }
-
-    .btn-secondary {
-        background: #6c757d;
-        color: white;
-    }
-
-    .btn-secondary:hover {
-        background: #5a6268;
-    }
-
-    .notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 25px;
-        border-radius: 8px;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transform: translateX(120%);
-        transition: transform 0.3s ease;
-        z-index: 1000;
-    }
-
-    .notification.show {
-        transform: translateX(0);
-    }
-
-    .notification.success {
-        border-left: 4px solid #28a745;
-    }
-
-    .notification.error {
-        border-left: 4px solid #dc3545;
-    }
-
-    .notification i {
-        font-size: 1.2rem;
-    }
-
-    .notification.success i {
-        color: #28a745;
-    }
-
-    .notification.error i {
-        color: #dc3545;
-    }
-</style>
-
-<div class="order-detail">
-    <div class="order-header">
-        <h2>Đơn hàng #{{ $order->order_code }}</h2>
-        <div class="order-status status-{{ $order->status }}">
-            <i class="fas fa-circle"></i>
-            @switch($order->status)
-                @case('pending')
-                    Chờ xác nhận
-                    @break
-                @case('processing')
-                    Đang xử lý
-                    @break
-                @case('shipping')
-                    Đang giao hàng
-                    @break
-                @case('delivered')
-                    Đã giao hàng
-                    @break
-                @case('completed')
-                    Hoàn thành
-                    @break
-                @case('cancelled')
-                    Hủy
-                    @break
-            @endswitch
-        </div>
-    </div>
-
-    <div class="order-info">
-        <div class="info-section">
-            <h3><i class="fas fa-info-circle"></i> Thông tin đơn hàng</h3>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">Ngày đặt</span>
-                    <span class="info-value">{{ $order->created_at->format('d/m/Y H:i') }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Phương thức thanh toán</span>
-                    <span class="info-value">{{ $order->payment_method === 'COD' ? 'Thanh toán khi nhận hàng' : 'VNPay' }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Trạng thái thanh toán</span>
-                    <span class="info-value">{{ $order->payment_status === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán' }}</span>
-                                            </div>
-            </div>
-            </div>
-
-        <div class="info-section">
-            <h3><i class="fas fa-shipping-fast"></i> Thông tin giao hàng</h3>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">Họ tên</span>
-                    <span class="info-value">{{ $order->fullname }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Số điện thoại</span>
-                    <span class="info-value">{{ $order->phone }}</span>
-                    </div>
-                <div class="info-item">
-                    <span class="info-label">Email</span>
-                    <span class="info-value">{{ $order->email }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Địa chỉ</span>
-                    <span class="info-value">{{ $order->address }}</span>
-                    </div>
+    <style>
+        .profile-container {
+            min-height: 700px;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px 30px;
+            height: fit-content;
+           
+        }
+
+        .sidebar-item {
+            padding: 12px 25px;
+            color: #2c3e50;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-item:hover {
+            background: #f8f9fa;
+            color: #e74c3c;
+        }
+
+        .sidebar-item.active {
+            background: #f8f9fa;
+            color: #e74c3c;
+            border-left: 3px solid #e74c3c;
+        }
+
+        .sidebar-item i {
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+
+        .content-title {
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .form-label {
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+        }
+
+        .btn-save {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            color: white;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid #e74c3c;
+        }
+
+        .profile-info h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+    </style>
+
+    <div class="container profile-container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="sidebar">
+                    <a href="{{ route('customer.profile') }}"
+                        class="sidebar-item {{ request()->routeIs('customer.profile') ? 'active' : '' }}">
+                        <i class="bi bi-person"></i> Thông tin cá nhân
+                    </a>
+                    <a href="{{ route('customer.order.history') }}"
+                        class="sidebar-item {{ request()->routeIs('customer.order.history') ? 'active' : '' }}">
+                        <i class="bi bi-clock-history"></i> Lịch sử mua hàng
+                    </a>
                 </div>
             </div>
 
-        <div class="order-items">
-            <h3><i class="fas fa-shopping-bag"></i> Sản phẩm</h3>
-            @foreach($order->orderItems as $item)
-                <div class="order-item">
-                    <img src="{{ asset( $item->productVariant->product->image) }}" 
-                         alt="{{ $item->productVariant->product->name }}" 
-                         class="product-image">
-                    <div class="product-info">
-                        <div class="product-name">{{ $item->productVariant->product->name }}</div>
-                        <div class="product-variant">
-                            <i class="fas fa-palette"></i>
-                            {{ $item->productVariant->color }} - {{ $item->productVariant->storage }}
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <div class="main-content p-4 shadow rounded"
+                    style="background-color: rgba(255, 255, 255, 0.6); backdrop-filter: blur(2px); border: none;">
+                    <h2 class="content-title mb-4 border-bottom pb-2">🧾 Chi tiết đơn hàng</h2>
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle"></i> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                        <div class="product-price">
-                            {{ number_format($item->price, 0, ',', '.') }}đ x {{ $item->quantity }}
-                    </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-x-circle"></i> {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+                    <div class="row gy-4 order-info-wrapper" style="font-size: 0.9rem;">
+                        <!-- Thông tin đơn hàng -->
+                        <div class="col-md-6">
+                            <div class="border p-3 rounded">
+                                <h5 class="mb-3">📦 Thông tin đơn hàng:</h5>
+                                <p><strong>Mã đơn:</strong> {{ $order->order_code }}</p>
+                                <p><strong>Ngày đặt:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
+                                <p><strong>Trạng thái:</strong>
+                                    @php
+                                        $statusText = [
+                                            'pending' => ['label' => 'Chờ xác nhận', 'class' => 'bg-warning text-dark'],
+                                            'processing' => ['label' => 'Đang xử lý', 'class' => 'bg-primary'],
+                                            'shipped' => ['label' => 'Đang giao hàng', 'class' => 'bg-info text-dark'],
+                                            'delivered' => ['label' => 'Đã giao hàng', 'class' => 'bg-success'],
+                                            'completed' => ['label' => 'Hoàn thành', 'class' => 'bg-success'],
+                                            'cancelled' => ['label' => 'Đã hủy', 'class' => 'bg-danger'],
+                                        ];
+
+                                        $status = $order->status;
+                                        $label = $statusText[$status]['label'] ?? 'Không xác định';
+                                        $class = $statusText[$status]['class'] ?? 'bg-secondary';
+                                    @endphp
+                                    <span class="badge {{ $class }}">{{ $label }}</span>
+                                </p>
+                                @if ($order->status === 'cancelled' && $order->cancel_reason)
+                                    <p><strong>Lý do hủy:</strong> {{ $order->cancel_reason }}</p>
+                                @endif
+
+                            </div>
+                        </div>
+
+                        <!-- Thông tin khách hàng -->
+                        <div class="col-md-6">
+                            <div class="border p-3 rounded">
+                                <h5 class="mb-3">👤 Thông tin khách hàng:</h5>
+                                <p><strong>Họ tên:</strong> {{ $order->fullname }}</p>
+                                <p><strong>Email:</strong> {{ $order->email }}</p>
+                                <p><strong>SĐT:</strong> {{ $order->phone }}</p>
+                                <p><strong>Địa chỉ:</strong> {{ $order->address }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Thông tin thanh toán -->
+                        <div class="col-md-6">
+                            <div class="border p-3 rounded">
+                                <h5 class="mb-3">💳 Thông tin thanh toán:</h5>
+                                <p><strong>Phương thức:</strong> {{ strtoupper($order->payment_method) }}</p>
+                                <p><strong>Trạng thái:</strong>
+                                    @if ($order->payment_status == 'paid')
+                                        <span class="badge bg-success">Đã thanh toán</span>
+                                    @elseif($order->payment_status == 'pending')
+                                        <span class="badge bg-warning text-dark">Chờ thanh toán</span>
+                                    @else
+                                        <span class="badge bg-danger">Thất bại</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tổng tiền -->
+                        <div class="col-md-6">
+                            <div class="border p-3 rounded">
+                                <h5 class="mb-3">💰 Tổng tiền:
+                                    <span class="text-red"> {{ number_format($order->total_price, 0, ',', '.') }}
+                                        VND</span>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            @if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#cancelModal">
+                                    <i class="fas fa-times-circle"></i> Hủy đơn
+                                </button>
+                            @endif
+                            @if ($order->status == 'delivered')
+                                <form action="{{ route('order.confirm', $order->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-check-circle"></i> Xác nhận đã nhận
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
 
-        <div class="order-summary">
-            <div class="summary-item">
-                <span>Tạm tính</span>
-                <span>{{ number_format($order->total_price + $order->discount_amount, 0, ',', '.') }}đ</span>
+                <!-- Cancel Modal -->
+                @if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
+                    <div class="modal fade" id="cancelModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="position: absolute; margin-top: 150px;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Hủy đơn hàng</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form action="{{ route('order.cancel', $order->id) }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <p>Vui lòng cho biết lý do hủy đơn hàng:</p>
+                                        <textarea name="cancel_reason" class="form-control" rows="3" required></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <script>
+                    function showNotification(message, type = 'success') {
+                        const notification = document.createElement('div');
+                        notification.className = `notification ${type}`;
+                        notification.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                `;
+
+                        document.body.appendChild(notification);
+
+                        // Thêm class show sau 10ms để kích hoạt animation
+                        setTimeout(() => notification.classList.add('show'), 10);
+
+                        // Xóa notification sau 3 giây
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                            setTimeout(() => notification.remove(), 300);
+                        }, 3000);
+                    }
+                </script>
             </div>
-            @if($order->discount_amount > 0)
-                <div class="summary-item">
-                    <span>Giảm giá</span>
-                    <span>-{{ number_format($order->discount_amount, 0, ',', '.') }}đ</span>
+
+            <!-- Danh sách sản phẩm -->
+            <div class="row gy-4 mt-4">
+                <div class="col-md-12">
+                    <div class="border p-3 rounded">
+                        <h5 class="mb-3">🛒 Danh sách sản phẩm</h5>
+                        @foreach ($order->orderItems as $item)
+                            @if ($item->productVariant && $item->productVariant->product)
+                                <div class="d-flex mb-3 p-2 border rounded align-items-center bg-light">
+                                    <img src="{{ asset($item->productVariant->product->image) }}"
+                                        alt="{{ $item->productVariant->product->name }}"
+                                        style="width: 80px; height: 80px; object-fit: cover;" class="me-3 rounded">
+                                    <div>
+                                        <div><strong>{{ $item->productVariant->product->name }}</strong></div>
+                                        <div class="small text-muted">Màu:
+                                            {{ $item->productVariant->color ?? 'Không có' }} |
+                                            Dung lượng: {{ $item->productVariant->storage ?? 'Không có' }}</div>
+                                        <div>Giá: <strong>{{ number_format($item->price, 0, ',', '.') }}đ</strong>
+                                        </div>
+                                        <div>Số lượng: {{ $item->quantity }}</div>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="text-danger">Sản phẩm không tồn tại hoặc đã bị xóa.</div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
-            @endif
-            <div class="summary-item">
-                <span>Tổng cộng</span>
-                <span>{{ number_format($order->total_price, 0, ',', '.') }}đ</span>
             </div>
-        </div>
 
-        @if($order->cancel_reason)
-            <div class="cancel-reason">
-                <h4><i class="fas fa-exclamation-triangle"></i> Lý do hủy đơn</h4>
-                <p>{{ $order->cancel_reason }}</p>
-            </div>
-        @endif
-
-        <div class="action-buttons">
-            @if(($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
-                    <i class="fas fa-times-circle"></i> Hủy đơn
-                </button>
-            @endif
-            @if($order->status == 'delivered')
-                <form action="{{ route('order.confirm', $order->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-check-circle"></i> Xác nhận đã nhận
-                    </button>
-                </form>
-            @endif
         </div>
     </div>
-</div>
-
-<!-- Cancel Modal -->
-@if(($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
-    <div class="modal fade" id="cancelModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Hủy đơn hàng</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form action="{{ route('order.cancel', $order->id) }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <p>Vui lòng cho biết lý do hủy đơn hàng:</p>
-                        <textarea name="cancel_reason" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
-@endif
+    </div>
 
-<script>
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Thêm class show sau 10ms để kích hoạt animation
-    setTimeout(() => notification.classList.add('show'), 10);
-    
-    // Xóa notification sau 3 giây
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
-</script>
+
+
 @endsection
