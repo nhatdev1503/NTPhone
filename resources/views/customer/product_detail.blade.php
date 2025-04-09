@@ -1131,7 +1131,13 @@
                                                 <span class="star" style="color: {{ $i <= $rating->rating ? '#ffc107' : '#ddd' }};">★</span>
                                                 @endfor
                                         </div>
+                                        <div class="variant-info mt-2">
+        <i class="fas fa-palette"></i> Màu: <strong>{{ $rating->color }}</strong>,
+        <i class="fas fa-hdd"></i> Dung lượng: <strong>{{ $rating->storage }}</strong>
+    </div>
                                     </div>
+                               
+
                                     <div class="review-content">{{ $rating->review }}</div>
                                 </div>
                                 @endforeach
