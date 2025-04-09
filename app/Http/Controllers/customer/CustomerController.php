@@ -38,9 +38,13 @@ class CustomerController extends Controller
                     ->where('status', 'active')
                     ->orderBy('price', 'asc');
             }])
-            ->with(['ratings' => function($query) {
-                $query->select('product_id', 'rating');
-            }])
+
+            //
+            // ->with(['ratings' => function($query) {
+            //     $query->select('product_id', 'rating');
+            // }])
+            ->with('ratings')
+
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'desc')
             ->limit(10)
@@ -250,11 +254,14 @@ class CustomerController extends Controller
                 ->exists();
         }
 
-        $ratings = Rating::where('product_id', $product->id)
-            ->with('user:id,fullname') // Lấy user với chỉ id và fullname để tối ưu
-            ->select('user_id', 'review', 'rating', 'created_at') // Chọn các trường cần thiết
-            ->orderBy('created_at', 'desc') // Sắp xếp mới nhất lên đầu
+        $variantIds = $product->variants->pluck('id');
+
+        $ratings = Rating::whereIn('product_variant_id', $variantIds)
+            ->with('user:id,fullname')
+            ->select('user_id', 'review', 'rating', 'created_at', 'color', 'storage')
+            ->orderBy('created_at', 'desc')
             ->get();
+        
 
         // Lấy danh sách bình luận
         $comments = Comment::where('product_id', $product->id)
@@ -285,6 +292,14 @@ class CustomerController extends Controller
 
         $productImages = $product->images ?? collect();
 
+        //rate bien the
+        $selectedColor = request('color');
+$selectedStorage = request('storage');
+$selectedVariant = $product->variants()
+    ->where('color', $selectedColor)
+    ->where('storage', $selectedStorage)
+    ->first();
+
         return view('customer.product_detail', compact(
             'product',
             'variants',
@@ -296,7 +311,8 @@ class CustomerController extends Controller
             'productImages',
             'ratings',
             'canRateProduct',
-            'comments'
+            'comments',
+            'selectedVariant'
         ));
     }
 
@@ -858,11 +874,18 @@ class CustomerController extends Controller
 
         // Tạo order items
         foreach ($orderItems as $item) {
+            $variant = ProductVariant::with('product')->find($item['product_variant_id']);
+
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_variant_id' => $item['product_variant_id'],
+                'name' => $variant->product->name,
+                'image' => $variant->image ?? $variant->product->image,
+                'color' => $variant->color,
+                'storage' => $variant->storage,
                 'quantity' => $item['quantity'],
-                'price' => $item['price']
+                'price' => $item['price'],
+                
             ]);
         }
 

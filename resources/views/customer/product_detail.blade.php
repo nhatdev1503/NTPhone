@@ -88,13 +88,13 @@
                                 class="swiper-container gallery-top p-5 swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
                                 <div class="swiper-wrapper" id="lightgallery" style="transition-duration: 0ms;">
                                     @foreach ($product->images as $image)
-                                        <!-- Lặp qua các hình ảnh của sản phẩm -->
-                                        <a class="swiper-slide product_videobox"
-                                            href="{{ asset($image->mini_image) }}" style="width: 343px; opacity: 1;">
-                                            <img height="400" width="400" src="{{ asset($image->mini_image) }}"
-                                                alt="{{ $product->name }}"
-                                                class="img-responsive mx-auto d-block swiper-lazy">
-                                        </a>
+                                    <!-- Lặp qua các hình ảnh của sản phẩm -->
+                                    <a class="swiper-slide product_videobox"
+                                        href="{{ asset($image->mini_image) }}" style="width: 343px; opacity: 1;">
+                                        <img height="400" width="400" src="{{ asset($image->mini_image) }}"
+                                            alt="{{ $product->name }}"
+                                            class="img-responsive mx-auto d-block swiper-lazy">
+                                    </a>
                                     @endforeach
                                 </div>
 
@@ -106,13 +106,13 @@
                                 class="swiper-container gallery-thumbs p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
                                 <div class="swiper-wrapper" style="transition-duration: 0ms;">
                                     @foreach ($product->images as $image)
-                                        <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
-                                            <div class="p-100">
-                                                <img height="80" width="80"
-                                                    src="{{ asset($image->mini_image) }}" alt="{{ $product->name }}"
-                                                    class="swiper-lazy">
-                                            </div>
+                                    <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
+                                        <div class="p-100">
+                                            <img height="80" width="80"
+                                                src="{{ asset($image->mini_image) }}" alt="{{ $product->name }}"
+                                                class="swiper-lazy">
                                         </div>
+                                    </div>
                                     @endforeach
                                 </div>
                                 <div class="swiper-button-next"></div>
@@ -168,15 +168,15 @@
                                         <label for="storage">Dung lượng:</label>
                                         <div class="row">
                                             @foreach ($storages as $storage)
-                                                <div class="col-lg-4 col-md-3 col-4">
-                                                    <a href="javascript:void(0);"
-                                                        class="thumb-phienban storage-option"
-                                                        data-storage="{{ $storage->storage }}"
-                                                        data-price="{{ $storage->price }}"
-                                                        data-origin-price="{{ $storage->origin_price }}">
-                                                        <span>{{ $storage->storage }}</span>
-                                                    </a>
-                                                </div>
+                                            <div class="col-lg-4 col-md-3 col-4">
+                                                <a href="javascript:void(0);"
+                                                    class="thumb-phienban storage-option"
+                                                    data-storage="{{ $storage->storage }}"
+                                                    data-price="{{ $storage->price }}"
+                                                    data-origin-price="{{ $storage->origin_price }}">
+                                                    <span>{{ $storage->storage }}</span>
+                                                </a>
+                                            </div>
                                             @endforeach
                                         </div>
                                         <input type="hidden" name="storage" id="selected-storage"
@@ -190,30 +190,30 @@
                                             </div>
                                             <div class="thump-swatch">
                                                 @foreach ($colors as $colorGroup)
-                                                    <div data-value="{{ $colorGroup['color'] }}"
-                                                        class="swatch-element-circle color"
-                                                        id="color-{{ \Str::slug($colorGroup['color']) }}">
-                                                        <div class="tooltip"
-                                                            style="background-color: '{{ $colorGroup['variants']->first()->hax_code ?? '' }}';">
-                                                            {{ $colorGroup['color'] }}
-                                                        </div>
-
-
-                                                        <input id="swatch-0-{{ \Str::slug($colorGroup['color']) }}"
-                                                            type="radio" name="option-0"
-                                                            value="{{ $colorGroup['color'] }}"
-                                                            {{ $loop->first ? 'checked' : '' }} class="color-selector"
-                                                            data-price="{{ $colorGroup['variants']->first()->price }}"
-                                                            data-origin-price="{{ $colorGroup['variants']->first()->origin_price }}">
-
-                                                        <label for="swatch-0-{{ \Str::slug($colorGroup['color']) }}">
-                                                            <span class="color-round"
-                                                                data-color="{{ $colorGroup['variants']->first()->hax_code ?? '' }}">
-                                                                <span>{{ $colorGroup['color'] }}</span>
-                                                            </span>
-
-                                                        </label>
+                                                <div data-value="{{ $colorGroup['color'] }}"
+                                                    class="swatch-element-circle color"
+                                                    id="color-{{ \Str::slug($colorGroup['color']) }}">
+                                                    <div class="tooltip"
+                                                        style="background-color: '{{ $colorGroup['variants']->first()->hax_code ?? '' }}';">
+                                                        {{ $colorGroup['color'] }}
                                                     </div>
+
+
+                                                    <input id="swatch-0-{{ \Str::slug($colorGroup['color']) }}"
+                                                        type="radio" name="option-0"
+                                                        value="{{ $colorGroup['color'] }}"
+                                                        {{ $loop->first ? 'checked' : '' }} class="color-selector"
+                                                        data-price="{{ $colorGroup['variants']->first()->price }}"
+                                                        data-origin-price="{{ $colorGroup['variants']->first()->origin_price }}">
+
+                                                    <label for="swatch-0-{{ \Str::slug($colorGroup['color']) }}">
+                                                        <span class="color-round"
+                                                            data-color="{{ $colorGroup['variants']->first()->hax_code ?? '' }}">
+                                                            <span>{{ $colorGroup['color'] }}</span>
+                                                        </span>
+
+                                                    </label>
+                                                </div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -1023,7 +1023,7 @@
                                         error: function(jqXHR, textStatus, errorThrown) {
                                             console.error('AJAX Error:', textStatus, errorThrown, jqXHR.responseText);
                                             let errorMessage =
-                                            'Có lỗi kết nối hoặc lỗi máy chủ. Vui lòng thử lại.'; // More specific default error
+                                                'Có lỗi kết nối hoặc lỗi máy chủ. Vui lòng thử lại.'; // More specific default error
                                             // Try to get a more specific error from the response, if available
                                             if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                                                 errorMessage = jqXHR.responseJSON.message;
@@ -1086,7 +1086,7 @@
                                             <div class="stars">
                                                 @for($i = 1; $i <= 5; $i++)
                                                     <i class="fas fa-star" style="color: {{ $i <= round($ratings->avg('rating')) ? '#ffc107' : '#ddd' }};"></i>
-                                                @endfor
+                                                    @endfor
                                             </div>
                                             <div class="total-ratings">{{ $ratings->count() }} đánh giá</div>
                                         </div>
@@ -1095,17 +1095,17 @@
                                         {{-- Rating bars --}}
                                         <div class="rating-bars">
                                             @for($i = 5; $i >= 1; $i--)
-                                                @php
-                                                    $count = $ratings->where('rating', $i)->count();
-                                                    $percentage = $ratings->count() > 0 ? ($count / $ratings->count()) * 100 : 0;
-                                                @endphp
-                                                <div class="rating-bar-item">
-                                                    <div class="bar-label">{{ $i }} <span class="star">★</span></div>
-                                                    <div class="bar-container">
-                                                        <div class="bar" style="width: {{ $percentage }}%"></div>
-                                                    </div>
-                                                    <div class="bar-count">{{ $count }}</div>
+                                            @php
+                                            $count = $ratings->where('rating', $i)->count();
+                                            $percentage = $ratings->count() > 0 ? ($count / $ratings->count()) * 100 : 0;
+                                            @endphp
+                                            <div class="rating-bar-item">
+                                                <div class="bar-label">{{ $i }} <span class="star">★</span></div>
+                                                <div class="bar-container">
+                                                    <div class="bar" style="width: {{ $percentage }}%"></div>
                                                 </div>
+                                                <div class="bar-count">{{ $count }}</div>
+                                            </div>
                                             @endfor
                                         </div>
                                     </div>
@@ -1114,116 +1114,128 @@
 
                             <div class="reviews-list">
                                 @if(isset($ratings) && !$ratings->isEmpty())
-                                    @foreach($ratings as $rating)
-                                        <div class="review-item">
-                                            <div class="review-header">
-                                                <div class="reviewer-info">
-                                                    <div class="avatar">
-                                                        <i class="fas fa-user-circle"></i>
-                                                    </div>
-                                                    <div class="reviewer-details">
-                                                        <div class="reviewer-name">{{ $rating->user->fullname ?? 'Khách' }}</div>
-                                                        <div class="review-date">{{ $rating->created_at->format('d/m/Y H:i') }}</div>
-                                                    </div>
-                                                </div>
-                                                <div class="review-rating">
-                                                    @for($i = 1; $i <= 5; $i++)
-                                                        <span class="star" style="color: {{ $i <= $rating->rating ? '#ffc107' : '#ddd' }};">★</span>
-                                                    @endfor
-                                                </div>
+                                @foreach($ratings as $rating)
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <div class="reviewer-info">
+                                            <div class="avatar">
+                                                <i class="fas fa-user-circle"></i>
                                             </div>
-                                            <div class="review-content">{{ $rating->review }}</div>
+                                            <div class="reviewer-details">
+                                                <div class="reviewer-name">{{ $rating->user->fullname ?? 'Khách' }}</div>
+                                                <div class="review-date">{{ $rating->created_at->format('d/m/Y H:i') }}</div>
+                                            </div>
                                         </div>
-                                    @endforeach
-                                @else
-                                    <div class="no-reviews">
-                                        <i class="fas fa-comment-alt"></i>
-                                        <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+                                        <div class="review-rating">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <span class="star" style="color: {{ $i <= $rating->rating ? '#ffc107' : '#ddd' }};">★</span>
+                                                @endfor
+                                        </div>
                                     </div>
+                                    <div class="review-content">{{ $rating->review }}</div>
+                                </div>
+                                @endforeach
+                                @else
+                                <div class="no-reviews">
+                                    <i class="fas fa-comment-alt"></i>
+                                    <p>Chưa có đánh giá nào cho sản phẩm này.</p>
+                                </div>
                                 @endif
                             </div>
 
                             {{-- Form đánh giá --}}
                             @auth
-                                @if($canRateProduct)
-                                    <div class="review-form">
-                                        {{-- Hiển thị lịch sử đánh giá của user --}}
-                                        @php
-                                            $userRating = $ratings->where('user_id', Auth::id())->first();
-                                        @endphp
-                                        
-                                        @if($userRating)
-                                            <div class="rating-history mb-4">
-                                                <div class="rating-history-header">
-                                                    <h5><i class="fas fa-history"></i> Đánh giá trước đây của bạn</h5>
-                                                </div>
-                                                <div class="previous-rating">
-                                                    <div class="rating-info">
-                                                        <div class="rating-stars">
-                                                            @for($i = 1; $i <= 5; $i++)
-                                                                <span class="star" style="color: {{ $i <= $userRating->rating ? '#ffc107' : '#ddd' }};">★</span>
-                                                            @endfor
-                                                        </div>
-                                                        <div class="rating-date">
-                                                            <i class="far fa-clock"></i>
-                                                            {{ $userRating->created_at->format('d/m/Y H:i') }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="rating-content">
-                                                        <div class="content-header">
-                                                            <i class="fas fa-comment-alt"></i>
-                                                            <span>Nội dung đánh giá:</span>
-                                                        </div>
-                                                        <div class="content-text">{{ $userRating->review }}</div>
-                                                    </div>
-                                                </div>
+                            @if($canRateProduct)
+                            <div class="review-form">
+                                {{-- Hiển thị lịch sử đánh giá của user --}}
+                                @php
+                                $userRating = $ratings->where('user_id', Auth::id())->first();
+                                @endphp
+
+                                @if($userRating)
+                                <div class="rating-history mb-4">
+                                    <div class="rating-history-header">
+                                        <h5><i class="fas fa-history"></i> Đánh giá trước đây của bạn</h5>
+                                    </div>
+                                    <div class="previous-rating">
+                                        <div class="rating-info">
+                                            <div class="rating-stars">
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    <span class="star" style="color: {{ $i <= $userRating->rating ? '#ffc107' : '#ddd' }};">★</span>
+                                                    @endfor
                                             </div>
+                                            <div class="rating-date">
+                                                <i class="far fa-clock"></i>
+                                                {{ $userRating->created_at->format('d/m/Y H:i') }}
+                                            </div>
+                                            <div class="variant-info mt-2">
+        <i class="fas fa-palette"></i> Màu: <strong>{{ $userRating->color }}</strong>,
+        <i class="fas fa-hdd"></i> Dung lượng: <strong>{{ $userRating->storage }}</strong>
+    </div>
+
+                                        </div>
+                                        <div class="rating-content">
+                                            <div class="content-header">
+                                                <i class="fas fa-comment-alt"></i>
+                                                <span>Nội dung đánh giá:</span>
+                                            </div>
+                                            <div class="content-text">{{ $userRating->review }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+                                <form action="{{ route('customer.ratings.store') }}" method="POST" class="rating-form">
+                                    @csrf
+                                    <@if ($selectedVariant)
+                                        <input type="hidden" name="product_variant_id" value="{{ $selectedVariant->id }}">
+                                        <input type="hidden" name="color" value="{{ $selectedVariant->color }}">
+                                        <input type="hidden" name="storage" value="{{ $selectedVariant->storage }}">
+                                        @else
+                                        <p class="text-danger">Vui lòng chọn màu và dung lượng để đánh giá.</p>
                                         @endif
 
-                                        <form action="{{ route('customer.ratings.store') }}" method="POST" class="rating-form">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                            <div class="rating-input">
-                                                <label>Chọn đánh giá của bạn:</label>
-                                                <div class="star-rating">
-                                                    <input type="radio" id="star5" name="rating" value="5" class="star-input" required />
-                                                    <label for="star5" class="star-label" title="5 sao">★</label>
-                                                    
-                                                    <input type="radio" id="star4" name="rating" value="4" class="star-input" required />
-                                                    <label for="star4" class="star-label" title="4 sao">★</label>
-                                                    
-                                                    <input type="radio" id="star3" name="rating" value="3" class="star-input" required />
-                                                    <label for="star3" class="star-label" title="3 sao">★</label>
-                                                    
-                                                    <input type="radio" id="star2" name="rating" value="2" class="star-input" required />
-                                                    <label for="star2" class="star-label" title="2 sao">★</label>
-                                                    
-                                                    <input type="radio" id="star1" name="rating" value="1" class="star-input" required />
-                                                    <label for="star1" class="star-label" title="1 sao">★</label>
-                                                </div>
+                                        <div class="rating-input">
+                                            <label>Chọn đánh giá của bạn:</label>
+                                            <div class="star-rating">
+                                                <input type="radio" id="star5" name="rating" value="5" class="star-input" required />
+                                                <label for="star5" class="star-label" title="5 sao">★</label>
+
+                                                <input type="radio" id="star4" name="rating" value="4" class="star-input" required />
+                                                <label for="star4" class="star-label" title="4 sao">★</label>
+
+                                                <input type="radio" id="star3" name="rating" value="3" class="star-input" required />
+                                                <label for="star3" class="star-label" title="3 sao">★</label>
+
+                                                <input type="radio" id="star2" name="rating" value="2" class="star-input" required />
+                                                <label for="star2" class="star-label" title="2 sao">★</label>
+
+                                                <input type="radio" id="star1" name="rating" value="1" class="star-input" required />
+                                                <label for="star1" class="star-label" title="1 sao">★</label>
                                             </div>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="review">Nội dung đánh giá:</label>
-                                                <textarea name="review" id="review" rows="4" class="form-control" required
-                                                    placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."></textarea>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="review">Nội dung đánh giá:</label>
+                                            <textarea name="review" id="review" rows="4" class="form-control" required
+                                                placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."></textarea>
+                                        </div>
 
-                                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                                        </form>
-                                    </div>
-                                @else
-                                    <div class="review-notice">
-                                        <i class="fas fa-info-circle"></i>
-                                        <p>Bạn cần mua sản phẩm này để viết đánh giá.</p>
-                                    </div>
-                                @endif
+                                        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                                </form>
+                            </div>
                             @else
-                                <div class="review-notice">
-                                    <i class="fas fa-user-circle"></i>
-                                    <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết đánh giá.</p>
-                                </div>
+                            <div class="review-notice">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Bạn cần mua sản phẩm này để viết đánh giá.</p>
+                            </div>
+                            @endif
+                            @else
+                            <div class="review-notice">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết đánh giá.</p>
+                            </div>
                             @endauth
                         </div>
 
@@ -1231,53 +1243,55 @@
                         <div id="tab-comments" class="tab-content">
                             <div class="comments-list">
                                 @if (isset($comments) && !$comments->isEmpty())
-                                    @foreach ($comments as $comment)
-                                        <div class="comment-item">
-                                            <div class="comment-header">
-                                                <div class="commenter-info">
-                                                    <div class="avatar">
-                                                        <i class="fas fa-user-circle"></i>
-                                                    </div>
-                                                    <div class="commenter-details">
-                                                        <div class="commenter-name">
-                                                            {{ $comment->user->fullname ?? 'Khách' }}</div>
-                                                        <div class="comment-date">
-                                                            {{ $comment->created_at->format('d/m/Y H:i') }}</div>
-                                                    </div>
+                                @foreach ($comments as $comment)
+                                <div class="comment-item">
+                                    <div class="comment-header">
+                                        <div class="commenter-info">
+                                            <div class="avatar">
+                                                <i class="fas fa-user-circle"></i>
+                                            </div>
+                                            <div class="commenter-details">
+                                                <div class="commenter-name">
+                                                    {{ $comment->user->fullname ?? 'Khách' }}
+                                                </div>
+                                                <div class="comment-date">
+                                                    {{ $comment->created_at->format('d/m/Y H:i') }}
                                                 </div>
                                             </div>
-                                            <div class="comment-content">{{ $comment->content }}</div>
                                         </div>
-                                    @endforeach
-                                @else
-                                    <div class="no-comments">
-                                        <i class="fas fa-comments"></i>
-                                        <p>Chưa có bình luận nào cho sản phẩm này.</p>
                                     </div>
+                                    <div class="comment-content">{{ $comment->content }}</div>
+                                </div>
+                                @endforeach
+                                @else
+                                <div class="no-comments">
+                                    <i class="fas fa-comments"></i>
+                                    <p>Chưa có bình luận nào cho sản phẩm này.</p>
+                                </div>
                                 @endif
                             </div>
 
                             {{-- Form bình luận --}}
                             @auth
-                                <div class="comment-form">
-                                    <h4>Viết bình luận của bạn</h4>
-                                    <form action="{{ route('customer.comments.store') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="comment-form">
+                                <h4>Viết bình luận của bạn</h4>
+                                <form action="{{ route('customer.comments.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                        <div class="form-group">
-                                            <textarea name="content" class="form-control" rows="3" required
-                                                placeholder="Chia sẻ suy nghĩ của bạn về sản phẩm này..."></textarea>
-                                        </div>
+                                    <div class="form-group">
+                                        <textarea name="content" class="form-control" rows="3" required
+                                            placeholder="Chia sẻ suy nghĩ của bạn về sản phẩm này..."></textarea>
+                                    </div>
 
-                                        <button type="submit" class="btn btn-primary">Gửi bình luận</button>
-                                    </form>
-                                </div>
+                                    <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                                </form>
+                            </div>
                             @else
-                                <div class="comment-notice">
-                                    <i class="fas fa-user-circle"></i>
-                                    <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết bình luận.</p>
-                                </div>
+                            <div class="comment-notice">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết bình luận.</p>
+                            </div>
                             @endauth
                         </div>
                     </div>
@@ -1519,8 +1533,8 @@
         }
 
         .star-rating label:hover,
-        .star-rating label:hover ~ label,
-        .star-rating input:checked ~ label {
+        .star-rating label:hover~label,
+        .star-rating input:checked~label {
             color: #ffc107;
         }
 
@@ -1652,8 +1666,8 @@
         }
 
         .star-rating label:hover,
-        .star-rating label:hover ~ label,
-        .star-rating input:checked ~ label {
+        .star-rating label:hover~label,
+        .star-rating input:checked~label {
             color: #ffc107;
         }
 
@@ -1879,51 +1893,51 @@
     <div class="productRelate product-lq">
         <div class="container ">
             <div class="block-product block-background"">
-                <h3 class="title-index">
-                    <a class="title-name" href="/iphone-16-pro-max" title="Sản phẩm liên quan">Sản phẩm liên quan
-                    </a>
+                <h3 class=" title-index">
+                <a class="title-name" href="/iphone-16-pro-max" title="Sản phẩm liên quan">Sản phẩm liên quan
+                </a>
                 </h3>
                 <div
                     class="product-relate-swiper swiper-container p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
                     <div class="swiper-wrapper">
                         @foreach ($relatedProducts as $relatedProduct)
-                            <div class="swiper-slide swiper-slide-pro" style="width: 202px; margin-right: 20px;">
-                                <form action="/cart/add" method="post" class="variants product-action"
-                                    data-cart-form="" data-id="product-actions-{{ $relatedProduct->id }}"
-                                    enctype="multipart/form-data">
-                                    <div class="product-thumbnail">
-                                        <a class="image_thumb scale_hover"
+                        <div class="swiper-slide swiper-slide-pro" style="width: 202px; margin-right: 20px;">
+                            <form action="/cart/add" method="post" class="variants product-action"
+                                data-cart-form="" data-id="product-actions-{{ $relatedProduct->id }}"
+                                enctype="multipart/form-data">
+                                <div class="product-thumbnail">
+                                    <a class="image_thumb scale_hover"
+                                        href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
+                                        title="{{ $relatedProduct->name }}">
+                                        <!-- Kiểm tra xem sản phẩm có hình ảnh hay không -->
+                                        <img width="234" height="234" class="lazyload image1"
+                                            src="{{ $relatedProduct->images->first()->url ?? 'path/to/default-image.jpg' }}"
+                                            alt="{{ $relatedProduct->name }}">
+                                    </a>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">
+                                        <a class="line-clamp line-clamp-2"
                                             href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
                                             title="{{ $relatedProduct->name }}">
-                                            <!-- Kiểm tra xem sản phẩm có hình ảnh hay không -->
-                                            <img width="234" height="234" class="lazyload image1"
-                                                src="{{ $relatedProduct->images->first()->url ?? 'path/to/default-image.jpg' }}"
-                                                alt="{{ $relatedProduct->name }}">
+                                            {{ $relatedProduct->name }}
                                         </a>
+                                    </h3>
+                                    <div class="price-box">
+                                        {{ number_format($relatedProduct->sale_price, 0, ',', '.') }}₫
                                     </div>
-                                    <div class="product-info">
-                                        <h3 class="product-name">
-                                            <a class="line-clamp line-clamp-2"
-                                                href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
-                                                title="{{ $relatedProduct->name }}">
-                                                {{ $relatedProduct->name }}
-                                            </a>
-                                        </h3>
-                                        <div class="price-box">
-                                            {{ number_format($relatedProduct->sale_price, 0, ',', '.') }}₫
-                                        </div>
-                                        <div class="action">
-                                            <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
-                                                onclick="window.location.href='{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}'">
-                                                <svg class="icon">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xlink:href="#icon-detail"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
+                                    <div class="action">
+                                        <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
+                                            onclick="window.location.href='{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}'">
+                                            <svg class="icon">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                    xlink:href="#icon-detail"></use>
+                                            </svg>
+                                        </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
+                        </div>
                         @endforeach
                     </div>
                     <div class="swiper-button-next swiper-button-disabled"></div>

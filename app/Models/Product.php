@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderItem;
@@ -28,6 +28,18 @@ class Product extends Model
         'have_variant',
         'status'
     ];
+   // Trong Product.php
+public function ratings()
+{
+    return $this->hasManyThrough(
+        Rating::class,
+        ProductVariant::class,
+        'product_id',            
+        'product_variant_id',    
+        'id',                    
+        'id'                     
+    );
+}
 
     public function category()
     {
@@ -71,5 +83,6 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    
 }
 
