@@ -98,30 +98,88 @@ class CustomerController extends Controller
 
         return view('customer.categories', compact('category', 'products'));
     }
-    public function filterProducts(Request $request, String $id)
+    public function filterByCategory(Request $request, String $id)
     {
         $category = Category::findOrFail($id);
 
-        $productsQuery = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
-            ->leftJoin('product_variants', function ($join) {
-                $join->on('products.id', '=', 'product_variants.product_id')
-                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
-            })
-            ->where('products.category_id', $id)
-            ->where('products.status', 'active');
+        $minPrice = $request->input('min_price', 0);
+        $maxPrice = $request->input('max_price', 50000000);
+        $screen = $request->input('screen');
+        $os = $request->input('os');
+        $storage = $request->input('storage');
+        $ram = $request->input('ram');
+        $battery = $request->input('battery');
+        $cpu = $request->input('cpu');
 
-        if ($request->has('filter') && $request->filter != '') {
-            $priceRange = explode('-', $request->filter);
-            if (count($priceRange) == 2) {
-                $minPrice = (int) $priceRange[0];
-                $maxPrice = (int) $priceRange[1];
-                $productsQuery->whereBetween('product_variants.price', [$minPrice, $maxPrice]);
-            }
-        }
+        $query = Product::query();
 
-        $products = $productsQuery->orderBy('products.priority', 'desc')->paginate(12);
+        $query->whereBetween('sale_price', [$minPrice, $maxPrice]);
+
+        // $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
+        //                     ->whereBetween('products.sale_price', [$minPrice, $maxPrice])
+        //                     ->when($screen, function ($query, $screen) {
+        //                         return $query->where('products.screen', $screen);
+        //                     })
+        //                     ->when($os, function ($query, $os) {
+        //                         return $query->where('products.os', $os);
+        //                     })
+        //                     ->when($storage, function ($query, $storage) {
+        //                         return $query->where('product_variants.storage', $storage);
+        //                     })
+        //                     ->when($ram, function ($query, $ram) {
+        //                         return $query->where('products.ram', $ram);
+        //                     })
+        //                     ->when($battery, function ($query, $battery) {
+        //                         return $query->where('products.battery', $battery);
+        //                     })
+        //                     ->when($cpu, function ($query, $cpu) {
+        //                         return $query->where('products.cpu', $cpu);
+        //                     });
+
+        $products = $query->paginate(15);
 
         return view('customer.filterByCategory', compact('category', 'products'));
+    }
+
+    public function filter(Request $request)
+    {
+        $minPrice = $request->input('min_price', 0);
+        $maxPrice = $request->input('max_price', 50000000);
+        $screen = $request->input('screen');
+        $os = $request->input('os');
+        $storage = $request->input('storage');
+        $ram = $request->input('ram');
+        $battery = $request->input('battery');
+        $cpu = $request->input('cpu');
+
+        $query = Product::query();
+
+        $query->whereBetween('sale_price', [$minPrice, $maxPrice]);
+
+        // $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
+        //                     ->whereBetween('products.sale_price', [$minPrice, $maxPrice])
+        //                     ->when($screen, function ($query, $screen) {
+        //                         return $query->where('products.screen', $screen);
+        //                     })
+        //                     ->when($os, function ($query, $os) {
+        //                         return $query->where('products.os', $os);
+        //                     })
+        //                     ->when($storage, function ($query, $storage) {
+        //                         return $query->where('product_variants.storage', $storage);
+        //                     })
+        //                     ->when($ram, function ($query, $ram) {
+        //                         return $query->where('products.ram', $ram);
+        //                     })
+        //                     ->when($battery, function ($query, $battery) {
+        //                         return $query->where('products.battery', $battery);
+        //                     })
+        //                     ->when($cpu, function ($query, $cpu) {
+        //                         return $query->where('products.cpu', $cpu);
+        //                     });
+
+        $products = $query->paginate(15);
+
+        return view('customer.filterByCategory', compact('products'));
     }
 
     public function warranty()
