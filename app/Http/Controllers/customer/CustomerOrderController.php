@@ -8,8 +8,7 @@ use App\Models\Order;
 
 class CustomerOrderController extends Controller
 {
-    // Hiển thị danh sách đơn hàng của khách hàng
-    public function history(Request $request)
+        public function history(Request $request)
     {
         $query = Order::where('user_id', auth()->id());
 
@@ -17,13 +16,12 @@ class CustomerOrderController extends Controller
         if ($request->has('status') && $request->status != 'all') {
             $query->where('status', $request->status);
         }
-
-        // Lọc theo khoảng thời gian
         if ($request->has('from_date') && $request->has('to_date')) {
             $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
         }
 
         $orders = $query->orderBy('created_at', 'desc')->paginate(5);
+        dd($request->status, $orders->pluck('status'));
 
         return view('customer.history', compact('orders'));
     }
@@ -32,8 +30,9 @@ class CustomerOrderController extends Controller
     {
         $order = Order::where('id', $id)
             ->where('user_id', auth()->id())
-            ->with('items.product')
+            ->with('items.productVariant') // Sửa lại đây
             ->firstOrFail();
         return view('customer.order_detail', compact('order'));
     }
+    
 }

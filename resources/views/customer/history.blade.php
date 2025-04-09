@@ -3,532 +3,581 @@
 @section('title', 'Lịch sử mua hàng')
 
 @section('content')
-<style>
-    .status-filter {
-        display: flex;
-        gap: 0.75rem;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 10px;
-    }
+    <style>
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            height: fit-content;
 
-    .status-filter .btn {
-        padding: 0.5rem 1.25rem;
-        border-radius: 25px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        border: none;
-        text-decoration: none;
-        font-size: 0.95rem;
-    }
+        }
 
-    .status-filter .btn-danger {
-        background: #e74c3c;
-        color: white;
-        box-shadow: 0 2px 5px rgba(231, 76, 60, 0.2);
-    }
+        .sidebar-item {
+            padding: 12px 25px;
+            color: #2c3e50;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
 
-    .status-filter .btn-outline-secondary {
-        border: 1px solid #dee2e6;
-        color: #6c757d;
-        background: white;
-    }
+        .sidebar-item:hover {
+            background: #f8f9fa;
+            color: #e74c3c;
+        }
 
-    .status-filter .btn-outline-secondary:hover {
-        background-color: #f8f9fa;
-        color: #495057;
-        border-color: #e74c3c;
-    }
+        .sidebar-item.active {
+            background: #f8f9fa;
+            color: #e74c3c;
+            border-left: 3px solid #e74c3c;
+        }
 
-    .order-card {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-        margin-bottom: 2rem;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
+        .sidebar-item i {
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
 
-    .order-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
+        .status-filter {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
 
-    .order-header {
-        background: #f8f9fa;
-        padding: 1.25rem 2rem;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .status-filter .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
 
-    .order-code {
-        font-weight: 600;
-        color: #2c3e50;
-        font-size: 1.1rem;
-    }
+        .status-filter .btn-danger {
+            background: #e74c3c;
+            color: white;
+            box-shadow: 0 2px 5px rgba(231, 76, 60, 0.2);
+        }
 
-    .order-price {
-        color: #e74c3c;
-        font-weight: 600;
-        font-size: 1.1rem;
-    }
+        .status-filter .btn-outline-secondary {
+            border: 1px solid #dee2e6;
+            color: #6c757d;
+            background: white;
+        }
 
-    .order-date {
-        color: #6c757d;
-        font-size: 0.95rem;
-    }
+        .status-filter .btn-outline-secondary:hover {
+            background-color: #f8f9fa;
+            color: #495057;
+            border-color: #e74c3c;
+        }
 
-    .order-status {
-        display: inline-block;
-        padding: 0.5rem 1.25rem;
-        border-radius: 25px;
-        font-weight: 500;
-        margin: 1rem 2rem;
-        font-size: 0.95rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
 
-    .status-pending {
-        background: #fff3cd;
-        color: #856404;
-    }
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    .status-processing {
-        background: #cce5ff;
-        color: #004085;
-    }
+        .order-header {
+            background: #f8f9fa;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .status-shipping {
-        background: #d4edda;
-        color: #155724;
-    }
+        .order-code {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
 
-    .status-delivered {
-        background: #d1e7dd;
-        color: #0f5132;
-    }
+        .order-price {
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-    .status-completed {
-        background: #d1e7dd;
-        color: #0f5132;
-    }
+        .order-date {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
 
-    .status-cancelled {
-        background: #f8d7da;
-        color: #721c24;
-    }
+        .order-status {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            font-weight: 500;
+            margin: 1rem 2rem;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
 
-    .product-list {
-        padding: 0 2rem 2rem;
-    }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
 
-    .product-item {
-        display: flex;
-        align-items: center;
-        padding: 1.25rem 0;
-        border-bottom: 1px solid #eee;
-    }
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
 
-    .product-item:last-child {
-        border-bottom: none;
-    }
+        .status-shipping {
+            background: #d4edda;
+            color: #155724;
+        }
 
-    .product-image {
-        width: 90px;
-        height: 90px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-right: 1.5rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+        .status-delivered {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
 
-    .product-info {
-        flex: 1;
-    }
+        .status-completed {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
 
-    .product-name {
-        font-weight: 500;
-        margin-bottom: 0.75rem;
-        font-size: 1.05rem;
-    }
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
 
-    .product-name a {
-        color: #2c3e50;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
+        .product-list {
+            padding: 0 2rem 2rem;
+        }
 
-    .product-name a:hover {
-        color: #e74c3c;
-    }
+        .product-item {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #eee;
+        }
 
-    .product-variant {
-        color: #666;
-        font-size: 0.95rem;
-        margin-bottom: 0.75rem;
-    }
+        .product-item:last-child {
+            border-bottom: none;
+        }
 
-    .product-variant div {
-        margin-bottom: 0.25rem;
-    }
+        .product-image {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    .product-price {
-        color: #e74c3c;
-        font-weight: 600;
-        font-size: 1.1rem;
-    }
+        .product-info {
+            flex: 1;
+        }
 
-    .product-quantity {
-        color: #6c757d;
-        font-size: 0.95rem;
-        margin-top: 0.5rem;
-    }
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
 
-    .order-actions {
-        padding: 1.25rem 2rem;
-        border-top: 1px solid #eee;
-        display: flex;
-        gap: 1rem;
-        justify-content: flex-end;
-    }
+        .product-name a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-    .btn-action {
-        padding: 0.6rem 1.25rem;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        border: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        font-size: 0.95rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+        .product-name a:hover {
+            color: #e74c3c;
+        }
 
-    .btn-detail {
-        background: #17a2b8;
-        color: white;
-    }
+        .product-variant {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
 
-    .btn-detail:hover {
-        background: #138496;
-        color: white;
-        transform: translateY(-1px);
-    }
+        .product-variant div {
+            margin-bottom: 0.25rem;
+        }
 
-    .btn-cancel {
-        background: #dc3545;
-        color: white;
-    }
+        .product-price {
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-    .btn-cancel:hover {
-        background: #c82333;
-        color: white;
-        transform: translateY(-1px);
-    }
+        .product-quantity {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
 
-    .btn-confirm {
-        background: #28a745;
-        color: white;
-    }
+        .order-actions {
+            padding: 1.25rem 2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
 
-    .btn-confirm:hover {
-        background: #218838;
-        color: white;
-        transform: translateY(-1px);
-    }
+        .btn-action {
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    .empty-state {
-        text-align: center;
-        padding: 4rem 1rem;
-        background: #f8f9fa;
-        border-radius: 15px;
-        margin: 2rem 0;
-    }
+        .btn-detail {
+            background: #17a2b8;
+            color: white;
+        }
 
-    .empty-state i {
-        font-size: 3.5rem;
-        color: #e74c3c;
-        margin-bottom: 1.5rem;
-    }
+        .btn-detail:hover {
+            background: #138496;
+            color: white;
+            transform: translateY(-1px);
+        }
 
-    .empty-state p {
-        color: #6c757d;
-        font-size: 1.2rem;
-        margin: 0;
-    }
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+        }
 
-    .pagination {
-        margin-top: 3rem;
-    }
+        .btn-cancel:hover {
+            background: #c82333;
+            color: white;
+            transform: translateY(-1px);
+        }
 
-    .pagination .page-link {
-        color: #e74c3c;
-        border: none;
-        padding: 0.6rem 1.25rem;
-        margin: 0 0.25rem;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
+        .btn-confirm {
+            background: #28a745;
+            color: white;
+        }
 
-    .pagination .page-item.active .page-link {
-        background-color: #e74c3c;
-        border-color: #e74c3c;
-    }
+        .btn-confirm:hover {
+            background: #218838;
+            color: white;
+            transform: translateY(-1px);
+        }
 
-    .payment-info {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 1rem 2rem;
-        background: #f8f9fa;
-        border-bottom: 1px solid #eee;
-    }
+        .empty-state {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
 
-    .payment-method {
-        color: #6c757d;
-        font-size: 0.95rem;
-    }
+        .empty-state i {
+            font-size: 3.5rem;
+            color: #e74c3c;
+            margin-bottom: 1.5rem;
+        }
 
-    .payment-status {
-        padding: 0.4rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
+        .empty-state p {
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin: 0;
+        }
 
-    .payment-status.paid {
-        background: #28a745;
-        color: white;
-    }
+        .pagination {
+            margin-top: 3rem;
+        }
 
-    .payment-status.pending {
-        background: #ffc107;
-        color: #000;
-    }
+        .pagination .page-link {
+            color: #e74c3c;
+            border: none;
+            padding: 0.6rem 1.25rem;
+            margin: 0 0.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
 
-    .payment-status.failed {
-        background: #dc3545;
-        color: white;
-    }
+        .pagination .page-item.active .page-link {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
 
-    .notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 25px;
-        border-radius: 8px;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transform: translateX(120%);
-        transition: transform 0.3s ease;
-        z-index: 1000;
-    }
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem 2rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
 
-    .notification.show {
-        transform: translateX(0);
-    }
+        .payment-method {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
 
-    .notification.success {
-        border-left: 4px solid #28a745;
-    }
+        .payment-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
 
-    .notification.error {
-        border-left: 4px solid #dc3545;
-    }
+        .payment-status.paid {
+            background: #28a745;
+            color: white;
+        }
 
-    .notification i {
-        font-size: 1.2rem;
-    }
+        .payment-status.pending {
+            background: #ffc107;
+            color: #000;
+        }
 
-    .notification.success i {
-        color: #28a745;
-    }
+        .payment-status.failed {
+            background: #dc3545;
+            color: white;
+        }
 
-    .notification.error i {
-        color: #dc3545;
-    }
-</style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
 
-<h1>Lịch sử mua hàng</h1>
+        .notification.show {
+            transform: translateX(0);
+        }
 
-<!-- Tabs lọc trạng thái -->
-<div class="status-filter">
-    @php
-        $statuses = [
-            'all' => 'Tất cả',
-            'pending' => 'Chờ xác nhận',
-            'processing' => 'Đang xử lý',
-            'shipping' => 'Đang giao hàng',
-            'delivered' => 'Đã giao hàng',
-            'completed' => 'Hoàn thành',
-            'cancelled' => 'Hủy',
-        ];
-        $currentStatus = request('status', 'all');
-    @endphp
+        .notification.success {
+            border-left: 4px solid #28a745;
+        }
 
-    @foreach ($statuses as $key => $label)
-        <a href="{{ route('customer.order.history', ['status' => $key]) }}"
-            class="btn {{ $currentStatus == $key ? 'btn-danger' : 'btn-outline-secondary' }}">
-            {{ $label }}
-        </a>
-    @endforeach
-</div>
+        .notification.error {
+            border-left: 4px solid #dc3545;
+        }
 
-<!-- Danh sách đơn hàng -->
-@if ($orders->isEmpty())
-    <div class="empty-state">
-        <i class="bi bi-bag-x"></i>
-        <p>Không có đơn hàng nào.</p>
+        .notification i {
+            font-size: 1.2rem;
+        }
+
+        .notification.success i {
+            color: #28a745;
+        }
+
+        .notification.error i {
+            color: #dc3545;
+        }
+    </style>
+
+    <h1 style="text-align: center;">Lịch sử mua hàng</h1>
+
+    <!-- Tabs lọc trạng thái -->
+    <div class=" status-filter d-flex justify-content-center mb-3">
+        <div class=" text-center">
+            @php
+                $statuses = [
+                    'all' => 'Tất cả',
+                    'pending' => 'Chờ xác nhận',
+                    'processing' => 'Đang xử lý',
+                    'shipped' => 'Đang giao hàng',
+                    'delivered' => 'Đã giao hàng',
+                    'completed' => 'Hoàn thành',
+                    'cancelled' => 'Hủy',
+                ];
+                $currentStatus = request('status', 'all');
+            @endphp
+
+            @foreach ($statuses as $key => $label)
+                <a href="{{ route('customer.order.history', ['status' => $key]) }}"
+                    class="btn btn-sm me-1 mb-1 {{ $currentStatus == $key ? 'btn-danger' : 'btn-outline-secondary' }}">
+                    {{ $label }}
+                </a>
+            @endforeach
+        </div>
     </div>
-@else
-    @foreach ($orders as $order)
-        <div class="order-card">
-            <div class="order-header">
-                <div>
-                    <span class="order-code">Đơn hàng {{ $order->order_code }}</span>
-                    <span class="order-price ms-3">{{ number_format($order->total_price, 0, ',', '.') }}đ</span>
+
+
+
+    @if ($orders->isEmpty())
+        <div class="empty-state">
+            <i class="bi bi-bag-x"></i>
+            <p>Không có đơn hàng nào.</p>
+        </div>
+    @else
+        <div class="row">
+            {{-- Sidebar bên trái --}}
+            <div class="col-lg-3 mb-4">
+                <div class="sidebar bg-white shadow-sm rounded p-3">
+                    <a href="{{ route('customer.profile') }}"
+                        class="sidebar-item d-block mb-2 {{ request()->routeIs('customer.profile') }}">
+                        <i class="bi bi-person"></i> Thông tin cá nhân
+                    </a>
+                    <a href="{{ route('customer.order.history') }}"
+                        class="sidebar-item d-block {{ request()->routeIs('customer.order.history') }}">
+                        <i class="bi bi-clock-history"></i> Lịch sử mua hàng
+                    </a>
                 </div>
-                <div>
-                    <span class="order-date">{{ $order->created_at->format('d/m/Y H:i') }}</span>
-                </div>
             </div>
 
-            <div class="payment-info">
-                <span class="payment-method">Phương thức thanh toán: {{ $order->payment_method }}</span>
-                <span class="payment-status {{ $order->payment_status }}">
-                    {{ $order->payment_status == 'paid' ? 'Đã thanh toán' : ($order->payment_status == 'pending' ? 'Chờ thanh toán' : 'Thất bại') }}
-                </span>
-            </div>
+            {{-- Nội dung chính --}}
+            <div class="col-lg-9">
+                @foreach ($orders as $order)
+                    <div class="order-card mb-3 p-3 rounded-4 shadow-sm"
+                        style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 1px solid #dee2e6; font-size: 14px;">
 
-            <div class="order-status status-{{ $order->status }}">
-                @php
-                    $statusText = [
-                        'pending' => 'Chờ xác nhận',
-                        'processing' => 'Đang xử lý',
-                        'shipping' => 'Đang giao hàng',
-                        'delivered' => 'Đã giao hàng',
-                        'completed' => 'Hoàn thành',
-                        'cancelled' => 'Hủy',
-                    ];
-                    echo $statusText[$order->status] ?? 'Không xác định';
-                @endphp
-            </div>
-
-            <div class="product-list">
-                @foreach ($order->orderItems as $item)
-                    @if ($item->productVariant && $item->productVariant->product)
-                        <div class="product-item">
-                            <img src="{{ asset($item->productVariant->product->image) }}"
-                                 alt="{{ $item->productVariant->product->name }}"
-                                 class="product-image">
-                            <div class="product-info">
-                                <div class="product-name">
-                                    <a href="{{ route('customer.product_detail', $item->productVariant->product->id) }}">
-                                        {{ $item->productVariant->product->name }}
-                                    </a>
-                                </div>
-                                <div class="product-variant">
-                                    <div><strong>Màu sắc:</strong> {{ $item->productVariant->color ?? 'Không có' }}</div>
-                                    <div><strong>Dung lượng:</strong> {{ $item->productVariant->storage ?? 'Không có' }}</div>
-                                </div>
-                                <div class="product-price">{{ number_format($item->price, 0, ',', '.') }}đ</div>
-                                <div class="product-quantity">Số lượng: {{ $item->quantity }}</div>
+                        {{-- Mã đơn + Ngày --}}
+                        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                            <div class="fw-semibold text-dark" style="font-size: 15px;">
+                                <i class="bi bi-receipt me-1 text-primary"></i> Mã đơn: {{ $order->order_code }}
+                            </div>
+                            <div class="text-muted small">
+                                <i class="bi bi-calendar3 me-1"></i> {{ $order->created_at->format('d/m/Y H:i') }}
                             </div>
                         </div>
-                    @else
-                        <div class="product-item">
-                            <div class="text-center text-warning w-100">Sản phẩm không còn tồn tại</div>
+
+                        {{-- Trạng thái + Thanh toán --}}
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <strong class="text-dark">Trạng thái đơn:</strong>
+                                    @php
+                                        $statusText = [
+                                            'pending' => [
+                                                'label' => 'Chờ xác nhận',
+                                                'class' => 'badge bg-warning text-dark',
+                                            ],
+                                            'processing' => ['label' => 'Đang xử lý', 'class' => 'badge bg-primary'],
+                                            'shipped' => [
+                                                'label' => 'Đang giao hàng',
+                                                'class' => 'badge bg-info text-dark',
+                                            ],
+                                            'delivered' => ['label' => 'Đã giao hàng', 'class' => 'badge bg-success'],
+                                            'completed' => ['label' => 'Hoàn thành', 'class' => 'badge bg-success'],
+                                            'cancelled' => ['label' => 'Hủy', 'class' => 'badge bg-danger'],
+                                        ];
+
+                                        $status = $order->status;
+                                        $label = $statusText[$status]['label'] ?? 'Không xác định';
+                                        $class = $statusText[$status]['class'] ?? 'badge bg-secondary';
+                                    @endphp
+
+                                    <span class="{{ $class }} ms-2">{{ $label }}</span>
+                                </div>
+
+                                <div class="text-secondary mt-1">
+                                    <strong class="text-dark">Thanh toán:</strong>
+                                    <span
+                                        class="ms-2 badge {{ $order->payment_status == 'paid' ? 'bg-success' : ($order->payment_status == 'pending' ? 'bg-warning text-dark' : 'bg-danger') }}">
+                                        {{ $order->payment_status == 'paid' ? 'Đã thanh toán' : ($order->payment_status == 'pending' ? 'Chờ thanh toán' : 'Thất bại') }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    @endif
-                @endforeach
-            </div>
 
-            <div class="order-actions">
-                <a href="{{ route('order_detail', $order->id) }}" class="btn-action btn-detail">
-                    <i class="bi bi-eye"></i> Xem chi tiết
-                </a>
-                
-                @if($order->status == 'delivered')
-                    <form action="{{ route('order.confirm', $order->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn-action btn-confirm">
-                            <i class="bi bi-check-circle"></i> Xác nhận đã nhận hàng
-                        </button>
-                    </form>
-                @endif
-
-                @if(($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
-                    <button type="button" class="btn-action btn-cancel" data-bs-toggle="modal" data-bs-target="#cancelModal{{ $order->id }}">
-                        <i class="bi bi-x-circle"></i> Hủy đơn hàng
-                    </button>
-                @endif
-            </div>
-        </div>
-    @endforeach
-@endif
-
-<!-- Phân trang -->
-<div class="d-flex justify-content-center">
-    {{ $orders->links() }}
-</div>
-
-<!-- Modal Hủy đơn hàng -->
-@foreach ($orders as $order)
-    @if(($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
-        <div class="modal fade" id="cancelModal{{ $order->id }}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Hủy đơn hàng</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        {{-- Tổng tiền + nút --}}
+                        <div class="d-flex justify-content-between align-items-center border-top pt-2 mt-2">
+                            <div class="text-dark fw-medium">
+                                <i class="bi bi-wallet2 me-1 text-success"></i> Tổng tiền:
+                                <span class="text-danger">{{ number_format($order->total_price, 0, ',', '.') }} VND</span>
+                            </div>
+                            <div>
+                                <a href="{{ route('order_detail', $order->id) }}"
+                                    class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                    <i class="bi bi-eye"></i> Chi tiết
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <form action="{{ route('order.cancel', $order->id) }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <p>Vui lòng cho biết lý do hủy đơn hàng:</p>
-                            <textarea name="cancel_reason" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
-                        </div>
-                    </form>
-                </div>
+                @endforeach
+
+                {{-- Nếu không có đơn --}}
+                @if ($orders->isEmpty())
+                    <div class="text-center text-muted mt-5">
+                        <i class="bi bi-bag-x fs-1"></i>
+                        <p class="mt-2">Không có đơn hàng nào.</p>
+                    </div>
+                @endif
             </div>
         </div>
     @endif
-@endforeach
 
-<script>
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
+    <!-- Phân trang -->
+    <div class="d-flex justify-content-center">
+        {{ $orders->links() }}
+    </div>
+
+    <!-- Modal Hủy đơn hàng -->
+    @foreach ($orders as $order)
+        @if (($order->status == 'pending' || $order->status == 'processing') && $order->payment_status != 'paid')
+            <div class="modal fade" id="cancelModal{{ $order->id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Hủy đơn hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <form action="{{ route('order.cancel', $order->id) }}" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <p>Vui lòng cho biết lý do hủy đơn hàng:</p>
+                                <textarea name="cancel_reason" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-danger">Xác nhận hủy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
+
+    <script>
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
         <i class="bi ${type === 'success' ? 'bi-check-circle' : 'bi-exclamation-circle'}"></i>
         <span>${message}</span>
     `;
-    
-    document.body.appendChild(notification);
-    
-    // Thêm class show sau 10ms để kích hoạt animation
-    setTimeout(() => notification.classList.add('show'), 10);
-    
-    // Xóa notification sau 3 giây
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
-</script>
+
+            document.body.appendChild(notification);
+
+            // Thêm class show sau 10ms để kích hoạt animation
+            setTimeout(() => notification.classList.add('show'), 10);
+
+            // Xóa notification sau 3 giây
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\Customer\ProfileController;
 use App\Http\Controllers\guest\GuestController;
 use App\Http\Controllers\guest\OrderLookupController;
 use App\Http\Controllers\customer\CustomerController;
@@ -46,7 +47,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post( '/login', [LoginController::class, 'login'])->name('auth.login');
+Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 
 // Route đăng ký
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
@@ -135,12 +136,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     // Quản lí bài viết ( New)
     Route::get('news', [NewsController::class, 'index'])->name('news.index');
-   
-    
+
+
     Route::get('news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news/upload-images', [NewsController::class, 'uploadImages'])->name('news.upload_images');
 
-    
+
     Route::post('/admin/news/upload-editor-image', [NewsController::class, 'uploadEditorImage']);
     Route::post('news', [NewsController::class, 'store'])->name('news.store');
     Route::get('news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
@@ -201,24 +202,16 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
 
     // Lịch sử mua hàng
-    Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
+    Route::get('/customer/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
-     //  bài viết (newnew)
+    //  bài viết (newnew)
     Route::get('/news', [NewController::class, 'index'])->name('customer.news');
     Route::get('/shownew/{id}', [NewController::class, 'show'])->name('customer.show');
 
-Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');
+    Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');
 
-    // Trang thông tin cá nhân (profile)
-    Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
-        ->name('customer.profile');
-
-    // Route xử lý cập nhật thông tin profile (POST)
-    Route::put('/profile/update', [\App\Http\Controllers\customer\ProfileController::class, 'update'])
-
-        ->name('customer.profile.update');
     // Route giỏ hàng
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
     Route::post('/cart/update/{id}', [CustomerController::class, 'updateCartQuantity'])->name('customer.cart.updateQuantity');
@@ -250,7 +243,7 @@ Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->na
     Route::post('/cart/update-quantity/{cartId}', [CustomerController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
 
     // Order routes
-    Route::get('/order/history', [CustomerController::class, 'orderHistory'])->name('order.history');
+    Route::get('/order/history', [CustomerController::class, 'history'])->name('order.history');
     Route::get('/order/{id}', [CustomerController::class, 'orderDetail'])->name('order_detail');
     Route::post('/order/{id}/cancel', [CustomerController::class, 'cancelOrder'])->name('order.cancel');
     Route::post('/order/{id}/confirm', [CustomerController::class, 'confirmOrder'])->name('order.confirm');
@@ -269,10 +262,10 @@ Route::prefix('guest')->group(function () {
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
 });
 
-Route::prefix('customer')->group(function () {
-    // Lịch sử mua hàng
-    Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
-});
+// Route::prefix('customer')->group(function () {
+//     // Lịch sử mua hàng
+//     Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
+// });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
@@ -297,10 +290,9 @@ Route::post('/comments', [CommentController::class, 'store'])->name('customer.co
 
 // Customer Profile Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/customer/profile', [CustomerController::class, 'profile'])->name('customer.profile');
-    Route::put('/customer/profile', [CustomerController::class, 'updateProfile'])->name('customer.profile.update');
+    Route::get('/customer/profile', [ProfileController::class, 'index'])->name('customer.profile');
+    Route::put('/customer/profile', [ProfileController::class, 'updateProfile'])->name('customer.profile.update');
     Route::get('/customer/change-password', [CustomerController::class, 'changePassword'])->name('customer.change_password');
     Route::put('/customer/change-password', [CustomerController::class, 'updatePassword'])->name('customer.change_password.update');
     Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
 });
-
