@@ -103,53 +103,6 @@
                     <!-- Cột phải: Thông số kỹ thuật -->
                     <div class="space-y-6">
                         <div class="bg-gray-700/50 rounded-xl p-4">
-                            <h3 class="text-lg font-semibold text-blue-400 mb-4">Thông số kỹ thuật</h3>
-                            <div class="grid grid-cols-1 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Màn hình</label>
-                                    <input type="text" name="screen" value="{{ old('screen',$product->screen)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Hệ điều hành</label>
-                                    <input type="text" name="os" value="{{ old('os',$product->os)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Camera sau</label>
-                                    <input type="text" name="rear_camera" value="{{ old('rear_camera',$product->rear_camera)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Camera trước</label>
-                                    <input type="text" name="front_camera" value="{{ old('front_camera',$product->front_camera)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Vi xử lý</label>
-                                    <input type="text" name="cpu" value="{{ old('cpu',$product->cpu)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">RAM</label>
-                                    <input type="text" name="ram" value="{{ old('ram',$product->ram)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Pin</label>
-                                    <input type="text" name="battery" value="{{ old('battery',$product->battery)}}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-gray-700/50 rounded-xl p-4">
                             <h3 class="text-lg font-semibold text-blue-400 mb-4">Giá và kho</h3>
                             <div class="grid grid-cols-1 gap-4">
                                 <div>

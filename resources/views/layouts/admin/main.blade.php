@@ -265,18 +265,23 @@
         <header class="bg-gray-800 p-4 rounded-lg mb-6">
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold text-blue-400">@yield('title', 'Dashboard')</h2>
-                <div class="user-menu relative">
-                    <div class="flex items-center gap-2 cursor-pointer" id="userMenuToggle">
+                <div class="relative inline-block text-left">
+                    <!-- Toggle button -->
+                    <button id="dropdownToggle" type="button" class="inline-flex items-center gap-2 text-sm text-white focus:outline-none">
                         <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . Auth::user()->name }}" 
                              alt="Avatar" 
                              class="w-8 h-8 rounded-full">
-                        <div>
+                        <div class="text-left">
                             <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-400">{{ Auth::user()->email }}</p>
                         </div>
-                        <i class="bi bi-chevron-down text-gray-400"></i>
-                    </div>
-                    <div class="user-menu-dropdown hidden absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg border border-gray-700">
+                        <svg class="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+        
+                    <!-- Dropdown menu -->
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
                         <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
                             <i class="bi bi-person me-2"></i> Thông tin cá nhân
                         </a>
@@ -293,6 +298,25 @@
                 </div>
             </div>
         </header>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleBtn = document.getElementById('dropdownToggle');
+                const dropdown = document.getElementById('dropdownMenu');
+        
+                toggleBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('hidden');
+                });
+        
+                document.addEventListener('click', function (e) {
+                    if (!toggleBtn.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                    }
+                });
+            });
+        </script>
+        
 
         <!-- Content -->
         <div class="content-wrapper">
@@ -308,18 +332,6 @@
     
     <!-- Custom Scripts -->
     @stack('scripts')
-    <script>
-        // User menu toggle
-        document.getElementById('userMenuToggle').addEventListener('click', function() {
-            document.querySelector('.user-menu-dropdown').classList.toggle('hidden');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.user-menu')) {
-                document.querySelector('.user-menu-dropdown').classList.add('hidden');
-            }
-        });
-    </script>
+    
 </body>
 </html>
