@@ -61,11 +61,6 @@
                             <span class="text-blue-400 font-medium">{{ $product->category->name ?? 'Không có danh mục' }}</span>
                         </div>
 
-                        <div class="text-gray-300">
-                            <p class="font-medium mb-2">Mô tả:</p>
-                            <p class="text-sm">{{ $product->description }}</p>
-                        </div>
-
                         @if ($product->have_variant == 1)
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
@@ -97,6 +92,10 @@
                                 <p class="text-lg font-bold text-white">{{ number_format($product->base_price, 0, ',', '.') }}đ</p>
                             </div>
                             <div>
+                                <p class="text-sm font-medium text-gray-300">Sản phẩm:</p>
+                                <p class="text-lg font-bold text-white">{{ $product->have_variant == 1 ? 'Có biến thể' : 'Đơn' }}</p>
+                            </div>
+                            <div>
                                 <p class="text-sm font-medium text-gray-300">Giá giảm:</p>
                                 <p class="text-lg font-bold text-red-400">{{ number_format($product->sale_price, 0, ',', '.') }}đ</p>
                             </div>
@@ -105,47 +104,45 @@
 
                     <!-- Thông số kỹ thuật -->
                     <div class="bg-gray-700/50 rounded-xl p-4">
-                        <h3 class="text-lg font-semibold text-blue-400 mb-4">Thông số kỹ thuật</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Màn hình</span>
-                                    <span class="text-white">{{ $product->screen }}</span>
+                        <h3 class="text-lg font-semibold text-blue-400 mb-4">Số liệu của sản phẩm</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="bg-gray-600/50 rounded-lg p-3">
+                                <div class="flex items-center gap-2 text-gray-300">
+                                    <i class="bi bi-eye text-blue-400"></i>
+                                    <span class="text-sm">Lượt xem</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Hệ điều hành</span>
-                                    <span class="text-white">{{ $product->os }}</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Camera sau</span>
-                                    <span class="text-white">{{ $product->rear_camera }}</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Camera trước</span>
-                                    <span class="text-white">{{ $product->front_camera }}</span>
-                                </div>
+                                <p class="text-xl font-semibold text-white mt-1">{{ number_format($product->view) }}</p>
                             </div>
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Vi xử lý</span>
-                                    <span class="text-white">{{ $product->cpu }}</span>
+                            <div class="bg-gray-600/50 rounded-lg p-3">
+                                <div class="flex items-center gap-2 text-gray-300">
+                                    <i class="bi bi-cart-check text-green-400"></i>
+                                    <span class="text-sm">Đã bán</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">RAM</span>
-                                    <span class="text-white">{{ $product->ram }}</span>
+                                <p class="text-xl font-semibold text-white mt-1">{{ number_format($product->sold) }}</p>
+                            </div>
+                            <div class="bg-gray-600/50 rounded-lg p-3">
+                                <div class="flex items-center gap-2 text-gray-300">
+                                    <i class="bi bi-star text-yellow-400"></i>
+                                    <span class="text-sm">Đánh giá</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Pin</span>
-                                    <span class="text-white">{{ $product->battery }}</span>
+                                <p class="text-xl font-semibold text-white mt-1">{{ number_format($product->ratings->count()) }}</p>
+                            </div>
+                            <div class="bg-gray-600/50 rounded-lg p-3">
+                                <div class="flex items-center gap-2 text-gray-300">
+                                    <i class="bi bi-chat-dots text-purple-400"></i>
+                                    <span class="text-sm">Bình luận</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Lượt xem</span>
-                                    <span class="text-white">{{ $product->view }}</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-300">Đã bán</span>
-                                    <span class="text-white">{{ $product->sold }}</span>
-                                </div>
+                                <p class="text-xl font-semibold text-white mt-1">{{ number_format($product->comments->count()) }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex items-center gap-2 text-gray-300">
+                                <i class="bi bi-clock text-blue-400"></i>
+                                <span class="text-sm">Tạo lúc: {{ $product->created_at->format('d/m/Y H:i') }}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-300">
+                                <i class="bi bi-pencil text-green-400"></i>
+                                <span class="text-sm">Cập nhật: {{ $product->updated_at->format('d/m/Y H:i') }}</span>
                             </div>
                         </div>
                     </div>
@@ -182,19 +179,123 @@
                             </div>
                         </div>
                     @endif
+                </div>
+            </div>
 
-                    <!-- Nút điều hướng -->
-                    <div class="flex items-center justify-end gap-4 pt-4">
-                        <a href="{{ route('products.index') }}"
-                            class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
-                            <i class="bi bi-arrow-left"></i> Danh sách
-                        </a>
-                        <a href="{{ route('products.edit', $product->id) }}"
-                            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
-                            <i class="bi bi-pencil"></i> Chỉnh sửa
-                        </a>
+            <!-- Phần đánh giá và bình luận -->
+            <div class="mt-8">
+                <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="bi bi-star text-yellow-400 text-2xl"></i>
+                        <h2 class="text-xl font-bold text-yellow-400">Đánh giá và bình luận</h2>
+                    </div>
+
+                    <!-- Thống kê đánh giá -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gray-700/50 rounded-xl p-4 text-center">
+                            <p class="text-sm text-gray-400">Đánh giá trung bình</p>
+                            <div class="flex items-center justify-center gap-1 mt-2">
+                                <p class="text-2xl font-bold text-white">{{ number_format($product->ratings->avg('rating'), 1) }}</p>
+                                <div class="flex text-yellow-400">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i class="bi bi-star{{ $i <= round($product->ratings->avg('rating')) ? '-fill' : '' }}"></i>
+                                    @endfor
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400 mt-1">{{ $product->ratings->count() }} đánh giá</p>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-xl p-4 text-center">
+                            <p class="text-sm text-gray-400">Tổng bình luận</p>
+                            <p class="text-2xl font-bold text-white mt-2">{{ $product->comments->count() }}</p>
+                        </div>
+                        <div class="bg-gray-700/50 rounded-xl p-4 text-center">
+                            <p class="text-sm text-gray-400">Tỷ lệ hài lòng</p>
+                            <p class="text-2xl font-bold text-white mt-2">
+                                {{ $product->ratings->count() > 0 ? round(($product->ratings->where('rating', '>=', 4)->count() / $product->ratings->count()) * 100) : 0 }}%
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách đánh giá -->
+                    <div class="space-y-6">
+                        @forelse ($product->ratings as $rating)
+                            <div class="bg-gray-700/50 rounded-xl p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+                                            <i class="bi bi-person text-xl text-gray-300"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-white font-medium">{{ $rating->user->fullname }}</p>
+                                            <p class="text-sm text-gray-400">{{ $rating->created_at->format('d/m/Y H:i') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex text-yellow-400">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="bi bi-star{{ $i <= $rating->rating ? '-fill' : '' }}"></i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                @if ($rating->review)
+                                    <p class="text-gray-300">{{ $rating->review }}</p>
+                                @endif
+                                @if ($rating->color || $rating->storage)
+                                    <div class="mt-2 flex gap-2">
+                                        @if ($rating->color)
+                                            <span class="px-2 py-1 bg-gray-600 rounded text-sm text-gray-300">{{ $rating->color }}</span>
+                                        @endif
+                                        @if ($rating->storage)
+                                            <span class="px-2 py-1 bg-gray-600 rounded text-sm text-gray-300">{{ $rating->storage }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                        @empty
+                            <div class="text-center text-gray-400 py-8">
+                                <i class="bi bi-chat-square-text text-4xl mb-2"></i>
+                                <p>Chưa có đánh giá nào</p>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    <!-- Danh sách bình luận -->
+                    <div class="mt-8">
+                        <h3 class="text-lg font-semibold text-blue-400 mb-4">Bình luận</h3>
+                        <div class="space-y-4">
+                            @forelse ($product->comments as $comment)
+                                <div class="bg-gray-700/50 rounded-xl p-4">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+                                            <i class="bi bi-person text-xl text-gray-300"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-white font-medium">{{ $comment->user->fullname }}</p>
+                                            <p class="text-sm text-gray-400">{{ $comment->created_at->format('d/m/Y H:i') }}</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-300">{{ $comment->content }}</p>
+                                </div>
+                            @empty
+                                <div class="text-center text-gray-400 py-8">
+                                    <i class="bi bi-chat-square-text text-4xl mb-2"></i>
+                                    <p>Chưa có bình luận nào</p>
+                                </div>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Nút điều hướng -->
+            <div class="flex items-center justify-end gap-4 mt-8">
+                <a href="{{ route('products.index') }}"
+                    class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class="bi bi-arrow-left"></i> Danh sách
+                </a>
+                <a href="{{ route('products.edit', $product->id) }}"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class="bi bi-pencil"></i> Chỉnh sửa
+                </a>
             </div>
         </div>
     </div>

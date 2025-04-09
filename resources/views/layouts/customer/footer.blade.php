@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-7 col-xl-6">
                     <form id="mc-form" class="newsletter-form" data-toggle="validator">
-                        <input aria-label="Địa chỉ Email" type="email" class="form-control"
+                        {{-- <input aria-label="Địa chỉ Email" type="email" class="form-control"
                             placeholder="Nhập email nhận tin khuyến mãi" name="EMAIL" required autocomplete="off" />
                         <button class="btn btn-default" type="submit" aria-label="Đăng ký nhận tin"
-                            name="subscribe">ĐĂNG KÝ</button>
+                            name="subscribe">ĐĂNG KÝ</button> --}}
                     </form>
                     <div class="mailchimp-alerts ">
                         <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
@@ -19,26 +19,22 @@
                     <div class="footer-social">
                         <span>Kết nối với chúng tôi:</span>
                         <ul class="social">
-                            <li><a href="https://zalo.me/0813600999" title="Zalo"><img width="32" height="32"
+                            <li><a href="https://zalo.me/0867023153" title="Zalo"><img width="32" height="32"
                                         title="Zalo" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1742954225872"></a>
                             </li>
-                            <li><a href="https://www.facebook.com/hoangkien.co" title="Facebook"><img width="32"
+                            <li><a href="https://web.facebook.com/?_rdc=1&_rdr#" title="Facebook"><img width="32"
                                         height="32" title="Facebook" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1742954225872"></a>
                             </li>
-                            <li><a href="https://www.youtube.com/@hoangkienzin" title="Youtube"><img width="32"
+                            <li><a href="https://www.youtube.com/@onepiceman.fan.3278" title="Youtube"><img width="32"
                                         height="32" title="Youtube" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1742954225872"></a>
                             </li>
-                            <li><a href="#" title="Google"><img width="32" height="32" title="Google"
-                                        class="lazyload"
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                        data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/google.png?1742954225872"></a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -122,7 +118,7 @@
                     <ul class="list-menu hidden-mobile">
 
 
-                        <li><a href="/" title="Mua hàng online: 0813.600.999">Mua hàng online: 0813.600.999</a>
+                        <li><a href="/" title="Mua hàng online: 0813.600.999">Mua hàng: 0867023153</a>
                         </li>
 
                     </ul>
@@ -137,11 +133,11 @@
             <div class="row">
 
                 <div class="col-12 col-lg-12">
-                    <span class="copy-right">Bản quyền thuộc về <b>Hoàng Kiên</b>.</span>
+                    <span class="copy-right">Bản quyền thuộc về <b>NTShop</b>.</span>
                     <span class="opacity1">
                         Cung cấp bởi
                         <a href="https://www.sapo.vn/?utm_campaign=cpn:kho_theme-plm:footer&utm_source=Tu_nhien&utm_medium=referral&utm_content=fm:text_link-km:-sz:&utm_term=&campaign=kho_theme-sapo"
-                            rel="noopener" title="Sapo" target="_blank">Sapo</a>
+                            rel="noopener" title="Sapo" target="_blank">WD-32</a>
                     </span>
                 </div>
 
@@ -151,6 +147,11 @@
     </div>
 </footer>
 
+<style>
+	.p-5 {
+	padding: 5px !important;
+}
+</style>
 <a href="#" class="backtop" title="Lên đầu trang">
     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="angle-up" role="img"
         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-angle-up fa-w-10">
@@ -335,7 +336,7 @@
 		</button>
 		<ul class="addThis_listing">
 			<li class="addThis_item">
-				<a class="addThis_item--icon" href="tel:0813600999" title="Gọi ngay cho chúng tôi" rel="nofollow"
+				<a class="addThis_item--icon" href="tel:0867023153" title="Gọi ngay cho chúng tôi" rel="nofollow"
 					aria-label="phone">
 					<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="22" cy="22" r="22" fill="url(#paint2_linear)"></circle>
@@ -354,7 +355,7 @@
 				</a>
 			</li>
 			<li class="addThis_item">
-				<a class="addThis_item--icon" href="https://zalo.me/0813600999" title="Chat với chúng tôi qua Zalo"
+				<a class="addThis_item--icon" href="https://zalo.me/0867023153" title="Chat với chúng tôi qua Zalo"
 					target="_blank" rel="nofollow noreferrer" aria-label="zalo">
 					<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="22" cy="22" r="22" fill="url(#paint4_linear)"></circle>
@@ -387,24 +388,7 @@
 					<span class="tooltip-text">Chat với chúng tôi qua Zalo</span>
 				</a>
 			</li>
-			<li class="addThis_item">
-				<a class="addThis_item--icon" href="/lien-he" title="Thông tin cửa hàng" aria-label="Liên hệ">
-					<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="22" cy="22" r="22" fill="url(#paint5_linear)"></circle>
-						<path class="down"
-							d="M22 10C17.0374 10 13 13.7367 13 18.3297C13 24.0297 21.0541 32.3978 21.397 32.7512C21.7191 33.0832 22.2815 33.0826 22.603 32.7512C22.9459 32.3978 31 24.0297 31 18.3297C30.9999 13.7367 26.9626 10 22 10ZM22 22.5206C19.5032 22.5206 17.4719 20.6406 17.4719 18.3297C17.4719 16.0188 19.5032 14.1388 22 14.1388C24.4968 14.1388 26.528 16.0189 26.528 18.3297C26.528 20.6406 24.4968 22.5206 22 22.5206Z"
-							fill="white"></path>
-						<defs>
-							<linearGradient id="paint5_linear" x1="22" y1="0" x2="22" y2="44"
-								gradientUnits="userSpaceOnUse">
-								<stop offset="50%" stop-color="#fecf72"></stop>
-								<stop offset="100%" stop-color="#ef9f00"></stop>
-							</linearGradient>
-						</defs>
-					</svg>
-					<span class="tooltip-text">Thông tin cửa hàng</span>
-				</a>
-			</li>
+			
 			<style>
 				.chat-box {
 					position: absolute;
@@ -819,9 +803,7 @@
 	}
 </script>
 
-<a target="_blank" class="livechat-mes" href="https://m.me/hoangkien.co">
-	<img src="https://bizweb.dktcdn.net/100/485/241/themes/911577/assets/messenger.svg?1705567372895" alt="Messenger">
-</a>
+
 
 </body>
 

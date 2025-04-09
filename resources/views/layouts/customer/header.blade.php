@@ -12,7 +12,7 @@
     <title>Shop NTPhone </title>
     <meta name="keywords" content="Cập nhật sau" />
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Apple Store - Hoàng Kiên iPhone, iPad and more.....">
+    <meta property="og:title" content="Apple Store - NTShop iPhone, iPad and more.....">
     <meta property="og:image"
         content="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1742954225872">
     <meta property="og:image:secure_url"
@@ -20,7 +20,7 @@
     <meta property="og:description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <meta property="og:url" content="https://www.hoangkien.com/">
-    <meta property="og:site_name" content="Hoàng Kiên">
+    <meta property="og:site_name" content="NTShop">
     <link rel="icon" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/favicon.png?1742954225872"
         type="image/x-icon" />
     <link rel="preload" as="script"
@@ -231,7 +231,7 @@
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
                             src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
-                            alt="Hoàng Kiên">
+                            alt="NTShop">
                     </picture>
                 </a>
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">

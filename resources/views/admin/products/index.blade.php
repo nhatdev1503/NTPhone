@@ -61,10 +61,8 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Tên sản phẩm</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Danh mục</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Ảnh</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Màn hình</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Ram</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Pin</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">CPU</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Giá gốc</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Giá giảm</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Sản phẩm</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Trạng thái</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Hành động</th>
@@ -84,10 +82,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <img src="{{ asset($product->image) }}" alt="" class="w-10 h-10 rounded-lg object-cover">
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->screen }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->ram }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->battery }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->cpu }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->base_price }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->sale_price }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->have_variant == 1 ? 'Biến thể' : 'Đơn' }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($product->status == 'active' && $product->category->status == 'active')

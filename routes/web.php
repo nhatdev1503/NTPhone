@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\CustomerOrderController;
 use App\Http\Controllers\Customer\RatingController;
 use App\Http\Controllers\customer\CommentController;
+use App\Http\Controllers\admin\NewsController;
+use App\Http\Controllers\customer\NewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +131,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/chat/get-room-id', [ChatController::class, 'getRoomId'])->name('chat.get-room-id');
     Route::post('/chat/get-data', [ChatController::class, 'getDataChatAdmin'])->name('chat.getDataChatAdmin');
     Route::post('/chat/message/delete', [ChatController::class, 'deleteMessage'])->name('chat.message.delete');
+
+
+    // Quản lí bài viết ( New)
+    Route::get('news', [NewsController::class, 'index'])->name('news.index');
+   
+    
+    Route::get('news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news/upload-images', [NewsController::class, 'uploadImages'])->name('news.upload_images');
+
+    
+    Route::post('/admin/news/upload-editor-image', [NewsController::class, 'uploadEditorImage']);
+    Route::post('news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('news/{news}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
 //Route trang nhân viên
@@ -191,6 +208,12 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
+     //  bài viết (newnew)
+    Route::get('/news', [NewController::class, 'index'])->name('customer.news');
+    Route::get('/shownew/{id}', [NewController::class, 'show'])->name('customer.show');
+
+Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');
+
     // Trang thông tin cá nhân (profile)
     Route::get('/profile', [\App\Http\Controllers\customer\ProfileController::class, 'index'])
         ->name('customer.profile');

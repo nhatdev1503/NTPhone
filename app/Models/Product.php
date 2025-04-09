@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderItem;
@@ -20,13 +20,6 @@ class Product extends Model
         'name',
         'description',
         'image',
-        'screen',
-        'os',
-        'rear_camera',
-        'front_camera',
-        'cpu',
-        'ram',
-        'battery',
         'base_price',
         'sale_price',
         'view',
@@ -35,6 +28,18 @@ class Product extends Model
         'have_variant',
         'status'
     ];
+   // Trong Product.php
+public function ratings()
+{
+    return $this->hasManyThrough(
+        Rating::class,
+        ProductVariant::class,
+        'product_id',            
+        'product_variant_id',    
+        'id',                    
+        'id'                     
+    );
+}
 
     public function category()
     {
@@ -74,17 +79,10 @@ class Product extends Model
         return $this->hasManyThrough(OrderItem::class, ProductVariant::class);
     }
 
-    /**
-     * Lấy các đánh giá của sản phẩm.
-     */
-    public function ratings()
-    {
-        return $this->hasMany(Rating::class);
-    }
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+    
 }
 

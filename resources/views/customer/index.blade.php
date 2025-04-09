@@ -1,160 +1,255 @@
 @include('layouts.customer.header')
 <style>
-/* Thêm CSS để hiển thị 5 sản phẩm trên hàng và các style khác */
-.section_product .col-lg-3 {
-    /* For large screens (lg), default is 4 columns (col-lg-3). We change it to 5 */
-    width: 20%; /* 100% / 5 = 20% */
-    flex: 0 0 20%;
-    max-width: 20%;
-}
-
-/* Adjust for medium screens (md) if needed */
-@media (max-width: 991.98px) {
-    .section_product .col-md-4 {
-        /* Default is 3 columns (col-md-4). Change to maybe 3 or 4 */
-        width: 33.333%;
-        flex: 0 0 33.333%;
-        max-width: 33.333%;
+    /* Thêm CSS để hiển thị 5 sản phẩm trên hàng và các style khác */
+    .section_product .col-lg-3 {
+        /* For large screens (lg), default is 4 columns (col-lg-3). We change it to 5 */
+        width: 20%;
+        /* 100% / 5 = 20% */
+        flex: 0 0 20%;
+        max-width: 20%;
     }
-}
 
-/* Adjust for small screens (sm/xs) */
-@media (max-width: 767.98px) {
-    .section_product .col-6 {
-        /* Default is 2 columns (col-6). Keep as 2 or adjust if needed */
-        width: 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
+    .section_danhmuc2 .danhmuc2-slider .swiper-slide {
+        width: 190px !important;
+        margin-right: 40px !important;
+        margin-left: 20px;
     }
-}
 
-.product-thumbnail {
-    position: relative;
-    overflow: hidden; /* Ensure content fits */
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
+    .section_danhmuc2 .danhmuc2-slider .swiper-slide:hover {
+        border: 1px solid #f00;
+    }
 
-.product-thumbnail .image_thumb img {
-    display: block;
-    width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    aspect-ratio: 1 / 1; /* Make images square */
-    object-fit: cover; /* Cover the area without distortion */
-    transition: transform 0.3s ease;
-}
+    .section_danhmuc2 .danhmuc2-slider .swiper-slide .product-image img:hover {
+        transform: scale(1) !important;
+        transition: all 0.3s ease;
+    }
 
-.product-thumbnail:hover .image_thumb img {
-    transform: scale(1.05);
-}
+    /* Adjust for medium screens (md) if needed */
+    @media (max-width: 991.98px) {
+        .section_product .col-md-4 {
+            /* Default is 3 columns (col-md-4). Change to maybe 3 or 4 */
+            width: 33.333%;
+            flex: 0 0 33.333%;
+            max-width: 33.333%;
+        }
+    }
 
-.tag-discount {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #ff4d4f; /* Red background for discount */
-    color: white;
-    padding: 3px 8px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    border-radius: 4px;
-    z-index: 2;
-}
+    /* Adjust for small screens (sm/xs) */
+    @media (max-width: 767.98px) {
+        .section_product .col-6 {
+            /* Default is 2 columns (col-6). Keep as 2 or adjust if needed */
+            width: 50%;
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
 
-.product-info {
-    text-align: left;
-    padding: 0 5px; /* Add some padding */
-}
+    .product-thumbnail {
+        position: relative;
+        overflow: hidden;
+        /* Ensure content fits */
+        border: 1px solid #eee;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
 
-.product-name a {
-    font-size: 0.85rem; /* Smaller font size */
-    color: #333;
-    text-decoration: none;
-    font-weight: 500; /* Slightly bolder */
-    height: 3em; /* Limit to 2 lines */
-    line-height: 1.5em;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-.product-name a:hover {
-    color: var(--shop-color-hover);
-}
+    .product-thumbnail .image_thumb img {
+        display: block;
+        width: 100%;
+        height: auto;
+        /* Maintain aspect ratio */
+        aspect-ratio: 1 / 1;
+        /* Make images square */
+        object-fit: cover;
+        /* Cover the area without distortion */
+        transition: transform 0.3s ease;
+    }
 
-.price-box {
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column; /* Stack prices vertically */
-    align-items: flex-start; /* Align prices to the left */
-    gap: 2px; /* Space between prices */
-}
+    .product-thumbnail:hover .image_thumb img {
+        transform: scale(1.05);
+    }
 
-.price-box .sale-price {
-    font-size: 0.95rem; /* Slightly larger sale price */
-    font-weight: 600;
-    color: #d70018; /* Red color for sale price */
-}
+    .tag-discount {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #ff4d4f;
+        /* Red background for discount */
+        color: white;
+        padding: 3px 8px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border-radius: 4px;
+        z-index: 2;
+    }
 
-.price-box .origin-price {
-    font-size: 0.75rem; /* Smaller origin price */
-    color: #888;
-    text-decoration: line-through;
-}
+    .product-info {
+        text-align: left;
+        padding: 0 5px;
+        /* Add some padding */
+    }
 
-.product-sold {
-    font-size: 0.75rem;
-    color: #555;
-    margin-top: 5px;
-}
-.product-action .action { /* Hide action button by default */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-.product-thumbnail:hover .action { /* Show on hover */
-    opacity: 1;
-    visibility: visible;
-}
-.btn-views {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.btn-views:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-.btn-views svg {
-    width: 16px;
-    height: 16px;
-}
-/* Ensure swiper structure doesn't interfere with column layout */
-.section_product .swiper-slide-pro {
-    width: 100% !important; /* Override swiper's width */
-    margin-right: 0 !important; /* Override swiper's margin */
-}
-.section_product .swiper-wrapper {
-     display: flex; /* Use flexbox for alignment */
-     flex-wrap: wrap; /* Allow items to wrap */
-     width: auto !important; /* Let container define width */
-     transform: none !important; /* Disable swiper transform */
-}
+    .product-name a {
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        font-weight: 600;
+        height: auto;
+        line-height: 1.5;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-align: center;
+    }
+
+    .product-name a:hover {
+        color: var(--shop-color-hover);
+    }
+
+    .price-box {
+        margin: 10px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .price-box .sale-price {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #d70018;
+    }
+
+    .price-box .origin-price {
+        font-size: 0.9rem;
+        color: #888;
+        text-decoration: line-through;
+    }
+
+    .product-sold {
+        font-size: 0.85rem;
+        color: #666;
+        margin: 5px 0;
+    }
+
+    .product-sold {
+        font-size: 0.75rem;
+        color: #555;
+        margin-top: 5px;
+    }
+
+    .product-action .action {
+        /* Hide action button by default */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .product-thumbnail:hover .action {
+        /* Show on hover */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .btn-views {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-views:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .btn-views svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Ensure swiper structure doesn't interfere with column layout */
+    .section_product .swiper-slide-pro {
+        width: 100% !important;
+        /* Override swiper's width */
+        margin-right: 0 !important;
+        /* Override swiper's margin */
+    }
+
+    .section_product .swiper-wrapper {
+        display: flex;
+        /* Use flexbox for alignment */
+        flex-wrap: wrap;
+        /* Allow items to wrap */
+        width: auto !important;
+        /* Let container define width */
+        transform: none !important;
+        /* Disable swiper transform */
+    }
+
+    .colors-container {
+        display: flex;
+        gap: 5px;
+        margin: 8px 0;
+    }
+
+    .color-circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        cursor: pointer;
+    }
+
+    .storage-options {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin: 8px 0;
+    }
+
+    .storage-badge {
+        padding: 2px 8px;
+        background-color: #f5f5f5;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 8px;
+    }
+
+    .stars {
+        color: #ffd700;
+    }
+
+    .total-ratings {
+        color: #666;
+        font-size: 12px;
+    }
+
+    .no-ratings {
+        color: #999;
+        font-size: 12px;
+    }
 </style>
 <div class="bodywrap">
-    <h1 class="d-none">Hoàng Kiên - Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công
+    <h1 class="d-none">NTShop - Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công
         nghệ các loại uy tín, chất lượng</h1>
     <section class="section_slider">
         <div class="home-slider swiper-container">
@@ -240,8 +335,7 @@
                                                 title="{{ $category->name }}">
                                                 <picture>
                                                     <img width="130" height="130"
-                                                        src="{{ asset( $category->image) }}"
-                                                        alt="{{ $category->name }}">
+                                                        src="{{ asset($category->image) }}" alt="{{ $category->name }}">
                                                 </picture>
                                             </a>
                                         </div>
@@ -325,7 +419,9 @@
                 <div class="row">
                     @foreach ($featuredProducts as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <form action="{{ route('customer.postCart') }}" method="post" class="variants product-action" data-cart-form data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
+                            <form action="{{ route('customer.postCart') }}" method="post"
+                                class="variants product-action" data-cart-form
+                                data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 @php
@@ -341,22 +437,30 @@
                                     @if ($discountPercentage > 0)
                                         <div class="tag-discount">-{{ $discountPercentage }}%</div>
                                     @endif
-                                    <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
-                                        <img width="130" height="130"
-                                            src="{{ asset($product->image) }}"
-                                            alt="{{ $product->name }}"
-                                            loading="lazy"
+                                    <a class="image_thumb scale_hover"
+                                        href="{{ route('customer.product_detail', $product->id) }}"
+                                        title="{{ $product->name }}">
+                                        <img width="130" height="130" src="{{ asset($product->image) }}"
+                                            alt="{{ $product->name }}" loading="lazy"
                                             onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
                                     </a>
                                     <div class="action">
-                                        <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views" title="Xem chi tiết">
-                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"></path></svg>
+                                        <a href="{{ route('customer.product_detail', $product->id) }}"
+                                            class="btn-views" title="Xem chi tiết">
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                                    fill="currentColor"></path>
+                                            </svg>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="product-info">
                                     <h3 class="product-name">
-                                        <a class="line-clamp line-clamp-2" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">{{ $product->name }}</a>
+                                        <a class="line-clamp line-clamp-2"
+                                            href="{{ route('customer.product_detail', $product->id) }}"
+                                            title="{{ $product->name }}">{{ $product->name }}</a>
                                     </h3>
                                     <div class="price-box">
                                         <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
@@ -364,9 +468,40 @@
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    @if($soldCount > 0)
+                                    @if ($soldCount > 0)
                                         <div class="product-sold">Đã bán: {{ $soldCount }}</div>
                                     @endif
+
+                                    <!-- Thêm phần hiển thị màu sắc -->
+                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                        <div class="colors-container">
+                                            @foreach ($product->available_colors as $color)
+                                                <div class="color-circle" title="{{ $color['name'] }}"
+                                                    style="background-color: {{ $color['hex_code'] }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <!-- Thêm phần hiển thị dung lượng -->
+                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                        <div class="storage-options">
+                                            @foreach ($product->available_storages as $storage)
+                                                <span class="storage-badge">{{ $storage }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <!-- Thêm phần hiển thị đánh giá -->
+                                    <div class="rating">
+                                        @if ($product->total_ratings > 0)
+                                            <span class="stars">{{ $product->average_rating }} ⭐</span>
+                                            <span class="total-ratings">({{ $product->total_ratings }} đánh
+                                                giá)</span>
+                                        @else
+                                            <span class="no-ratings">Chưa có đánh giá</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -385,7 +520,9 @@
                 <div class="row">
                     @foreach ($bestSellingProducts as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <form action="{{ route('customer.postCart') }}" method="post" class="variants product-action" data-cart-form data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
+                            <form action="{{ route('customer.postCart') }}" method="post"
+                                class="variants product-action" data-cart-form
+                                data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 @php
@@ -401,30 +538,69 @@
                                     @if ($discountPercentage > 0)
                                         <div class="tag-discount">-{{ $discountPercentage }}%</div>
                                     @endif
-                                    <a class="image_thumb scale_hover" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">
-                                        <img width="130" height="130"
-                                            src="{{ asset($product->image) }}"
-                                            alt="{{ $product->name }}"
-                                            loading="lazy"
+                                    <a class="image_thumb scale_hover"
+                                        href="{{ route('customer.product_detail', $product->id) }}"
+                                        title="{{ $product->name }}">
+                                        <img width="130" height="130" src="{{ asset($product->image) }}"
+                                            alt="{{ $product->name }}" loading="lazy"
                                             onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
                                     </a>
                                     <div class="action">
-                                        <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views" title="Xem chi tiết">
-                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"></path></svg>
+                                        <a href="{{ route('customer.product_detail', $product->id) }}"
+                                            class="btn-views" title="Xem chi tiết">
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                                    fill="currentColor"></path>
+                                            </svg>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="{{ route('customer.product_detail', $product->id) }}" title="{{ $product->name }}">{{ $product->name }}</a></h3>
+                                    <h3 class="product-name"><a class="line-clamp line-clamp-2"
+                                            href="{{ route('customer.product_detail', $product->id) }}"
+                                            title="{{ $product->name }}">{{ $product->name }}</a></h3>
                                     <div class="price-box">
                                         <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
                                         @if ($originPrice > $displayPrice)
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    @if($soldCount > 0)
+                                    @if ($soldCount > 0)
                                         <div class="product-sold">Đã bán: {{ $soldCount }}</div>
                                     @endif
+
+                                    <!-- Thêm phần hiển thị màu sắc -->
+                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                        <div class="colors-container">
+                                            @foreach ($product->available_colors as $color)
+                                                <div class="color-circle" title="{{ $color['name'] }}"
+                                                    style="background-color: {{ $color['hex_code'] }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <!-- Thêm phần hiển thị dung lượng -->
+                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                        <div class="storage-options">
+                                            @foreach ($product->available_storages as $storage)
+                                                <span class="storage-badge">{{ $storage }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <!-- Thêm phần hiển thị đánh giá -->
+                                    <div class="rating">
+                                        @if ($product->total_ratings > 0)
+                                            <span class="stars">{{ $product->average_rating }} ⭐</span>
+                                            <span class="total-ratings">({{ $product->total_ratings }} đánh
+                                                giá)</span>
+                                        @else
+                                            <span class="no-ratings">Chưa có đánh giá</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -607,8 +783,7 @@
                             </h3>
                         </div>
                     </a>
-                    <a href="/dieu-khien-robot-hut-bui-bang-apple-home-va-siri"
-                        class="item col-lg-3 col-sm-5 col-9 "
+                    <a href="/dieu-khien-robot-hut-bui-bang-apple-home-va-siri" class="item col-lg-3 col-sm-5 col-9 "
                         title="Điều Khiển Robot Hút Bụi Bằng Apple Home và Siri">
                         <div class="block-thumb">
                             <div class="thumb" title="Điều Khiển Robot Hút Bụi Bằng Apple Home và Siri">
@@ -678,7 +853,7 @@
             Đóng
         </div>
     </div>
-    <section class="section_danhgia">
+    {{-- <section class="section_danhgia">
         <div class="container">
             <div class="block-background">
                 <h3 class="title-index p-5">
@@ -694,7 +869,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <script>
         var swiperdanhgia = new Swiper('.danhgia-slider', {
             autoplay: false,
@@ -839,4 +1014,3 @@
     })(jQuery);
 </script>
 @include('layouts.customer.footer')
-

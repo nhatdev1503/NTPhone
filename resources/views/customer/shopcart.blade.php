@@ -5,13 +5,13 @@
 
 <div class="cart-page">
     <div class="cart-header">
-    <div class="container">
+        <div class="container">
             <h1>Giỏ hàng của bạn</h1>
             <div class="cart-steps">
                 <div class="step active">
                     <span class="step-number">1</span>
                     <span class="step-text">Giỏ hàng</span>
-    </div>
+                </div>
                 <div class="step-line"></div>
                 <div class="step">
                     <span class="step-number">2</span>
@@ -26,167 +26,174 @@
         </div>
     </div>
 
-    @if($carts->isEmpty())
-    <div class="empty-cart">
-        <div class="empty-cart-content">
-            <i class="fas fa-shopping-cart"></i>
-            <h2>Giỏ hàng trống</h2>
-            <p>Mua sắm thôi nào!</p>
-            <a href="{{ route('customer.index') }}" class="btn-home">
-                <i class="fas fa-home"></i>
-                Quay về trang chủ
-            </a>
+    @if ($carts->isEmpty())
+        <div class="empty-cart">
+            <div class="empty-cart-content">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Giỏ hàng trống</h2>
+                <p>Mua sắm thôi nào!</p>
+                <a href="{{ route('customer.index') }}" class="btn-home">
+                    <i class="fas fa-home"></i>
+                    Quay về trang chủ
+                </a>
+            </div>
         </div>
-    </div>
     @else
-    <div class="container">
-    <div id="notification-container" class="notification-container"></div>
-        <form id="checkout-form" action="{{ route('customer.cart.proceed-to-checkout') }}" method="POST">
-        @csrf
-            <input type="hidden" name="selected_items" id="selected_items">
-            <div class="cart-content">
-                <div class="cart-items">
-                    <div class="select-all">
-                        <label class="checkbox-wrapper">
-                            <input type="checkbox" id="select-all">
-                            <span class="checkmark"></span>
-                            <span>Chọn tất cả ({{ count($carts) }} sản phẩm)</span>
-                        </label>
-                    </div>
+        <div class="container">
+            <div id="notification-container" class="notification-container"></div>
+            <form id="checkout-form" action="{{ route('customer.cart.proceed-to-checkout') }}" method="POST">
+                @csrf
+                <input type="hidden" name="selected_items" id="selected_items">
+                <div class="cart-content">
+                    <div class="cart-items">
+                        <div class="select-all">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" id="select-all">
+                                <span class="checkmark"></span>
+                                <span>Chọn tất cả ({{ count($carts) }} sản phẩm)</span>
+                            </label>
+                        </div>
 
-                    @php $subTotal = 0; @endphp
-                    @foreach ($carts as $cart)
-                        @php
-                            $price = $cart->product_variant->price;
-                            $itemSubTotal = $price * $cart->quantity;
-                            $subTotal += $itemSubTotal;
-                            $variants = \App\Models\ProductVariant::where(
-                                'product_id',
-                                $cart->product_variant->product_id,
-                            )
-                                ->where('status', 'active')
-                                ->get();
-                            $colors = $variants->pluck('color')->unique();
-                            $storages = $variants->pluck('storage')->unique();
-                        @endphp
-                        <div class="cart-item" data-price="{{ $price }}" data-cart-id="{{ $cart->id }}"
-                            data-default-color="{{ $cart->product_variant->color }}"
-                            data-default-storage="{{ $cart->product_variant->storage }}">
-                            <div class="item-checkbox">
-                                <label class="checkbox-wrapper">
-                                    <input type="checkbox" name="selected_items[]" value="{{ $cart->id }}"
-                                        class="item-select">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="item-image">
+                        @php $subTotal = 0; @endphp
+                        @foreach ($carts as $cart)
+                            @php
+                                $price = $cart->product_variant->price;
+                                $itemSubTotal = $price * $cart->quantity;
+                                $subTotal += $itemSubTotal;
+                                $variants = \App\Models\ProductVariant::where(
+                                    'product_id',
+                                    $cart->product_variant->product_id,
+                                )
+                                    ->where('status', 'active')
+                                    ->get();
+                                $colors = $variants->pluck('color')->unique();
+                                $storages = $variants->pluck('storage')->unique();
+                            @endphp
+                            <div class="cart-item" data-price="{{ $price }}" data-cart-id="{{ $cart->id }}"
+                                data-default-color="{{ $cart->product_variant->color }}"
+                                data-default-storage="{{ $cart->product_variant->storage }}">
+                                <div class="item-checkbox">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" name="selected_items[]" value="{{ $cart->id }}"
+                                            class="item-select">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="item-image">
                                     <img src="{{ asset($cart->product_variant->product->image) }}"
-                                    alt="{{ $cart->product_variant->product->name }}">
-                            </div>
-                            <div class="item-info">
-                                <h3 class="item-name">{{ $cart->product_variant->product->name }}</h3>
-                                <div class="brand-info">
-                                    <span class="brand-label">Thương hiệu:</span>
-                                    <span class="brand-value">{{ $cart->product_variant->product->category->name }}</span>
+                                        alt="{{ $cart->product_variant->product->name }}">
+                                </div>
+                                <div class="item-info">
+                                    <h3 class="item-name">{{ $cart->product_variant->product->name }}</h3>
+                                    <div class="brand-info">
+                                        <span class="brand-label">Thương hiệu:</span>
+                                        <span
+                                            class="brand-value">{{ $cart->product_variant->product->category->name }}</span>
 
-                                </div>
-                                <div class="stock-info">
-                                    <span class="stock-label">Còn lại:</span>
-                                    <span class="stock-value" data-cart-id="{{ $cart->id }}">{{ $cart->product_variant->stock }}</span> sản phẩm
-                                </div>
-                                        <div class="variant-info">
-                                    @if ($colors->count() <= 1 && $storages->count() <= 1)
+                                    </div>
+                                    <div class="stock-info">
+                                        <span class="stock-label">Còn lại:</span>
+                                        <span class="stock-value"
+                                            data-cart-id="{{ $cart->id }}">{{ $cart->product_variant->stock }}</span>
+                                        sản phẩm
+                                    </div>
+                                    <div class="variant-info">
+                                        @if ($colors->count() <= 1 && $storages->count() <= 1)
                                             <span class="variant-static">
                                                 {{ $cart->product_variant->color }} -
                                                 {{ $cart->product_variant->storage }}
                                             </span>
-                                    @else
-                                        <div class="variant-selectors">
-                                            <select class="variant-color" data-cart-id="{{ $cart->id }}">
-                                                @foreach ($colors as $color)
-                                                    @php
-                                                        $variantCheck = $variants->where('color', $color)
-                                                            ->where('storage', $cart->product_variant->storage)
-                                                            ->where('status', 'active')
-                                                            ->first();
-                                                        $isAvailable = $variantCheck && $variantCheck->stock > 0;
-                                                    @endphp
-                                                    <option value="{{ $color }}" 
-                                                        {{ $cart->product_variant->color == $color ? 'selected' : '' }}
-                                                        {{ !$isAvailable ? 'disabled' : '' }}>
-                                                        {{ $color }} {{ !$isAvailable ? '(Hết hàng)' : '' }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                        @else
+                                            <div class="variant-selectors">
+                                                <select class="variant-color" data-cart-id="{{ $cart->id }}">
+                                                    @foreach ($colors as $color)
+                                                        @php
+                                                            $variantCheck = $variants
+                                                                ->where('color', $color)
+                                                                ->where('storage', $cart->product_variant->storage)
+                                                                ->where('status', 'active')
+                                                                ->first();
+                                                            $isAvailable = $variantCheck && $variantCheck->stock > 0;
+                                                        @endphp
+                                                        <option value="{{ $color }}"
+                                                            {{ $cart->product_variant->color == $color ? 'selected' : '' }}
+                                                            {{ !$isAvailable ? 'disabled' : '' }}>
+                                                            {{ $color }}
+                                                            {{ !$isAvailable ? '(Hết hàng)' : '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
 
-                                            <select class="variant-storage" data-cart-id="{{ $cart->id }}">
-                                                @foreach ($storages as $storage)
-                                                    @php
-                                                        $variantCheck = $variants->where('storage', $storage)
-                                                            ->where('color', $cart->product_variant->color)
-                                                            ->where('status', 'active')
-                                                            ->first();
-                                                        $isAvailable = $variantCheck && $variantCheck->stock > 0;
-                                                    @endphp
-                                                    <option value="{{ $storage }}"
-                                                        {{ $cart->product_variant->storage == $storage ? 'selected' : '' }}
-                                                        {{ !$isAvailable ? 'disabled' : '' }}>
-                                                        {{ $storage }} {{ !$isAvailable ? '(Hết hàng)' : '' }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="item-actions">
-                                    <div class="quantity-controls">
-                                        <button type="button" class="btn-decrease" data-cart-id="{{ $cart->id }}">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" name="quantities[{{ $cart->id }}]"
-                                            value="{{ $cart->quantity }}" min="1" max="5"
-                                            class="quantity-input" data-cart-id="{{ $cart->id }}">
-                                        <button type="button" class="btn-increase" data-cart-id="{{ $cart->id }}">
-                                            <i class="fas fa-plus"></i>
+                                                <select class="variant-storage" data-cart-id="{{ $cart->id }}">
+                                                    @foreach ($storages as $storage)
+                                                        @php
+                                                            $variantCheck = $variants
+                                                                ->where('storage', $storage)
+                                                                ->where('color', $cart->product_variant->color)
+                                                                ->where('status', 'active')
+                                                                ->first();
+                                                            $isAvailable = $variantCheck && $variantCheck->stock > 0;
+                                                        @endphp
+                                                        <option value="{{ $storage }}"
+                                                            {{ $cart->product_variant->storage == $storage ? 'selected' : '' }}
+                                                            {{ !$isAvailable ? 'disabled' : '' }}>
+                                                            {{ $storage }}
+                                                            {{ !$isAvailable ? '(Hết hàng)' : '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="item-actions">
+                                        <div class="quantity-controls">
+                                            <button type="button" class="btn-decrease" data-cart-id="{{ $cart->id }}">
+                                                <i class="fas fa-chevron-down">-</i>
+                                            </button>
+                                            <input type="number" name="quantities[{{ $cart->id }}]" value="{{ $cart->quantity }}" min="1" max="5"
+                                                class="quantity-input" data-cart-id="{{ $cart->id }}">
+                                            <button type="button" class="btn-increase" data-cart-id="{{ $cart->id }}">
+                                                <i class="fas fa-chevron-up">+</i>
                                             </button>
                                         </div>
-                                    <button type="button" class="btn-remove" data-cart-id="{{ $cart->id }}">
-                                        <i class="fas fa-trash"></i>
-                                        <span>Xóa</span>
-                                    </button>
+                                        <button type="button" class="btn-remove" data-cart-id="{{ $cart->id }}">
+                                            <i class="fas fa-trash"></i>
+                                            <span>Xóa</span>
+                                        </button>
                                     </div>
+                                    
                                 </div>
-                            <div class="item-price">
-                                <div class="current-price">{{ number_format($price, 0, ',', '.') }}₫</div>
-                                <div class="item-total">{{ number_format($itemSubTotal, 0, ',', '.') }}₫</div>
+                                <div class="item-price">
+                                    <div class="current-price">{{ number_format($price, 0, ',', '.') }}₫</div>
+                                    <div class="item-total">{{ number_format($itemSubTotal, 0, ',', '.') }}₫</div>
                                 </div>
-                                </div>
-                    @endforeach
-        </div>
-
-        <div class="cart-summary">
-                    <div class="summary-header">
-                        <h2>Tổng tiền giỏ hàng</h2>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="summary-content">
-                        <div class="price-details">
-                            <div class="price-row">
-                                <span>Tạm tính</span>
-                                <span class="subtotal">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
+
+                    <div class="cart-summary">
+                        <div class="summary-header">
+                            <h2>Tổng tiền giỏ hàng</h2>
+                        </div>
+                        <div class="summary-content">
+                            <div class="price-details">
+                                <div class="price-row">
+                                    <span>Tạm tính</span>
+                                    <span class="subtotal">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
+                                </div>
+                                <div class="price-row total">
+                                    <span>Tổng cộng</span>
+                                    <span class="final-price">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
+                                </div>
                             </div>
-                            <div class="price-row total">
-                                <span>Tổng cộng</span>
-                                <span class="final-price">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
-                            </div>
-            </div>
-            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
-                            Mua hàng (<span id="selected-items">0</span>)
-            </button>
+                            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
+                                Mua hàng (<span id="selected-items">0</span>)
+                            </button>
+                        </div>
                     </div>
                 </div>
+            </form>
         </div>
-    </form>
-    </div>
     @endif
 </div>
 
@@ -339,7 +346,8 @@
         font-weight: 500;
     }
 
-    .brand-info, .stock-info {
+    .brand-info,
+    .stock-info {
         font-size: 0.9rem;
         color: #666;
         margin-bottom: 0.5rem;
@@ -348,7 +356,8 @@
         gap: 0.5rem;
     }
 
-    .brand-label, .stock-label {
+    .brand-label,
+    .stock-label {
         color: #999;
     }
 
@@ -400,7 +409,7 @@
 
     .quantity-input {
         width: 50px;
-        height: 32px;
+        height: 24px;
         text-align: center;
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -643,13 +652,13 @@
         margin: 0;
     }
 
-    .item-select:disabled + .checkmark {
+    .item-select:disabled+.checkmark {
         background-color: #e0e0e0;
         border-color: #ccc;
         cursor: not-allowed;
     }
-    
-    .item-select:disabled + .checkmark:after {
+
+    .item-select:disabled+.checkmark:after {
         border-color: #999;
     }
 </style>
@@ -675,60 +684,60 @@
     function checkProductStatus() {
         document.querySelectorAll('.cart-item').forEach(item => {
             const cartId = item.getAttribute('data-cart-id');
-            
-            fetch(`/customer/cart/check-status/${cartId}`, {
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const checkbox = item.querySelector('.item-select');
-                const quantityInput = item.querySelector('.quantity-input');
-                const stockValue = item.querySelector('.stock-value');
-                const stockInfo = item.querySelector('.stock-info');
-                
-                // Cập nhật số lượng tồn kho
-                if (stockValue) {
-                    stockValue.textContent = data.stock;
-                    
-                    // Cập nhật style dựa trên số lượng tồn
-                    stockInfo.classList.remove('low-stock', 'out-of-stock', 'in-stock');
-                    if (data.stock <= 0) {
-                        stockInfo.classList.add('out-of-stock');
-                    } else if (data.stock <= 5) {
-                        stockInfo.classList.add('low-stock');
-                    } else {
-                        stockInfo.classList.add('in-stock');
-                    }
-                }
 
-                if (!data.available) {
-                    showNotification(data.message, 'warning');
-                    
-                    if (data.disable_checkbox && checkbox) {
-                        checkbox.checked = false;
-                        checkbox.disabled = true;
+            fetch(`/customer/cart/check-status/${cartId}`, {
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-                    
-                    if (data.max_quantity && quantityInput) {
-                        quantityInput.value = data.max_quantity;
-                    }
-                } else {
-                    if (data.stock_changed) {
-                        showNotification(data.message, 'info');
-                        if (quantityInput) {
-                            quantityInput.value = data.max_quantity;
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const checkbox = item.querySelector('.item-select');
+                    const quantityInput = item.querySelector('.quantity-input');
+                    const stockValue = item.querySelector('.stock-value');
+                    const stockInfo = item.querySelector('.stock-info');
+
+                    // Cập nhật số lượng tồn kho
+                    if (stockValue) {
+                        stockValue.textContent = data.stock;
+
+                        // Cập nhật style dựa trên số lượng tồn
+                        stockInfo.classList.remove('low-stock', 'out-of-stock', 'in-stock');
+                        if (data.stock <= 0) {
+                            stockInfo.classList.add('out-of-stock');
+                        } else if (data.stock <= 5) {
+                            stockInfo.classList.add('low-stock');
+                        } else {
+                            stockInfo.classList.add('in-stock');
                         }
                     }
-                    
-                    if (!data.disable_checkbox && checkbox) {
-                        checkbox.disabled = false;
+
+                    if (!data.available) {
+                        showNotification(data.message, 'warning');
+
+                        if (data.disable_checkbox && checkbox) {
+                            checkbox.checked = false;
+                            checkbox.disabled = true;
+                        }
+
+                        if (data.max_quantity && quantityInput) {
+                            quantityInput.value = data.max_quantity;
+                        }
+                    } else {
+                        if (data.stock_changed) {
+                            showNotification(data.message, 'info');
+                            if (quantityInput) {
+                                quantityInput.value = data.max_quantity;
+                            }
+                        }
+
+                        if (!data.disable_checkbox && checkbox) {
+                            checkbox.disabled = false;
+                        }
                     }
-                }
-                
-                updateTotals();
-            });
+
+                    updateTotals();
+                });
         });
     }
 
@@ -736,7 +745,7 @@
     function updateProductUI(item, status) {
         const colorSelect = item.querySelector('.variant-color');
         const storageSelect = item.querySelector('.variant-storage');
-        
+
         if (status.available_variants) {
             updateAvailableOptions(item, status.available_variants);
         }
@@ -746,17 +755,17 @@
             const priceElement = item.querySelector('.current-price');
             const itemTotalElement = item.querySelector('.item-total');
             const quantity = parseInt(item.querySelector('.quantity-input').value);
-            
+
             priceElement.textContent = new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
                 currency: 'VND'
             }).format(status.new_price);
-            
+
             itemTotalElement.textContent = new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
                 currency: 'VND'
             }).format(status.new_price * quantity);
-            
+
             item.setAttribute('data-price', status.new_price);
             updateTotals();
         }
@@ -800,9 +809,9 @@
         const container = document.getElementById('notification-container');
         const notification = document.createElement('div');
         notification.classList.add('notification', type);
-        
+
         let icon = '';
-        switch(type) {
+        switch (type) {
             case 'success':
                 icon = '<i class="fas fa-check-circle"></i>';
                 break;
@@ -816,7 +825,7 @@
                 icon = '<i class="fas fa-info-circle"></i>';
                 break;
         }
-        
+
         let content = `
             ${icon}
             <div class="notification-content">
@@ -824,10 +833,10 @@
                 <div class="notification-message">${message}</div>
             </div>
         `;
-        
+
         notification.innerHTML = content;
         container.appendChild(notification);
-        
+
         setTimeout(() => notification.classList.add('show'), 10);
         setTimeout(() => {
             notification.classList.remove('show');
@@ -895,7 +904,7 @@
 
     // Bắt đầu kiểm tra trạng thái mỗi 5 giây
     setInterval(checkProductStatus, 5000);
-    
+
     // Kiểm tra lần đầu khi tải trang
     document.addEventListener('DOMContentLoaded', checkProductStatus);
 
@@ -907,87 +916,87 @@
             const colorSelect = row.querySelector('.variant-color');
             const storageSelect = row.querySelector('.variant-storage');
             const loadingSpinner = row.querySelector('.loading-spinner');
-            
+
             // Hiển thị loading
             if (loadingSpinner) loadingSpinner.style.display = 'inline-block';
-            
+
             // Disable selects while loading
             colorSelect.disabled = true;
             storageSelect.disabled = true;
 
             fetch("{{ route('customer.cart.updateVariant') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    cart_id: cartId,
-                    color: colorSelect.value,
-                    storage: storageSelect.value
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        cart_id: cartId,
+                        color: colorSelect.value,
+                        storage: storageSelect.value
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Ẩn loading
-                if (loadingSpinner) loadingSpinner.style.display = 'none';
-                
-                // Enable selects
-                colorSelect.disabled = false;
-                storageSelect.disabled = false;
+                .then(response => response.json())
+                .then(data => {
+                    // Ẩn loading
+                    if (loadingSpinner) loadingSpinner.style.display = 'none';
 
-                if (data.success) {
-                    // Cập nhật giá
-                    const priceElement = row.querySelector('.current-price');
-                    if (priceElement) {
-                        priceElement.textContent = new Intl.NumberFormat('vi-VN', {
-                            style: 'currency',
-                            currency: 'VND'
-                        }).format(data.price);
+                    // Enable selects
+                    colorSelect.disabled = false;
+                    storageSelect.disabled = false;
+
+                    if (data.success) {
+                        // Cập nhật giá
+                        const priceElement = row.querySelector('.current-price');
+                        if (priceElement) {
+                            priceElement.textContent = new Intl.NumberFormat('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND'
+                            }).format(data.price);
+                        }
+
+                        // Cập nhật các option có sẵn
+                        if (data.available_variants) {
+                            updateAvailableOptions(row, data.available_variants);
+                        }
+
+                        showNotification(data.message, 'success');
+                        updateTotals();
+                    } else {
+                        // Khôi phục giá trị ban đầu
+                        colorSelect.value = row.getAttribute('data-default-color');
+                        storageSelect.value = row.getAttribute('data-default-storage');
+
+                        showNotification(data.message, 'warning');
                     }
-                    
-                    // Cập nhật các option có sẵn
-                    if (data.available_variants) {
-                        updateAvailableOptions(row, data.available_variants);
-                    }
-                    
-                    showNotification(data.message, 'success');
-                    updateTotals();
-                } else {
-                    // Khôi phục giá trị ban đầu
-                    colorSelect.value = row.getAttribute('data-default-color');
-                    storageSelect.value = row.getAttribute('data-default-storage');
-                    
-                    showNotification(data.message, 'warning');
-                }
-            })
-            .catch(error => {
-                console.error('Lỗi:', error);
-                showNotification('Đã có lỗi xảy ra. Vui lòng thử lại sau.', 'error');
-                
-                // Ẩn loading và enable selects
-                if (loadingSpinner) loadingSpinner.style.display = 'none';
-                colorSelect.disabled = false;
-                storageSelect.disabled = false;
-            });
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    showNotification('Đã có lỗi xảy ra. Vui lòng thử lại sau.', 'error');
+
+                    // Ẩn loading và enable selects
+                    if (loadingSpinner) loadingSpinner.style.display = 'none';
+                    colorSelect.disabled = false;
+                    storageSelect.disabled = false;
+                });
         });
     });
 
     function updateAvailableOptions(row, variants) {
         const colorSelect = row.querySelector('.variant-color');
         const storageSelect = row.querySelector('.variant-storage');
-        
+
         // Lấy giá trị đã chọn
         const selectedColor = colorSelect.value;
         const selectedStorage = storageSelect.value;
-        
+
         // Cập nhật options cho color select
         const availableColors = [...new Set(variants.map(v => v.color))];
         colorSelect.innerHTML = availableColors.map(color => {
-            const isAvailable = variants.some(v => 
-                v.color === color && 
-                v.storage === selectedStorage && 
-                v.status === 'active' && 
+            const isAvailable = variants.some(v =>
+                v.color === color &&
+                v.storage === selectedStorage &&
+                v.status === 'active' &&
                 v.stock > 0
             );
             return `
@@ -998,14 +1007,14 @@
                 </option>
             `;
         }).join('');
-        
+
         // Cập nhật options cho storage select
         const availableStorages = [...new Set(variants.map(v => v.storage))];
         storageSelect.innerHTML = availableStorages.map(storage => {
-            const isAvailable = variants.some(v => 
-                v.storage === storage && 
-                v.color === selectedColor && 
-                v.status === 'active' && 
+            const isAvailable = variants.some(v =>
+                v.storage === storage &&
+                v.color === selectedColor &&
+                v.status === 'active' &&
                 v.stock > 0
             );
             return `
@@ -1024,13 +1033,13 @@
             const cartId = this.getAttribute('data-cart-id');
             const input = document.querySelector(`.quantity-input[data-cart-id="${cartId}"]`);
             let qty = parseInt(input.value);
-            
+
             if (this.classList.contains('btn-decrease') && qty > 1) {
                 qty--;
             } else if (this.classList.contains('btn-increase') && qty < 5) {
                 qty++;
             }
-            
+
             if (qty >= 1 && qty <= 5) {
                 input.value = qty;
                 updateTotals();
@@ -1043,10 +1052,10 @@
         input.addEventListener('change', function() {
             const cartId = this.getAttribute('data-cart-id');
             let qty = parseInt(this.value);
-            
+
             if (isNaN(qty) || qty < 1) qty = 1;
             if (qty > 5) qty = 5;
-            
+
             this.value = qty;
             updateTotals();
             updateCart(cartId, qty);
@@ -1158,71 +1167,71 @@
 
     function updateCart(cartId, quantity) {
         fetch("{{ route('customer.cart.updateQuantity', '') }}/" + cartId, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({
-                quantity
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    quantity
+                })
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                showNotification(data.message, 'error');
-                // Nếu vượt quá số lượng cho phép
-                if (data.max_quantity) {
-                    // Disable checkbox
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    showNotification(data.message, 'error');
+                    // Nếu vượt quá số lượng cho phép
+                    if (data.max_quantity) {
+                        // Disable checkbox
+                        const checkbox = document.querySelector(`.item-select[value="${cartId}"]`);
+                        if (checkbox) {
+                            checkbox.checked = false;
+                            checkbox.disabled = data.disable_checkbox;
+                        }
+                        // Cập nhật số lượng về mức tối đa cho phép
+                        const quantityInput = document.querySelector(`.quantity-input[data-cart-id="${cartId}"]`);
+                        if (quantityInput) {
+                            quantityInput.value = data.max_quantity;
+                        }
+                    }
+                } else {
+                    // Enable checkbox nếu số lượng hợp lệ
                     const checkbox = document.querySelector(`.item-select[value="${cartId}"]`);
                     if (checkbox) {
-                        checkbox.checked = false;
-                        checkbox.disabled = data.disable_checkbox;
-                    }
-                    // Cập nhật số lượng về mức tối đa cho phép
-                    const quantityInput = document.querySelector(`.quantity-input[data-cart-id="${cartId}"]`);
-                    if (quantityInput) {
-                        quantityInput.value = data.max_quantity;
+                        checkbox.disabled = false;
                     }
                 }
-            } else {
-                // Enable checkbox nếu số lượng hợp lệ
-                const checkbox = document.querySelector(`.item-select[value="${cartId}"]`);
-                if (checkbox) {
-                    checkbox.disabled = false;
-                }
-            }
-            updateTotals();
-        })
-        .catch(error => {
-            console.error('Lỗi:', error);
-            showNotification('Có lỗi xảy ra khi cập nhật số lượng.', 'error');
-        });
+                updateTotals();
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                showNotification('Có lỗi xảy ra khi cập nhật số lượng.', 'error');
+            });
     }
 
     function deleteCartItem(cartId, buttonElement) {
         fetch(`{{ route('customer.cart.delete', '') }}/${cartId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const row = buttonElement.closest('.cart-item');
-                row.remove();
-                updateTotals();
-                showNotification(data.message || 'Sản phẩm đã được xóa khỏi giỏ hàng.', 'success');
-            } else {
-                showNotification(data.message || 'Có lỗi khi xóa sản phẩm.', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi:', error);
-            showNotification('Có lỗi xảy ra khi xóa sản phẩm.', 'error');
-        });
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const row = buttonElement.closest('.cart-item');
+                    row.remove();
+                    updateTotals();
+                    showNotification(data.message || 'Sản phẩm đã được xóa khỏi giỏ hàng.', 'success');
+                } else {
+                    showNotification(data.message || 'Có lỗi khi xóa sản phẩm.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                showNotification('Có lỗi xảy ra khi xóa sản phẩm.', 'error');
+            });
     }
 
     function applyVoucher(code) {
@@ -1269,40 +1278,42 @@
     // Update the checkout button click handler
     document.getElementById('proceed-to-checkout').addEventListener('click', function(e) {
         e.preventDefault();
-        
+
         // Get selected items
-        const selectedItems = Array.from(document.querySelectorAll('.item-select:checked')).map(checkbox => checkbox.value);
-        
+        const selectedItems = Array.from(document.querySelectorAll('.item-select:checked')).map(checkbox =>
+            checkbox.value);
+
         if (selectedItems.length === 0) {
             showNotification('Vui lòng chọn ít nhất một sản phẩm!', 'error');
             return;
         }
-        
+
         // Create form data
         const formData = new FormData();
         formData.append('_token', '{{ csrf_token() }}');
         formData.append('selected_items', JSON.stringify(selectedItems));
-        
+
         // Submit form using fetch
-        fetch('{{ route("customer.cart.proceed-to-checkout") }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = data.redirect_url;
-            } else {
-                showNotification(data.message || 'Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại!', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại!', 'error');
-        });
+        fetch('{{ route('customer.cart.proceed-to-checkout') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    showNotification(data.message || 'Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại!',
+                        'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại!', 'error');
+            });
     });
 
     // Initialize
@@ -1340,21 +1351,25 @@
                     updateCartTotal();
                     console.log('Cart total updated.');
                 } else {
-                     console.warn('Function updateCartTotal() not found. Cart total might not reflect selection.');
-                     // You might need to manually trigger a change event on checkboxes if your total calculation depends on it
-                     checkboxes.forEach(cb => cb.dispatchEvent(new Event('change', { bubbles: true })));
+                    console.warn(
+                        'Function updateCartTotal() not found. Cart total might not reflect selection.');
+                    // You might need to manually trigger a change event on checkboxes if your total calculation depends on it
+                    checkboxes.forEach(cb => cb.dispatchEvent(new Event('change', {
+                        bubbles: true
+                    })));
                 }
                 // Remove the query parameter from URL to prevent re-triggering on refresh
-                 try {
+                try {
                     const currentUrl = new URL(window.location.href);
                     currentUrl.searchParams.delete('buy_now');
                     window.history.replaceState({}, document.title, currentUrl.toString());
-                 } catch (e) {
-                     console.error('Error updating URL:', e);
-                     // Fallback for older browsers or complex URLs
-                     const newUrl = window.location.pathname + window.location.search.replace(/[?&]buy_now=\d+/, '').replace(/^&/, '?');
-                     window.history.replaceState({}, document.title, newUrl);
-                 }
+                } catch (e) {
+                    console.error('Error updating URL:', e);
+                    // Fallback for older browsers or complex URLs
+                    const newUrl = window.location.pathname + window.location.search.replace(/[?&]buy_now=\d+/,
+                        '').replace(/^&/, '?');
+                    window.history.replaceState({}, document.title, newUrl);
+                }
 
             } else {
                 console.warn('Buy Now item with variant ID', buyNowVariantId, 'not found in cart checkboxes.');
