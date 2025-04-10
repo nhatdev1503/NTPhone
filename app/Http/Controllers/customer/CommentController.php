@@ -32,5 +32,5 @@ class CommentController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'Bình luận của bạn đã được gửi.');
     }
-    
+        
 }

@@ -1,5 +1,87 @@
 @include('layouts.customer.header')
 <style>
+    
+    .news-section .block-product {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 30px 20px;
+}
+
+/* Tin lớn */
+.news-section .item-blog-big img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.news-section .item-blog-big a.thumb:hover img {
+    transform: scale(1.03);
+}
+.news-section .item-blog-big h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.news-section .item-blog-big .time-post {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+.news-section .item-blog-big p {
+    font-size: 15px;
+    color: #444;
+}
+
+/* Tin nhỏ */
+.news-section .news-small-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.news-section .item-blog-small {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+.news-section .item-blog-small img {
+    width: 120px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+.news-section .item-blog-small a.thumb:hover img {
+    transform: scale(1.05);
+}
+.news-section .item-blog-small h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.news-section .item-blog-small p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+/* Xem thêm */
+.news-section .see-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.news-section .see-more:hover {
+    color: #0056b3;
+
+}
+
+
     /* Thêm CSS để hiển thị 5 sản phẩm trên hàng và các style khác */
     .section_product .col-lg-3 {
         /* For large screens (lg), default is 4 columns (col-lg-3). We change it to 5 */
@@ -609,153 +691,80 @@
             </div>
         </div>
     </section>
-    <section class="section_blog">
-        <div class="container">
-            <div class="block-product block-background">
-                <h3 class="title-index p-5">
-                    <a class="title-name" href="tin-tuc" title="Tin tức mới nhất">Tin tức mới nhất
-                    </a>
-                </h3>
-                <div class="row p-5">
-                    <div class="col-md-6">
+    <section class="section_blog news-section">
+    <div class="container">
+        <div class="block-product block-background">
+            <h3 class="title-index px-4 pb-3">
+                <a class="title-name" href="{{ route('customer.news') }}">Tin tức mới nhất</a>
+            </h3>
+
+            <div class="row gx-4 gy-4">
+                {{-- Tin lớn bên trái --}}
+                <div class="col-md-6">
+                    @if($latestNews->first())
+                        @php $firstNews = $latestNews->first(); @endphp
                         <div class="item-blog-big">
-                            <div class="block-thumb">
-                                <a class="thumb" href="/ios-19-an-dinh-ngay-ra-mat"
-                                    title="IOS 19 ẤN ĐỊNH NGÀY RA MẮT">
-                                    <img class="lazyload"
-                                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
-                                        data-src="https://bizweb.dktcdn.net/100/112/815/articles/a-nh-chu-p-ma-n-hi-nh-2025-03-30-094617.png?v=1743302853807"
-                                        alt="IOS 19 ẤN ĐỊNH NGÀY RA MẮT">
-                                </a>
-                            </div>
+                            <a class="thumb d-block mb-3" href="{{ route('customer.show', $firstNews->id) }}">
+                                <img class="lazyload"
+                                     src="{{ asset('default-thumbnail.jpg') }}"
+                                     data-src="{{ asset('storage/' . $firstNews->thumbnail_path) }}"
+                                     alt="{{ $firstNews->title }}">
+                            </a>
                             <div class="block-content">
                                 <h3>
-                                    <a class="line-clamp line-clamp-1" href="/ios-19-an-dinh-ngay-ra-mat"
-                                        title="IOS 19 ẤN ĐỊNH NGÀY RA MẮT">IOS 19 ẤN ĐỊNH NGÀY RA MẮT</a>
+                                    <a class="line-clamp line-clamp-1" href="{{ route('customer.show', $firstNews->id) }}">
+                                        {{ $firstNews->title }}
+                                    </a>
                                 </h3>
                                 <div class="time-post">
-                                    Ngày đăng:
-                                    <span>30/03/2025</span>
+                                    Ngày đăng: <span>{{ \Carbon\Carbon::parse($firstNews->published_at)->format('d/m/Y') }}</span>
                                 </div>
-                                <p class="justify line-clamp line-clamp-3">Apple đã chính thức công bố Hội nghị Các
-                                    nhà phát triển Toàn cầu (WWDC) 2025 sẽ diễn ra từ ngày 9 đến 13/6 tại Apple Park,
-                                    California. Đây là sự kiện thường niên quan trọng của Apple, nơi hãng sẽ giới thiệu
-                                    các phiên bản hệ điều hành mới...
+                                <p class="justify line-clamp line-clamp-3">
+                                    {{ Str::limit(strip_tags(html_entity_decode($firstNews->content)), 200) }}
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="item-blog-small">
-                            <div class="block-thumb">
-                                <a class="thumb" href="/iphone-17-air-ke-hoach-trinh-lang-dang-mong-cho-tu-apple"
-                                    title="IPHONE 17 AIR - KẾ HOẠCH TRÌNH LÀNG ĐÁNG MONG CHỜ TỪ APPLE?">
-                                    <img width="140" height="75" class="lazyload"
-                                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
-                                        data-src="https://bizweb.dktcdn.net/100/112/815/articles/iphone-17-air-size-feature.jpg?v=1743219219530"
-                                        alt="IPHONE 17 AIR - KẾ HOẠCH TRÌNH LÀNG ĐÁNG MONG CHỜ TỪ APPLE?">
-                                </a>
-                            </div>
-                            <div class="block-content">
-                                <h3>
-                                    <a class="line-clamp line-clamp-2" style="    height: auto"
-                                        href="/iphone-17-air-ke-hoach-trinh-lang-dang-mong-cho-tu-apple"
-                                        title="IPHONE 17 AIR - KẾ HOẠCH TRÌNH LÀNG ĐÁNG MONG CHỜ TỪ APPLE?">IPHONE 17
-                                        AIR - KẾ HOẠCH TRÌNH LÀNG ĐÁNG MONG CHỜ TỪ APPLE?</a>
-                                </h3>
-                                <p class="justify line-clamp line-clamp-2">Apple luôn tiên phong trong việc đổi mới
-                                    công nghệ và thiết kế sản phẩm. Mới đây, thông tin về iphone 17 air đang thu hút sự
-                                    chú ý của cộng đồng yêu công nghệ. Hãy cùng khám phá kế hoạch trình làng iphone 17
-                                    air và những nâng cấp...
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item-blog-small">
-                            <div class="block-thumb">
-                                <a class="thumb" href="/ios-18-3-2-gay-loi-gui-email-trong-ung-dung-mail"
-                                    title="iOS 18.3.2 Gây Lỗi Gửi Email Trong Ứng Dụng Mail">
-                                    <img width="140" height="75" class="lazyload"
-                                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
-                                        data-src="https://bizweb.dktcdn.net/100/112/815/articles/a-nh-chu-p-ma-n-hi-nh-2025-03-27-094024.png?v=1743043318497"
-                                        alt="iOS 18.3.2 Gây Lỗi Gửi Email Trong Ứng Dụng Mail">
-                                </a>
-                            </div>
-                            <div class="block-content">
-                                <h3>
-                                    <a class="line-clamp line-clamp-2" style="    height: auto"
-                                        href="/ios-18-3-2-gay-loi-gui-email-trong-ung-dung-mail"
-                                        title="iOS 18.3.2 Gây Lỗi Gửi Email Trong Ứng Dụng Mail">iOS 18.3.2 Gây Lỗi
-                                        Gửi Email Trong Ứng Dụng Mail</a>
-                                </h3>
-                                <p class="justify line-clamp line-clamp-2">Bản cập nhật iOS 18.3.2 vừa ra mắt đã khiến
-                                    nhiều người dùng iPhone gặp rắc rối khi sử dụng ứng dụng Mail. Cụ thể, họ không thể
-                                    gửi email hoặc không nhận được thông báo email mới từ tài khoản iCloud. Điều này gây
-                                    ảnh hưởng lớn đến công...
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item-blog-small">
-                            <div class="block-thumb">
-                                <a class="thumb" href="/iphone-17-pro-max-lo-dien-dot-pha-trong-thiet-ke"
-                                    title="iPhone 17 Pro Max Lộ Diện – Đột Phá Trong Thiết Kế?">
-                                    <img width="140" height="75" class="lazyload"
-                                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
-                                        data-src="https://bizweb.dktcdn.net/100/112/815/articles/hq720.jpg?v=1742873404433"
-                                        alt="iPhone 17 Pro Max Lộ Diện – Đột Phá Trong Thiết Kế?">
-                                </a>
-                            </div>
-                            <div class="block-content">
-                                <h3>
-                                    <a class="line-clamp line-clamp-2" style="    height: auto"
-                                        href="/iphone-17-pro-max-lo-dien-dot-pha-trong-thiet-ke"
-                                        title="iPhone 17 Pro Max Lộ Diện – Đột Phá Trong Thiết Kế?">iPhone 17 Pro Max
-                                        Lộ Diện – Đột Phá Trong Thiết Kế?</a>
-                                </h3>
-                                <p class="justify line-clamp line-clamp-2">Những thông tin rò rỉ về iPhone 17 Pro Max
-                                    đã bắt đầu xuất hiện, thu hút sự quan tâm lớn từ cộng đồng yêu công nghệ. Theo các
-                                    nguồn tin uy tín, Apple đang lên kế hoạch cải tiến mạnh mẽ về thiết kế, màn hình và
-                                    hiệu suất...
-                                </p>
-                            </div>
-                        </div>
-                        <div class="item-blog-small">
-                            <div class="block-thumb">
-                                <a class="thumb"
-                                    href="/phat-hanh-adobe-cho-iphone-trai-nghiem-chinh-sua-chuyen-nghiep-tren-di-dong"
-                                    title="Phát Hành Adobe Cho iPhone – Trải Nghiệm Chỉnh Sửa Chuyên Nghiệp Trên Di Động">
-                                    <img width="140" height="75" class="lazyload"
-                                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
-                                        data-src="https://bizweb.dktcdn.net/100/112/815/articles/adobe-photoshop-iphone-cover.jpg?v=1742783214297"
-                                        alt="Phát Hành Adobe Cho iPhone – Trải Nghiệm Chỉnh Sửa Chuyên Nghiệp Trên Di Động">
-                                </a>
-                            </div>
-                            <div class="block-content">
-                                <h3>
-                                    <a class="line-clamp line-clamp-2" style="    height: auto"
-                                        href="/phat-hanh-adobe-cho-iphone-trai-nghiem-chinh-sua-chuyen-nghiep-tren-di-dong"
-                                        title="Phát Hành Adobe Cho iPhone – Trải Nghiệm Chỉnh Sửa Chuyên Nghiệp Trên Di Động">Phát
-                                        Hành Adobe Cho iPhone – Trải Nghiệm Chỉnh Sửa Chuyên Nghiệp Trên Di Động</a>
-                                </h3>
-                                <p class="justify line-clamp line-clamp-2">Với sự phát triển không ngừng của công
-                                    nghệ, Adobe đã chính thức đưa nhiều ứng dụng chỉnh sửa và thiết kế nổi tiếng lên nền
-                                    tảng iOS, giúp người dùng iPhone có thể thao tác ngay trên thiết bị di động của
-                                    mình. Những cái tên như Adobe Photoshop,...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
-                <div class="text-center no-padding">
-                    <a class="see-more" title="Xem toàn bộ tin tức" href="tin-tuc">Xem toàn bộ tin tức <svg
-                            xmlns="http://www.w3.org/2000/svg" height="1em"
-                            viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                            <path
-                                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                        </svg></a>
+
+                {{-- Tin nhỏ bên phải --}}
+                <div class="col-md-6 news-small-group">
+                    @foreach($latestNews->skip(1)->take(4) as $news)
+                        <div class="item-blog-small">
+                            <a class="thumb" href="{{ route('customer.show', $news->id) }}">
+                                <img class="lazyload"
+                                     src="{{ asset('default-thumbnail.jpg') }}"
+                                     data-src="{{ asset('storage/' . $news->thumbnail_path) }}"
+                                     alt="{{ $news->title }}">
+                            </a>
+                            <div class="block-content">
+                                <h3>
+                                    <a class="line-clamp line-clamp-2" href="{{ route('customer.show', $news->id) }}">
+                                        {{ $news->title }}
+                                    </a>
+                                </h3>
+                                <p class="line-clamp line-clamp-2">
+                                    {{ Str::limit(strip_tags(html_entity_decode($news->content)), 120) }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
+
+            <div class="text-center pt-4">
+                <a class="see-more" href="{{ route('customer.news') }}">
+                    Xem toàn bộ tin tức
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h306.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
     <section class="section_video">
         <div class="container ">
             <div class="block-product block-background">
