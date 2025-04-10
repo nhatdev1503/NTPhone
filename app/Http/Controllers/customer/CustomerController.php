@@ -23,13 +23,14 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\News;
 class CustomerController extends Controller
 {
     public function index()
     {
         $banner = \App\Models\Banner::where('status', 'active')->get();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
+        $latestNews = News::latest('published_at')->take(5)->get();
 
         // Lấy sản phẩm nổi bật với đầy đủ thông tin
         $featuredProducts = Product::where('status', 'active')
@@ -152,7 +153,7 @@ class CustomerController extends Controller
                 return $product;
             });
 
-        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts'));
+        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts','latestNews'));
     }
 
     public function categories(string $id)
