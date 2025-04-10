@@ -1126,15 +1126,16 @@
                                                 <div class="review-date">{{ $rating->created_at->format('d/m/Y H:i') }}</div>
                                             </div>
                                         </div>
+                                        <div class="variant-info mt-2">
+        <i class="fas fa-palette"></i> Màu: <strong>{{ $rating->color }}</strong>,
+        <i class="fas fa-hdd"></i> Dung lượng: <strong>{{ $rating->storage }}</strong>
+    </div>
                                         <div class="review-rating">
                                             @for($i = 1; $i <= 5; $i++)
                                                 <span class="star" style="color: {{ $i <= $rating->rating ? '#ffc107' : '#ddd' }};">★</span>
                                                 @endfor
                                         </div>
-                                        <div class="variant-info mt-2">
-        <i class="fas fa-palette"></i> Màu: <strong>{{ $rating->color }}</strong>,
-        <i class="fas fa-hdd"></i> Dung lượng: <strong>{{ $rating->storage }}</strong>
-    </div>
+                                    
                                     </div>
                                
 
