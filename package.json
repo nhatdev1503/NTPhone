@@ -16,12 +16,7 @@
         "vite": "^6.2.5"
     },
     "dependencies": {
-<<<<<<< HEAD
-        "bootstrap": "^5.3.5",
-        "path": "^0.12.7"
-=======
         "@ckeditor/ckeditor5-build-classic": "^44.3.0",
         "bootstrap": "^5.3.5"
->>>>>>> 22b1fa70754b6250ab2173daefc83dd0119a556f
     }
 }
