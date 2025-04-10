@@ -158,42 +158,129 @@ class CustomerController extends Controller
     public function categories(string $id)
     {
         $category = Category::findOrFail($id);
-        $products = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
-            ->leftJoin('product_variants', function ($join) {
-                $join->on('products.id', '=', 'product_variants.product_id')
-                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
-            })
-            ->where('products.category_id', $id)
-            ->where('products.status', 'active')
-            ->orderBy('products.priority', 'desc')
-            ->paginate(12);
+
+        $products = Product::where('category_id', $id)
+            ->where('status', 'active')
+            ->with([
+                'variants' => function ($query) {
+                    $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                        ->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                },
+                'ratings'
+            ])
+            ->orderBy('priority', 'desc')
+            ->paginate(15)
+            ->through(function ($product) {
+                $firstVariant = $product->variants->first();
+
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+
+                // Số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+
+                // Màu sắc
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function ($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+
+                // Dung lượng
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+
+                // Đánh giá
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
+
+                return $product;
+            });
 
         return view('customer.categories', compact('category', 'products'));
     }
-    public function filterProducts(Request $request, String $id)
+    public function filterByCategory(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
 
-        $productsQuery = Product::select('products.*', 'product_variants.origin_price', 'product_variants.price')
-            ->leftJoin('product_variants', function ($join) {
-                $join->on('products.id', '=', 'product_variants.product_id')
-                    ->whereRaw('product_variants.price = (SELECT MIN(price) FROM product_variants WHERE product_variants.product_id = products.id)');
-            })
-            ->where('products.category_id', $id)
-            ->where('products.status', 'active');
+        $minPrice = $request->input('min_price', 0);
+        $maxPrice = $request->input('max_price', 50000000);
 
-        if ($request->has('filter') && $request->filter != '') {
-            $priceRange = explode('-', $request->filter);
-            if (count($priceRange) == 2) {
-                $minPrice = (int) $priceRange[0];
-                $maxPrice = (int) $priceRange[1];
-                $productsQuery->whereBetween('product_variants.price', [$minPrice, $maxPrice]);
-            }
-        }
+        $products = Product::with([
+            'variants' => function ($query) {
+                $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                    ->where('status', 'active')
+                    ->orderBy('price', 'asc');
+            },
+            'ratings'
+        ])
+            ->where('category_id', $id)
+            ->where('status', 'active')
+            ->orderBy('priority', 'desc')
+            ->paginate(15);
 
-        $products = $productsQuery->orderBy('products.priority', 'desc')->paginate(12);
+            $products->getCollection()->transform(function ($product) use ($minPrice, $maxPrice) {
+                $firstVariant = $product->variants->first();
+            
+                if ($firstVariant && ($firstVariant->price < $minPrice || $firstVariant->price > $maxPrice)) {
+                    return null;
+                }
+            
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+            
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                $product->sold_count = $product->orderItems()->sum('quantity');
+            
+                $product->available_colors = $product->variants->pluck('hax_code', 'color')->map(function ($hex, $color) {
+                    return ['color' => $color, 'hex_code' => $hex];
+                })->values()->unique('color');
+            
+                $product->available_storages = $product->variants->pluck('storage')->unique()->values();
+            
+                return $product;
+            });
+            
+            $products->setCollection($products->getCollection()->filter());
 
         return view('customer.filterByCategory', compact('category', 'products'));
+    }
+
+    public function filter(Request $request)
+    {
+        $minPrice = $request->input('min_price', 0);
+        $maxPrice = $request->input('max_price', 50000000);
+
+        $query = Product::query();
+
+        $query->whereBetween('sale_price', [$minPrice, $maxPrice]);
+
+        $products = $query->paginate(15);
+
+        return view('customer.filterByCategory', compact('products'));
     }
 
     public function warranty()
