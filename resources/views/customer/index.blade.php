@@ -1,6 +1,86 @@
 @include('layouts.customer.header')
 <style>
     
+    .news-section .block-product {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 30px 20px;
+}
+
+/* Tin lớn */
+.news-section .item-blog-big img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.news-section .item-blog-big a.thumb:hover img {
+    transform: scale(1.03);
+}
+.news-section .item-blog-big h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.news-section .item-blog-big .time-post {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+.news-section .item-blog-big p {
+    font-size: 15px;
+    color: #444;
+}
+
+/* Tin nhỏ */
+.news-section .news-small-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.news-section .item-blog-small {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+.news-section .item-blog-small img {
+    width: 120px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+.news-section .item-blog-small a.thumb:hover img {
+    transform: scale(1.05);
+}
+.news-section .item-blog-small h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.news-section .item-blog-small p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+/* Xem thêm */
+.news-section .see-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.news-section .see-more:hover {
+    color: #0056b3;
+
+}
+
 
     /* Thêm CSS để hiển thị 5 sản phẩm trên hàng và các style khác */
     .section_product .col-lg-3 {
@@ -611,28 +691,30 @@
             </div>
         </div>
     </section>
-    <section class="section_blog">
+    <section class="section_blog news-section">
     <div class="container">
         <div class="block-product block-background">
-            <h3 class="title-index p-5">
-                <a class="title-name" href="{{ route('customer.news') }}" title="Tin tức mới nhất">Tin tức mới nhất</a>
+            <h3 class="title-index px-4 pb-3">
+                <a class="title-name" href="{{ route('customer.news') }}">Tin tức mới nhất</a>
             </h3>
-            <div class="row p-5">
+
+            <div class="row gx-4 gy-4">
+                {{-- Tin lớn bên trái --}}
                 <div class="col-md-6">
                     @if($latestNews->first())
                         @php $firstNews = $latestNews->first(); @endphp
                         <div class="item-blog-big">
-                            <div class="block-thumb">
-                                <a class="thumb" href="{{ route('customer.show', $firstNews->id) }}" title="{{ $firstNews->title }}">
-                                    <img class="lazyload"
-                                        src="{{ asset('default-thumbnail.jpg') }}"
-                                        data-src="{{ asset('storage/' . $firstNews->thumbnail_path) }}"
-                                        alt="{{ $firstNews->title }}">
-                                </a>
-                            </div>
+                            <a class="thumb d-block mb-3" href="{{ route('customer.show', $firstNews->id) }}">
+                                <img class="lazyload"
+                                     src="{{ asset('default-thumbnail.jpg') }}"
+                                     data-src="{{ asset('storage/' . $firstNews->thumbnail_path) }}"
+                                     alt="{{ $firstNews->title }}">
+                            </a>
                             <div class="block-content">
                                 <h3>
-                                    <a class="line-clamp line-clamp-1" href="{{ route('customer.show', $firstNews->id) }}">{{ $firstNews->title }}</a>
+                                    <a class="line-clamp line-clamp-1" href="{{ route('customer.show', $firstNews->id) }}">
+                                        {{ $firstNews->title }}
+                                    </a>
                                 </h3>
                                 <div class="time-post">
                                     Ngày đăng: <span>{{ \Carbon\Carbon::parse($firstNews->published_at)->format('d/m/Y') }}</span>
@@ -644,22 +726,24 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-md-6">
+
+                {{-- Tin nhỏ bên phải --}}
+                <div class="col-md-6 news-small-group">
                     @foreach($latestNews->skip(1)->take(4) as $news)
                         <div class="item-blog-small">
-                            <div class="block-thumb">
-                                <a class="thumb" href="{{ route('customer.show', $news->id) }}" title="{{ $news->title }}">
-                                    <img width="140" height="75" class="lazyload"
-                                        src="{{ asset('default-thumbnail.jpg') }}"
-                                        data-src="{{ asset('storage/' . $news->thumbnail_path) }}"
-                                        alt="{{ $news->title }}">
-                                </a>
-                            </div>
+                            <a class="thumb" href="{{ route('customer.show', $news->id) }}">
+                                <img class="lazyload"
+                                     src="{{ asset('default-thumbnail.jpg') }}"
+                                     data-src="{{ asset('storage/' . $news->thumbnail_path) }}"
+                                     alt="{{ $news->title }}">
+                            </a>
                             <div class="block-content">
                                 <h3>
-                                    <a class="line-clamp line-clamp-2" style="height: auto" href="{{ route('customer.show', $news->id) }}">{{ $news->title }}</a>
+                                    <a class="line-clamp line-clamp-2" href="{{ route('customer.show', $news->id) }}">
+                                        {{ $news->title }}
+                                    </a>
                                 </h3>
-                                <p class="justify line-clamp line-clamp-2">
+                                <p class="line-clamp line-clamp-2">
                                     {{ Str::limit(strip_tags(html_entity_decode($news->content)), 120) }}
                                 </p>
                             </div>
@@ -667,8 +751,9 @@
                     @endforeach
                 </div>
             </div>
-            <div class="text-center no-padding">
-                <a class="see-more" title="Xem toàn bộ tin tức" href="{{ route('customer.news') }}">
+
+            <div class="text-center pt-4">
+                <a class="see-more" href="{{ route('customer.news') }}">
                     Xem toàn bộ tin tức
                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                         <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h306.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
@@ -678,6 +763,7 @@
         </div>
     </div>
 </section>
+
 
     <section class="section_video">
         <div class="container ">
