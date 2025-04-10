@@ -92,25 +92,16 @@
                                 class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         </div>
 
-                    </div>
-                </div>
-
-                <!-- Điều kiện áp dụng -->
-                <div class="mt-6">
-                    <h3 class="text-lg font-medium text-gray-300 mb-4">Điều kiện áp dụng</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-300 mb-1">Giá trị đơn hàng tối thiểu</label>
-                            <input type="number" name="min_order_value" value="{{ old('min_order_value', $voucher->min_order_value) }}"
-                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Nhập giá trị tối thiểu...">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-1">Giá trị giảm giá tối đa</label>
-                            <input type="number" name="max_order_value" value="{{ old('max_discount_value', $voucher->max_discount_value) }}"
-                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Nhập giá trị tối đa...">
+                            <div class="relative">
+                                <input type="number" name="min_order_value" value="{{ old('min_order_value', $voucher->min_order_value) }}"
+                                    class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Nhập giá trị tối thiểu...">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                                    VND
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

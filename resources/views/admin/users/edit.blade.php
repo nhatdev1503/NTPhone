@@ -27,14 +27,38 @@
 
         <!-- Form -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
-            <form action="{{ route('users.update', $user->id) }}" method="POST" class="space-y-6">
+            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Avatar và thông tin cơ bản -->
+                <div class="flex flex-col md:flex-row gap-6 mb-6">
+                    <!-- Avatar -->
+                    <div class="flex-shrink-0">
+                        <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500/20 mb-4">
+                            @if($user->avatar)
+                                <img src="{{ asset($user->avatar) }}" alt="Avatar" class="w-full h-full object-cover" id="avatar-preview">
+                            @else
+                                <div class="w-full h-full bg-gray-700 flex items-center justify-center" id="avatar-placeholder">
+                                    <i class="bi bi-person-circle text-4xl text-gray-500"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <label for="avatar" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors">
+                                <i class="bi bi-camera"></i> Đổi ảnh
+                            </label>
+                            <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*">
+                            @if($user->avatar)
+                                <button type="button" onclick="removeAvatar()" class="mt-2 text-red-400 hover:text-red-300 text-sm">
+                                    <i class="bi bi-trash"></i> Xóa ảnh
+                                </button>
+                            @endif
+                        </div>
+                    </div>
+
                     <!-- Thông tin cơ bản -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-medium text-gray-300 mb-4">Thông tin cơ bản</h3>
+                    <div class="flex-grow space-y-4">
                         <div>
                             <label for="fullname" class="block text-sm font-medium text-gray-400 mb-1">Họ và tên</label>
                             <input type="text" name="fullname" id="fullname" value="{{ old('fullname', $user->fullname) }}"
@@ -51,15 +75,18 @@
                                 class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         </div>
                     </div>
+                </div>
 
-                    <!-- Vai trò và trạng thái -->
+                <!-- Vai trò và trạng thái -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-4">
                         <h3 class="text-lg font-medium text-gray-300 mb-4">Vai trò và trạng thái</h3>
                         <div>
                             <label for="role" class="block text-sm font-medium text-gray-400 mb-1">Vai trò</label>
                             <select name="role" id="role"
                                 class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>Người dùng</option>
+                                <option value="customer" {{ old('role', $user->role) == 'customer' ? 'selected' : '' }}>Người dùng</option>
+                                <option value="staff" {{ old('role', $user->role) == 'staff' ? 'selected' : '' }}>Nhân viên</option>
                                 <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
                             </select>
                         </div>
@@ -97,6 +124,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         const statusSelect = document.getElementById('status');
         const blockReasonContainer = document.getElementById('blockReasonContainer');
+        const avatarInput = document.getElementById('avatar');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const avatarPlaceholder = document.getElementById('avatar-placeholder');
         
         function toggleBlockReason() {
             if (statusSelect.value === 'inactive') {
@@ -106,11 +136,51 @@
             }
         }
 
+        // Xử lý preview ảnh khi chọn file
+        avatarInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (avatarPreview) {
+                        avatarPreview.src = e.target.result;
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = 'Avatar Preview';
+                        img.className = 'w-full h-full object-cover';
+                        img.id = 'avatar-preview';
+                        avatarPlaceholder.replaceWith(img);
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
         // Chạy lần đầu khi trang load
         toggleBlockReason();
 
         // Lắng nghe sự kiện thay đổi của select status
         statusSelect.addEventListener('change', toggleBlockReason);
     });
+
+    // Hàm xóa ảnh đại diện
+    function removeAvatar() {
+        const avatarPreview = document.getElementById('avatar-preview');
+        const avatarPlaceholder = document.createElement('div');
+        avatarPlaceholder.className = 'w-full h-full bg-gray-700 flex items-center justify-center';
+        avatarPlaceholder.id = 'avatar-placeholder';
+        avatarPlaceholder.innerHTML = '<i class="bi bi-person-circle text-4xl text-gray-500"></i>';
+        
+        avatarPreview.replaceWith(avatarPlaceholder);
+        
+        // Thêm input hidden để xóa ảnh
+        const form = document.querySelector('form');
+        const removeAvatarInput = document.createElement('input');
+        removeAvatarInput.type = 'hidden';
+        removeAvatarInput.name = 'remove_avatar';
+        removeAvatarInput.value = '1';
+        form.appendChild(removeAvatarInput);
+    }
 </script>
 @endpush 

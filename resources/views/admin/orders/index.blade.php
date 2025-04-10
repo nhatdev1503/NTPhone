@@ -19,56 +19,58 @@
         <!-- Form lọc và tìm kiếm -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
             <form action="{{ route('orders.index') }}" method="GET">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Tìm kiếm</label>
-                        <input type="text" name="keyword" 
-                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Tìm kiếm khách hàng, SĐT"
-                            value="{{ request('keyword') }}">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Tìm kiếm</label>
+                            <input type="text" name="keyword" 
+                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Tìm kiếm khách hàng, SĐT"
+                                value="{{ request('keyword') }}">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Trạng thái đơn</label>
+                            <select name="status" 
+                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">-- Tất cả --</option>
+                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ xác nhận</option>
+                                <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Đang xử lí</option>
+                                <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Đang giao hàng</option>
+                                <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Đã giao hàng</option>
+                                <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
+                                <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Hủy</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Trạng thái thanh toán</label>
+                            <select name="payment_status" 
+                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">-- Tất cả --</option>
+                                <option value="pending" {{ request('payment_status') == 'pending' ? 'selected' : '' }}>Chưa thanh toán</option>
+                                <option value="paid" {{ request('payment_status') == 'paid' ? 'selected' : '' }}>Đã thanh toán</option>
+                                <option value="failed" {{ request('payment_status') == 'failed' ? 'selected' : '' }}>Thất bại</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Ngày bắt đầu</label>
+                            <input type="date" name="from_date" 
+                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                value="{{ request('from_date') }}">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Ngày kết thúc</label>
+                            <input type="date" name="to_date" 
+                                class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                value="{{ request('to_date') }}">
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Trạng thái đơn</label>
-                        <select name="status" 
-                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option value="">-- Tất cả --</option>
-                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Chờ xác nhận</option>
-                            <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Đang xử lí</option>
-                            <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Đang giao hàng</option>
-                            <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Đã giao hàng</option>
-                            <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
-                            <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Hủy</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Trạng thái thanh toán</label>
-                        <select name="payment_status" 
-                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option value="">-- Tất cả --</option>
-                            <option value="pending" {{ request('payment_status') == 'pending' ? 'selected' : '' }}>Chưa thanh toán</option>
-                            <option value="paid" {{ request('payment_status') == 'paid' ? 'selected' : '' }}>Đã thanh toán</option>
-                            <option value="failed" {{ request('payment_status') == 'failed' ? 'selected' : '' }}>Thất bại</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Ngày bắt đầu</label>
-                        <input type="date" name="from_date" 
-                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            value="{{ request('from_date') }}">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Ngày kết thúc</label>
-                        <input type="date" name="to_date" 
-                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            value="{{ request('to_date') }}">
-                    </div>
-                    <div class="flex items-end gap-2">
+                    <div class="flex justify-end gap-2">
                         <button type="submit" 
-                            class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
                             <i class="bi bi-search"></i> Lọc
                         </button>
                         <a href="{{ route('orders.index') }}" 
-                            class="w-full bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                            class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
                             <i class="bi bi-arrow-counterclockwise"></i> Reset
                         </a>
                     </div>

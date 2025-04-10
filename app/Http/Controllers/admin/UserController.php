@@ -14,24 +14,57 @@ class UserController extends Controller
     // Hiển thị danh sách người dùng
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::query()->where('status', 'active');
 
-        // Lọc theo trạng thái
-        if ($request->has('status') && !empty($request->status)) {
-            $query->where('status', $request->status);
+        // Search by name or email
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where(function($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                  ->orWhere('email', 'like', "%{$keyword}%");
+            });
         }
 
-        $users = $query->orderBy('id', 'desc')->paginate(10)->appends($request->query());
+        // Filter by role
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->orderBy('id', 'desc')
+                      ->paginate(10)
+                      ->withQueryString();
 
         return view('admin.users.index', compact('users'));
     }
 
+    public function locked(Request $request)
+    {
+        $query = User::query()->where('status', 'inactive');
 
+        // Search by name or email
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where(function($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                  ->orWhere('email', 'like', "%{$keyword}%");
+            });
+        }
+
+        // Filter by role
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->orderBy('id', 'desc')
+                      ->paginate(10)
+                      ->withQueryString();
+
+        return view('admin.users.locked', compact('users'));
+    }
 
     // Hiển thị form thêm người dùng
     public function create()
     {
-
         return view('admin.users.create');
     }
 
@@ -52,11 +85,11 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Tài khoản đã được tạo thành công!');
     }
 
-
     public function show(User $user)
     {
         return view('admin.users.show', compact('user'));
     }
+    
     // Hiển thị form chỉnh sửa người dùng
     public function edit(User $user)
     {
@@ -64,50 +97,87 @@ class UserController extends Controller
     }
 
     // Xử lý cập nhật người dùng
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::findOrFail($id);
+        $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required|string|max:20',
+            'role' => 'required|in:admin,customer,staff',
+            'status' => 'required|in:active,inactive',
+            'block_reason' => 'nullable|required_if:status,inactive|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
-        $data = $request->except('password', 'avatar');
-        
-        if ($request->filled('password')) {
-            $data['password'] = bcrypt($request->password);
-        }
-        // Xử lý avatar
+        $user->fullname = $request->fullname;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->role = $request->role;
+        $user->status = $request->status;
+        $user->block_reason = $request->block_reason;
+
+        // Xử lý ảnh đại diện
         if ($request->hasFile('avatar')) {
-            // Xóa avatar cũ nếu có
+            // Xóa ảnh cũ nếu có
             if ($user->avatar) {
-                Storage::disk('public')->delete($user->avatar);
+                $oldAvatarPath = public_path($user->avatar);
+                if (file_exists($oldAvatarPath)) {
+                    unlink($oldAvatarPath);
+                }
             }
-
-            // Lưu avatar mới vào thư mục "storage/app/public/avatar"
-            $avatarPath = $request->file('avatar')->store('avatar', 'public');
-            $data['avatar'] = $avatarPath;
+            
+            // Lưu ảnh mới
+            $avatar = $request->file('avatar');
+            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
+            $avatar->move(public_path('uploads/avatars'), $avatarName);
+            $user->avatar = 'uploads/avatars/' . $avatarName;
+        } elseif ($request->has('remove_avatar')) {
+            // Xóa ảnh nếu người dùng yêu cầu
+            if ($user->avatar) {
+                $oldAvatarPath = public_path($user->avatar);
+                if (file_exists($oldAvatarPath)) {
+                    unlink($oldAvatarPath);
+                }
+            }
+            $user->avatar = null;
         }
-        $user->role = 'customer';
-        $user->save();
-        $user->update($data);
 
-        return redirect()->route('users.show',$user->id)->with('success', 'Cập nhật tài khoản thành công!');
+        $user->save();
+
+        return redirect()->route('users.show', $user->id)->with('success', 'Cập nhật tài khoản thành công!');
     }
 
-    // Xóa người dùng
-    public function destroy(Request $request, User $user)
+    // Xử lý khóa tài khoản
+    public function lock(Request $request, User $user)
     {    
-        $data = $request->all();
-        if($user->status == 'active'){
-            $user->update([
-                'status' => 'inactive',
-                'block_reason' => $data['block_reason']
-            ]);      
-        }else {
-            $user->update([
-                'status' =>'active',
-                'block_reason' => null
-            ]);   
-        }
-  
-        return redirect()->route('users.index')
-            ->with('success', 'Cập nhật thành công');
+        $request->validate([
+            'lock_reason' => 'required|string|max:255',
+        ]);
+
+        $user->update([
+            'status' => 'inactive',
+            'block_reason' => $request->lock_reason
+        ]);
+        
+        return redirect()->route('users.index')->with('success', 'Tài khoản đã bị khóa thành công!');
+    }
+
+    // Xử lý mở khóa tài khoản
+    public function unlock(User $user)
+    {    
+        $user->update([
+            'status' => 'active',
+            'block_reason' => null
+        ]);
+        
+        return redirect()->route('users.locked')->with('success', 'Tài khoản đã được mở khóa thành công!');
+    }
+
+    // Xử lý xóa mềm tài khoản
+    public function destroy(User $user)
+    {    
+        $user->delete();
+        
+        return redirect()->route('users.locked')->with('success', 'Tài khoản đã được xóa thành công!');
     }
 }

@@ -44,7 +44,14 @@
                         <div class="space-y-3">
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-400">Trạng Thái:</span>
-                                <span class="px-3 py-1 rounded-full text-sm font-medium {{ $statusColors[$order->status] }}">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium 
+                                    @if($order->status == 'pending') bg-yellow-500/10 text-yellow-400
+                                    @elseif($order->status == 'processing') bg-blue-500/10 text-blue-400
+                                    @elseif($order->status == 'shipped') bg-purple-500/10 text-purple-400
+                                    @elseif($order->status == 'delivered') bg-green-500/10 text-green-400
+                                    @elseif($order->status == 'completed') bg-green-500/10 text-green-400
+                                    @elseif($order->status == 'cancelled') bg-red-500/10 text-red-400
+                                    @endif">
                                     {{ $statusText[$order->status] }}
                                 </span>
                             </div>
@@ -103,7 +110,11 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-400">Trạng Thái:</span>
-                                <span class="px-3 py-1 rounded-full text-sm font-medium {{ $paymentColors[$order->payment_status] }}">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium 
+                                    @if($order->payment_status == 'pending') bg-yellow-500/10 text-yellow-400
+                                    @elseif($order->payment_status == 'paid') bg-green-500/10 text-green-400
+                                    @elseif($order->payment_status == 'failed') bg-red-500/10 text-red-400
+                                    @endif">
                                     {{ $paymentStatus[$order->payment_status] }}
                                 </span>
                             </div>
@@ -160,15 +171,15 @@
                             @foreach($order->orderItems as $item)
                                 <tr class="hover:bg-gray-700/30 transition-colors">
                                     <td class="px-6 py-4">
-                                        <img src="{{ asset($item->productVariant->product->image) }}" 
+                                        <img src="{{ asset($item->image) }}" 
                                             alt="Ảnh sản phẩm" 
                                             class="w-16 h-16 object-cover rounded-lg">
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-white">{{ $item->productVariant->product->name }}</td>
+                                    <td class="px-6 py-4 text-sm text-white">{{ $item->name }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-300">
-                                        <span class="w-4 h-4 rounded-full">{{ $item->productVariant->color }}</span>
                                         <div class="flex items-center gap-2">
-                                            {{ $item->productVariant->storage }}
+                                            <span class="w-4 h-4 rounded-full" style="background-color: {{ $item->color }}"></span>
+                                            {{ $item->storage }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-300">{{ $item->quantity }}</td>
@@ -191,7 +202,7 @@
             @if($order->status == 'processing' || $order->status == 'shipped' || $order->status == 'pending')
                 <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     data-bs-toggle="modal" data-bs-target="#confirmModal">
-                    <i class="bi bi-check-circle"></i> Xác nhận
+                    <i class="bi bi-check-circle"></i> Xác nhận trạng thái
                 </button>
             @endif
         </div>

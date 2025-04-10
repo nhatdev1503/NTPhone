@@ -9,13 +9,14 @@ use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductVariantController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ColorController;
-use App\Http\Controllers\Customer\ProfileController;
+use App\Http\Controllers\Customer\ProfileController as CustomerProfileController;
 use App\Http\Controllers\guest\GuestController;
 use App\Http\Controllers\guest\OrderLookupController;
 use App\Http\Controllers\customer\CustomerController;
@@ -70,8 +71,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Trang Dashboard Admin
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
 
+    // Thông tin cá nhân và đổi mật khẩu
+    Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+    Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('admin.change-password');
+    Route::put('/change-password', [ProfileController::class, 'updatePassword'])->name('admin.change-password.update');
+
     // router CRUD products (Hiếu, Nhật)
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/inactive', [ProductController::class, 'inactive'])->name('products.inactive');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
@@ -85,6 +93,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::put('/productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
     Route::put('/productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
     Route::put('/priority/{product}', [ProductController::class, 'priority'])->name('products.priority');
+    Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
 
     // //Router Danh muc Quyet //
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -111,12 +120,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     // // QUẢN LÝ TÀI KHOẢN (USERS) (Hưng)
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/locked', [UserController::class, 'locked'])->name('users.locked');
+    Route::put('/users/{user}/lock', [UserController::class, 'lock'])->name('users.lock');
+    Route::put('/users/{user}/unlock', [UserController::class, 'unlock'])->name('users.unlock');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::put('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::put('/users/{user}/update', [UserController::class, 'update'])->name('users.update');
 
     // // Quản lý Voucher (Minh)
     Route::resource('discounts', DiscountController::class)->where(['discounts' => '[0-9]+']);
@@ -293,8 +305,8 @@ Route::post('/comments', [CommentController::class, 'store'])->name('customer.co
 
 // Customer Profile Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/customer/profile', [ProfileController::class, 'index'])->name('customer.profile');
-    Route::put('/customer/profile', [ProfileController::class, 'updateProfile'])->name('customer.profile.update');
+    Route::get('/customer/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
+    Route::put('/customer/profile', [CustomerProfileController::class, 'updateProfile'])->name('customer.profile.update');
     Route::get('/customer/change-password', [CustomerController::class, 'changePassword'])->name('customer.change_password');
     Route::put('/customer/change-password', [CustomerController::class, 'updatePassword'])->name('customer.change_password.update');
     Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');

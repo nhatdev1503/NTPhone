@@ -29,10 +29,23 @@
 
         <!-- Thông tin tài khoản -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Avatar và thông tin cơ bản -->
+            <div class="flex flex-col md:flex-row gap-6 mb-6">
+                <!-- Avatar -->
+                <div class="flex-shrink-0">
+                    <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500/20">
+                        @if($user->avatar)
+                            <img src="{{ asset( $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full bg-gray-700 flex items-center justify-center">
+                                <i class="bi bi-person-circle text-4xl text-gray-500"></i>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
                 <!-- Thông tin cơ bản -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-medium text-gray-300 mb-4">Thông tin cơ bản</h3>
+                <div class="flex-grow space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Họ và tên</label>
                         <div class="bg-gray-700 rounded-lg px-4 py-2 text-white">{{ $user->fullname }}</div>
@@ -46,8 +59,10 @@
                         <div class="bg-gray-700 rounded-lg px-4 py-2 text-white">{{ $user->phone }}</div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Thông tin vai trò và trạng thái -->
+            <!-- Thông tin vai trò và trạng thái -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
                     <h3 class="text-lg font-medium text-gray-300 mb-4">Vai trò và trạng thái</h3>
                     <div>

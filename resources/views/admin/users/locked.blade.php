@@ -6,13 +6,9 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-2">
-                <i class="bi bi-people text-blue-400 text-2xl"></i>
-                <h1 class="text-2xl font-bold text-blue-400">Quản lý Tài Khoản</h1>
+                <i class="bi bi-person-x text-blue-400 text-2xl"></i>
+                <h1 class="text-2xl font-bold text-blue-400">Tài Khoản Đã Khóa</h1>
             </div>
-            <a href="{{ route('users.create') }}" 
-                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
-                <i class="bi bi-plus-circle"></i> Thêm tài khoản
-            </a>
         </div>
 
         @if(session('success'))
@@ -23,11 +19,11 @@
 
         <!-- Form tìm kiếm -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
-            <form action="{{ route('users.index') }}" method="GET">
+            <form action="{{ route('users.locked') }}" method="GET">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-1">Tìm kiếm</label>
-                        <input type="text" name="search" value="{{ request('search') }}"
+                        <input type="text" name="keyword" value="{{ request('keyword') }}"
                             class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Tìm theo tên, email...">
                     </div>
@@ -45,7 +41,7 @@
                             class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
                             <i class="bi bi-search"></i> Tìm kiếm
                         </button>
-                        <a href="{{ route('users.index') }}" 
+                        <a href="{{ route('users.locked') }}" 
                             class="w-full bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors">
                             <i class="bi bi-arrow-counterclockwise"></i> Reset
                         </a>
@@ -55,7 +51,7 @@
         </div>
 
         <div class="bg-blue-500/10 border border-blue-500/20 text-blue-400 p-4 rounded-lg mb-6">
-            Hiển thị {{ $users->count() }} tài khoản trên tổng số {{ $users->total() }} tài khoản.
+            Hiển thị {{ $users->count() }} tài khoản đã khóa trên tổng số {{ $users->total() }} tài khoản.
         </div>
 
         <!-- Bảng tài khoản -->
@@ -86,8 +82,8 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full {{ $user->status ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400' }}">
-                                        {{ $user->status ? 'Hoạt động' : 'Đã khóa' }}
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-500/10 text-red-400">
+                                        Đã khóa
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
@@ -100,13 +96,20 @@
                                             class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1 transition-colors">
                                             <i class="bi bi-pencil"></i> Sửa
                                         </a>
-                                        @if($user->status)
-                                        <button type="button" 
-                                            class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1 transition-colors"
-                                            onclick="openLockModal('{{ $user->id }}', '{{ $user->fullname }}')">
-                                            <i class="bi bi-lock"></i> Khóa
-                                        </button>
-                                        @endif
+                                        <form action="{{ route('users.unlock', $user) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1 transition-colors">
+                                                <i class="bi bi-unlock"></i> Mở khóa
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1 transition-colors" onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?')">
+                                                <i class="bi bi-trash"></i> Xóa
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -121,50 +124,4 @@
         </div>
     </div>
 </div>
-
-<!-- Modal Khóa Tài Khoản -->
-<div id="lockModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 w-full max-w-md">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-blue-400">Khóa Tài Khoản</h3>
-            <button type="button" onclick="closeLockModal()" class="text-gray-400 hover:text-gray-300">
-                <i class="bi bi-x-lg text-xl"></i>
-            </button>
-        </div>
-        <p class="text-gray-300 mb-4">Bạn sắp khóa tài khoản: <span id="userName" class="font-medium text-white"></span></p>
-        <form id="lockForm" action="" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="mb-4">
-                <label for="lock_reason" class="block text-sm font-medium text-gray-300 mb-1">Lý do khóa</label>
-                <textarea id="lock_reason" name="lock_reason" rows="3" 
-                    class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Nhập lý do khóa tài khoản..." required></textarea>
-            </div>
-            <div class="flex justify-end gap-2">
-                <button type="button" onclick="closeLockModal()" 
-                    class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
-                    Hủy
-                </button>
-                <button type="submit" 
-                    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
-                    Khóa tài khoản
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-    function openLockModal(userId, userName) {
-        document.getElementById('userName').textContent = userName;
-        document.getElementById('lockForm').action = `/admin/users/${userId}/lock`;
-        document.getElementById('lockModal').classList.remove('hidden');
-    }
-
-    function closeLockModal() {
-        document.getElementById('lockModal').classList.add('hidden');
-        document.getElementById('lock_reason').value = '';
-    }
-</script>
-@endsection
+@endsection 

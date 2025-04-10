@@ -37,19 +37,20 @@
             width: var(--sidebar-width);
             background: var(--primary-color);
             color: white;
-            padding: 1.5rem;
+            padding: 1rem;
             transition: all 0.3s ease;
             z-index: 1000;
+            overflow-y: auto;
         }
 
         .sidebar-header {
-            padding: 1rem 0;
+            padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .sidebar-header h1 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
             margin: 0;
             color: white;
@@ -62,17 +63,18 @@
         }
 
         .sidebar-item {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .sidebar-link {
             display: flex;
             align-items: center;
-            padding: 0.8rem 1rem;
+            padding: 0.5rem 0.75rem;
             color: rgba(255,255,255,0.8);
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .sidebar-link:hover {
@@ -86,8 +88,20 @@
         }
 
         .sidebar-link i {
-            margin-right: 1rem;
-            font-size: 1.2rem;
+            margin-right: 0.75rem;
+            font-size: 1rem;
+        }
+
+        /* Submenu styles */
+        #productsSubmenu, #usersSubmenu {
+            margin-left: 1rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        #productsSubmenu .sidebar-link, #usersSubmenu .sidebar-link {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.85rem;
         }
 
         /* Main Content Styles */
@@ -227,10 +241,25 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{ route('products.index') }}" class="sidebar-link {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                <a href="#" class="sidebar-link {{ request()->routeIs('products.*') ? 'active' : '' }}" id="productsMenuToggle">
                     <i class="bi bi-box"></i>
                     <span>Quản lí sản phẩm</span>
+                    <i class="bi bi-chevron-down ml-auto"></i>
                 </a>
+                <ul class="ml-6 mt-2 space-y-1 hidden" id="productsSubmenu">
+                    <li>
+                        <a href="{{ route('products.index') }}" class="sidebar-link {{ request()->routeIs('products.index') ? 'active' : '' }}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tất cả sản phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('products.inactive') }}" class="sidebar-link {{ request()->routeIs('products.inactive') ? 'active' : '' }}">
+                            <i class="bi bi-archive"></i>
+                            <span>Đã ngừng bán</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="sidebar-item">
                 <a href="{{ route('orders.index') }}" class="sidebar-link {{ request()->routeIs('orders.*') ? 'active' : '' }}">
@@ -245,9 +274,30 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{ route('users.index') }}" class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <a href="#" class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}" id="usersMenuToggle">
                     <i class="bi bi-people"></i>
                     <span>Quản lí tài khoản</span>
+                    <i class="bi bi-chevron-down ml-auto"></i>
+                </a>
+                <ul class="ml-6 mt-2 space-y-1 hidden" id="usersSubmenu">
+                    <li>
+                        <a href="{{ route('users.index') }}" class="sidebar-link {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                            <i class="bi bi-person"></i>
+                            <span>Tất cả tài khoản</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('users.locked') }}" class="sidebar-link {{ request()->routeIs('users.locked') ? 'active' : '' }}">
+                            <i class="bi bi-person-x"></i>
+                            <span>Tài khoản đã khóa</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ route('news.index') }}" class="sidebar-link {{ request()->routeIs('news.*') ? 'active' : '' }}">
+                    <i class="bi bi-newspaper"></i>
+                    <span>Quản lý bài viết</span>
                 </a>
             </li>
             <li class="sidebar-item">
@@ -268,12 +318,11 @@
                 <div class="relative inline-block text-left">
                     <!-- Toggle button -->
                     <button id="dropdownToggle" type="button" class="inline-flex items-center gap-2 text-sm text-white focus:outline-none">
-                        <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . Auth::user()->name }}" 
+                        <img src="{{ asset(Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . Auth::user()->fullname) }}" 
                              alt="Avatar" 
                              class="w-8 h-8 rounded-full">
                         <div class="text-left">
-                            <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
-                            <p class="text-xs text-gray-400">{{ Auth::user()->email }}</p>
+                            <p class="text-sm font-medium">{{ Auth::user()->fullname }}</p>
                         </div>
                         <svg class="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -282,10 +331,10 @@
         
                     <!-- Dropdown menu -->
                     <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="{{ route('admin.profile') }}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
                             <i class="bi bi-person me-2"></i> Thông tin cá nhân
                         </a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                        <a href="{{ route('admin.change-password') }}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
                             <i class="bi bi-key me-2"></i> Đổi mật khẩu
                         </a>
                         <form method="POST" action="{{ route('auth.logout') }}">
@@ -303,6 +352,10 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const toggleBtn = document.getElementById('dropdownToggle');
                 const dropdown = document.getElementById('dropdownMenu');
+                const productsMenuToggle = document.getElementById('productsMenuToggle');
+                const productsSubmenu = document.getElementById('productsSubmenu');
+                const usersMenuToggle = document.getElementById('usersMenuToggle');
+                const usersSubmenu = document.getElementById('usersSubmenu');
         
                 toggleBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
@@ -313,6 +366,26 @@
                     if (!toggleBtn.contains(e.target)) {
                         dropdown.classList.add('hidden');
                     }
+                });
+
+                // Toggle products submenu
+                productsMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    productsSubmenu.classList.toggle('hidden');
+                    
+                    // Toggle chevron icon
+                    const chevron = this.querySelector('.bi-chevron-down');
+                    chevron.classList.toggle('rotate-180');
+                });
+
+                // Toggle users submenu
+                usersMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    usersSubmenu.classList.toggle('hidden');
+                    
+                    // Toggle chevron icon
+                    const chevron = this.querySelector('.bi-chevron-down');
+                    chevron.classList.toggle('rotate-180');
                 });
             });
         </script>

@@ -5,8 +5,8 @@
     <div class="max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-2">
-                <i class="bi bi-box-seam text-blue-400 text-2xl"></i>
-                <h1 class="text-2xl font-bold text-blue-400">Quản lý Sản phẩm</h1>
+                <i class="bi bi-archive text-red-400 text-2xl"></i>
+                <h1 class="text-2xl font-bold text-red-400">Sản phẩm đã ngừng bán</h1>
             </div>
             <a href="{{ route('products.create') }}" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
                 <i class="bi bi-plus-lg"></i> Thêm mới
@@ -15,7 +15,7 @@
 
         <!-- Form tìm kiếm và lọc -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
-            <form method="GET" action="{{ route('products.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <form method="GET" action="{{ route('products.inactive') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Danh mục</label>
                     <select name="category_id" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -36,7 +36,7 @@
                     <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors h-[42px]">
                         <i class="bi bi-search"></i> Tìm kiếm
                     </button>
-                    <a href="{{ route('products.index') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors h-[42px]">
+                    <a href="{{ route('products.inactive') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors h-[42px]">
                         <i class="bi bi-arrow-counterclockwise"></i> Reset
                     </a>
                 </div>
@@ -74,15 +74,11 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <img src="{{ asset($product->image) }}" alt="" class="w-10 h-10 rounded-lg object-cover">
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->base_price }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->sale_price }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ number_format($product->base_price) }}đ</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ number_format($product->sale_price) }}đ</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $product->have_variant == 1 ? 'Biến thể' : 'Đơn' }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    @if ($product->status == 'active' && $product->category->status == 'active')
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-500/10 text-green-400">Hoạt động</span>
-                                    @else
-                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-500/10 text-red-400">Ngừng hoạt động</span>
-                                    @endif
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-500/10 text-red-400">Ngừng hoạt động</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <div class="flex items-center gap-2">
@@ -95,9 +91,17 @@
                                         <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('PUT')
+                                            <button type="submit" class="text-green-400 hover:text-green-300 transition-colors"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn mở bán sản phẩm này?')">
+                                                <i class="bi bi-unlock"></i>
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('products.delete', $product->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
                                             <button type="submit" class="text-red-400 hover:text-red-300 transition-colors"
-                                                    onclick="return confirm('{{ $product->status == 'active' ? 'Bạn có chắc chắn muốn ngừng bán sản phẩm này?' : 'Bạn có chắc chắn muốn mở bán sản phẩm này?' }}')">
-                                                <i class="bi {{ $product->status == 'active' ? 'bi-lock' : 'bi-unlock' }}"></i>
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này? Hành động này không thể hoàn tác.')">
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
                                     </div>
@@ -129,8 +133,8 @@
                             <tr>
                                 <td colspan="11" class="px-6 py-4 text-center text-gray-400">
                                     <div class="flex flex-col items-center gap-2">
-                                        <i class="bi bi-box-seam text-4xl"></i>
-                                        <p>Không có sản phẩm nào.</p>
+                                        <i class="bi bi-archive text-4xl"></i>
+                                        <p>Không có sản phẩm nào đã ngừng bán.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -232,4 +236,4 @@
         });
     });
 </script>
-@endsection
+@endsection 
