@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use App\Models\News;
+
 class CustomerController extends Controller
 {
     public function index()
@@ -153,7 +154,7 @@ class CustomerController extends Controller
                 return $product;
             });
 
-        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts','latestNews'));
+        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts', 'latestNews'));
     }
 
     public function categories(string $id)
@@ -238,34 +239,34 @@ class CustomerController extends Controller
             ->orderBy('priority', 'desc')
             ->paginate(15);
 
-            $products->getCollection()->transform(function ($product) use ($minPrice, $maxPrice) {
-                $firstVariant = $product->variants->first();
-            
-                if ($firstVariant && ($firstVariant->price < $minPrice || $firstVariant->price > $maxPrice)) {
-                    return null;
-                }
-            
-                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
-                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
-                    $product->origin_price = $firstVariant->origin_price;
-                } else {
-                    $product->discount_percentage = 0;
-                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
-                }
-            
-                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
-                $product->sold_count = $product->orderItems()->sum('quantity');
-            
-                $product->available_colors = $product->variants->pluck('hax_code', 'color')->map(function ($hex, $color) {
-                    return ['color' => $color, 'hex_code' => $hex];
-                })->values()->unique('color');
-            
-                $product->available_storages = $product->variants->pluck('storage')->unique()->values();
-            
-                return $product;
-            });
-            
-            $products->setCollection($products->getCollection()->filter());
+        $products->getCollection()->transform(function ($product) use ($minPrice, $maxPrice) {
+            $firstVariant = $product->variants->first();
+
+            if ($firstVariant && ($firstVariant->price < $minPrice || $firstVariant->price > $maxPrice)) {
+                return null;
+            }
+
+            if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                $product->origin_price = $firstVariant->origin_price;
+            } else {
+                $product->discount_percentage = 0;
+                $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+            }
+
+            $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+            $product->sold_count = $product->orderItems()->sum('quantity');
+
+            $product->available_colors = $product->variants->pluck('hax_code', 'color')->map(function ($hex, $color) {
+                return ['color' => $color, 'hex_code' => $hex];
+            })->values()->unique('color');
+
+            $product->available_storages = $product->variants->pluck('storage')->unique()->values();
+
+            return $product;
+        });
+
+        $products->setCollection($products->getCollection()->filter());
 
         return view('customer.filterByCategory', compact('category', 'products'));
     }
@@ -1334,8 +1335,59 @@ class CustomerController extends Controller
 
         $products = Product::where('name', 'LIKE', "%$query%")
             ->where('status', 'active')
+            ->with([
+                'variants' => function ($query) {
+                    $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                        ->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                },
+                'ratings'
+            ])
             ->orderBy('priority', 'desc')
-            ->paginate(10);
+            ->paginate(15)
+            ->through(function ($product) {
+                $firstVariant = $product->variants->first();
+
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+
+                // Số lượng đã bán
+                $product->sold_count = $product->orderItems()->sum('quantity');
+
+                // Màu sắc
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function ($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+
+                // Dung lượng
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+
+                // Đánh giá
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
+
+                return $product;
+            });
 
         return view('customer.search', compact('products', 'query'));
     }
