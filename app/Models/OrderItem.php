@@ -17,8 +17,6 @@ class OrderItem extends Model
         'color',
         'storage',
         'quantity',
-        'rating',
-        'review',
         'price'
     ];
 
