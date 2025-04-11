@@ -10,7 +10,7 @@ class Rating extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_variant_id', 'user_id', 'color','storage','rating', 'review'];
+    protected $fillable = ['product_variant_id', 'user_id', 'order_id', 'color', 'storage', 'rating', 'review'];
 
     public function product_variant()
     {

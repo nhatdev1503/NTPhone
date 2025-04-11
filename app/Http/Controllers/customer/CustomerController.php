@@ -1304,9 +1304,7 @@ class CustomerController extends Controller
                     ->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
             }
         }
-
-        return redirect()->route('customer.order.history')
-            ->with('error', 'Không thể hủy đơn hàng này.');
+        return redirect()->back()->with('cancel_success', 'Đơn hàng đã được hủy thành công.');
     }
 
     public function profile()

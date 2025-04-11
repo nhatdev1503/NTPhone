@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 
 class CustomerOrderController extends Controller
 {
-        public function history(Request $request)
+    public function history(Request $request)
     {
         $query = Order::where('user_id', auth()->id());
 
@@ -34,5 +35,19 @@ class CustomerOrderController extends Controller
             ->firstOrFail();
         return view('customer.order_detail', compact('order'));
     }
-    
+    public function submitReview(Request $request)
+    {
+        $request->validate([
+            'item_id' => 'required|exists:order_items,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string|max:1000',
+        ]);
+
+        $item = OrderItem::findOrFail($request->input('item_id'));
+        $item->rating = $request->input('rating');
+        $item->review = $request->input('review');
+        $item->save();
+
+        return back()->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm của chúng tôi.NTPHONE rất hân hạnh được phục vụ quý khách');
+    }
 }

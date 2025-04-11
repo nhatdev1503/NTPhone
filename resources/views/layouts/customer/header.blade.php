@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#000" />
@@ -54,14 +55,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1742954225872">
-    <link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/ajaxcart.scss.css?1742954225872">
-    <link rel="stylesheet" href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
+    <link rel="stylesheet"
+        href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1742954225872">
+    <link rel="stylesheet"
+        href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/ajaxcart.scss.css?1742954225872">
+    <link rel="stylesheet"
+        href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
 
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-{{-- 
+    {{-- 
     <script>
         var Bizweb = Bizweb || {};
         Bizweb.store = 'hoangkien.mysapo.net';
@@ -198,6 +202,7 @@
         $(document).ready(function($) {
             awe_lazyloadImage();
         });
+
         function awe_lazyloadImage() {
             var ll = new LazyLoad({
                 elements_selector: ".lazyload",
@@ -208,6 +213,7 @@
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
 </head>
+
 <body>
     <div class="opacity_menu"></div>
     <div class="banner-top d-none d-md-block" style="background: #01000d">
@@ -230,8 +236,7 @@
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
-                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
-                            alt="NTShop">
+                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}" alt="NTShop">
                     </picture>
                 </a>
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
@@ -249,31 +254,34 @@
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
-							@foreach ($categoriess as $category )
-							<div class="nav_item nav-item lv1 li_check ">
-                                <a href="{{ route('customer.category',$category->id) }}" title="Điện thoại"
-                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1742954225872')">{{ $category->name }}
-                                    <i class="fas fa-angle-right">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                            <path
-                                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                        </svg>
-                                    </i>
-                                </a>
-                            </div>
-							@endforeach
-                            
+                            @foreach ($categoriess as $category)
+                                <div class="nav_item nav-item lv1 li_check ">
+                                    <a href="{{ route('customer.category', $category->id) }}" title="Điện thoại"
+                                        style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1742954225872')">{{ $category->name }}
+                                        <i class="fas fa-angle-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                            </svg>
+                                        </i>
+                                    </a>
+                                </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
                 <div class="search-header">
                     <div class="search-smart">
-                        <form action="{{ route('customer.search') }}" method="POST" style="display: flex; justify-content: center; align-items: center;">
+                        <form action="{{ route('customer.search') }}" method="POST"
+                            style="display: flex; justify-content: center; align-items: center;">
                             <div class="search-container" style="display: flex; align-items: center; width: 100%;">
                                 @csrf
-                                <input type="text" name="query" placeholder="Bạn cần tìm gì..." style="padding-left: 10px; width: 300px; height: 30px;">
-                                <button type="submit" style="border: none; background-color: white; width: 30px; height: 30px;">
+                                <input type="text" name="query" placeholder="Bạn cần tìm gì..."
+                                    style="padding-left: 10px; width: 300px; height: 30px;">
+                                <button type="submit"
+                                    style="border: none; background-color: white; width: 30px; height: 30px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                         viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                         <path fill="#000"
@@ -312,7 +320,8 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a title="Tra cứu đơn hàng" href="{{ route('customer.order.history') }}" class="button-wishlist">
+                        <a title="Tra cứu đơn hàng" href="{{ route('customer.order.history') }}"
+                            class="button-wishlist">
                             Lịch sử<span>mua hàng</span>
                         </a>
                     </div>
@@ -330,7 +339,8 @@
                     <div class="content">
                         <a href="{{ route('customer.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
-                            Sản phẩm <span class="count_item_pr">{{ \App\Models\Cart::where('user_id', auth()->id())->count() }}</span>
+                            Sản phẩm <span
+                                class="count_item_pr">{{ \App\Models\Cart::where('user_id', auth()->id())->count() }}</span>
                         </a>
                     </div>
                     <div class="top-cart-content">
@@ -412,6 +422,7 @@
     {{-- Assume main content (@yield or similar) follows here --}}
 
 </body>
+
 </html>
 
 <style>
@@ -427,7 +438,7 @@
         right: 0;
         background: white;
         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         min-width: 200px;
         z-index: 1000;
         padding: 8px 0;

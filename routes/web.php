@@ -247,6 +247,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/order/{id}', [CustomerController::class, 'orderDetail'])->name('order_detail');
     Route::post('/order/{id}/cancel', [CustomerController::class, 'cancelOrder'])->name('order.cancel');
     Route::post('/order/{id}/confirm', [CustomerController::class, 'confirmOrder'])->name('order.confirm');
+    Route::post('/customer/review', [CustomerOrderController::class, 'submitReview'])->name('customer.submitReview');
 });
 
 //Route trang khách vãng lai
