@@ -221,7 +221,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/api/storages_by_color/{product_id}/{color}', [CustomerController::class, 'apiStoragesByColor'])->name('api.customer.storages_by_color');
 
     // Lịch sử mua hàng
-    Route::get('/customer/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
+    Route::get('/customer/order-history', [CustomerOrderController::class, 'history'])->name('order.history');
 
     // Chi tiết bài viết
     Route::get('/post/detail/{id}', [CustomerController::class, 'post_detail'])->name('customer.post_detail');
