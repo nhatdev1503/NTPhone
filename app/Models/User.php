@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function getTotalUsersAttribute()
     {
-        return self::count();
+        return self::where('status', 'active')->count();
     }
 
     public function isAdmin()

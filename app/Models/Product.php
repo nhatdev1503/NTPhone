@@ -65,7 +65,7 @@ public function ratings()
     }
     public function getTotalProductsAttribute()
     {
-        return self::count();
+        return self::where('status', 'active')->count();
     }
     public function posts() {
         return $this->hasMany(ProductPost::class)->orderBy('position');

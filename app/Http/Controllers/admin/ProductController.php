@@ -30,7 +30,10 @@ class ProductController extends Controller
             $query->where('category_id', $request->category_id);
         }
         // Lọc sản phẩm có trạng thái hoạt động
-        $query->where('status', 'active');
+        $query->where('status', 'active')
+                ->whereHas('category', function ($q) {
+                    $q->where('status', 'active'); 
+        });
         $products = $query->with('category')->orderBy('id', 'desc')->paginate(10)->appends($request->query());
 
         return view('admin.products.index', compact('products', 'categories'));
@@ -52,7 +55,12 @@ class ProductController extends Controller
         }
         
         // Lọc sản phẩm có trạng thái ngừng hoạt động
-        $query->where('status', 'inactive');
+        $query->where(function ($q) {
+            $q->where('status', 'inactive')
+              ->orWhereHas('category', function ($q2) {
+                  $q2->where('status', 'inactive');
+              });
+        });
         
         $products = $query->with('category')
             ->orderBy('id', 'desc')
@@ -399,6 +407,41 @@ class ProductController extends Controller
         ]);
         return redirect()->route('products.index')
             ->with('success', 'Cập nhật thành công');
+    }
+
+    /**
+     * Xóa đánh giá của sản phẩm
+     */
+    public function deleteRating($orderItemId)
+    {
+        try {
+            $orderItem = \App\Models\OrderItem::findOrFail($orderItemId);
+            
+            // Xóa đánh giá (chỉ xóa nội dung đánh giá, không xóa order_item)
+            $orderItem->update([
+                'rating' => null,
+                'review' => null
+            ]);
+            
+            return redirect()->back()->with('success', 'Đã xóa đánh giá thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa đánh giá: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Xóa bình luận của sản phẩm
+     */
+    public function deleteComment($commentId)
+    {
+        try {
+            $comment = \App\Models\Comment::findOrFail($commentId);
+            $comment->delete();
+            
+            return redirect()->back()->with('success', 'Đã xóa bình luận thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa bình luận: ' . $e->getMessage());
+        }
     }
 
     public function delete(Product $product)

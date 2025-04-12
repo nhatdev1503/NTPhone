@@ -254,10 +254,19 @@
                                             <p class="text-sm text-gray-400">{{ $item->updated_at->format('d/m/Y H:i') }}</p>
                                         </div>
                                     </div>
-                                    <div class="flex text-yellow-400">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <i class="bi bi-star{{ $i <= $item->rating ? '-fill' : '' }}"></i>
-                                        @endfor
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex text-yellow-400">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i class="bi bi-star{{ $i <= $item->rating ? '-fill' : '' }}"></i>
+                                            @endfor
+                                        </div>
+                                        <form action="{{ route('admin.order-items.delete-rating', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-400 hover:text-red-300 transition-colors">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 @if ($item->review)
@@ -288,14 +297,23 @@
                         <div class="space-y-4">
                             @forelse ($product->comments as $comment)
                                 <div class="bg-gray-700/50 rounded-xl p-4">
-                                    <div class="flex items-center gap-3 mb-3">
-                                        <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-                                            <i class="bi bi-person text-xl text-gray-300"></i>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+                                                <i class="bi bi-person text-xl text-gray-300"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-white font-medium">{{ $comment->user->fullname }}</p>
+                                                <p class="text-sm text-gray-400">{{ $comment->created_at->format('d/m/Y H:i') }}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="text-white font-medium">{{ $comment->user->fullname }}</p>
-                                            <p class="text-sm text-gray-400">{{ $comment->created_at->format('d/m/Y H:i') }}</p>
-                                        </div>
+                                        <form action="{{ route('admin.comments.destroy', $comment->id) }}" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bình luận này?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-400 hover:text-red-300 transition-colors">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                     <p class="text-gray-300">{{ $comment->content }}</p>
                                 </div>

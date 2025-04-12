@@ -35,16 +35,15 @@ class CustomerController extends Controller
 
         // Lấy sản phẩm nổi bật với đầy đủ thông tin
         $featuredProducts = Product::where('status', 'active')
+            ->whereHas('category', function ($q) {
+                $q->where('status', 'active'); 
+            })
             ->with(['variants' => function ($query) {
                 $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
                     ->where('status', 'active')
                     ->orderBy('price', 'asc');
             }])
 
-            //
-            // ->with(['ratings' => function($query) {
-            //     $query->select('product_id', 'rating');
-            // }])
             ->with('ratings')
 
             ->orderBy('priority', 'desc')
@@ -98,6 +97,9 @@ class CustomerController extends Controller
 
         // Lấy sản phẩm mới nhất với đầy đủ thông tin
         $bestSellingProducts = Product::where('status', 'active')
+            ->whereHas('category', function ($q) {
+                $q->where('status', 'active'); 
+            })
             ->with(['variants' => function ($query) {
                 $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
                     ->where('status', 'active')
@@ -157,11 +159,16 @@ class CustomerController extends Controller
         return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts', 'latestNews'));
     }
 
-    public function categories(string $id)
+    public function categories(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
-
-        $products = Product::where('category_id', $id)
+        
+        // Lấy tham số lọc từ request
+        $minPrice = $request->input('min_price', 0);
+        $maxPrice = $request->input('max_price', 50000000);
+        
+        // Query sản phẩm với điều kiện lọc
+        $query = Product::where('category_id', $id)
             ->where('status', 'active')
             ->with([
                 'variants' => function ($query) {
@@ -170,9 +177,18 @@ class CustomerController extends Controller
                         ->orderBy('price', 'asc');
                 },
                 'ratings'
-            ])
-            ->orderBy('priority', 'desc')
-            ->paginate(15)
+            ]);
+        
+        // Thêm điều kiện lọc theo khoảng giá
+        if ($minPrice > 0 || $maxPrice < 50000000) {
+            $query->whereHas('variants', function($q) use ($minPrice, $maxPrice) {
+                $q->whereBetween('price', [$minPrice, $maxPrice]);
+            });
+        }
+        
+        // Lấy danh sách sản phẩm đã lọc
+        $products = $query->orderBy('priority', 'desc')
+            ->paginate(12)
             ->through(function ($product) {
                 $firstVariant = $product->variants->first();
 
@@ -216,9 +232,10 @@ class CustomerController extends Controller
 
                 return $product;
             });
-
+        
         return view('customer.categories', compact('category', 'products'));
     }
+
     public function filterByCategory(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
@@ -329,6 +346,10 @@ class CustomerController extends Controller
     public function product_detail($id)
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
+        if($product->status != 'active' || $product->category->status != 'active') {
+            return redirect()->route('customer.index')->with('error', 'Sản phẩm không tồn tại hoặc đã ngừng kinh doanh.');
+        }
+        $product->increment('view');
         $categoryId = $product->category_id;
         $products = Product::orderBy('priority', 'desc')->take(6)->get();
         $canRateProduct = false; // Rename variable for clarity
@@ -1332,8 +1353,13 @@ class CustomerController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-
-        $products = Product::where('name', 'LIKE', "%$query%")
+        
+        // Lấy tham số lọc từ request
+        $minPrice = $request->input('min_price', 0);
+        $maxPrice = $request->input('max_price', 50000000);
+        
+        // Query sản phẩm với điều kiện lọc
+        $productQuery = Product::where('name', 'LIKE', "%$query%")
             ->where('status', 'active')
             ->with([
                 'variants' => function ($query) {
@@ -1342,8 +1368,17 @@ class CustomerController extends Controller
                         ->orderBy('price', 'asc');
                 },
                 'ratings'
-            ])
-            ->orderBy('priority', 'desc')
+            ]);
+        
+        // Thêm điều kiện lọc theo khoảng giá
+        if ($minPrice > 0 || $maxPrice < 50000000) {
+            $productQuery->whereHas('variants', function($q) use ($minPrice, $maxPrice) {
+                $q->whereBetween('price', [$minPrice, $maxPrice]);
+            });
+        }
+        
+        // Lấy danh sách sản phẩm đã lọc
+        $products = $productQuery->orderBy('priority', 'desc')
             ->paginate(15)
             ->through(function ($product) {
                 $firstVariant = $product->variants->first();

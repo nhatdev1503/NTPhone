@@ -105,10 +105,6 @@
                         </h2>
                         <div class="space-y-3">
                             <div class="flex justify-between items-center">
-                                <span class="text-gray-400">Hình Thức:</span>
-                                <span class="text-white">{{ $order->payment_method }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
                                 <span class="text-gray-400">Trạng Thái:</span>
                                 <span class="px-3 py-1 rounded-full text-sm font-medium 
                                     @if($order->payment_status == 'pending') bg-yellow-500/10 text-yellow-400
@@ -117,6 +113,10 @@
                                     @endif">
                                     {{ $paymentStatus[$order->payment_status] }}
                                 </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-400">Hình Thức:</span>
+                                <span class="text-white">{{ $order->payment_method }}</span>
                             </div>
                         </div>
                     </div>

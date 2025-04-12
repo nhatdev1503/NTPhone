@@ -95,6 +95,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::put('/priority/{product}', [ProductController::class, 'priority'])->name('products.priority');
     Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
 
+    // Routes for deleting ratings and comments
+    Route::delete('/order-items/{orderItem}/delete-rating', [ProductController::class, 'deleteRating'])->name('admin.order-items.delete-rating');
+    Route::delete('/comments/{comment}', [ProductController::class, 'deleteComment'])->name('admin.comments.destroy');
+
     // //Router Danh muc Quyet //
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
@@ -300,6 +304,7 @@ Route::get('/api/get-product-images', [ProductController::class, 'getProductImag
 Route::get('/get-available-colors', [CustomerController::class, 'getAvailableColors']);
 Route::get('/api/get-price', [CustomerController::class, 'getPrice'])->name('customer.getPrice');
 Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class, 'getRevenue']);
+Route::get('/api/top-products', [App\Http\Controllers\Admin\StatisticsController::class, 'getTopProducts']);
 Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
 
 Route::post('/comments', [CommentController::class, 'store'])->name('customer.comments.store')->middleware('auth');
