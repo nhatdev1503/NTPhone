@@ -314,20 +314,69 @@
         align-items: center;
         gap: 5px;
         margin-top: 8px;
+        flex-wrap: nowrap;
     }
 
-    .stars {
+    .stars-container {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        white-space: nowrap;
+    }
+
+    .star {
         color: #ffd700;
+        font-size: 14px;
+        display: inline-block;
+        line-height: 1;
+    }
+
+    .half-star {
+        position: relative;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        line-height: 1;
+    }
+
+    .half-star::before,
+    .half-star::after {
+        content: '★';
+        position: absolute;
+        color: #ffd700;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .half-star::before {
+        clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    }
+
+    .half-star::after {
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+        color: #e0e0e0;
+    }
+
+    .rating-number {
+        color: #666;
+        font-size: 12px;
+        margin-left: 4px;
+        display: inline-block;
+        line-height: 1;
     }
 
     .total-ratings {
         color: #666;
         font-size: 12px;
+        display: inline-block;
+        line-height: 1;
     }
 
     .no-ratings {
         color: #999;
         font-size: 12px;
+        display: inline-block;
+        line-height: 1;
     }
 </style>
 <div class="bodywrap">
@@ -550,9 +599,7 @@
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    @if ($soldCount > 0)
-                                        <div class="product-sold">Đã bán: {{ $soldCount }}</div>
-                                    @endif
+                                    <div class="product-sold">Đã bán: {{ $soldCount }}</div>
 
                                     <!-- Thêm phần hiển thị màu sắc -->
                                     @if ($product->available_colors && $product->available_colors->count() > 0)
@@ -577,9 +624,27 @@
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @if ($product->total_ratings > 0)
-                                            <span class="stars">{{ $product->average_rating }} ⭐</span>
-                                            <span class="total-ratings">({{ $product->total_ratings }} đánh
-                                                giá)</span>
+                                            <div class="stars-container">
+                                                @php
+                                                    $rating = $product->average_rating;
+                                                    $fullStars = floor($rating);
+                                                    $hasHalfStar = $rating - $fullStars >= 0.5;
+                                                @endphp
+                                                
+                                                @for ($i = 0; $i < $fullStars; $i++)
+                                                    <span class="star">★</span>
+                                                @endfor
+                                                
+                                                @if ($hasHalfStar)
+                                                    <span class="half-star"></span>
+                                                @endif
+                                                
+                                                @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
+                                                    <span class="star" style="color: #e0e0e0;">★</span>
+                                                @endfor
+                                            </div>
+                                            <span class="rating-number">{{ number_format($rating, 1) }}</span>
+                                            <span class="total-ratings">({{ $product->total_ratings }} đánh giá)</span>
                                         @else
                                             <span class="no-ratings">Chưa có đánh giá</span>
                                         @endif
@@ -676,9 +741,27 @@
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @if ($product->total_ratings > 0)
-                                            <span class="stars">{{ $product->average_rating }} ⭐</span>
-                                            <span class="total-ratings">({{ $product->total_ratings }} đánh
-                                                giá)</span>
+                                            <div class="stars-container">
+                                                @php
+                                                    $rating = $product->average_rating;
+                                                    $fullStars = floor($rating);
+                                                    $hasHalfStar = $rating - $fullStars >= 0.5;
+                                                @endphp
+                                                
+                                                @for ($i = 0; $i < $fullStars; $i++)
+                                                    <span class="star">★</span>
+                                                @endfor
+                                                
+                                                @if ($hasHalfStar)
+                                                    <span class="half-star"></span>
+                                                @endif
+                                                
+                                                @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
+                                                    <span class="star" style="color: #e0e0e0;">★</span>
+                                                @endfor
+                                            </div>
+                                            <span class="rating-number">{{ number_format($rating, 1) }}</span>
+                                            <span class="total-ratings">({{ $product->total_ratings }} đánh giá)</span>
                                         @else
                                             <span class="no-ratings">Chưa có đánh giá</span>
                                         @endif

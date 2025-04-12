@@ -87,6 +87,13 @@
                             <div
                                 class="swiper-container gallery-top p-5 swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
                                 <div class="swiper-wrapper" id="lightgallery" style="transition-duration: 0ms;">
+                                    <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
+                                        <div class="p-100">
+                                            <img height="80" width="80"
+                                                src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                                                class="swiper-lazy">
+                                        </div>
+                                    </div>
                                     @foreach ($product->images as $image)
                                     <!-- Lặp qua các hình ảnh của sản phẩm -->
                                     <a class="swiper-slide product_videobox"
@@ -105,6 +112,13 @@
                             <div
                                 class="swiper-container gallery-thumbs p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
                                 <div class="swiper-wrapper" style="transition-duration: 0ms;">
+                                    <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
+                                        <div class="p-100">
+                                            <img height="80" width="80"
+                                                src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                                                class="swiper-lazy">
+                                        </div>
+                                    </div>
                                     @foreach ($product->images as $image)
                                     <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
                                         <div class="p-100">
@@ -1191,46 +1205,6 @@
                                     </div>
                                 </div>
                                 @endif
-
-                                <form action="{{ route('customer.ratings.store') }}" method="POST" class="rating-form">
-                                    @csrf
-                                    <@if ($selectedVariant)
-                                        <input type="hidden" name="product_variant_id" value="{{ $selectedVariant->id }}">
-                                        <input type="hidden" name="color" value="{{ $selectedVariant->color }}">
-                                        <input type="hidden" name="storage" value="{{ $selectedVariant->storage }}">
-                                        @else
-                                        <p class="text-danger">Vui lòng chọn màu và dung lượng để đánh giá.</p>
-                                        @endif
-
-
-                                        <div class="rating-input">
-                                            <label>Chọn đánh giá của bạn:</label>
-                                            <div class="star-rating">
-                                                <input type="radio" id="star5" name="rating" value="5" class="star-input" required />
-                                                <label for="star5" class="star-label" title="5 sao">★</label>
-
-                                                <input type="radio" id="star4" name="rating" value="4" class="star-input" required />
-                                                <label for="star4" class="star-label" title="4 sao">★</label>
-
-                                                <input type="radio" id="star3" name="rating" value="3" class="star-input" required />
-                                                <label for="star3" class="star-label" title="3 sao">★</label>
-
-                                                <input type="radio" id="star2" name="rating" value="2" class="star-input" required />
-                                                <label for="star2" class="star-label" title="2 sao">★</label>
-
-                                                <input type="radio" id="star1" name="rating" value="1" class="star-input" required />
-                                                <label for="star1" class="star-label" title="1 sao">★</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="review">Nội dung đánh giá:</label>
-                                            <textarea name="review" id="review" rows="4" class="form-control" required
-                                                placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."></textarea>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                                </form>
                             </div>
                             @else
                             <div class="review-notice">
