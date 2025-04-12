@@ -30,7 +30,12 @@ class CustomerController extends Controller
     public function index()
     {
         $banner = \App\Models\Banner::where('status', 'active')->first();
-        $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
+        $categories = \App\Models\Category::with(['products'])
+                        ->withSum('products as total_sold', 'sold') // <- Tính tổng sold cho products
+                        ->where('status', 'active')
+                        ->orderByDesc('total_sold') // <- Sắp theo tổng sold giảm dần
+                        ->take(10)
+                        ->get();
         $latestNews = News::latest('published_at')->take(5)->get();
 
         // Lấy sản phẩm nổi bật với đầy đủ thông tin
@@ -170,6 +175,9 @@ class CustomerController extends Controller
         // Query sản phẩm với điều kiện lọc
         $query = Product::where('category_id', $id)
             ->where('status', 'active')
+            ->whereHas('category', function ($q) {
+                $q->where('status', 'active'); 
+            })
             ->with([
                 'variants' => function ($query) {
                     $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
@@ -232,7 +240,9 @@ class CustomerController extends Controller
 
                 return $product;
             });
-        
+        if($products->isEmpty()) {
+            return redirect()->route('customer.index')->with('error', 'Không có sản phẩm nào trong danh mục này.');
+        }
         return view('customer.categories', compact('category', 'products'));
     }
 
