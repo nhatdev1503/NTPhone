@@ -385,68 +385,17 @@
     <section class="section_slider">
         <div class="home-slider swiper-container">
             <div class="swiper-wrapper">
-                <a href="https://www.hoangkien.com/chinh-sach-bao-hanh-12-thang-1-doi-1" title="Slider"
+                <a href="{{ route('customer.product_detail',$banner->product_url) }}" title="{{ $banner->name }}"
                     class="swiper-slide">
                     <picture>
-                        <source media="(min-width: 1200px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_1.jpg?1742954225872">
-                        <source media="(min-width: 992px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_1.jpg?1742954225872">
-                        <source media="(min-width: 569px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_1.jpg?1742954225872">
-                        <source media="(max-width: 567px)"
-                            srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/slider_mb_1.jpg?1742954225872">
                         <img width="1920" height="650"
-                            src="//bizweb.dktcdn.net/thumb/grande/100/112/815/themes/966034/assets/slider_1.jpg?1742954225872"
-                            alt="Slider" class="img-responsive" />
-                    </picture>
-                </a>
-                <a href="https://www.hoangkien.com/cam-ket-chat-luong" title="Slider" class="swiper-slide">
-                    <picture>
-                        <source media="(min-width: 1200px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_2.jpg?1742954225872">
-                        <source media="(min-width: 992px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_2.jpg?1742954225872">
-                        <source media="(min-width: 569px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_2.jpg?1742954225872">
-                        <source media="(max-width: 567px)"
-                            srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/slider_mb_2.jpg?1742954225872">
-                        <img width="1920" height="650"
-                            src="//bizweb.dktcdn.net/thumb/grande/100/112/815/themes/966034/assets/slider_2.jpg?1742954225872"
-                            alt="Slider" class="img-responsive" />
-                    </picture>
-                </a>
-                <a href="https://www.hoangkien.com/chinh-sach-mua-lai" title="Slider" class="swiper-slide">
-                    <picture>
-                        <source media="(min-width: 1200px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_3.jpg?1742954225872">
-                        <source media="(min-width: 992px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_3.jpg?1742954225872">
-                        <source media="(min-width: 569px)"
-                            srcset="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_3.jpg?1742954225872">
-                        <source media="(max-width: 567px)"
-                            srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/slider_mb_3.jpg?1742954225872">
-                        <img width="1920" height="650"
-                            src="//bizweb.dktcdn.net/thumb/grande/100/112/815/themes/966034/assets/slider_3.jpg?1742954225872"
+                            src="{{ asset('storage/' . $banner->image) }}"
                             alt="Slider" class="img-responsive" />
                     </picture>
                 </a>
             </div>
         </div>
     </section>
-    <script>
-        var swiper = new Swiper('.home-slider', {
-            autoplay: false,
-            pagination: {
-                el: '.home-slider .swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.home-slider .swiper-button-next',
-                prevEl: '.home-slider .swiper-button-prev',
-            },
-        });
-    </script>
     <section class="section_danhmuc2">
         <div class="container">
             <div class="block-background">
@@ -623,12 +572,17 @@
 
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
-                                        @if ($product->total_ratings > 0)
+                                        @php
+                                            $orderItems = $product->orderItems()->whereNotNull('rating')->get();
+                                            $totalRatings = $orderItems->count();
+                                            $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
+                                        @endphp
+                                        
+                                        @if ($totalRatings > 0)
                                             <div class="stars-container">
                                                 @php
-                                                    $rating = $product->average_rating;
-                                                    $fullStars = floor($rating);
-                                                    $hasHalfStar = $rating - $fullStars >= 0.5;
+                                                    $fullStars = floor($averageRating);
+                                                    $hasHalfStar = $averageRating - $fullStars >= 0.5;
                                                 @endphp
                                                 
                                                 @for ($i = 0; $i < $fullStars; $i++)
@@ -643,8 +597,8 @@
                                                     <span class="star" style="color: #e0e0e0;">★</span>
                                                 @endfor
                                             </div>
-                                            <span class="rating-number">{{ number_format($rating, 1) }}</span>
-                                            <span class="total-ratings">({{ $product->total_ratings }} đánh giá)</span>
+                                            <span class="rating-number">{{ number_format($averageRating, 1) }}</span>
+                                            <span class="total-ratings">({{ $totalRatings }} đánh giá)</span>
                                         @else
                                             <span class="no-ratings">Chưa có đánh giá</span>
                                         @endif
@@ -740,12 +694,17 @@
 
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
-                                        @if ($product->total_ratings > 0)
+                                        @php
+                                            $orderItems = $product->orderItems()->whereNotNull('rating')->get();
+                                            $totalRatings = $orderItems->count();
+                                            $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
+                                        @endphp
+                                        
+                                        @if ($totalRatings > 0)
                                             <div class="stars-container">
                                                 @php
-                                                    $rating = $product->average_rating;
-                                                    $fullStars = floor($rating);
-                                                    $hasHalfStar = $rating - $fullStars >= 0.5;
+                                                    $fullStars = floor($averageRating);
+                                                    $hasHalfStar = $averageRating - $fullStars >= 0.5;
                                                 @endphp
                                                 
                                                 @for ($i = 0; $i < $fullStars; $i++)
@@ -760,8 +719,8 @@
                                                     <span class="star" style="color: #e0e0e0;">★</span>
                                                 @endfor
                                             </div>
-                                            <span class="rating-number">{{ number_format($rating, 1) }}</span>
-                                            <span class="total-ratings">({{ $product->total_ratings }} đánh giá)</span>
+                                            <span class="rating-number">{{ number_format($averageRating, 1) }}</span>
+                                            <span class="total-ratings">({{ $totalRatings }} đánh giá)</span>
                                         @else
                                             <span class="no-ratings">Chưa có đánh giá</span>
                                         @endif

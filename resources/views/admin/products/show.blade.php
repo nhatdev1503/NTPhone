@@ -125,7 +125,7 @@
                                     <i class="bi bi-star text-yellow-400"></i>
                                     <span class="text-sm">Đánh giá</span>
                                 </div>
-                                <p class="text-xl font-semibold text-white mt-1">{{ number_format($product->ratings->count()) }}</p>
+                                <p class="text-xl font-semibold text-white mt-1">{{ number_format($product->orderItems()->whereNotNull('rating')->count()) }}</p>
                             </div>
                             <div class="bg-gray-600/50 rounded-lg p-3">
                                 <div class="flex items-center gap-2 text-gray-300">
@@ -195,14 +195,30 @@
                         <div class="bg-gray-700/50 rounded-xl p-4 text-center">
                             <p class="text-sm text-gray-400">Đánh giá trung bình</p>
                             <div class="flex items-center justify-center gap-1 mt-2">
-                                <p class="text-2xl font-bold text-white">{{ number_format($product->ratings->avg('rating'), 1) }}</p>
+                                @php
+                                    $orderItems = $product->orderItems()->whereNotNull('rating')->get();
+                                    $totalRatings = $orderItems->count();
+                                    $avgRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
+                                @endphp
+                                <p class="text-2xl font-bold text-white">{{ number_format($avgRating, 1) }}</p>
                                 <div class="flex text-yellow-400">
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        <i class="bi bi-star{{ $i <= round($product->ratings->avg('rating')) ? '-fill' : '' }}"></i>
+                                    @php
+                                        $fullStars = floor($avgRating);
+                                        $halfStar = $avgRating - $fullStars >= 0.5;
+                                        $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                                    @endphp
+                                    @for ($i = 0; $i < $fullStars; $i++)
+                                        <i class="bi bi-star-fill"></i>
+                                    @endfor
+                                    @if ($halfStar)
+                                        <i class="bi bi-star-half"></i>
+                                    @endif
+                                    @for ($i = 0; $i < $emptyStars; $i++)
+                                        <i class="bi bi-star"></i>
                                     @endfor
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-400 mt-1">{{ $product->ratings->count() }} đánh giá</p>
+                            <p class="text-sm text-gray-400 mt-1">{{ $totalRatings }} đánh giá</p>
                         </div>
                         <div class="bg-gray-700/50 rounded-xl p-4 text-center">
                             <p class="text-sm text-gray-400">Tổng bình luận</p>
@@ -211,14 +227,22 @@
                         <div class="bg-gray-700/50 rounded-xl p-4 text-center">
                             <p class="text-sm text-gray-400">Tỷ lệ hài lòng</p>
                             <p class="text-2xl font-bold text-white mt-2">
-                                {{ $product->ratings->count() > 0 ? round(($product->ratings->where('rating', '>=', 4)->count() / $product->ratings->count()) * 100) : 0 }}%
+                                @php
+                                    $satisfiedRatings = $orderItems->where('rating', '>=', 4)->count();
+                                    $satisfactionRate = $totalRatings > 0 ? round(($satisfiedRatings / $totalRatings) * 100) : 0;
+                                @endphp
+                                {{ $satisfactionRate }}%
+                                <span class="text-sm text-gray-400">({{ $satisfiedRatings }}/{{ $totalRatings }} đánh giá)</span>
                             </p>
                         </div>
                     </div>
 
                     <!-- Danh sách đánh giá -->
                     <div class="space-y-6">
-                        @forelse ($product->ratings as $rating)
+                        @php
+                            $orderItemsWithRating = $product->orderItems()->whereNotNull('rating')->with('order.user')->get();
+                        @endphp
+                        @forelse ($orderItemsWithRating as $item)
                             <div class="bg-gray-700/50 rounded-xl p-4">
                                 <div class="flex items-center justify-between mb-3">
                                     <div class="flex items-center gap-3">
@@ -226,26 +250,26 @@
                                             <i class="bi bi-person text-xl text-gray-300"></i>
                                         </div>
                                         <div>
-                                            <p class="text-white font-medium">{{ $rating->user->fullname }}</p>
-                                            <p class="text-sm text-gray-400">{{ $rating->created_at->format('d/m/Y H:i') }}</p>
+                                            <p class="text-white font-medium">{{ $item->order->user->fullname ?? 'Người dùng không xác định' }}</p>
+                                            <p class="text-sm text-gray-400">{{ $item->updated_at->format('d/m/Y H:i') }}</p>
                                         </div>
                                     </div>
                                     <div class="flex text-yellow-400">
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <i class="bi bi-star{{ $i <= $rating->rating ? '-fill' : '' }}"></i>
+                                            <i class="bi bi-star{{ $i <= $item->rating ? '-fill' : '' }}"></i>
                                         @endfor
                                     </div>
                                 </div>
-                                @if ($rating->review)
-                                    <p class="text-gray-300">{{ $rating->review }}</p>
+                                @if ($item->review)
+                                    <p class="text-gray-300">{{ $item->review }}</p>
                                 @endif
-                                @if ($rating->color || $rating->storage)
+                                @if ($item->productVariant)
                                     <div class="mt-2 flex gap-2">
-                                        @if ($rating->color)
-                                            <span class="px-2 py-1 bg-gray-600 rounded text-sm text-gray-300">{{ $rating->color }}</span>
+                                        @if ($item->productVariant->color)
+                                            <span class="px-2 py-1 bg-gray-600 rounded text-sm text-gray-300">{{ $item->productVariant->color }}</span>
                                         @endif
-                                        @if ($rating->storage)
-                                            <span class="px-2 py-1 bg-gray-600 rounded text-sm text-gray-300">{{ $rating->storage }}</span>
+                                        @if ($item->productVariant->storage)
+                                            <span class="px-2 py-1 bg-gray-600 rounded text-sm text-gray-300">{{ $item->productVariant->storage }}</span>
                                         @endif
                                     </div>
                                 @endif

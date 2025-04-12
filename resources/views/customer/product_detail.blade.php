@@ -1096,13 +1096,18 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-3 text-center">
                                         <div class="rating-score">
-                                            <div class="score">{{ number_format($ratings->avg('rating'), 1) }}</div>
+                                            @php
+                                                $orderItems = $product->orderItems()->whereNotNull('rating')->get();
+                                                $totalRatings = $orderItems->count();
+                                                $avgRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
+                                            @endphp
+                                            <div class="score">{{ number_format($avgRating, 1) }}</div>
                                             <div class="stars">
                                                 @for($i = 1; $i <= 5; $i++)
-                                                    <i class="fas fa-star" style="color: {{ $i <= round($ratings->avg('rating')) ? '#ffc107' : '#ddd' }};"></i>
-                                                    @endfor
+                                                    <i class="fas fa-star" style="color: {{ $i <= round($avgRating) ? '#ffc107' : '#ddd' }};"></i>
+                                                @endfor
                                             </div>
-                                            <div class="total-ratings">{{ $ratings->count() }} đánh giá</div>
+                                            <div class="total-ratings">{{ $totalRatings }} đánh giá</div>
                                         </div>
                                     </div>
                                     <div class="col-md-9">
@@ -1110,8 +1115,8 @@
                                         <div class="rating-bars">
                                             @for($i = 5; $i >= 1; $i--)
                                             @php
-                                            $count = $ratings->where('rating', $i)->count();
-                                            $percentage = $ratings->count() > 0 ? ($count / $ratings->count()) * 100 : 0;
+                                            $count = $orderItems->where('rating', $i)->count();
+                                            $percentage = $totalRatings > 0 ? ($count / $totalRatings) * 100 : 0;
                                             @endphp
                                             <div class="rating-bar-item">
                                                 <div class="bar-label">{{ $i }} <span class="star">★</span></div>
@@ -1127,8 +1132,11 @@
                             </div>
 
                             <div class="reviews-list">
-                                @if(isset($ratings) && !$ratings->isEmpty())
-                                @foreach($ratings as $rating)
+                                @php
+                                    $orderItemsWithRating = $product->orderItems()->whereNotNull('rating')->with('order.user', 'productVariant')->get();
+                                @endphp
+                                @if($orderItemsWithRating->isNotEmpty())
+                                @foreach($orderItemsWithRating as $item)
                                 <div class="review-item">
                                     <div class="review-header">
                                         <div class="reviewer-info">
@@ -1136,24 +1144,23 @@
                                                 <i class="fas fa-user-circle"></i>
                                             </div>
                                             <div class="reviewer-details">
-                                                <div class="reviewer-name">{{ $rating->user->fullname ?? 'Khách' }}</div>
-                                                <div class="review-date">{{ $rating->created_at->format('d/m/Y H:i') }}</div>
+                                                <div class="reviewer-name">{{ $item->order->user->fullname ?? 'Khách' }}</div>
+                                                <div class="review-date">{{ $item->updated_at->format('d/m/Y H:i') }}</div>
                                             </div>
                                         </div>
                                         <div class="variant-info mt-2">
-        <i class="fas fa-palette"></i> Màu: <strong>{{ $rating->color }}</strong>,
-        <i class="fas fa-hdd"></i> Dung lượng: <strong>{{ $rating->storage }}</strong>
-    </div>
+                                            @if($item->productVariant)
+                                                <i class="fas fa-palette"></i> Màu: <strong>{{ $item->productVariant->color }}</strong>,
+                                                <i class="fas fa-hdd"></i> Dung lượng: <strong>{{ $item->productVariant->storage }}</strong>
+                                            @endif
+                                        </div>
                                         <div class="review-rating">
                                             @for($i = 1; $i <= 5; $i++)
-                                                <span class="star" style="color: {{ $i <= $rating->rating ? '#ffc107' : '#ddd' }};">★</span>
-                                                @endfor
+                                                <span class="star" style="color: {{ $i <= $item->rating ? '#ffc107' : '#ddd' }};">★</span>
+                                            @endfor
                                         </div>
-                                    
                                     </div>
-                               
-
-                                    <div class="review-content">{{ $rating->review }}</div>
+                                    <div class="review-content">{{ $item->review }}</div>
                                 </div>
                                 @endforeach
                                 @else

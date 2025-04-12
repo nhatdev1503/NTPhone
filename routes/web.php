@@ -258,11 +258,16 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::post('/cart/update-quantity/{cartId}', [CustomerController::class, 'updateCartQuantity'])->name('cart.updateQuantity');
 
     // Order routes
-    Route::get('/order/history', [CustomerController::class, 'history'])->name('order.history');
     Route::get('/order/{id}', [CustomerController::class, 'orderDetail'])->name('order_detail');
     Route::post('/order/{id}/cancel', [CustomerController::class, 'cancelOrder'])->name('order.cancel');
     Route::post('/order/{id}/confirm', [CustomerController::class, 'confirmOrder'])->name('order.confirm');
     Route::post('/customer/review', [CustomerOrderController::class, 'submitReview'])->name('customer.submitReview');
+
+    Route::get('/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
+    Route::put('/profile', [CustomerProfileController::class, 'updateProfile'])->name('customer.profile.update');
+    Route::get('/change-password', [CustomerController::class, 'changePassword'])->name('customer.change_password');
+    Route::put('/change-password', [CustomerController::class, 'updatePassword'])->name('customer.change_password.update');
+    Route::get('/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
 });
 
 //Route trang khách vãng lai
@@ -277,11 +282,6 @@ Route::prefix('guest')->group(function () {
     // Bao contactcontact
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
 });
-
-// Route::prefix('customer')->group(function () {
-//     // Lịch sử mua hàng
-//     Route::get('/order-history', [CustomerOrderController::class, 'history'])->name('customer.order.history');
-// });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/order-detail/{id}', [CustomerOrderController::class, 'show'])->name('customer.order_detail');
@@ -303,12 +303,3 @@ Route::get('/api/revenue', [App\Http\Controllers\Admin\RevenueController::class,
 Route::get('/api/check-stock', [App\Http\Controllers\Customer\ProductController::class, 'checkStock']);
 
 Route::post('/comments', [CommentController::class, 'store'])->name('customer.comments.store')->middleware('auth');
-
-// Customer Profile Routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/customer/profile', [CustomerProfileController::class, 'index'])->name('customer.profile');
-    Route::put('/customer/profile', [CustomerProfileController::class, 'updateProfile'])->name('customer.profile.update');
-    Route::get('/customer/change-password', [CustomerController::class, 'changePassword'])->name('customer.change_password');
-    Route::put('/customer/change-password', [CustomerController::class, 'updatePassword'])->name('customer.change_password.update');
-    Route::get('/customer/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
-});

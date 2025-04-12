@@ -29,7 +29,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $banner = \App\Models\Banner::where('status', 'active')->get();
+        $banner = \App\Models\Banner::where('status', 'active')->first();
         $categories = \App\Models\Category::with('products')->where('status', 'active')->take(6)->get();
         $latestNews = News::latest('published_at')->take(5)->get();
 
@@ -1492,12 +1492,19 @@ class CustomerController extends Controller
             ->with('success', 'Mật khẩu đã được thay đổi thành công.');
     }
 
-    public function orderHistory()
+    public function orderHistory(Request $request)
     {
-        $orders = Order::where('user_id', auth()->id())
-            ->with(['orderItems.productVariant.product.images'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $query = Order::where('user_id', auth()->id());
+
+        // Lọc theo trạng thái đơn hàng
+        if ($request->has('status') && $request->status != 'all') {
+            $query->where('status', $request->status);
+        }
+        if ($request->has('from_date') && $request->has('to_date')) {
+            $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
+        }
+
+        $orders = $query->orderBy('created_at', 'desc')->paginate(5);
 
         return view('customer.history', compact('orders'));
     }

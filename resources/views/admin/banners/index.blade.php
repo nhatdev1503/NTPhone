@@ -35,7 +35,7 @@
                                 <div class="flex items-center gap-2 text-sm text-gray-300">
                                     <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-xs">Đang hiển thị</span>
                                     <span>•</span>
-                                    <a href="{{ $banner->product_url }}" class="text-blue-400 hover:text-blue-300">
+                                    <a href="{{ route('products.show',$banner->product_url)}}" class="text-blue-400 hover:text-blue-300">
                                         {{ $banner->product_name }}
                                     </a>
                                 </div>
@@ -76,7 +76,7 @@
                                 <div class="flex items-center gap-2 text-sm text-gray-300">
                                     <span class="bg-red-500/20 text-red-400 px-2 py-1 rounded-full text-xs">Không hiển thị</span>
                                     <span>•</span>
-                                    <a href="{{ $banner->product_url }}" class="text-blue-400 hover:text-blue-300">
+                                    <a href="{{ route('products.show',$banner->product_url)}}" class="text-blue-400 hover:text-blue-300">
                                         {{ $banner->product_name }}
                                     </a>
                                 </div>

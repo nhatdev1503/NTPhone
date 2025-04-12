@@ -79,7 +79,7 @@
         </div>
 
         <!-- Danh Sách Chi Tiết -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
                 <h2 class="text-xl font-semibold mb-4 text-green-400">Sản Phẩm Bán Chạy Nhất</h2>
                 <ul id="top-selling-products" class="space-y-2">
@@ -180,6 +180,14 @@
                         borderWidth: 1,
                         padding: 10,
                         callbacks: {
+                            title: function(context) {
+                                const date = new Date(context[0].label);
+                                return date.toLocaleDateString('vi-VN', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                });
+                            },
                             label: function(context) {
                                 return `Doanh Thu: ${new Intl.NumberFormat('vi-VN').format(context.raw)}đ`;
                             }
@@ -188,22 +196,9 @@
                 },
                 scales: {
                     x: {
-                        title: {
-                            display: true,
-                            text: 'Thời Gian',
-                            color: '#ffffff',
-                            font: {
-                                size: 14
-                            }
-                        },
-                        ticks: {
-                            color: '#ffffff',
-                            font: {
-                                size: 12
-                            }
-                        },
+                        display: false,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            display: false
                         }
                     },
                     y: {
@@ -251,11 +246,16 @@
             container.innerHTML = products.map((product, index) => `
                 <li class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded-lg transition-colors">
                     <span class="text-lg font-bold text-blue-400">${index + 1}</span>
-                    <img src="${product.image}" alt="${product.name}" class="w-12 h-12 object-cover rounded">
-                    <div class="flex-1">
-                        <p class="text-sm font-medium">${product.name}</p>
-                        <p class="text-xs text-gray-400">Đã bán: ${product.quantity}</p>
-                    </div>
+                    <a href="/admin/products/${product.id}" class="flex items-center gap-3 flex-1">
+                        <img src="${product.image ? '/' + product.image : '/images/default-product.jpg'}" 
+                             alt="${product.name}" 
+                             class="w-12 h-12 object-cover rounded"
+                             onerror="this.src='/images/default-product.jpg'">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">${product.name}</p>
+                            <p class="text-xs text-gray-400">Đã bán: ${product.sold}</p>
+                        </div>
+                    </a>
                 </li>
             `).join('');
         }
@@ -265,11 +265,16 @@
             container.innerHTML = products.map((product, index) => `
                 <li class="flex items-center gap-3 p-2 hover:bg-gray-700 rounded-lg transition-colors">
                     <span class="text-lg font-bold text-yellow-400">${index + 1}</span>
-                    <img src="${product.image}" alt="${product.name}" class="w-12 h-12 object-cover rounded">
-                    <div class="flex-1">
-                        <p class="text-sm font-medium">${product.name}</p>
-                        <p class="text-xs text-gray-400">Lượt xem: ${product.views}</p>
-                    </div>
+                    <a href="/admin/products/${product.id}" class="flex items-center gap-3 flex-1">
+                        <img src="${product.image ? '/' + product.image : '/images/default-product.jpg'}" 
+                             alt="${product.name}" 
+                             class="w-12 h-12 object-cover rounded"
+                             onerror="this.src='/images/default-product.jpg'">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">${product.name}</p>
+                            <p class="text-xs text-gray-400">Lượt xem: ${product.view}</p>
+                        </div>
+                    </a>
                 </li>
             `).join('');
         }

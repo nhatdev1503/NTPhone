@@ -137,7 +137,7 @@ class BannerController extends Controller
     foreach ($products as $product) {
         $results[] = [
             'name' => $product->name,
-            'url' => "/product_detail/{$product->id}",
+            'url' => $product->id,
             'image' => asset($product->image)
         ];
     }

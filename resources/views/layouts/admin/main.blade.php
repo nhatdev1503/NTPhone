@@ -187,7 +187,6 @@
         .content-wrapper {
             margin-top: var(--header-height);
             padding: 2rem;
-            background: white;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
