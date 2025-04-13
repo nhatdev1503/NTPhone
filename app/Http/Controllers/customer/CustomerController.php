@@ -31,17 +31,17 @@ class CustomerController extends Controller
     {
         $banner = \App\Models\Banner::where('status', 'active')->first();
         $categories = \App\Models\Category::with(['products'])
-                        ->withSum('products as total_sold', 'sold') // <- Tính tổng sold cho products
-                        ->where('status', 'active')
-                        ->orderByDesc('total_sold') // <- Sắp theo tổng sold giảm dần
-                        ->take(10)
-                        ->get();
+            ->withSum('products as total_sold', 'sold') // <- Tính tổng sold cho products
+            ->where('status', 'active')
+            ->orderByDesc('total_sold') // <- Sắp theo tổng sold giảm dần
+            ->take(10)
+            ->get();
         $latestNews = News::latest('published_at')->take(5)->get();
 
         // Lấy sản phẩm nổi bật với đầy đủ thông tin
         $featuredProducts = Product::where('status', 'active')
             ->whereHas('category', function ($q) {
-                $q->where('status', 'active'); 
+                $q->where('status', 'active');
             })
             ->with(['variants' => function ($query) {
                 $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
@@ -103,7 +103,7 @@ class CustomerController extends Controller
         // Lấy sản phẩm mới nhất với đầy đủ thông tin
         $bestSellingProducts = Product::where('status', 'active')
             ->whereHas('category', function ($q) {
-                $q->where('status', 'active'); 
+                $q->where('status', 'active');
             })
             ->with(['variants' => function ($query) {
                 $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
@@ -167,16 +167,16 @@ class CustomerController extends Controller
     public function categories(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
-        
+
         // Lấy tham số lọc từ request
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
-        
+
         // Query sản phẩm với điều kiện lọc
         $query = Product::where('category_id', $id)
             ->where('status', 'active')
             ->whereHas('category', function ($q) {
-                $q->where('status', 'active'); 
+                $q->where('status', 'active');
             })
             ->with([
                 'variants' => function ($query) {
@@ -186,14 +186,14 @@ class CustomerController extends Controller
                 },
                 'ratings'
             ]);
-        
+
         // Thêm điều kiện lọc theo khoảng giá
         if ($minPrice > 0 || $maxPrice < 50000000) {
-            $query->whereHas('variants', function($q) use ($minPrice, $maxPrice) {
+            $query->whereHas('variants', function ($q) use ($minPrice, $maxPrice) {
                 $q->whereBetween('price', [$minPrice, $maxPrice]);
             });
         }
-        
+
         // Lấy danh sách sản phẩm đã lọc
         $products = $query->orderBy('priority', 'desc')
             ->paginate(12)
@@ -240,7 +240,7 @@ class CustomerController extends Controller
 
                 return $product;
             });
-        if($products->isEmpty()) {
+        if ($products->isEmpty()) {
             return redirect()->route('customer.index')->with('error', 'Không có sản phẩm nào trong danh mục này.');
         }
         return view('customer.categories', compact('category', 'products'));
@@ -353,24 +353,107 @@ class CustomerController extends Controller
         return view('customer.contact');
     }
 
+    // public function product_detail($id)
+    // {
+    //     $product = Product::with('variants', 'images')->findOrFail($id);
+    //     if($product->status != 'active' || $product->category->status != 'active') {
+    //         return redirect()->route('customer.index')->with('error', 'Sản phẩm không tồn tại hoặc đã ngừng kinh doanh.');
+    //     }
+    //     $product->increment('view');
+    //     $categoryId = $product->category_id;
+    //     $products = Product::orderBy('priority', 'desc')->take(6)->get();
+    //     $canRateProduct = false; // Rename variable for clarity
+    //     if (auth()->check()) {
+    //         // Update the check to include completed order status
+    //         $canRateProduct = DB::table('orders')
+    //             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+    //             ->join('product_variants', 'order_items.product_variant_id', '=', 'product_variants.id')
+    //             ->where('orders.user_id', auth()->id())
+    //             ->where('product_variants.product_id', $product->id)
+    //             ->where('orders.status', 'completed') // Add completed status check
+    //             ->exists();
+    //     }
+
+    //     $variantIds = $product->variants->pluck('id');
+
+    //     $ratings = Rating::whereIn('product_variant_id', $variantIds)
+    //         ->with('user:id,fullname')
+    //         ->select('user_id', 'review', 'rating', 'created_at', 'color', 'storage')
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
+
+
+    //     // Lấy danh sách bình luận
+    //     $comments = Comment::where('product_id', $product->id)
+    //         ->with('user:id,fullname') // Eager load user info
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
+
+    //     // Lấy danh sách biến thể
+    //     $variants = $product->variants ?? collect();
+
+    //     // Nhóm các biến thể theo màu sắc và giữ lại các thông tin bổ sung như giá
+    //     $colors = $variants->groupBy('color')->map(function ($group) {
+    //         return [
+    //             'color' => $group->first()->color,
+    //             'variants' => $group,  // Tất cả các biến thể với màu sắc này
+    //             'prices' => $group->pluck('price')->unique() // Lấy các giá khác nhau
+    //         ];
+    //     });
+
+    //     // Lấy các biến thể bộ nhớ (storage) duy nhất
+    //     $storages = $variants->unique('storage');
+
+    //     // Lấy sản phẩm liên quan cùng danh mục
+    //     $relatedProducts = Product::where('category_id', $product->category_id)
+    //         ->where('id', '!=', $id)
+    //         ->limit(6)
+    //         ->get();
+
+    //     $productImages = $product->images ?? collect();
+
+    //     //rate bien the
+    //     $selectedColor = request('color');
+    //     $selectedStorage = request('storage');
+    //     $selectedVariant = $product->variants()
+    //         ->where('color', $selectedColor)
+    //         ->where('storage', $selectedStorage)
+    //         ->first();
+
+    //     return view('customer.product_detail', compact(
+    //         'product',
+    //         'variants',
+    //         'products',
+    //         'colors',
+    //         'categoryId',
+    //         'storages',
+    //         'relatedProducts',
+    //         'productImages',
+    //         'ratings',
+    //         'canRateProduct',
+    //         'comments',
+    //         'selectedVariant'
+    //     ));
+    // }
+
+
     public function product_detail($id)
     {
         $product = Product::with('variants', 'images')->findOrFail($id);
-        if($product->status != 'active' || $product->category->status != 'active') {
+        if ($product->status != 'active' || $product->category->status != 'active') {
             return redirect()->route('customer.index')->with('error', 'Sản phẩm không tồn tại hoặc đã ngừng kinh doanh.');
         }
         $product->increment('view');
         $categoryId = $product->category_id;
-        $products = Product::orderBy('priority', 'desc')->take(6)->get();
-        $canRateProduct = false; // Rename variable for clarity
+
+        $canRateProduct = false;
         if (auth()->check()) {
-            // Update the check to include completed order status
             $canRateProduct = DB::table('orders')
                 ->join('order_items', 'orders.id', '=', 'order_items.order_id')
                 ->join('product_variants', 'order_items.product_variant_id', '=', 'product_variants.id')
                 ->where('orders.user_id', auth()->id())
                 ->where('product_variants.product_id', $product->id)
-                ->where('orders.status', 'completed') // Add completed status check
+                ->where('orders.status', 'completed')
                 ->exists();
         }
 
@@ -382,37 +465,131 @@ class CustomerController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-
-        // Lấy danh sách bình luận
         $comments = Comment::where('product_id', $product->id)
-            ->with('user:id,fullname') // Eager load user info
+            ->with('user:id,fullname')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // Lấy danh sách biến thể
         $variants = $product->variants ?? collect();
 
-        // Nhóm các biến thể theo màu sắc và giữ lại các thông tin bổ sung như giá
         $colors = $variants->groupBy('color')->map(function ($group) {
             return [
                 'color' => $group->first()->color,
-                'variants' => $group,  // Tất cả các biến thể với màu sắc này
-                'prices' => $group->pluck('price')->unique() // Lấy các giá khác nhau
+                'variants' => $group,
+                'prices' => $group->pluck('price')->unique()
             ];
         });
 
-        // Lấy các biến thể bộ nhớ (storage) duy nhất
         $storages = $variants->unique('storage');
 
-        // Lấy sản phẩm liên quan cùng danh mục
+        // Lấy sản phẩm liên quan
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $id)
+            ->where('status', 'active')
+            ->whereHas('category', function ($q) {
+                $q->where('status', 'active');
+            })
+            ->with([
+                'images',
+                'variants' => function ($query) {
+                    $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                        ->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                },
+                'ratings'
+            ])
             ->limit(6)
-            ->get();
+            ->get()
+            ->map(function ($product) {
+                $firstVariant = $product->variants->first();
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                $product->sold_count = $product->orderItems()->sum('quantity');
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function ($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
+                return $product;
+            });
+
+        // Lấy sản phẩm cho "Có thể bạn thích" (tương tự $relatedProducts, nhưng loại bỏ các sản phẩm đã xuất hiện)
+        $relatedProductIds = $relatedProducts->pluck('id')->toArray(); // Lấy danh sách ID của sản phẩm liên quan
+        $products = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $id)
+            ->whereNotIn('id', $relatedProductIds) // Loại bỏ các sản phẩm đã xuất hiện trong $relatedProducts
+            ->where('status', 'active')
+            ->whereHas('category', function ($q) {
+                $q->where('status', 'active');
+            })
+            ->with([
+                'images',
+                'variants' => function ($query) {
+                    $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage')
+                        ->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                },
+                'ratings'
+            ])
+            ->limit(6)
+            ->get()
+            ->map(function ($product) {
+                $firstVariant = $product->variants->first();
+                if ($firstVariant && $firstVariant->origin_price > 0 && $firstVariant->price < $firstVariant->origin_price) {
+                    $product->discount_percentage = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                    $product->origin_price = $firstVariant->origin_price;
+                } else {
+                    $product->discount_percentage = 0;
+                    $product->origin_price = $firstVariant ? $firstVariant->price : 0;
+                }
+                $product->sale_price = $firstVariant ? $firstVariant->price : 0;
+                $product->sold_count = $product->orderItems()->sum('quantity');
+                $product->available_colors = $product->variants
+                    ->unique('color')
+                    ->map(function ($variant) {
+                        return [
+                            'name' => $variant->color,
+                            'hex_code' => $variant->hax_code
+                        ];
+                    })->values();
+                $product->available_storages = $product->variants
+                    ->pluck('storage')
+                    ->unique()
+                    ->values();
+                $ratings = $product->ratings;
+                if ($ratings->isNotEmpty()) {
+                    $product->average_rating = round($ratings->avg('rating'), 1);
+                    $product->total_ratings = $ratings->count();
+                } else {
+                    $product->average_rating = 0;
+                    $product->total_ratings = 0;
+                }
+                return $product;
+            });
 
         $productImages = $product->images ?? collect();
 
-        //rate bien the
         $selectedColor = request('color');
         $selectedStorage = request('storage');
         $selectedVariant = $product->variants()
@@ -435,7 +612,6 @@ class CustomerController extends Controller
             'selectedVariant'
         ));
     }
-
     public function getPrice(Request $request)
     {
         $productId = $request->query('product_id');
@@ -541,7 +717,6 @@ class CustomerController extends Controller
             'color' => 'required|string',
             'storage' => 'required|string',
             'quantity' => 'required|integer|min:1|max:5',
-            // 'action_type' is no longer needed here if we handle via specific routes/AJAX
         ]);
 
         $product_variant = ProductVariant::where('product_id', $data['product_id'])
@@ -550,41 +725,32 @@ class CustomerController extends Controller
             ->first();
 
         if (!$product_variant || $product_variant->status !== 'active') {
-            // Return JSON error instead of redirect
             return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
         }
 
         $user = Auth::user();
 
-        // Find existing item in cart
         $cartItem = Cart::where('user_id', $user->id)
             ->where('product_variant_id', $product_variant->id)
             ->first();
 
-        // If item already exists, return specific JSON response
         if ($cartItem) {
-            return response()->json(['success' => false, 'exists' => true, 'message' => 'Sản phẩm này đã có trong giỏ hàng.']);
+            return response()->json(['success' => false, 'exists' => true, 'message' => 'Sản phẩm đã có trong giỏ hàng.']);
         }
 
-        // If item does not exist, proceed to create it
         $quantityToAdd = $data['quantity'];
 
-        // Check quantity against stock
+
         if ($product_variant->stock < $quantityToAdd) {
-            // Return JSON error instead of redirect
             return response()->json(['success' => false, 'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."], 400);
         }
 
-        // Create the new cart item
         try {
             $newCartItem = Cart::create([
                 'user_id' => $user->id,
                 'product_variant_id' => $product_variant->id,
                 'quantity' => $quantityToAdd,
             ]);
-            // Return JSON success response
-            // You might want to return the new cart count here as well
-            // $cartCount = Cart::where('user_id', $user->id)->count(); // Example
             return response()->json(['success' => true, 'new_item' => true, 'message' => 'Đã thêm sản phẩm vào giỏ hàng.']); // Add cartCount if needed
         } catch (\Exception $e) {
             Log::error("Error adding item to cart: " . $e->getMessage());
@@ -1363,11 +1529,11 @@ class CustomerController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        
+
         // Lấy tham số lọc từ request
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
-        
+
         // Query sản phẩm với điều kiện lọc
         $productQuery = Product::where('name', 'LIKE', "%$query%")
             ->where('status', 'active')
@@ -1379,14 +1545,14 @@ class CustomerController extends Controller
                 },
                 'ratings'
             ]);
-        
+
         // Thêm điều kiện lọc theo khoảng giá
         if ($minPrice > 0 || $maxPrice < 50000000) {
-            $productQuery->whereHas('variants', function($q) use ($minPrice, $maxPrice) {
+            $productQuery->whereHas('variants', function ($q) use ($minPrice, $maxPrice) {
                 $q->whereBetween('price', [$minPrice, $maxPrice]);
             });
         }
-        
+
         // Lấy danh sách sản phẩm đã lọc
         $products = $productQuery->orderBy('priority', 'desc')
             ->paginate(15)
