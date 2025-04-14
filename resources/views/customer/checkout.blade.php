@@ -58,9 +58,6 @@
                         <div class="form-group">
                             <label for="phone">Số điện thoại *</label>
                             <div class="phone-group">
-                                <div class="country-select">
-                                    <span>+84</span>
-                                </div>
                                 <input type="tel" class="form-control" id="phone" name="phone" value="{{ $user->phone }}" required>
                             </div>
                         </div>
