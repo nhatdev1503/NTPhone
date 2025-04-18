@@ -44,13 +44,14 @@
                                 </div>
 
                                 <div>
-                                    <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Mô tả sản phẩm</label>
-                                    <textarea id="description" name="description" rows="3"
-                                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description') }}</textarea>
-                                    @if ($errors->has('description'))
-                                        <p class="mt-1 text-sm text-red-400">{{ $errors->first('description') }}</p>
-                                    @endif
-                                </div>
+    <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Mô tả sản phẩm</label>
+    <textarea id="description" name="description" rows="3"
+        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description') }}</textarea>
+    @if ($errors->has('description'))
+        <p class="mt-1 text-sm text-red-400">{{ $errors->first('description') }}</p>
+    @endif
+</div>
+
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
@@ -404,5 +405,61 @@
             updateHiddenInputs();
         });
     });
+</script>
+{{-- TinyMCE CDN --}}
+<script src="https://cdn.tiny.cloud/1/rmmh49b4qpvs6yg7r9ov3mmjtz8ltfutkp4hxyfguni1fzfz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+tinymce.init({
+    selector: '#description', // <-- chỉ đổi chỗ này thôi
+    height: 500,
+    plugins: 'image link media table code lists advlist fullscreen',
+    toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright | forecolor backcolor | link image media table | numlist bullist | code fullscreen',
+    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+
+    setup: function(editor) {
+        editor.on('change', function() {
+            tinymce.activeEditor.save();
+        });
+    },
+
+    images_upload_url: "{{ route('news.upload_images') }}",
+
+    file_picker_types: 'image',
+    file_picker_callback: function(callback, value, meta) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.setAttribute('multiple', 'multiple');
+
+        input.onchange = function() {
+            var files = input.files;
+            if (files.length > 0) {
+                var formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('images[]', files[i]);
+                }
+                fetch("{{ route('news.upload_images') }}", { 
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    data.images.forEach(image => {
+                        callback(image.url, { alt: image.name });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error uploading images:', error);
+                });
+            }
+        };
+
+        input.click(); 
+    }
+});
 </script>
 @endsection
