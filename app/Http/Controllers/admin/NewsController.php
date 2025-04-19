@@ -117,4 +117,71 @@ $imagePath = ltrim(str_replace('/storage/', '', $parsedUrl), '/');
       
         return redirect()->route('news.index')->with('success', 'Đã Xóa thành công');
     }
+    // Hiển thị form Edit
+public function edit(News $news)
+{
+    return view('admin.news.edit', compact('news'));
+}
+
+// Cập nhật dữ liệu News
+public function update(Request $request, News $news)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required',
+        'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $news->title = $request->title;
+    $news->content = $request->content;
+    $news->is_active = $request->is_active;
+    
+    if ($request->hasFile('thumbnail')) {
+        $thumbPath = $request->file('thumbnail')->store('news_thumbnails', 'public');
+        $news->thumbnail_path = $thumbPath;
+    }
+
+    $news->save();
+
+    // Xử lý lưu các hình ảnh trong nội dung vào bảng NewsImage nếu cần
+    preg_match_all('/<img[^>]+src="([^">]+)"/', $news->content, $matches);
+
+    if (!empty($matches[1])) {
+        foreach ($matches[1] as $imageUrl) {
+            if (Str::contains($imageUrl, 'storage/news_images/')) {
+                $parsedUrl = parse_url($imageUrl, PHP_URL_PATH);
+                $imagePath = ltrim(str_replace('/storage/', '', $parsedUrl), '/');
+
+                // Kiểm tra nếu ảnh chưa tồn tại mới tạo mới
+                if (!NewsImage::where('news_id', $news->id)->where('image_path', $imagePath)->exists()) {
+                    NewsImage::create([
+                        'news_id' => $news->id,
+                        'image_path' => $imagePath,
+                    ]);
+                }
+            }
+        }
+    }
+
+    // Cập nhật lại src tuyệt đối cho ảnh
+    $news->content = preg_replace_callback(
+        '/<img[^>]+src="([^">]+)"/',
+        function ($matches) {
+            $src = $matches[1];
+
+            if (!Str::startsWith($src, ['http://', 'https://'])) {
+                $src = str_replace(['../../', '../', './'], '', $src);
+                $src = asset($src);
+            }
+
+            return '<img src="' . $src . '"';
+        },
+        $news->content
+    );
+
+    $news->save();
+
+    return redirect()->route('news.index')->with('success', 'Cập nhật thành công');
+}
+
 }
