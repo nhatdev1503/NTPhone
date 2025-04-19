@@ -24,15 +24,10 @@
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1742954225872"></a>
                             </li>
-                            <li><a href="https://web.facebook.com/?_rdc=1&_rdr#" title="Facebook"><img width="32"
+                            <li><a href="https://www.facebook.com/nhatnobi1503/" title="Facebook"><img width="32"
                                         height="32" title="Facebook" class="lazyload"
                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
                                         data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1742954225872"></a>
-                            </li>
-                            <li><a href="https://www.youtube.com/@onepiceman.fan.3278" title="Youtube"><img width="32"
-                                        height="32" title="Youtube" class="lazyload"
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
-                                        data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1742954225872"></a>
                             </li>
                             
                         </ul>
@@ -54,13 +49,6 @@
                     </h4>
                     <ul class="list-menu hidden-mobile">
 
-                        <li><a href="/chinh-sach-doi-tra-len-doi" title="Chính sách đổi trả, lên đời">Chính sách đổi
-                                trả, lên đời</a></li>
-
-                        <li><a href="/chinh-sach-bao-hanh-12-thang-1-doi-1"
-                                title="Chính sách bảo hành 12 tháng 1 đổi 1">Chính sách bảo hành 12 tháng 1 đổi 1</a>
-                        </li>
-
                         <li><a href="/cam-ket-chat-luong" title="Cam kết chất lượng">Cam kết chất lượng</a></li>
 
                         <li><a href="/chinh-sach-bao-mat-thong-tin" title="Chính sách bảo mật">Chính sách bảo mật</a>
@@ -81,9 +69,6 @@
 
                         <li><a href="/phuong-thuc-thanh-toan" title="Phương thức thanh toán">Phương thức thanh
                                 toán</a></li>
-
-                        <li><a href="/phuong-thuc-van-chuyen" title="Phương thức vận chuyển">Phương thức vận
-                                chuyển</a></li>
 
                         <li><a href="/chinh-sach-tra-gop" title="Phương thức trả góp">Phương thức trả góp</a></li>
 

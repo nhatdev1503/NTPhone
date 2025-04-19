@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#000" />
@@ -9,7 +10,7 @@
     <meta name="robots" content="noodp,index,follow" />
     <meta name="description"
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
-    <title>Apple Store - NTShop iPhone, iPad and more..... </title>
+    <title>Shop NTPhone </title>
     <meta name="keywords" content="Cập nhật sau" />
     <meta property="og:type" content="website">
     <meta property="og:title" content="Apple Store - NTShop iPhone, iPad and more.....">
@@ -54,6 +55,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/breadcrumb_style.scss.css?1742954225872">
+    <link rel="stylesheet"
+        href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/ajaxcart.scss.css?1742954225872">
+    <link rel="stylesheet"
+        href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
+
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    {{-- 
     <script>
         var Bizweb = Bizweb || {};
         Bizweb.store = 'hoangkien.mysapo.net';
@@ -70,6 +82,7 @@
             return v.toString(16);
         });
     </script>
+
     <script>
         (function() {
             function asyncLoad() {
@@ -114,7 +127,8 @@
             window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad,
                 false);
         })();
-    </script>
+    </script> --}}
+
     <script>
         window.BizwebAnalytics = window.BizwebAnalytics || {};
         window.BizwebAnalytics.meta = window.BizwebAnalytics.meta || {};
@@ -188,6 +202,7 @@
         $(document).ready(function($) {
             awe_lazyloadImage();
         });
+
         function awe_lazyloadImage() {
             var ll = new LazyLoad({
                 elements_selector: ".lazyload",
@@ -198,6 +213,7 @@
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
 </head>
+
 <body>
     <div class="opacity_menu"></div>
     <div class="banner-top d-none d-md-block" style="background: #01000d">
@@ -215,13 +231,12 @@
     <header class="header header-scroll">
         <div class="container">
             <div class="header-top d-flex     align-items-center" style="    justify-content: space-between;">
-                <a href="/" class="logo" title="Logo">
+                <a href="{{ route('guest.index') }}" class="logo" title="Logo">
                     <picture>
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
                         <img width="414" height="85"
-                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}"
-                            alt="NTShop">
+                            src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}" alt="NTShop">
                     </picture>
                 </a>
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
@@ -239,53 +254,41 @@
                 <div class="menu-vertical  ">
                     <div class="list_menu_header">
                         <div class="ul nav vertical-nav ul_menu site-nav-vetical">
-							@foreach ($categoriess as $category )
-							<div class="nav_item nav-item lv1 li_check ">
-                                <a href="{{ route('customer.category',$category->id) }}" title="Điện thoại"
-                                    style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1742954225872')">{{ $category->name }}
-                                    <i class="fas fa-angle-right">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                            <path
-                                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                                        </svg>
-                                    </i>
-                                </a>
-                            </div>
-							@endforeach
-                            
+                            @foreach ($categoriess as $category)
+                                <div class="nav_item nav-item lv1 li_check ">
+                                    <a href="{{ route('guest.category', $category->id) }}" title="Điện thoại"
+                                        style="background-image: url('//bizweb.dktcdn.net/100/112/815/themes/966034/assets/icon_megamenu_1.png?1742954225872')">{{ $category->name }}
+                                        <i class="fas fa-angle-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                            </svg>
+                                        </i>
+                                    </a>
+                                </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
                 <div class="search-header">
                     <div class="search-smart">
-                        <form action="/search" method="get" class="header-search-form input-group search-bar"
-                            role="search">
-                            <input type="text" name="query" required
-                                class="input-group-field auto-search search-auto form-control"
-                                placeholder="Bạn cần tìm gì..." autocomplete="off">
-                            <input type="hidden" name="type" value="product">
-                            <button type="submit" class="btn icon-fallback-text" aria-label="Tìm kiếm"
-                                title="Tìm kiếm">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                    <path fill="#fff"
-                                        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
-                                    </path>
-                                </svg> </button>
-                            <div class="search-suggest">
-                                <ul class="smart-search-title">
-                                    <li data-tab="#tab-search-1" class="active"><a href="javascript:void(0)"
-                                            title="Sản phẩm">Sản phẩm</a></li>
-                                    <li data-tab="#tab-search-2"><a href="javascript:void(0)" title="Tin tức">Tin
-                                            tức</a></li>
-                                </ul>
-                                <div class="list-search-suggest">
-                                    <div class="list-search list-search-style active" id="tab-search-1">
-                                    </div>
-                                    <div class="list-search2 list-search-style" id="tab-search-2">
-                                    </div>
-                                </div>
+                        <form action="{{ route('guest.search') }}" method="POST"
+                            style="display: flex; justify-content: center; align-items: center;">
+                            <div class="search-container" style="display: flex; align-items: center; width: 100%;">
+                                @csrf
+                                <input type="text" name="query" placeholder="Bạn cần tìm gì..."
+                                    style="padding-left: 10px; width: 300px; height: 30px;">
+                                <button type="submit"
+                                    style="border: none; background-color: white; width: 30px; height: 30px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <path fill="#000"
+                                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                                        </path>
+                                    </svg>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -307,21 +310,6 @@
                 <div class="header-control d-none d-lg-flex">
                     <div class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-geo-alt" viewBox="0 0 16 16">
-                            <path
-                                d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                    </div>
-                    <div class="content">
-                        <a title="Hệ thống cửa hàng" href="/he-thong-cua-hang-hoang-kien" class="button-wishlist">
-                            Hệ thống<span>cửa hàng</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="header-control d-none d-lg-flex">
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-clipboard2-check" viewBox="0 0 16 16">
                             <path
                                 d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
@@ -332,8 +320,9 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a title="Tra cứu đơn hàng" href="/apps/kiem-tra-don-hang" class="button-wishlist">
-                            Tra cứu<span>đơn hàng</span>
+                        <a title="Tra cứu đơn hàng" href="{{ route('customer.order.history') }}"
+                            class="button-wishlist">
+                            Lịch sử<span>mua hàng</span>
                         </a>
                     </div>
                 </div>
@@ -348,9 +337,10 @@
                         </svg>
                     </div>
                     <div class="content">
-                        <a href="/cart" title="Giỏ hàng">
+                        <a href="{{ route('customer.cart') }}" title="Giỏ hàng">
                             Giỏ hàng<br>
-                            Sản phẩm <span class=" count_item_pr">3</span>
+                            Sản phẩm <span
+                                class="count_item_pr">{{ \App\Models\Cart::where('user_id', auth()->id())->count() }}</span>
                         </a>
                     </div>
                     <div class="top-cart-content">
@@ -376,7 +366,7 @@
                     </div>
                     <span>Thông tin</span>
                     <ul>
-                        <li class="li-account"><a rel="nofollow" href="/account/login" title="Đăng nhập">
+                        <li class="li-account"><a rel="nofollow" href="{{ route('auth.login') }}" title="Đăng nhập">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -388,7 +378,7 @@
                                 </svg>
                                 Đăng nhập</a>
                         </li>
-                        <li class="li-account"><a rel="nofollow" href="/account/register" title="Đăng ký">
+                        <li class="li-account"><a rel="nofollow" href="{{ route('auth.register') }}" title="Đăng ký">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                                     <path
@@ -413,4 +403,105 @@
                 </div>
             </div>
         </div>
-	</header>
+    </header>
+
+    {{-- Flash Message Display --}}
+    <div class="container" style="padding-top: 15px;">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ session('warning') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('info'))
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+    {{-- End Flash Message Display --}}
+
+    {{-- Assume main content (@yield or similar) follows here --}}
+
+</body>
+
+</html>
+
+<style>
+    .account-header {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .account-header .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        z-index: 1000;
+        padding: 8px 0;
+    }
+
+    .account-header:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        color: #2c3e50;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+        color: #e74c3c;
+    }
+
+    .dropdown-item i {
+        margin-right: 10px;
+        font-size: 1.1em;
+    }
+
+    .dropdown-item button {
+        width: 100%;
+        text-align: left;
+        color: #2c3e50;
+        text-decoration: none;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+
+    .dropdown-item button:hover {
+        color: #e74c3c;
+    }
+
+    .count_item_pr {
+        background: #e74c3c;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 500;
+    }
+</style>

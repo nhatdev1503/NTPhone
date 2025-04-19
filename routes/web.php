@@ -276,15 +276,37 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
 //Route trang khách vãng lai
 Route::prefix('guest')->group(function () {
-    //Tra cuu don hang
-    Route::get('/order-lookup', [OrderLookupController::class, 'lookup'])->name('guest.orders.lookup');
-    Route::get('/api/order-lookup/{order_code}', [OrderLookupController::class, 'apiLookup'])->name('guest.orders.apiLookup');
-    Route::get('/order-lookup/{order_code}', [OrderLookupController::class, 'show'])->name('guest.orders.show');
+    Route::get('/dashboard', [GuestController::class, 'index'])->name('guest.index');
+    Route::get('/payment', [GuestController::class, 'payment'])->name('guest.payment');
+    Route::post('/payment', [GuestController::class, 'postPayment'])->name('guest.postPayment');
+    Route::get('/buynow', [GuestController::class, 'buynow'])->name('guest.buynow');
+
+    // Trang danh mục
+    Route::get('/categories/{id}', [GuestController::class, 'categories'])->name('guest.category');
+
+    // Lọc sản phẩm theo danh mục
+    Route::get('/filter/categories/{id}', [GuestController::class, 'filterByCategory'])->name('guest.filter');
+
+    // Lọc sản phẩm
+    Route::get('/filter', [GuestController::class, 'filter'])->name('guest.filters');
+
+    // Trang tìm kiếm
+    Route::post('/search', [GuestController::class, 'search'])->name('guest.search');
+
+    // Product detail
+    Route::get('/product_detail/{id}', [GuestController::class, 'product_detail'])->name('guest.product_detail');
+    //  bài viết (newnew)
+    Route::get('/news', [NewController::class, 'index'])->name('guest.news');
+    Route::get('/shownew/{id}', [NewController::class, 'show'])->name('guest.show');
+
+    Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');
 
     // Bao hanhhanh
     Route::get('/warranty', [GuestController::class, 'warranty'])->name('guest.warranty');
     // Bao contactcontact
     Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
+    
+
 });
 
 Route::middleware(['auth'])->group(function () {

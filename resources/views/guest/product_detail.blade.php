@@ -1,4 +1,4 @@
-@include('layouts.customer.header')
+@include('layouts.guest.header')
 <div class="bodywrap" style="background-color: white;">
 
     <section class="bread-crumb">
@@ -836,7 +836,7 @@
                                     // Function to update browser URL
                                     function updateUrl(productId, storage, color) {
                                         if (history.replaceState) {
-                                            var newUrl = '/customer/product_detail/' + productId + '?storage=' + encodeURIComponent(storage) +
+                                            var newUrl = '/guest/product_detail/' + productId + '?storage=' + encodeURIComponent(storage) +
                                                 '&color=' + encodeURIComponent(color);
                                             window.history.replaceState({
                                                 path: newUrl
@@ -1277,7 +1277,7 @@
                             @auth
                                 <div class="comment-form">
                                     <h4>Viết bình luận của bạn</h4>
-                                    <form action="{{ route('customer.comments.store') }}" method="POST">
+                                    <form action="{{ route('guest.comments.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
 
@@ -1890,7 +1890,7 @@
                         <div class="col-12 col-md-12 col-lg-12 col-fix">
                             <div class="product-like block-background">
                                 <h3 class="title">
-                                    <a class="title-name" href="{{ route('customer.category', ['id' => $categoryId]) }}" title="Có thể bạn thích">
+                                    <a class="title-name" href="{{ route('guest.category', ['id' => $categoryId]) }}" title="Có thể bạn thích">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
                                         </svg>
@@ -1899,28 +1899,28 @@
                                 </h3>
                                 <div class="product1-swiper swiper-container p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-multirow">
                                     <div class="swiper-wrapper">
-                                        @foreach ($products as $product)
+                                        @foreach ($products as $pro)
                                             <div class="swiper-slide" style="width: 236px; margin-right: 20px; {{ $loop->iteration > 3 ? 'margin-top: 20px;' : '' }}">
                                                 <form action="/cart/add" method="post" class="variants product-action"
-                                                    data-cart-form="" data-id="product-actions-{{ $product->id }}"
+                                                    data-cart-form="" data-id="product-actions-{{ $pro->id }}"
                                                     enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="product-thumbnail">
                                                         <a class="image_thumb scale_hover"
-                                                            href="{{ route('customer.product_detail', ['id' => $product->id]) }}"
-                                                            title="{{ $product->name }}">
+                                                            href="{{ route('guest.product_detail', ['id' => $pro->id]) }}"
+                                                            title="{{ $pro->name }}">
                                                             <img width="234" height="234" class=""
-                                                                src="{{ asset($product->image)}}"
-                                                                alt="{{ $product->name }}">
-                                                            @if ($product->discount_percentage > 0)
-                                                                <span class="discount-tag">{{ $product->discount_percentage }}%</span>
+                                                                src="{{asset($pro->image) }}"
+                                                                alt="{{ $pro->name }}">
+                                                            @if ($pro->discount_percentage > 0)
+                                                                <span class="discount-tag">{{ $pro->discount_percentage }}%</span>
                                                             @endif
                                                         </a>
                                                         <input class="hidden" type="hidden" name="variantId"
-                                                            value="{{ $product->variants->first()->id ?? '' }}">
+                                                            value="{{ $pro->variants->first()->id ?? '' }}">
                                                         <div class="action">
                                                             <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
-                                                                onclick="window.location.href='{{ route('customer.product_detail', ['id' => $product->id]) }}'">
+                                                                onclick="window.location.href='{{ route('guest.product_detail', ['id' => $pro->id]) }}'">
                                                                 <svg class="icon">
                                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use>
                                                                 </svg>
@@ -1930,29 +1930,29 @@
                                                     <div class="product-info">
                                                         <h3 class="product-name">
                                                             <a class="line-clamp line-clamp-2"
-                                                                href="{{ route('customer.product_detail', ['id' => $product->id]) }}"
-                                                                title="{{ $product->name }}">
-                                                                {{ $product->name }}
+                                                                href="{{ route('guest.product_detail', ['id' => $pro->id]) }}"
+                                                                title="{{ $pro->name }}">
+                                                                {{ $pro->name }}
                                                             </a>
                                                         </h3>
                                                         <div class="price-box">
-                                                            @if ($product->discount_percentage > 0)
-                                                                <span class="compare-price">{{ number_format($product->origin_price, 0, ',', '.') }}₫</span>
-                                                                <span class="special-price">{{ number_format($product->sale_price, 0, ',', '.') }}₫</span>
+                                                            @if ($pro->discount_percentage > 0)
+                                                                <span class="compare-price">{{ number_format($pro->origin_price, 0, ',', '.') }}₫</span>
+                                                                <span class="special-price">{{ number_format($pro->sale_price, 0, ',', '.') }}₫</span>
                                                             @else
-                                                                <span class="special-price">{{ number_format($product->sale_price, 0, ',', '.') }}₫</span>
+                                                                <span class="special-price">{{ number_format($pro->sale_price, 0, ',', '.') }}₫</span>
                                                             @endif
                                                         </div>
-                                                        @if ($product->available_colors->isNotEmpty())
+                                                        @if ($pro->available_colors->isNotEmpty())
                                                             <div class="color-options">
-                                                                @foreach ($product->available_colors as $color)
+                                                                @foreach ($pro->available_colors as $color)
                                                                     <span class="color-circle" style="background-color: {{ $color['hex_code'] }};"></span>
                                                                 @endforeach
                                                             </div>
                                                         @endif
-                                                        @if ($product->available_storages->isNotEmpty())
+                                                        @if ($pro->available_storages->isNotEmpty())
                                                             <div class="storage-options">
-                                                                @foreach ($product->available_storages as $storage)
+                                                                @foreach ($pro->available_storages as $storage)
                                                                     <span class="storage-option">{{ $storage }}</span>
                                                                 @endforeach
                                                             </div>
@@ -1960,13 +1960,13 @@
                                                         <div class="rating">
                                                             <span class="stars">
                                                                 @for ($i = 1; $i <= 5; $i++)
-                                                                    <span class="star {{ $i <= round($product->average_rating) ? 'filled' : '' }}">★</span>
+                                                                    <span class="star {{ $i <= round($pro->average_rating) ? 'filled' : '' }}">★</span>
                                                                 @endfor
                                                             </span>
-                                                            <span class="review-count">({{ $product->total_ratings }} đánh giá)</span>
+                                                            <span class="review-count">({{ $pro->total_ratings }} đánh giá)</span>
                                                         </div>
                                                         <div class="sold-quantity">
-                                                            Đã bán: {{ $product->sold }}
+                                                            Đã bán: {{ $pro->sold }}
                                                         </div>
                                                     </div>
                                                 </form>
@@ -1978,7 +1978,7 @@
                                 </div>
                                 <div class="text-center no-padding">
                                     <a class="see-more" title="Xem toàn bộ sản phẩm"
-                                        href="{{ route('customer.category', ['id' => $categoryId]) }}">Xem toàn bộ sản phẩm
+                                        href="{{ route('guest.category', ['id' => $categoryId]) }}">Xem toàn bộ sản phẩm
                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                             <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
                                         </svg>
@@ -2093,7 +2093,7 @@
                                     @csrf
                                     <div class="product-thumbnail">
                                         <a class="image_thumb scale_hover"
-                                            href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
+                                            href="{{ route('guest.product_detail', ['id' => $relatedProduct->id]) }}"
                                             title="{{ $relatedProduct->name }}">
                                             <img width="234" height="234" class=""
                                                 src="{{ asset($relatedProduct->image) }}"
@@ -2108,7 +2108,7 @@
                                     <div class="product-info">
                                         <h3 class="product-name">
                                             <a class="line-clamp line-clamp-2"
-                                                href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
+                                                href="{{ route('guest.product_detail', ['id' => $relatedProduct->id]) }}"
                                                 title="{{ $relatedProduct->name }}">
                                                 {{ $relatedProduct->name }}
                                             </a>
@@ -2163,7 +2163,7 @@
 
                                         <div class="action">
                                             <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
-                                                onclick="window.location.href='{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}'">
+                                                onclick="window.location.href='{{ route('guest.product_detail', ['id' => $relatedProduct->id]) }}'">
                                                 <svg class="icon">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         xlink:href="#icon-detail"></use>
@@ -2180,7 +2180,7 @@
                 </div>
                 <div class="text-center no-padding">
                     <a class="see-more" title="Xem toàn bộ sản phẩm"
-                        href="{{ route('customer.category', ['id' => $categoryId]) }}">Xem toàn bộ sản phẩm
+                        href="{{ route('guest.category', ['id' => $categoryId]) }}">Xem toàn bộ sản phẩm
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                             <path
                                 d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z">
@@ -3141,4 +3141,4 @@
 </style>
 </div>
 
-@include('layouts.customer.footer')
+@include('layouts.guest.footer')

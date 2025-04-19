@@ -1,4 +1,4 @@
-@include('layouts.customer.header')
+@include('layouts.guest.header')
 <style>
     .product-thumbnail {
         position: relative;
@@ -313,7 +313,7 @@
             {{ $category->name }}</h2>
 
         <div class="filter-container mb-3">
-            <form action="{{ route('customer.category', $category->id) }}" method="GET" class="filter-form">
+            <form action="{{ route('guest.category', $category->id) }}" method="GET" class="filter-form">
                 <div class="filter-group">
                     <label for="min_price_select" class="filter-label">Giá từ:</label>
                     <select name="min_price" id="min_price_select" class="filter-select">
@@ -359,14 +359,14 @@
                                 <div class="tag-discount">-{{ $discountPercentage }}%</div>
                             @endif
                             <a class="image_thumb scale_hover"
-                                href="{{ route('customer.product_detail', $product->id) }}"
+                                href="{{ route('guest.product_detail', $product->id) }}"
                                 title="{{ $product->name }}">
                                 <img width="130" height="130" src="{{ asset($product->image) }}"
                                     alt="{{ $product->name }}" loading="lazy"
                                     onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
                             </a>
                             <div class="action">
-                                <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views"
+                                <a href="{{ route('guest.product_detail', $product->id) }}" class="btn-views"
                                     title="Xem chi tiết">
                                     <svg class="icon" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -380,7 +380,7 @@
                         <div class="product-info">
                             <h3 class="product-name">
                                 <a class="line-clamp line-clamp-2"
-                                    href="{{ route('customer.product_detail', $product->id) }}"
+                                    href="{{ route('guest.product_detail', $product->id) }}"
                                     title="{{ $product->name }}">{{ $product->name }}</a>
                             </h3>
                             <div class="price-box">
@@ -457,7 +457,7 @@
     </div>
 </div>
 
-@include('layouts.customer.footer')
+@include('layouts.guest.footer')
 
 <script>
     const minPriceSelect = document.getElementById('min_price_select');
