@@ -1016,7 +1016,7 @@
         position: fixed;
         top: 70px;
         right: 20px;
-        z-index: 1000;
+        z-index: 100000;
         width: 250px;
     }
 

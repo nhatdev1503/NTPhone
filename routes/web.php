@@ -199,8 +199,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 
     // Product detail
     Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
-    Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])
-        ->name('customer.product_detail');
+    // Route::get('/product_detail/{id}', [CustomerController::class, 'product_detail'])->name('customer.product_detail');
     //rating
     Route::post('/ratings', [RatingController::class, 'store'])->name('customer.ratings.store');
 
