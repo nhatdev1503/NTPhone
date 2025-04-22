@@ -559,7 +559,7 @@
         <div class="container">
             <a class="thumb-image-banner" href="{{ route('customer.category', $category->id) }}"
                 title="Banner">
-                <img width="1270" height="236" class="lazyload"
+                <img width="100%" height="236" class="lazyload"
                     src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
                     data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1742954225872"
                     alt="Banner">
@@ -1255,6 +1255,14 @@
                         } else {
                             // Hiển thị toast thông báo thành công
                             showToast(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
+
+                            // 🔄 GỌI AJAX LẤY LẠI SỐ LƯỢNG GIỎ HÀNG
+                            fetch('{{ route('cart.count') }}')
+                                .then(res => res.json())
+                                .then(countData => {
+                                    document.querySelector('.count_item_pr').textContent = countData.count;
+                                })
+                                .catch(err => console.error('Lỗi khi cập nhật số lượng giỏ hàng:', err));
                         }
                     } else {
                         // Hiển thị toast thông báo lỗi
