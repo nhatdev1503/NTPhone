@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 07, 2025 at 07:21 AM
+-- Generation Time: Apr 22, 2025 at 01:52 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.28
 
@@ -43,8 +43,12 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `title`, `image`, `product_name`, `product_url`, `status`, `created_at`, `updated_at`) VALUES
-(12, 'Banner điện thoại Iphone 16e', 'banners/EogxWj9h4cy3roUQylIUJO0oqxmTT6QJ9DoJNpAq.jpg', 'Iphone 16 Pro Max', '/product_detail/76', 'active', '2025-04-04 01:41:35', '2025-04-05 07:46:50'),
-(13, 'Banner iphone 14', 'banners/QYrl0KvcRMRjlWp0fgl4zeb88lrbxGeWCIOp3lYy.jpg', 'Iphone 16 Plus', '/product_detail/78', 'inactive', '2025-04-05 07:47:48', '2025-04-05 07:47:48');
+(14, 'Đẹp', 'banners/nJ0BrOJUbQz5AqLAmwLtdbtpkoCoKDCtxwWdiqFt.jpg', 'Iphone 16', '149', 'inactive', '2025-04-06 20:31:13', '2025-04-12 07:33:41'),
+(15, 'Banner Iphone 11', 'banners/dBrOtP1C74ZC1RHDOBPG4BKccotsAndS8dHz9rpY.jpg', 'Iphone 16e', '75', 'inactive', '2025-04-07 10:29:36', '2025-04-12 07:33:41'),
+(16, 'Banner iphone 15', 'banners/a73j5chKQgzzmHKcS5LDZdroZZJYvtJSrtZsf8va.jpg', 'Iphone 15', '152', 'inactive', '2025-04-07 10:35:22', '2025-04-12 07:33:41'),
+(17, 'Banner Iphone 15', 'banners/wXVnszeEyXVLHbj1BO8jm2FaKhlq7IBKpqr6XqPI.png', 'Iphone 15 Plus', '151', 'inactive', '2025-04-12 07:20:37', '2025-04-12 07:33:41'),
+(18, 'Iphone 16 Pro Max', 'banners/RLgBnZr81aiZyFbsc8s2Ki5EHfAMrUTaBKYCp9M0.png', 'Iphone 16 Pro Max', '76', 'active', '2025-04-12 07:33:34', '2025-04-13 04:56:50'),
+(19, 'iphone', 'banners/mDyxnOYg6bGEEuW07Y4TNAT4YHsxl5EvEd3KKUeX.png', 'Iphone 16 Plus', '78', 'inactive', '2025-04-13 04:58:28', '2025-04-13 04:58:28');
 
 -- --------------------------------------------------------
 
@@ -66,7 +70,7 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`, `product_variant_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(42, 2, 189, 2, '2025-04-07 06:18:51', '2025-04-07 06:38:27');
+(103, 2, 188, 5, '2025-04-21 14:19:37', '2025-04-21 14:20:49');
 
 -- --------------------------------------------------------
 
@@ -89,11 +93,18 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'iPhone', 'uploads/categories/1743649909_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', 'Là sản phẩm điện thoại thông minh của hãng Apple', 'active', '2025-03-30 10:10:36', '2025-04-02 20:11:49'),
-(2, 'Samsung', 'uploads/categories/1743768305_z6114773208644_9f09949e6792ec96b73b83040bd3805e.jpg', 'Là sản phẩm điện thoại thông minh của hãng Samsung', 'active', '2025-04-04 05:05:05', '2025-04-04 05:05:05'),
-(3, 'Oppo', 'uploads/categories/1743768361_z6114769426427_5cbb00fe239402c3c70f67b62ae25251 - Copy.jpg', 'Là sản phẩm điện thoại thông minh của hãng Oppo', 'active', '2025-04-04 05:06:01', '2025-04-04 05:06:01'),
-(9, 'Xiaomi', 'uploads/categories/1743768305_z6114773208644_9f09949e6792ec96b73b83040bd3805e.jpg', 'Là sản phẩm điện thoại thông minh của hãng Xiaomi', 'active', '2025-04-04 05:05:05', '2025-04-04 05:05:05'),
-(10, 'Bphone', 'uploads/categories/1743768361_z6114769426427_5cbb00fe239402c3c70f67b62ae25251 - Copy.jpg', 'Là sản phẩm điện thoại thông minh của hãng Bphone', 'active', '2025-04-04 05:06:01', '2025-04-04 05:06:01');
+(1, 'iPhone 11 Mới', 'uploads/categories/1743649909_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', 'Là sản phẩm điện thoại thông minh của hãng Apple', 'active', '2025-03-30 10:10:36', '2025-04-12 10:02:30'),
+(2, 'Iphone 11 Cũ', 'uploads/categories/1744452222_iphone-15-hong-thumb-1-600x600.jpg', 'Điện thoại thông minh đến từ hãng samsung', 'active', '2025-04-04 05:05:05', '2025-04-12 10:03:42'),
+(3, 'Iphone 12 Cũ', 'uploads/categories/1744452242_iPhone-14-plus-thumb-den-600x600.jpg', 'Đẹp', 'active', '2025-04-04 05:06:01', '2025-04-12 10:04:02'),
+(9, 'Iphone 12 Mới', 'uploads/categories/1744452259_iphone-12-tim-1-600x600.jpg', 'Đẹp', 'active', '2025-04-07 10:40:49', '2025-04-12 10:04:19'),
+(10, 'Iphone 13 Cũ', 'uploads/categories/1744173917_iphone-16-plus-hong-thumb-1-600x600.jpg', 'Hãng Apple', 'active', '2025-04-09 04:45:17', '2025-04-09 04:45:17'),
+(11, 'Iphone 13 Mới', 'uploads/categories/1744173938_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', 'Quá đẹp', 'active', '2025-04-09 04:45:38', '2025-04-09 04:45:38'),
+(12, 'Iphone 14 Cũ', 'uploads/categories/1744173969_iphone-15-pro-max-black-thumbnew-600x600.jpg', 'Đẹp', 'active', '2025-04-09 04:46:09', '2025-04-09 04:46:09'),
+(13, 'Iphone 14 Mới', 'uploads/categories/1744173989_iphone-15-plus-xanh-la-128gb-thumb-600x600.jpg', 'Đẹp', 'active', '2025-04-09 04:46:29', '2025-04-09 04:46:29'),
+(14, 'Iphone 15 Cũ', 'uploads/categories/1744174015_iphone-16-xanh-mong-ket-thumbnew-600x600.png', 'Quá đẹp', 'active', '2025-04-09 04:46:55', '2025-04-09 04:46:55'),
+(15, 'Iphone 15 Mới', 'uploads/categories/1744174045_iphone-13-midnight-2-600x600.jpg', 'Đẹp', 'active', '2025-04-09 04:47:25', '2025-04-09 04:47:25'),
+(16, 'Iphone 16 Cũ', 'uploads/categories/1744174066_iPhone-14-thumb-trang-600x600.jpg', 'Iphone', 'active', '2025-04-09 04:47:46', '2025-04-09 04:47:46'),
+(17, 'Iphone 16 Mới', 'uploads/categories/1744174160_iphone-15-hong-thumb-1-600x600.jpg', 'Đẹp', 'active', '2025-04-09 04:49:20', '2025-04-09 04:49:20');
 
 -- --------------------------------------------------------
 
@@ -106,9 +117,9 @@ CREATE TABLE `chat_messages` (
   `sender_id` bigint UNSIGNED NOT NULL,
   `receiver_id` bigint UNSIGNED NOT NULL,
   `room_id` bigint UNSIGNED NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci,
-  `media_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `media_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `media_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `media_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `read_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -119,15 +130,17 @@ CREATE TABLE `chat_messages` (
 --
 
 INSERT INTO `chat_messages` (`id`, `sender_id`, `receiver_id`, `room_id`, `message`, `media_type`, `media_path`, `read_at`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 2, 'tự tin chưa', NULL, NULL, NULL, '2025-04-06 16:07:19', '2025-04-06 16:07:19'),
-(2, 1, 2, 2, 'làm gì', NULL, NULL, NULL, '2025-04-06 16:07:43', '2025-04-06 16:07:43'),
-(3, 1, 2, 2, 'làm gì', NULL, NULL, NULL, '2025-04-06 16:08:02', '2025-04-06 16:08:02'),
-(4, 1, 2, 2, '.', NULL, NULL, NULL, '2025-04-06 16:11:41', '2025-04-06 16:11:41'),
-(5, 1, 2, 2, 'xin chào', NULL, NULL, NULL, '2025-04-06 16:12:07', '2025-04-06 16:12:07'),
-(6, 1, 2, 2, 'lỗi', NULL, NULL, NULL, '2025-04-06 16:14:57', '2025-04-06 16:14:57'),
-(7, 2, 1, 2, 'xin chàp', NULL, NULL, NULL, '2025-04-07 05:43:59', '2025-04-07 05:43:59'),
-(8, 2, 1, 2, 'xin chàp', NULL, NULL, NULL, '2025-04-07 05:44:03', '2025-04-07 05:44:03'),
-(9, 2, 1, 2, '2', NULL, NULL, NULL, '2025-04-07 05:44:13', '2025-04-07 05:44:13');
+(1, 2, 1, 2, 'Hello em', NULL, NULL, NULL, '2025-04-06 16:58:13', '2025-04-06 16:58:13'),
+(2, 1, 2, 2, 'Hello anh yêu', NULL, NULL, NULL, '2025-04-06 16:58:25', '2025-04-06 16:58:25'),
+(3, 2, 1, 2, 'Ok em', NULL, NULL, NULL, '2025-04-06 22:56:05', '2025-04-06 22:56:05'),
+(4, 1, 2, 2, 'Chào bạn', NULL, NULL, NULL, '2025-04-07 10:54:15', '2025-04-07 10:54:15'),
+(5, 1, 2, 2, 'Bạn khỏe không ?', NULL, NULL, NULL, '2025-04-07 10:54:20', '2025-04-07 10:54:20'),
+(6, 2, 1, 2, 'Chào bạn', NULL, NULL, NULL, '2025-04-07 11:15:57', '2025-04-07 11:15:57'),
+(7, 1, 2, 2, 'hello bro', NULL, NULL, NULL, '2025-04-10 14:09:38', '2025-04-10 14:09:38'),
+(8, 2, 1, 2, 'okeee', NULL, NULL, NULL, '2025-04-10 14:09:51', '2025-04-10 14:09:51'),
+(9, 1, 5, 5, 'Hello ạ', NULL, NULL, NULL, '2025-04-10 14:11:07', '2025-04-10 14:11:07'),
+(10, 1, 2, 2, 'alooo', NULL, NULL, NULL, '2025-04-10 14:15:06', '2025-04-10 14:15:06'),
+(11, 1, 2, 2, 'Nghe không bro', NULL, NULL, NULL, '2025-04-10 14:15:12', '2025-04-10 14:15:12');
 
 -- --------------------------------------------------------
 
@@ -176,7 +189,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `product_id`, `content`, `created_at`, `updated_at`) VALUES
-(101, 2, 76, 'chất đấy', '2025-04-07 05:15:26', '2025-04-07 05:15:26');
+(101, 2, 75, 'Đẹp quá ní ơi\r\n', '2025-04-09 06:23:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -225,7 +238,9 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`id`, `code`, `discount_type`, `max_discount_value`, `discount_value`, `min_order_value`, `start_date`, `expiration_date`, `created_at`, `updated_at`) VALUES
-(22, 'G42F45DS5', 'percentage', 1000000, '20.00', 20000000, '2025-04-02', '2025-04-30', '2025-04-04 01:56:32', '2025-04-30 05:04:41');
+(22, 'G42F45DS5', 'percentage', 1000000, '20.00', 20000000, '2025-04-06', '2025-04-25', '2025-04-04 01:56:32', '2025-04-06 21:42:23'),
+(23, 'G42F45DS7', 'fixed', NULL, '800000.00', 20000000, '2025-04-06', '2025-04-12', '2025-04-06 22:16:36', '2025-04-06 22:16:36'),
+(24, 'GFGF4DG5', 'percentage', 1000000, '99.00', 20000000, '2025-04-08', '2025-04-12', '2025-04-10 12:33:13', '2025-04-10 12:35:46');
 
 -- --------------------------------------------------------
 
@@ -240,137 +255,6 @@ CREATE TABLE `favorites` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `messages`
---
-
-CREATE TABLE `messages` (
-  `id` bigint UNSIGNED NOT NULL,
-  `sender_id` bigint UNSIGNED NOT NULL,
-  `receiver_id` bigint UNSIGNED NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_read` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message`, `is_read`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, 'Alias eum velit at quaerat aliquam asperiores harum.', 0, '2025-03-30 10:10:37', NULL),
-(5, 2, 1, 'Aspernatur dignissimos blanditiis quas quibusdam molestias laborum.', 0, '2025-03-30 10:10:37', NULL),
-(7, 2, 1, 'Ullam quaerat ex ut molestias esse nisi voluptas.', 1, '2025-03-30 10:10:37', NULL),
-(9, 2, 2, 'Assumenda est unde nemo et blanditiis.', 0, '2025-03-30 10:10:37', NULL),
-(10, 2, 2, 'Temporibus nihil fugit tempora.', 0, '2025-03-30 10:10:37', NULL),
-(12, 2, 2, 'Dicta qui voluptates debitis nobis id cupiditate non.', 0, '2025-03-30 10:10:37', NULL),
-(13, 2, 1, 'Adipisci officiis alias aut autem perspiciatis et.', 1, '2025-03-30 10:10:37', NULL),
-(14, 2, 2, 'Distinctio ipsa distinctio sint cum.', 1, '2025-03-30 10:10:37', NULL),
-(15, 1, 1, 'Eum qui labore perferendis et eum neque molestiae.', 0, '2025-03-30 10:10:37', NULL),
-(16, 1, 1, 'Esse sit nemo nulla.', 0, '2025-03-30 10:10:37', NULL),
-(17, 2, 1, 'Alias iure tempora laudantium officia.', 0, '2025-03-30 10:10:37', NULL),
-(18, 2, 1, 'Error nihil facilis reprehenderit deleniti dolor ipsa.', 1, '2025-03-30 10:10:37', NULL),
-(19, 2, 1, 'Beatae quos ipsam adipisci reprehenderit tempore aut.', 1, '2025-03-30 10:10:37', NULL),
-(20, 2, 2, 'Non delectus quidem numquam.', 0, '2025-03-30 10:10:37', NULL),
-(21, 1, 2, 'Perspiciatis voluptates unde aut at.', 0, '2025-03-30 10:10:37', NULL),
-(22, 2, 1, 'Quibusdam et accusantium vero in sint excepturi aspernatur.', 1, '2025-03-30 10:10:37', NULL),
-(23, 1, 2, 'Aut ut accusamus nesciunt voluptatem itaque necessitatibus laborum.', 0, '2025-03-30 10:10:37', NULL),
-(24, 2, 1, 'Rerum nihil tempora omnis occaecati.', 0, '2025-03-30 10:10:37', NULL),
-(25, 2, 2, 'Assumenda sed reprehenderit est ab.', 1, '2025-03-30 10:10:37', NULL),
-(26, 1, 1, 'Aut consequuntur omnis adipisci voluptatem.', 1, '2025-03-30 10:10:37', NULL),
-(27, 2, 1, 'Omnis quis quia voluptas.', 1, '2025-03-30 10:10:37', NULL),
-(28, 1, 2, 'Modi qui natus fugiat odio repudiandae.', 0, '2025-03-30 10:10:37', NULL),
-(29, 2, 2, 'Quo facere amet rem laboriosam illum qui.', 0, '2025-03-30 10:10:37', NULL),
-(30, 1, 2, 'Itaque vero tempora recusandae libero.', 1, '2025-03-30 10:10:37', NULL),
-(31, 1, 2, 'Assumenda dolorem odio ut error repudiandae iste non.', 1, '2025-03-30 10:10:37', NULL),
-(32, 1, 1, 'A earum nostrum necessitatibus neque adipisci laborum.', 0, '2025-03-30 10:10:37', NULL),
-(33, 1, 1, 'Sed cupiditate voluptas omnis quos et dolor alias.', 0, '2025-03-30 10:10:37', NULL),
-(34, 1, 1, 'Libero repellat omnis ab dolorum.', 0, '2025-03-30 10:10:37', NULL),
-(35, 2, 1, 'Unde dignissimos recusandae autem totam.', 1, '2025-03-30 10:10:37', NULL),
-(36, 1, 1, 'Qui accusamus consectetur debitis suscipit sed.', 0, '2025-03-30 10:10:37', NULL),
-(37, 1, 2, 'Ab qui et sed necessitatibus.', 1, '2025-03-30 10:10:37', NULL),
-(38, 1, 1, 'Ut non ratione fugiat et qui.', 0, '2025-03-30 10:10:37', NULL),
-(39, 2, 1, 'Accusamus unde est neque mollitia sunt voluptates.', 1, '2025-03-30 10:10:37', NULL),
-(40, 2, 2, 'Vero a eum nesciunt voluptatum.', 0, '2025-03-30 10:10:37', NULL),
-(41, 2, 1, 'Odio ea labore quibusdam voluptatem soluta.', 0, '2025-03-30 10:10:37', NULL),
-(42, 2, 1, 'Natus id voluptate incidunt quo.', 0, '2025-03-30 10:10:37', NULL),
-(43, 2, 1, 'Itaque aliquid omnis consequatur autem.', 1, '2025-03-30 10:10:37', NULL),
-(44, 1, 2, 'Officiis totam dolores enim.', 1, '2025-03-30 10:10:37', NULL),
-(45, 2, 1, 'Et dignissimos quas et et molestiae.', 0, '2025-03-30 10:10:37', NULL),
-(46, 2, 2, 'Accusantium doloremque illum rerum recusandae laborum possimus ipsam.', 1, '2025-03-30 10:10:37', NULL),
-(47, 2, 1, 'Magnam nam consequuntur iste.', 0, '2025-03-30 10:10:37', NULL),
-(48, 2, 1, 'Molestiae quod sint est aut eligendi quo voluptatem.', 1, '2025-03-30 10:10:37', NULL),
-(49, 2, 1, 'Sunt ea natus pariatur vel.', 0, '2025-03-30 10:10:37', NULL),
-(50, 1, 2, 'Fugit id commodi dolor pariatur quidem odio ut assumenda.', 1, '2025-03-30 10:10:37', NULL),
-(53, 1, 2, 'Ê thằng ngu', 0, '2025-04-02 09:26:32', '2025-04-02 09:26:32'),
-(54, 2, 1, 'Cmm', 0, '2025-04-02 09:28:28', '2025-04-02 09:28:28'),
-(55, 2, 1, 'đm', 0, '2025-04-02 09:36:44', '2025-04-02 09:36:44'),
-(56, 2, 1, 'ngu vậy?', 0, '2025-04-02 09:37:26', '2025-04-02 09:37:26'),
-(57, 2, 1, 'đủ chưa', 0, '2025-04-02 09:44:23', '2025-04-02 09:44:23'),
-(58, 2, 1, '?', 0, '2025-04-02 09:46:35', '2025-04-02 09:46:35'),
-(59, 2, 1, 'thằng ngu', 0, '2025-04-02 09:53:11', '2025-04-02 09:53:11'),
-(60, 2, 1, 'đmm', 0, '2025-04-02 10:00:42', '2025-04-02 10:00:42'),
-(61, 2, 1, 'đm', 0, '2025-04-02 10:27:36', '2025-04-02 10:27:36'),
-(62, 2, 1, '?', 0, '2025-04-02 10:27:43', '2025-04-02 10:27:43'),
-(63, 1, 2, '?', 0, '2025-04-02 10:32:01', '2025-04-02 10:32:01'),
-(64, 1, 2, '?', 0, '2025-04-02 10:34:40', '2025-04-02 10:34:40'),
-(65, 1, 2, 'oke chưa', 0, '2025-04-02 10:34:51', '2025-04-02 10:34:51'),
-(66, 2, 1, 'dm', 0, '2025-04-02 10:35:43', '2025-04-02 10:35:43'),
-(67, 2, 1, 'khó nhỉ ?', 0, '2025-04-02 10:41:53', '2025-04-02 10:41:53'),
-(68, 1, 2, 'haizz', 0, '2025-04-02 11:07:23', '2025-04-02 11:07:23'),
-(69, 1, 2, 'thật sao ?', 0, '2025-04-02 11:08:00', '2025-04-02 11:08:00'),
-(70, 1, 2, 'Vail', 0, '2025-04-02 11:08:43', '2025-04-02 11:08:43'),
-(71, 1, 2, 'Chịu luôn', 0, '2025-04-02 11:09:11', '2025-04-02 11:09:11'),
-(72, 2, 1, 'Là sao?', 0, '2025-04-02 11:10:07', '2025-04-02 11:10:07'),
-(73, 2, 1, 'tôi bị ngu\'', 0, '2025-04-02 11:17:20', '2025-04-02 11:17:20'),
-(74, 2, 1, '?', 0, '2025-04-02 11:23:27', '2025-04-02 11:23:27'),
-(75, 2, 1, '?', 0, '2025-04-02 11:31:12', '2025-04-02 11:31:12'),
-(76, 2, 1, 'ngu', 0, '2025-04-02 11:31:35', '2025-04-02 11:31:35'),
-(77, 2, 1, '?', 0, '2025-04-02 11:34:28', '2025-04-02 11:34:28'),
-(78, 2, 1, '1', 0, '2025-04-02 11:36:58', '2025-04-02 11:36:58'),
-(79, 2, 1, 'ngu hả', 0, '2025-04-02 11:42:36', '2025-04-02 11:42:36'),
-(80, 2, 1, '2222', 0, '2025-04-02 11:43:46', '2025-04-02 11:43:46'),
-(81, 2, 1, '?', 0, '2025-04-02 11:46:26', '2025-04-02 11:46:26'),
-(82, 2, 1, '22222', 0, '2025-04-02 11:46:41', '2025-04-02 11:46:41'),
-(83, 2, 1, 'fkfksfks', 0, '2025-04-02 11:50:59', '2025-04-02 11:50:59'),
-(84, 2, 1, '1111', 0, '2025-04-02 11:53:29', '2025-04-02 11:53:29'),
-(85, 2, 1, '3333', 0, '2025-04-02 11:55:07', '2025-04-02 11:55:07'),
-(86, 2, 1, '1111', 0, '2025-04-02 12:32:44', '2025-04-02 12:32:44'),
-(87, 2, 1, '222', 0, '2025-04-02 12:40:16', '2025-04-02 12:40:16'),
-(88, 2, 1, 'hithe', 0, '2025-04-02 16:47:13', '2025-04-02 16:47:13'),
-(89, 2, 1, 'how old are you', 0, '2025-04-02 16:47:29', '2025-04-02 16:47:29'),
-(90, 2, 1, 'sao rồi', 0, '2025-04-02 16:49:34', '2025-04-02 16:49:34'),
-(91, 1, 2, 'đụ má', 0, '2025-04-02 16:51:36', '2025-04-02 16:51:36'),
-(92, 1, 2, 'gì vậy?', 0, '2025-04-02 16:51:51', '2025-04-02 16:51:51'),
-(93, 2, 1, 'con mẹ mày ?', 0, '2025-04-02 16:53:49', '2025-04-02 16:53:49'),
-(94, 2, 1, 'ngu vãi l', 0, '2025-04-02 17:00:57', '2025-04-02 17:00:57'),
-(95, 1, 2, 'm ngu lắm', 0, '2025-04-02 17:01:13', '2025-04-02 17:01:13'),
-(96, 2, 1, '?', 0, '2025-04-02 17:20:37', '2025-04-02 17:20:37'),
-(97, 2, 1, '?', 0, '2025-04-02 17:26:16', '2025-04-02 17:26:16'),
-(98, 2, 1, 'Là sao ?', 0, '2025-04-02 17:26:36', '2025-04-02 17:26:36'),
-(99, 2, 1, '222', 0, '2025-04-02 17:29:13', '2025-04-02 17:29:13'),
-(100, 2, 1, '?', 0, '2025-04-02 17:32:19', '2025-04-02 17:32:19'),
-(101, 2, 1, '?', 0, '2025-04-02 17:38:13', '2025-04-02 17:38:13'),
-(102, 2, 1, 'con aca', 0, '2025-04-02 17:38:22', '2025-04-02 17:38:22'),
-(103, 2, 1, 'helo', 0, '2025-04-02 17:40:03', '2025-04-02 17:40:03'),
-(104, 2, 1, '?', 0, '2025-04-02 17:48:56', '2025-04-02 17:48:56'),
-(105, 2, 1, 'ngu', 0, '2025-04-02 17:53:15', '2025-04-02 17:53:15'),
-(106, 2, 1, '?', 0, '2025-04-02 17:54:08', '2025-04-02 17:54:08'),
-(107, 2, 1, '222', 0, '2025-04-02 22:28:03', '2025-04-02 22:28:03'),
-(108, 2, 1, 'Sao m ngu vậy?', 0, '2025-04-03 19:23:24', '2025-04-03 19:23:24'),
-(109, 1, 2, 'ngu gì ?', 0, '2025-04-03 19:57:08', '2025-04-03 19:57:08'),
-(110, 1, 2, 'Ê?', 0, '2025-04-03 20:24:31', '2025-04-03 20:24:31'),
-(111, 1, 2, '?', 0, '2025-04-03 20:25:57', '2025-04-03 20:25:57'),
-(112, 1, 2, '?', 0, '2025-04-03 20:43:03', '2025-04-03 20:43:03'),
-(113, 1, 2, 'Ngu', 0, '2025-04-03 20:43:52', '2025-04-03 20:43:52'),
-(114, 1, 2, '?', 0, '2025-04-03 20:46:03', '2025-04-03 20:46:03'),
-(115, 1, 2, '???', 0, '2025-04-03 20:48:55', '2025-04-03 20:48:55'),
-(116, 2, 1, 'Alooo', 0, '2025-04-03 22:57:10', '2025-04-03 22:57:10'),
-(117, 2, 1, 'heloo', 0, '2025-04-03 22:57:26', '2025-04-03 22:57:26');
 
 -- --------------------------------------------------------
 
@@ -397,11 +281,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2025_02_20_062903_create_product_variants_table', 1),
 (7, '2025_02_20_062921_create_carts_table', 1),
 (8, '2025_02_20_062927_create_orders_table', 1),
-(9, '2025_02_20_062932_create_order_items_table', 1),
 (10, '2025_02_20_062944_create_messages_table', 1),
 (11, '2025_02_20_062950_create_banners_table', 1),
 (12, '2025_02_20_063002_create_comments_table', 1),
-(13, '2025_02_20_063004_create_ratings_table', 1),
 (14, '2025_02_20_063021_create_notifications_table', 1),
 (15, '2025_02_20_063028_create_favorites_table', 1),
 (16, '2025_03_10_103743_create_contacts_table', 1),
@@ -411,7 +293,47 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2025_03_30_141248_create_posts_table', 2),
 (23, '2025_03_26_071356_create_order_details_table', 3),
 (24, '2025_03_26_084755_create_payments_table', 3),
-(25, '2025_04_05_132051_create_chat_messages_table', 3);
+(25, '2025_04_05_132051_create_chat_messages_table', 3),
+(28, '2025_02_20_062932_create_order_items_table', 4),
+(29, '2025_02_20_063004_create_ratings_table', 4),
+(30, '2025_04_07_162758_create_news_table', 5),
+(31, '2025_04_07_195043_create_news_images_table', 5),
+(32, '2025_04_10_203829_add_soft_deletes_to_users_table', 6),
+(33, '2025_04_10_205541_add_soft_deletes_to_products_table', 7),
+(34, '2025_04_10_101805_add_rating_to_order_items_table', 8),
+(35, '2025_04_10_102138_add_review_to_order_items_table', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `user_id` bigint UNSIGNED NOT NULL,
+  `published_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news_images`
+--
+
+CREATE TABLE `news_images` (
+  `id` bigint UNSIGNED NOT NULL,
+  `news_id` bigint UNSIGNED NOT NULL,
+  `image_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -460,34 +382,19 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `order_code`, `user_id`, `staff_id`, `discount_id`, `fullname`, `address`, `phone`, `email`, `total_price`, `discount_amount`, `status`, `cancel_reason`, `payment_method`, `payment_status`, `created_at`, `updated_at`) VALUES
-(23, 'ORD1743744455', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35800000, 0, 'delivered', NULL, 'COD', 'pending', '2025-04-03 22:27:35', '2025-04-05 08:30:57'),
-(24, 'ORD1743744795', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35800000, 0, 'completed', NULL, 'COD', 'paid', '2025-04-03 22:33:15', '2025-04-03 22:33:15'),
-(31, 'ORD1743911905', 2, NULL, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 36000000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-05 20:58:25', '2025-04-05 20:58:25'),
-(32, 'ORD1744002764', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:12:44', '2025-04-07 05:12:44'),
-(33, 'ORD1744002841', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:14:01', '2025-04-07 05:14:01'),
-(34, 'ORD1744003075', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'cancelled', 'không bán nữa', 'COD', 'pending', '2025-04-07 05:17:55', '2025-04-07 06:11:52'),
-(35, 'ORD1744003200', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 17900000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:20:00', '2025-04-07 05:20:00'),
-(36, 'ORD1744003441', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:24:01', '2025-04-07 05:24:01'),
-(37, 'ORD1744003466', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 50700000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 05:24:26', '2025-04-07 05:24:26'),
-(38, 'ORD1744003506', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 16500000, 0, 'cancelled', 'chê', 'COD', 'pending', '2025-04-07 05:25:06', '2025-04-07 06:05:54'),
-(39, 'ORD00627', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-07 06:19:19', '2025-04-07 06:19:19'),
-(40, 'ORD76925', 2, NULL, 22, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 48500000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-07 06:21:51', '2025-04-07 06:21:51');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `order_details`
---
-
-CREATE TABLE `order_details` (
-  `id` bigint UNSIGNED NOT NULL,
-  `order_id` bigint UNSIGNED NOT NULL,
-  `product_id` bigint UNSIGNED NOT NULL,
-  `quantity` int NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(23, 'ORD17437', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35800000, 0, 'cancelled', 'Quá tuyệt vời', 'COD', 'pending', '2025-04-03 22:27:35', '2025-04-07 04:36:48'),
+(24, 'ORD17435', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35800000, 0, 'cancelled', 'Ngu', 'COD', 'pending', '2025-04-03 22:33:15', '2025-04-06 22:02:26'),
+(31, 'ORD17433', 2, 1, 22, 'Customer', '43784 Luettgen Glens\r\nNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 36000000, 1000000, 'cancelled', 'Ngu', 'COD', 'pending', '2025-04-05 20:58:25', '2025-04-06 22:04:38'),
+(39, 'ORD51913', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 17800000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-09 01:51:16', '2025-04-09 01:51:16'),
+(40, 'ORD39903', 2, NULL, 22, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 45500000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-09 01:53:02', '2025-04-09 01:53:02'),
+(41, 'ORD69270', 2, NULL, 22, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 30200000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-10 11:40:31', '2025-04-10 11:40:31'),
+(42, 'ORD17446', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35600000, 0, 'completed', NULL, 'COD', 'paid', '2025-04-10 12:24:15', '2025-04-11 10:25:34'),
+(43, 'ORD92057', 2, 1, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 17800000, 0, 'completed', NULL, 'COD', 'paid', '2025-04-12 07:03:41', '2025-04-12 07:05:14'),
+(44, 'ORD30264', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-13 05:01:43', '2025-04-13 05:01:43'),
+(45, 'ORD30554', 2, NULL, 22, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 50000000, 1000000, 'pending', NULL, 'COD', 'pending', '2025-04-13 11:15:00', '2025-04-13 11:15:00'),
+(46, 'ORD59869', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 17800000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-20 04:21:39', '2025-04-20 04:21:39'),
+(47, 'ORD56144', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 35600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-20 04:22:20', '2025-04-20 04:22:20'),
+(48, 'ORD19721', 2, NULL, NULL, 'Customer', '43784 Luettgen GlensNorth Derrick, IL 54948', '678.301.3889', 'customer@example.com', 15600000, 0, 'pending', NULL, 'COD', 'pending', '2025-04-20 10:08:53', '2025-04-20 10:08:53');
 
 -- --------------------------------------------------------
 
@@ -499,8 +406,14 @@ CREATE TABLE `order_items` (
   `id` bigint UNSIGNED NOT NULL,
   `order_id` bigint UNSIGNED NOT NULL,
   `product_variant_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `storage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `quantity` int NOT NULL,
   `price` int NOT NULL,
+  `rating` int DEFAULT NULL,
+  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -509,36 +422,20 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_variant_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
-(103, 23, 189, 2, 17900000, '2025-04-03 22:27:35', '2025-04-03 22:27:35'),
-(104, 24, 187, 2, 17900000, '2025-04-03 22:33:15', '2025-04-03 22:33:15'),
-(114, 31, 188, 2, 18500000, '2025-04-05 20:58:25', '2025-04-05 20:58:25'),
-(115, 32, 184, 1, 16500000, '2025-04-07 05:12:44', '2025-04-07 05:12:44'),
-(116, 33, 185, 1, 15600000, '2025-04-07 05:14:01', '2025-04-07 05:14:01'),
-(117, 34, 186, 1, 16500000, '2025-04-07 05:17:55', '2025-04-07 05:17:55'),
-(118, 35, 187, 1, 17900000, '2025-04-07 05:20:00', '2025-04-07 05:20:00'),
-(119, 36, 186, 1, 16500000, '2025-04-07 05:24:01', '2025-04-07 05:24:01'),
-(120, 37, 189, 3, 16900000, '2025-04-07 05:24:26', '2025-04-07 05:24:26'),
-(121, 38, 186, 1, 16500000, '2025-04-07 05:25:06', '2025-04-07 05:25:06'),
-(122, 39, 185, 1, 15600000, '2025-04-07 06:19:19', '2025-04-07 06:19:19'),
-(123, 40, 186, 3, 16500000, '2025-04-07 06:21:51', '2025-04-07 06:21:51');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payments`
---
-
-CREATE TABLE `payments` (
-  `id` bigint UNSIGNED NOT NULL,
-  `order_id` bigint UNSIGNED NOT NULL,
-  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payment_status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `amount` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `order_items` (`id`, `order_id`, `product_variant_id`, `name`, `image`, `color`, `storage`, `quantity`, `price`, `rating`, `review`, `created_at`, `updated_at`) VALUES
+(1, 31, 229, 'Iphone 16', 'image.png', 'Red', '8GB', 2, 19500000, NULL, NULL, '2025-04-08 02:49:41', '2025-04-08 02:49:41'),
+(13, 23, 226, 'Iphone 16', 'image.png', 'Red', '8GB', 2, 19500000, NULL, NULL, '2025-04-08 02:49:41', '2025-04-08 02:49:41'),
+(14, 24, 227, 'Iphone 16', 'image.png', 'Red', '8GB', 2, 19500000, NULL, NULL, '2025-04-08 02:49:41', '2025-04-08 02:49:41'),
+(15, 39, 187, 'Iphone 16 Pro Max', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', 'Red', '8GB', 1, 17800000, NULL, NULL, '2025-04-09 01:51:16', '2025-04-09 01:51:16'),
+(16, 40, 227, 'Iphone 12 Test', 'uploads/products/1743948857_iphone-12-tim-1-600x600.jpg', 'Black', '64GB', 3, 15500000, NULL, NULL, '2025-04-09 01:53:02', '2025-04-09 01:53:02'),
+(17, 41, 212, 'Iphone 15', 'uploads/products/1743946273_iphone-15-hong-thumb-1-600x600.jpg', 'Black Titanium', '32GB', 2, 15600000, NULL, NULL, '2025-04-10 11:40:31', '2025-04-10 11:40:31'),
+(18, 42, 187, 'Iphone 16 Pro Max', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', 'Red', '8GB', 2, 17800000, 5, 'Quá oki', '2025-04-10 12:24:15', '2025-04-12 06:57:39'),
+(19, 43, 187, 'Iphone 16 Pro Max', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', 'Red', '8GB', 1, 17800000, 2, 'Oke đấy', '2025-04-12 07:03:41', '2025-04-12 07:05:29'),
+(20, 44, 185, 'Iphone 16e', 'uploads/products/1743650286_iPhone-14-plus-thumb-den-600x600.jpg', 'Blue', '8GB', 1, 15600000, NULL, NULL, '2025-04-13 05:01:43', '2025-04-13 05:01:43'),
+(21, 45, 190, 'Iphone 16 Plus', 'uploads/products/1743654863_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', 'Red', '16GB', 3, 17000000, NULL, NULL, '2025-04-13 11:15:00', '2025-04-13 11:15:00'),
+(22, 46, 187, 'Iphone 16 Pro Max', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', 'Red', '8GB', 1, 17800000, NULL, NULL, '2025-04-20 04:21:39', '2025-04-20 04:21:39'),
+(23, 47, 187, 'Iphone 16 Pro Max', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', 'Red', '8GB', 2, 17800000, NULL, NULL, '2025-04-20 04:22:20', '2025-04-20 04:22:20'),
+(24, 48, 185, 'Iphone 16e', 'uploads/products/1743650286_iPhone-14-plus-thumb-den-600x600.jpg', 'Blue', '8GB', 1, 15600000, NULL, NULL, '2025-04-20 10:08:53', '2025-04-20 10:08:53');
 
 -- --------------------------------------------------------
 
@@ -562,21 +459,6 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
---
-
-CREATE TABLE `posts` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('draft','published') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'draft',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `products`
 --
 
@@ -586,13 +468,6 @@ CREATE TABLE `products` (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `screen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `os` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rear_camera` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `front_camera` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cpu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `battery` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `base_price` int DEFAULT NULL,
   `sale_price` int DEFAULT NULL,
   `sold` int DEFAULT NULL,
@@ -601,25 +476,26 @@ CREATE TABLE `products` (
   `have_variant` tinyint(1) DEFAULT '0',
   `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `image`, `screen`, `os`, `rear_camera`, `front_camera`, `cpu`, `ram`, `battery`, `base_price`, `sale_price`, `sold`, `view`, `priority`, `have_variant`, `status`, `created_at`, `updated_at`) VALUES
-(75, 1, 'Iphone 16e', 'Là sản phẩm cực kì chất lượng đến từ thương hiệu Apple', 'uploads/products/1743650286_iPhone-14-plus-thumb-den-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 13, 1, 'active', '2025-04-02 20:18:06', '2025-04-05 04:57:34'),
-(76, 1, 'Iphone 16 Pro Max', 'Sản phẩm cực tốt đến từ thương hiệu Apple', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', '6.5 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '12GB', '5000mAh', 18500000, 17500000, NULL, 0, 14, 1, 'active', '2025-04-02 20:22:22', '2025-04-05 04:57:42'),
-(78, 1, 'Iphone 16 Plus', 'Chip 18A nhân siêu mạnh', 'uploads/products/1743654863_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 18500000, 17900000, NULL, 0, 12, 1, 'active', '2025-04-02 21:34:23', '2025-04-05 04:57:24'),
-(149, 1, 'Iphone 16', 'Đẹp quá nhở', 'uploads/products/1743945139_iphone-16-xanh-mong-ket-thumbnew-600x600 (1).png', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 0, 1, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
-(150, 1, 'Iphone 15 Pro Max', 'Đẹp lắm', 'uploads/products/1743945590_iphone-15-pro-max-black-thumbnew-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '12GB', '5000mAh', 15900000, 14900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:19:50', '2025-04-06 13:19:50'),
-(151, 1, 'Iphone 15 Plus', 'Đẹp nhất 2024', 'uploads/products/1743946087_iphone-15-plus-xanh-la-128gb-thumb-600x600 (1).jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 18500000, 17400000, NULL, 0, 0, 1, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
-(152, 1, 'Iphone 15', 'Sản phẩm cực kì đẹp', 'uploads/products/1743946273_iphone-15-hong-thumb-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15600000, NULL, 0, 0, 1, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
-(153, 1, 'Iphone 14 Plus', 'đẹp quá ạ', 'uploads/products/1743946664_iPhone-14-plus-thumb-den-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:37:44', '2025-04-06 13:37:44'),
-(154, 1, 'Iphone 14', 'Đẹp quá ạ', 'uploads/products/1743947111_iPhone-14-thumb-trang-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
-(155, 1, 'Iphone 13', 'Quá chi tiết', 'uploads/products/1743947585_iphone-13-midnight-2-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 14990000, 11900000, NULL, 0, 0, 1, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
-(156, 1, 'Iphone 12', 'Dòng điện thoại thông minh được sản xuất bởi Apple Inc', 'uploads/products/1743948857_iphone-12-tim-1-600x600.jpg', '6.8 inches', 'iOS', '48MP', '12MP', 'A16 Bionic', '6GB', '5000mAh', 16500000, 15900000, NULL, 0, 0, 1, 'active', '2025-04-06 14:14:17', '2025-04-06 14:14:17');
+INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `image`, `base_price`, `sale_price`, `sold`, `view`, `priority`, `have_variant`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(75, 1, 'Iphone 16e', 'Là sản phẩm cực kì chất lượng đến từ thương hiệu Apple', 'uploads/products/1743650286_iPhone-14-plus-thumb-den-600x600.jpg', 16500000, 15600000, 15, 34, 13, 1, 'active', '2025-04-02 20:18:06', '2025-04-21 14:18:33', NULL),
+(76, 17, 'Iphone 16 Pro Max', 'Sản phẩm cực tốt đến từ thương hiệu Apple', 'uploads/products/1743650719_iphone-16-plus-hong-thumb-1-600x600.jpg', 18500000, 17500000, 165, 152, 14, 1, 'active', '2025-04-02 20:22:22', '2025-04-21 14:19:00', NULL),
+(78, 1, 'Iphone 16 Plus', 'Chip 18A nhân siêu mạnh', 'uploads/products/1743654863_iphone-16-pro-max-sa-mac-thumb-1-600x600.jpg', 18500000, 17900000, 515, 1532, 12, 1, 'active', '2025-04-02 21:34:23', '2025-04-20 05:39:54', NULL),
+(149, 1, 'Iphone 16', 'Đẹp quá nhở', 'uploads/products/1743945139_iphone-16-xanh-mong-ket-thumbnew-600x600 (1).png', 16500000, 15600000, 12, 2809, 0, 1, 'active', '2025-04-06 13:12:19', '2025-04-13 11:31:44', NULL),
+(150, 1, 'Iphone 15 Pro Max', 'Đẹp lắm', 'uploads/products/1743945590_iphone-15-pro-max-black-thumbnew-600x600.jpg', 15900000, 14900000, 1, 135, 0, 1, 'active', '2025-04-06 13:19:50', '2025-04-20 03:28:39', NULL),
+(151, 1, 'Iphone 15 Plus', 'Đẹp nhất 2024', 'uploads/products/1743946087_iphone-15-plus-xanh-la-128gb-thumb-600x600 (1).jpg', 18500000, 17400000, 15, 158, 0, 1, 'active', '2025-04-06 13:28:07', '2025-04-20 01:48:15', NULL),
+(152, 1, 'Iphone 15', 'Sản phẩm cực kì đẹp', 'uploads/products/1743946273_iphone-15-hong-thumb-1-600x600.jpg', 16500000, 15600000, 13, 791, 0, 1, 'active', '2025-04-06 13:31:13', '2025-04-20 05:38:56', NULL),
+(153, 1, 'Iphone 14 Plus', 'đẹp quá ạ', 'uploads/products/1743946664_iPhone-14-plus-thumb-den-600x600.jpg', 16500000, 15900000, 4, 793, 0, 1, 'active', '2025-04-06 13:37:44', '2025-04-20 06:13:12', NULL),
+(154, 1, 'Iphone 14', 'Đẹp quá ạ', 'uploads/products/1743947111_iPhone-14-thumb-trang-600x600.jpg', 16500000, 15900000, 16, 794, 0, 1, 'active', '2025-04-06 13:45:11', '2025-04-20 02:58:42', NULL),
+(155, 1, 'Iphone 13', 'Quá chi tiết', 'uploads/products/1743947585_iphone-13-midnight-2-600x600.jpg', 14990000, 11900000, 7, 117, 0, 1, 'active', '2025-04-06 13:53:05', '2025-04-19 17:02:04', NULL),
+(156, 1, 'Iphone 12 Test', 'Dòng điện thoại thông minh được sản xuất bởi Apple Inc', 'uploads/products/1743948857_iphone-12-tim-1-600x600.jpg', 16500000, 15900000, 20, 236, 0, 1, 'active', '2025-04-06 14:14:17', '2025-04-20 06:49:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -699,13 +575,13 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `color`, `hax_code`, `storage`, `origin_price`, `price`, `stock`, `status`, `created_at`, `updated_at`) VALUES
-(184, 75, 'Red', '#FF0000', '16GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-07 05:12:44'),
-(185, 75, 'Blue', '#98A7C1', '8GB', 16500000, 15600000, 0, 'active', '2025-04-02 20:18:06', '2025-04-07 06:19:19'),
-(186, 75, 'Black', '#1D1D1F', '8GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-07 06:21:51'),
-(187, 76, 'Red', '#FF0000', '8GB', 18900000, 17900000, 9, 'active', '2025-04-02 20:22:22', '2025-04-07 05:20:00'),
-(188, 76, 'Red', '#FF0000', '16GB', 19500000, 18500000, 13, 'active', '2025-04-02 20:22:22', '2025-04-05 20:58:25'),
-(189, 78, 'Red', '#FF0000', '8GB', 18500000, 16900000, 7, 'active', '2025-04-02 21:34:23', '2025-04-07 05:24:26'),
-(190, 78, 'Red', '#FF0000', '16GB', 19000000, 17000000, 10, 'active', '2025-04-02 21:34:23', '2025-04-05 08:30:15'),
+(184, 75, 'Red', '#FF0000', '16GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-06 18:43:41'),
+(185, 75, 'Blue', '#98A7C1', '8GB', 16500000, 15600000, 0, 'active', '2025-04-02 20:18:06', '2025-04-20 10:08:53'),
+(186, 75, 'Black', '#1D1D1F', '8GB', 17500000, 16500000, 0, 'active', '2025-04-02 20:18:06', '2025-04-05 00:07:02'),
+(187, 76, 'Red', '#FF0000', '8GB', 18900000, 17800000, 0, 'active', '2025-04-02 20:22:22', '2025-04-20 04:22:20'),
+(188, 76, 'Red', '#FF0000', '16GB', 19500000, 18500000, 15, 'active', '2025-04-02 20:22:22', '2025-04-06 22:04:38'),
+(189, 78, 'Red', '#FF0000', '8GB', 18500000, 16900000, 12, 'active', '2025-04-02 21:34:23', '2025-04-07 04:36:48'),
+(190, 78, 'Red', '#FF0000', '16GB', 19000000, 17000000, 7, 'active', '2025-04-02 21:34:23', '2025-04-13 11:15:00'),
 (200, 149, 'Black', '#1D1D1F', '32GB', 16500000, 15600000, 10, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
 (201, 149, 'Black', '#1D1D1F', '64GB', 17500000, 16600000, 15, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
 (202, 149, 'Purple', '#DDD6F3', '32GB', 16900000, 16000000, 5, 'active', '2025-04-06 13:12:19', '2025-04-06 13:12:19'),
@@ -718,7 +594,7 @@ INSERT INTO `product_variants` (`id`, `product_id`, `color`, `hax_code`, `storag
 (209, 151, 'Blue', '#98A7C1', '64GB', 19400000, 18100000, 5, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
 (210, 151, 'Yellow', '#FDE58D', '32GB', 18500000, 17900000, 6, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
 (211, 151, 'Yellow', '#FDE58D', '64GB', 19500000, 17300000, 8, 'active', '2025-04-06 13:28:07', '2025-04-06 13:28:07'),
-(212, 152, 'Black Titanium', '#3F3A3C', '32GB', 16500000, 15600000, 12, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
+(212, 152, 'Black Titanium', '#3F3A3C', '32GB', 16500000, 15600000, 8, 'active', '2025-04-06 13:31:13', '2025-04-10 11:40:31'),
 (213, 152, 'Black Titanium', '#3F3A3C', '64GB', 17500000, 16900000, 5, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
 (214, 152, 'Pink', '#F3BFCA', '32GB', 16000000, 15100000, 9, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
 (215, 152, 'Pink', '#F3BFCA', '64GB', 17500000, 16800000, 7, 'active', '2025-04-06 13:31:13', '2025-04-06 13:31:13'),
@@ -729,11 +605,12 @@ INSERT INTO `product_variants` (`id`, `product_id`, `color`, `hax_code`, `storag
 (220, 154, 'Black Titanium', '#3F3A3C', '32GB', 17500000, 16900000, 6, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
 (221, 154, 'Pink', '#F3BFCA', '16GB', 16700000, 15500000, 6, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
 (222, 154, 'Pink', '#F3BFCA', '32GB', 17700000, 16500000, 15, 'active', '2025-04-06 13:45:11', '2025-04-06 13:45:11'),
-(223, 155, 'Red', '#FF0000', '8GB', 14990000, 11900000, 5, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
+(223, 155, 'Red', '#FF0000', '8GB', 14990000, 11900000, 3, 'active', '2025-04-06 13:53:05', '2025-04-06 21:42:40'),
 (224, 155, 'Red', '#FF0000', '16GB', 15500000, 12500000, 9, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
 (225, 155, 'Black', '#1D1D1F', '8GB', 14990000, 11900000, 6, 'active', '2025-04-06 13:53:05', '2025-04-06 13:53:05'),
-(226, 156, 'Blue', '#98A7C1', '32GB', 15500000, 14900000, 5, 'active', '2025-04-06 14:14:17', '2025-04-06 14:14:17'),
-(227, 156, 'Blue', '#98A7C1', '64GB', 16500000, 15500000, 10, 'active', '2025-04-06 14:14:17', '2025-04-06 14:14:17');
+(226, 156, 'Blue', '#98A7C1', '32GB', 15500000, 14000000, 0, 'active', '2025-04-06 14:14:17', '2025-04-07 11:25:56'),
+(227, 156, 'Black', '#1D1D1F', '64GB', 16500000, 15500000, 7, 'active', '2025-04-06 14:14:17', '2025-04-09 01:53:02'),
+(229, 156, 'Black', '#1D1D1F', '16GB', 15000000, 14100000, 5, 'active', '2025-04-07 10:51:30', '2025-04-07 10:51:30');
 
 -- --------------------------------------------------------
 
@@ -744,7 +621,9 @@ INSERT INTO `product_variants` (`id`, `product_id`, `color`, `hax_code`, `storag
 CREATE TABLE `ratings` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `product_id` bigint UNSIGNED NOT NULL,
+  `product_variant_id` bigint UNSIGNED NOT NULL,
+  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `storage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `rating` tinyint UNSIGNED NOT NULL,
   `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -755,9 +634,9 @@ CREATE TABLE `ratings` (
 -- Dumping data for table `ratings`
 --
 
-INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `rating`, `review`, `created_at`, `updated_at`) VALUES
-(1, 2, 75, 4, 'Đẹp quá bạn ơiiiii', '2025-04-01 07:38:37', NULL),
-(2, 2, 76, 4, 'Đẹp quá ạ', '2025-04-06 14:33:02', '2025-04-06 14:33:02');
+INSERT INTO `ratings` (`id`, `user_id`, `product_variant_id`, `color`, `storage`, `rating`, `review`, `created_at`, `updated_at`) VALUES
+(1, 2, 184, 'Red', '8GB', 4, 'Okeee', '2025-04-09 02:03:02', '2025-04-09 02:03:02'),
+(2, 2, 184, 'Red', '8GB', 5, 'Okeee', '2025-04-09 02:03:02', '2025-04-09 02:03:02');
 
 -- --------------------------------------------------------
 
@@ -801,21 +680,23 @@ CREATE TABLE `users` (
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
-  `role` enum('admin','staff','customer') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
+  `role` enum('admin','staff','customer') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'customer',
   `block_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fullname`, `email`, `username`, `password`, `phone`, `address`, `avatar`, `status`, `role`, `block_reason`, `created_at`, `updated_at`) VALUES
-(1, 'Admin User', 'admin@example.com', 'admin', '$2y$12$JfCPIg9hIZGAJBWw.wWbjuou.fanYY9PcpmWKeEQK5WpGG82jmMLO', '+1-856-372-7176', '492 Reba Gardens Suite 060\nKarianeburgh, AL 85523-9007', 'default.jpg', 'active', 'admin', NULL, '2025-03-30 10:10:35', '2025-03-30 10:10:35'),
-(2, 'Customer', 'customer@example.com', 'customer', '$2y$12$G9a6cSTqI0vO1dMyw/2CG.iQJUQZnRXqjgS6zm0KOofUnQ704L.8y', '678.301.3889', '43784 Luettgen GlensNorth Derrick, IL 54948', 'avatar/ER4yi3EkSMuJnmJCoGxHin3pBuoDCA4WMMmJjZ35.jpg', 'active', 'customer', NULL, '2025-03-30 10:10:36', '2025-04-06 16:16:22'),
-(4, 'Cao Văn Nhật', 'nhatnobi1503@gmail.com', 'nhatnobi1503', '$2y$12$Astq1WXxSHuLnhesRN63I.4VOXsD1MjohETPkI1T19eGrBvEaT9SK', '085965163', 'Nguyễn Hoàng ....', 'avatars/OEQ3Ao9d4AO7rsPzcwY2xt6TQcDf8rx5p2yhYggD.jpg', 'active', 'customer', NULL, '2025-04-04 00:42:34', '2025-04-04 02:05:27'),
-(5, 'Trần Văn Quyết', 'quyet123@gmail.com', 'quyet123', '$2y$12$il8sSlwsR1xCa3WeuXRX6OZhMWGEkvDXBTapfDwy8XpItNXsH7Fm2', NULL, NULL, NULL, 'active', 'customer', NULL, '2025-04-05 04:46:16', '2025-04-05 04:46:16');
+INSERT INTO `users` (`id`, `fullname`, `email`, `username`, `password`, `phone`, `address`, `avatar`, `status`, `role`, `block_reason`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Admin User', 'admin@example.com', 'admin', '$2y$12$GMgyCxop3apil.srP9gGUew9Od78qZR7Iun5LbeVVSCzd8SXKI45a', '+1-856-372-7176', '492 Reba Gardens Suite 060\r\nKarianeburgh, AL 85523-9007', 'uploads/avatars/1744290076.jpg', 'active', 'admin', NULL, '2025-03-30 10:10:35', '2025-04-10 13:04:51', NULL),
+(2, 'Customer', 'customer@example.com', 'customer', '$2y$10$NixDc.1/.difFIGvF2nY.uYt4mXFbOno7vAZe89cSGXQPGtwbTXdy', '678.301.3889', '43784 Luettgen GlensNorth Derrick, IL 54948', 'uploads/avatars/1744292881.jpg', 'active', 'customer', NULL, '2025-03-30 10:10:36', '2025-04-10 13:48:01', NULL),
+(4, 'Cao Văn Nhật', 'nhatnobi1503@gmail.com', 'nhatnobi1503', '$2y$12$Astq1WXxSHuLnhesRN63I.4VOXsD1MjohETPkI1T19eGrBvEaT9SK', '085965163', 'Nguyễn Hoàng ....', 'avatars/OEQ3Ao9d4AO7rsPzcwY2xt6TQcDf8rx5p2yhYggD.jpg', 'inactive', 'customer', 'Quá ghê gớm', '2025-04-04 00:42:34', '2025-04-10 13:39:03', '2025-04-10 13:39:03'),
+(5, 'Trần Văn Quyết', 'quyet123@gmail.com', 'quyet123', '$2y$12$il8sSlwsR1xCa3WeuXRX6OZhMWGEkvDXBTapfDwy8XpItNXsH7Fm2', NULL, NULL, NULL, 'inactive', 'customer', 'Okeeee', '2025-04-05 04:46:16', '2025-04-10 13:39:18', NULL),
+(6, 'Cao Văn Nhật', 'nhatkdks51@gmail.com', 'nhatnobi123', '$2y$12$wkz6u9MMWDNcZtFHP7/yD.AKJSaexky7dPV6qPUCPIIaAN5Hw5QZC', '0651465163', '1111', 'avatars/nhPmQi3TByidmR0PUcGxuSR9OF1UWnEf2yh8hN5D.jpg', 'active', 'customer', NULL, '2025-04-10 13:51:07', '2025-04-10 13:51:07', NULL);
 
 --
 -- Indexes for dumped tables
@@ -886,18 +767,24 @@ ALTER TABLE `favorites`
   ADD KEY `favorites_product_id_foreign` (`product_id`);
 
 --
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `messages_sender_id_foreign` (`sender_id`),
-  ADD KEY `messages_receiver_id_foreign` (`receiver_id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `news_images`
+--
+ALTER TABLE `news_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `news_images_news_id_foreign` (`news_id`);
 
 --
 -- Indexes for table `notifications`
@@ -918,14 +805,6 @@ ALTER TABLE `orders`
   ADD KEY `orders_discount_id_foreign` (`discount_id`);
 
 --
--- Indexes for table `order_details`
---
-ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_details_order_id_foreign` (`order_id`),
-  ADD KEY `order_details_product_id_foreign` (`product_id`);
-
---
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
@@ -934,25 +813,12 @@ ALTER TABLE `order_items`
   ADD KEY `order_items_product_variant_id_foreign` (`product_variant_id`);
 
 --
--- Indexes for table `payments`
---
-ALTER TABLE `payments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `payments_order_id_foreign` (`order_id`);
-
---
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `products`
@@ -980,8 +846,8 @@ ALTER TABLE `product_variants`
 --
 ALTER TABLE `ratings`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ratings_user_id_product_id_unique` (`user_id`,`product_id`),
-  ADD KEY `ratings_product_id_foreign` (`product_id`);
+  ADD KEY `ratings_user_id_foreign` (`user_id`),
+  ADD KEY `ratings_product_variant_id_foreign` (`product_variant_id`);
 
 --
 -- Indexes for table `storages`
@@ -1005,25 +871,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `colors`
@@ -1035,7 +901,7 @@ ALTER TABLE `colors`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -1047,7 +913,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `favorites`
@@ -1056,16 +922,22 @@ ALTER TABLE `favorites`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `news_images`
+--
+ALTER TABLE `news_images`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1077,25 +949,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
--- AUTO_INCREMENT for table `order_details`
---
-ALTER TABLE `order_details`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
-
---
--- AUTO_INCREMENT for table `payments`
---
-ALTER TABLE `payments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1104,28 +964,22 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `ratings`
@@ -1143,7 +997,7 @@ ALTER TABLE `storages`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -1171,11 +1025,16 @@ ALTER TABLE `favorites`
   ADD CONSTRAINT `favorites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `messages`
+-- Constraints for table `news`
 --
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_receiver_id_foreign` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `messages_sender_id_foreign` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `news`
+  ADD CONSTRAINT `news_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `news_images`
+--
+ALTER TABLE `news_images`
+  ADD CONSTRAINT `news_images_news_id_foreign` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `notifications`
@@ -1193,24 +1052,11 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `order_details`
---
-ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_details_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `order_items_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `payments`
---
-ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
@@ -1234,7 +1080,7 @@ ALTER TABLE `product_variants`
 -- Constraints for table `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `ratings_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `ratings_product_variant_id_foreign` FOREIGN KEY (`product_variant_id`) REFERENCES `product_variants` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `ratings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 

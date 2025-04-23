@@ -1,92 +1,92 @@
 @include('layouts.customer.header')
 <div class="bodywrap" style="background-color: white;">
 
-    <section class="bread-crumb">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li class="home">
-                    <a href="/"><span>Trang chủ</span></a>
-                    <span class="mr_lr" style="display: inline-flex; align-items: center; margin: 0 5px;">
+	<section class="bread-crumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li class="home">
+					<a href="/"><span>Trang chủ</span></a>
+					<span class="mr_lr" style="display: inline-flex; align-items: center; margin: 0 5px;">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
                             role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
                             class="svg-inline--fa fa-chevron-right fa-w-10"
-                            style="width: 12px; height: 12px; vertical-align: middle;">
+							style="width: 12px; height: 12px; vertical-align: middle;">
                             <path fill="currentColor"
                                 d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
                             </path>
-                        </svg>
-                    </span>
+						</svg>
+					</span>
 
-                </li>
+				</li>
 
-                <li>
-                    <a class="changeurl" href="{{ url()->current() }}">
-                        <span>{{ $product->name }}</span>
-                    </a>
-                    <span class="mr_lr" style="display: inline-flex; align-items: center; margin: 0 5px;">
+				<li>
+					<a class="changeurl" href="{{ url()->current() }}">
+						<span>{{ $product->name }}</span>
+					</a>
+					<span class="mr_lr" style="display: inline-flex; align-items: center; margin: 0 5px;">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
                             role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
                             class="svg-inline--fa fa-chevron-right fa-w-10"
-                            style="width: 12px; height: 12px; vertical-align: middle;">
+							style="width: 12px; height: 12px; vertical-align: middle;">
                             <path fill="currentColor"
                                 d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
                             </path>
-                        </svg>
-                    </span>
+						</svg>
+					</span>
 
-                </li>
+				</li>
 
-                <li><strong><span>{{ $product->name }}</span></strong></li>
-            </ul>
-        </div>
-    </section>
+				<li><strong><span>{{ $product->name }}</span></strong></li>
+			</ul>
+		</div>
+	</section>
 
 
 
-    <section class="product layout-product" itemscope="" itemtype="https://schema.org/Product">
-        <meta itemprop="category" content="iPhone 16 Pro Max">
-        <meta itemprop="url" content="//www.hoangkien.com/iphone-16-pro-max-512gb">
-        <meta itemprop="name" content="iPhone 16 Pro Max 512GB">
+	<section class="product layout-product" itemscope="" itemtype="https://schema.org/Product">
+		<meta itemprop="category" content="iPhone 16 Pro Max">
+		<meta itemprop="url" content="//www.hoangkien.com/iphone-16-pro-max-512gb">
+		<meta itemprop="name" content="iPhone 16 Pro Max 512GB">
         <meta itemprop="image"
             content="http://bizweb.dktcdn.net/thumb/grande/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860.png?v=1730447868917">
-        <meta itemprop="description" content="">
-        <div class="d-none" itemprop="brand" itemtype="https://schema.org/Brand" itemscope="">
-            <meta itemprop="name" content="Apple">
-        </div>
-        <meta itemprop="model" content="">
-        <div class="d-none hidden" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-            <div class="inventory_quantity hidden" itemscope="" itemtype="http://schema.org/ItemAvailability">
-                <span class="a-stock" itemprop="supersededBy"><span class="a-stock">Liên hệ</span></span>
-            </div>
-            <link itemprop="availability" href="http://schema.org/InStock">
-            <meta itemprop="priceCurrency" content="VND">
-            <meta itemprop="price" content="30000000">
-            <meta itemprop="url" content="https://www.hoangkien.com/iphone-16-pro-max-512gb">
-            <span itemprop="UnitPriceSpecification" itemscope="" itemtype="https://schema.org/Downpayment">
-                <meta itemprop="priceType" content="30000000">
-            </span>
-            <meta itemprop="priceValidUntil" content="2099-01-01">
-        </div>
+		<meta itemprop="description" content="">
+		<div class="d-none" itemprop="brand" itemtype="https://schema.org/Brand" itemscope="">
+			<meta itemprop="name" content="Apple">
+		</div>
+		<meta itemprop="model" content="">
+		<div class="d-none hidden" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+			<div class="inventory_quantity hidden" itemscope="" itemtype="http://schema.org/ItemAvailability">
+				<span class="a-stock" itemprop="supersededBy"><span class="a-stock">Liên hệ</span></span>
+			</div>
+			<link itemprop="availability" href="http://schema.org/InStock">
+			<meta itemprop="priceCurrency" content="VND">
+			<meta itemprop="price" content="30000000">
+			<meta itemprop="url" content="https://www.hoangkien.com/iphone-16-pro-max-512gb">
+			<span itemprop="UnitPriceSpecification" itemscope="" itemtype="https://schema.org/Downpayment">
+				<meta itemprop="priceType" content="30000000">
+			</span>
+			<meta itemprop="priceValidUntil" content="2099-01-01">
+		</div>
         <div class="d-none hidden" id="https://www.hoangkien.com" itemprop="seller"
             itemtype="http://schema.org/Organization" itemscope="">
-            <meta itemprop="name" content="NTPhone">
-            <meta itemprop="url" content="https://www.hoangkien.com">
+			<meta itemprop="name" content="NTPhone">
+			<meta itemprop="url" content="https://www.hoangkien.com">
 
-        </div>
+		</div>
 
-        <div class="container">
-            <div class="block-background">
-                <div class="row">
-                    <div class="col-12">
+		<div class="container">
+			<div class="block-background">
+				<div class="row">
+					<div class="col-12">
                         <h1 class="title-product" style="text-align: center;">{{ $product->name }}</h1>
 
-                    </div>
+					</div>
                     <div class="product-detail-left product-images col-12 col-md-12 col-lg-6 col-xl-4"
                         style="margin: 0px 0 0 176px;">
-                        <div class="product-image-block">
+						<div class="product-image-block">
                             <div
                                 class="swiper-container gallery-top p-5 swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-                                <div class="swiper-wrapper" id="lightgallery" style="transition-duration: 0ms;">
+								<div class="swiper-wrapper" id="lightgallery" style="transition-duration: 0ms;">
                                     <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
                                         <div class="p-100">
                                             <img height="80" width="80" src="{{ asset($product->image) }}"
@@ -101,144 +101,144 @@
                                                 alt="{{ $product->name }}"
                                                 class="img-responsive mx-auto d-block swiper-lazy">
                                         </a>
-                                    @endforeach
-                                </div>
+									@endforeach
+								</div>
 
-                                <div class="tag-km">
-                                </div>
-                            </div>
+								<div class="tag-km">
+								</div>
+							</div>
 
                             <div
                                 class="swiper-container gallery-thumbs p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs">
-                                <div class="swiper-wrapper" style="transition-duration: 0ms;">
+								<div class="swiper-wrapper" style="transition-duration: 0ms;">
                                     <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
                                         <div class="p-100">
                                             <img height="80" width="80" src="{{ asset($product->image) }}"
                                                 alt="{{ $product->name }}" class="swiper-lazy">
                                         </div>
                                     </div>
-                                    @foreach ($product->images as $image)
-                                        <div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
-                                            <div class="p-100">
+									@foreach ($product->images as $image)
+									<div class="swiper-slide" style="width: 75.75px; margin-right: 10px;">
+										<div class="p-100">
                                                 <img height="80" width="80"
                                                     src="{{ asset($image->mini_image) }}" alt="{{ $product->name }}"
                                                     class="swiper-lazy">
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev swiper-button-disabled"></div>
-                            </div>
-                        </div>
-                    </div>
+										</div>
+									</div>
+									@endforeach
+								</div>
+								<div class="swiper-button-next"></div>
+								<div class="swiper-button-prev swiper-button-disabled"></div>
+							</div>
+						</div>
+					</div>
 
-                    <div class="col-12 col-md-12 col-lg-6 col-xl-5">
-                        <div class="details-pro">
+					<div class="col-12 col-md-12 col-lg-6 col-xl-5">
+						<div class="details-pro">
 
-                            <div class="inventory_quantity">
-                                <div class="thump-break row">
+							<div class="inventory_quantity">
+								<div class="thump-break row">
 
 
-                                    <div class="mb-break type col-lg-6">
-                                        <span class="stock-brand-title">Thương hiệu:</span>
-                                        <span class="a-vendor">{{ $product->category->name ?? 'N/A' }}</span>
-                                    </div>
-                                    <div class="mb-break inventory col-lg-6">
-                                        <span class="stock-brand-title">Tình trạng:</span>
-                                        <span class="a-stock">Còn hàng</span>
-                                    </div>
-                                    <div class="mb-break sku-product clearfix col-lg-6">
+									<div class="mb-break type col-lg-6">
+										<span class="stock-brand-title">Thương hiệu:</span>
+										<span class="a-vendor">{{ $product->category->name ?? 'N/A' }}</span>
+									</div>
+									<div class="mb-break inventory col-lg-6">
+										<span class="stock-brand-title">Tình trạng:</span>
+										<span class="a-stock">Còn hàng</span>
+									</div>
+									<div class="mb-break sku-product clearfix col-lg-6">
 
-                                    </div>
-                                </div>
+									</div>
+								</div>
 
-                            </div>
+							</div>
 
                             <form enctype="multipart/form-data" data-cart-form="" id="add-to-cart-form"
                                 method="post" class="form-inline">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+								@csrf
+								<input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                <div class="price-box clearfix">
-                                    <span class="title-price">Giá bán:</span>
-                                    <span class="special-price">
-                                        <span class="price product-price current-price" id="display-price">
-                                            {{ number_format(optional($variants->first())->price, 0, ',', '.') }}₫
-                                        </span>
-                                    </span>
-                                    <span class="origin_price" id="display-origin-price">
-                                        {{ number_format(optional($variants->first())->origin_price, 0, ',', '.') }}₫
-                                    </span>
-                                </div>
+								<div class="price-box clearfix">
+									<span class="title-price">Giá bán:</span>
+									<span class="special-price">
+										<span class="price product-price current-price" id="display-price">
+											{{ number_format(optional($variants->first())->price, 0, ',', '.') }}₫
+										</span>
+									</span>
+									<span class="origin_price" id="display-origin-price">
+										{{ number_format(optional($variants->first())->origin_price, 0, ',', '.') }}₫
+									</span>
+								</div>
 
-                                <div class="form-product">
-                                    <div class="phienban">
-                                        <label for="storage">Dung lượng:</label>
-                                        <div class="row">
-                                            @foreach ($storages as $storage)
+								<div class="form-product">
+									<div class="phienban">
+										<label for="storage">Dung lượng:</label>
+										<div class="row">
+											@foreach ($storages as $storage)
                                                 <div class="col-lg-4 col-md-3 col-4" style="padding-left: 3px; padding-right: 3px;width: 70px;">
                                                     <a href="javascript:void(0);"
                                                        class="thumb-phienban storage-option"
                                                        data-storage="{{ $storage->storage }}"
-                                                       data-price="{{ $storage->price }}"
+													data-price="{{ $storage->price }}"
                                                        data-origin-price="{{ $storage->origin_price }}"
                                                        style="display: inline-block; text-align: center; border: 1px solid #ccc; padding: 5px 10px; margin-bottom: 10px; border-radius: 8px; font-size: 0.85em; width: auto; min-width: fit-content; transition: all 0.2s ease-in-out; background-color: #fff; color: #333; text-decoration: none;">
-                                                        <span>{{ $storage->storage }}</span>
-                                                    </a>
-                                                </div>
-                                            @endforeach
-                                        </div>
+													<span>{{ $storage->storage }}</span>
+												</a>
+											</div>
+											@endforeach
+										</div>
                                         <input type="hidden" name="storage" id="selected-storage"
                                                value="{{ $storages->first()->storage ?? '' }}">
-                                    </div>
+									</div>
 
-                                    <div class="select-swatch">
-                                        <div class="swatch clearfix" data-option-index="0">
+									<div class="select-swatch">
+										<div class="swatch clearfix" data-option-index="0">
                                             <div class="header">Màu sắc: <span
                                                     class="value-roperties">{{ $product['colors'][0]['value'] ?? '' }}</span>
                                             </div>
-                                            <div class="thump-swatch">
+											<div class="thump-swatch">
                                                 @foreach ($colors as $colorGroup)
                                                     <div data-value="{{ $colorGroup['color'] }}"
                                                         class="swatch-element-circle color"
                                                         id="color-{{ \Str::slug($colorGroup['color']) }}">
                                                         <div class="tooltip"
                                                             style="background-color: '{{ $colorGroup['variants']->first()->hax_code ?? '' }}';">
-                                                            {{ $colorGroup['color'] }}
-                                                        </div>
+														{{ $colorGroup['color'] }}
+													</div>
 
 
                                                         <input id="swatch-0-{{ \Str::slug($colorGroup['color']) }}"
                                                             type="radio" name="option-0"
-                                                            value="{{ $colorGroup['color'] }}"
+														value="{{ $colorGroup['color'] }}"
                                                             {{ $loop->first ? 'checked' : '' }} class="color-selector"
-                                                            data-price="{{ $colorGroup['variants']->first()->price }}"
-                                                            data-origin-price="{{ $colorGroup['variants']->first()->origin_price }}">
+														data-price="{{ $colorGroup['variants']->first()->price }}"
+														data-origin-price="{{ $colorGroup['variants']->first()->origin_price }}">
 
-                                                        <label for="swatch-0-{{ \Str::slug($colorGroup['color']) }}">
+													<label for="swatch-0-{{ \Str::slug($colorGroup['color']) }}">
                                                             <span class="color-round"
                                                                 data-color="{{ $colorGroup['variants']->first()->hax_code ?? '' }}">
-                                                                <span>{{ $colorGroup['color'] }}</span>
-                                                            </span>
+															<span>{{ $colorGroup['color'] }}</span>
+														</span>
 
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <script>
-                                    document.querySelectorAll('.color-round').forEach(function(el) {
-                                        const color = el.getAttribute('data-color');
-                                        if (color) {
-                                            el.style.backgroundColor = color;
-                                        }
-                                    });
-                                </script>
+													</label>
+												</div>
+												@endforeach
+											</div>
+										</div>
+									</div>
+								</div>
+								<script>
+									document.querySelectorAll('.color-round').forEach(function(el) {
+										const color = el.getAttribute('data-color');
+										if (color) {
+											el.style.backgroundColor = color;
+										}
+									});
+								</script>
 
-                                <style>
+								<style>
                                     /* Đưa nút Liên hệ và Mua ngay lên cùng hàng ngang */
                                     .group-button {
                                         flex-direction: row;
@@ -439,11 +439,11 @@
                                         font-weight: 600;
                                     }
 
-                                    .swatch-element-circle {
-                                        border-radius: 50%;
+									.swatch-element-circle {
+										border-radius: 50%;
                                         overflow: visible;
                                         /* Allow focus ring */
-                                        display: inline-block;
+										display: inline-block;
                                         margin-right: 5px;
                                         /* Adjust spacing */
                                         margin-bottom: 5px;
@@ -451,9 +451,9 @@
                                         /* Remove padding */
                                         position: relative;
                                         /* For positioning focus */
-                                    }
+									}
 
-                                    .color-round {
+									.color-round {
                                         width: 32px;
                                         /* Smaller size */
                                         height: 32px;
@@ -462,9 +462,9 @@
                                         /* Center potential inner elements */
                                         align-items: center;
                                         justify-content: center;
-                                        border-radius: 50%;
-                                        border: 1px solid #ccc;
-                                        cursor: pointer;
+										border-radius: 50%;
+										border: 1px solid #ccc;
+										cursor: pointer;
                                         transition: transform 0.2s ease, border-color 0.2s ease;
                                         background-clip: padding-box;
                                         /* Ensure background respects border */
@@ -480,12 +480,12 @@
                                     }
 
 
-                                    .color-round:hover {
-                                        transform: scale(1.1);
+									.color-round:hover {
+										transform: scale(1.1);
                                         border-color: #888;
-                                    }
+									}
 
-                                    .tooltip {
+									.tooltip {
                                         /* Redesign tooltip */
                                         position: absolute;
                                         bottom: 100%;
@@ -512,11 +512,11 @@
                                     }
 
 
-                                    .color-selector {
-                                        display: none;
-                                    }
+									.color-selector {
+										display: none;
+									}
 
-                                    .swatch-element-circle input:checked+label .color-round {
+									.swatch-element-circle input:checked+label .color-round {
                                         border: 2px solid #007bff;
                                         /* Use theme color for selected */
                                         transform: scale(1.05);
@@ -599,9 +599,9 @@
                                     .layout-product .input_number_product .btn_num svg {
                                         width: 33px;
                                         height: 20px;
-                                    }
-                                </style>
-                                <script>
+									}
+								</style>
+								<script>
                                     let currentStock = 0; // Variable to store current variant stock
 
                                     jQuery(document).ready(function($) {
@@ -678,7 +678,7 @@
                                     });
 
                                     // Function to update display price
-                                    function updatePrice(price, originPrice) {
+									function updatePrice(price, originPrice) {
                                         const priceElement = $('.current-price');
                                         const originPriceElement = $('.origin_price');
                                         if (price !== null && price !== undefined) {
@@ -716,7 +716,7 @@
                                             addButton.find('.txt-main').text('Thêm vào giỏ');
                                             buyButton.prop('disabled', false).removeClass('disabled');
                                             handleQuantityChange(); // Re-validate quantity 1 against new stock
-                                        } else {
+										} else {
                                             const message = stock === 0 ? 'Hết hàng' : 'Ngừng kinh doanh';
                                             stockStatusElement.text(message).addClass('a-stock-out');
                                             quantityInput.prop('disabled', true).val(1);
@@ -731,20 +731,20 @@
                                     }
 
                                     // Function to fetch product price and details from API
-                                    function fetchProductPrice(productId, storage, color) {
+									function fetchProductPrice(productId, storage, color) {
                                         console.log(`Fetching price for: Product=${productId}, Storage=${storage}, Color=${color}`);
-                                        jQuery.ajax({
-                                            url: '/api/get-price',
-                                            type: 'GET',
-                                            data: {
-                                                product_id: productId,
-                                                storage: storage,
-                                                color: color
-                                            },
-                                            success: function(response) {
+										jQuery.ajax({
+											url: '/api/get-price',
+											type: 'GET',
+											data: {
+												product_id: productId,
+												storage: storage,
+												color: color
+											},
+											success: function(response) {
                                                 console.log('API Response:', response);
                                                 if (response && response.success) {
-                                                    updatePrice(response.price, response.origin_price);
+													updatePrice(response.price, response.origin_price);
                                                     updateStockAndButtons(response.available, response.stock);
                                                 } else {
                                                     updatePrice(null, null);
@@ -757,9 +757,9 @@
                                                 updatePrice(null, null);
                                                 updateStockAndButtons(false, 0);
                                                 $('.inventory .a-stock').text('Không tìm thấy');
-                                            }
-                                        });
-                                    }
+											}
+										});
+									}
 
                                     // Function to show/hide quantity error messages
                                     function showQuantityError(message) {
@@ -844,20 +844,20 @@
                                 </script>
 
 
-                            </form>
-                            <div class="clearfix form-group">
-                                <div class="flex-quantity">
-                                    <div class="custom custom-btn-number show">
-                                        <label class="sl section">Số lượng:</label>
-                                        <div class="input_number_product form-control">
+							</form>
+							<div class="clearfix form-group">
+								<div class="flex-quantity">
+									<div class="custom custom-btn-number show">
+										<label class="sl section">Số lượng:</label>
+										<div class="input_number_product form-control">
                                             {{-- Remove onclick handlers --}}
                                             <button class="btn_num num_1 button button_qty" type="button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-                                                </svg>
-                                            </button>
+													<path
+														d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+												</svg>
+											</button>
                                             <input type="text" id="qtym" name="quantity_display"
                                                 value="1" maxlength="2" class="form-control prd_quantity"
                                                 inputmode="numeric" pattern="[0-9]*"
@@ -865,53 +865,53 @@
                                             <button class="btn_num num_2 button button_qty" type="button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                                                </svg>
-                                            </button>
-                                        </div>
+													<path
+														d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+												</svg>
+											</button>
+										</div>
 
                                         <small id="quantity-error"
                                             style="color: red; display: none; margin-left: 5px; position: absolute; bottom: -18px; left: 60px; white-space: nowrap;"></small>
-                                    </div>
+									</div>
 
-                                    <!-- Form mua hàng chung -->
-                                    <form id="productForm" method="POST">
-                                        @csrf
+									<!-- Form mua hàng chung -->
+									<form id="productForm" method="POST">
+										@csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}"
                                             id="product_id">
                                         {{-- Initial values will be updated by JS --}}
                                         <input type="hidden" name="color" id="selectedColor" value="">
                                         <input type="hidden" name="storage" id="selectedStorage" value="">
-                                        <input type="hidden" name="quantity" id="selectedQuantity" value="1">
+										<input type="hidden" name="quantity" id="selectedQuantity" value="1">
                                         {{-- Add action_type hidden field --}}
                                         <input type="hidden" name="action_type" id="action_type"
                                             value="add_to_cart">
 
-                                        <div class="btn-mua button_actions clearfix">
+										<div class="btn-mua button_actions clearfix">
                                             {{-- Nút Thêm vào giỏ --}}
                                             <button type="button" title="Thêm vào giỏ"
-                                                class="btn btn_base normal_button btn_add_cart add_to_cart btn-cart"
+												class="btn btn_base normal_button btn_add_cart add_to_cart btn-cart"
                                                 onclick="submitForm('{{ route('customer.postCart') }}', 'add_to_cart')">
                                                 {{-- Pass action type --}}
-                                                <span class="txt-main text_1">Thêm vào giỏ</span>
-                                                <span class="text_2">Giao hàng tận nơi miễn phí</span>
-                                            </button>
-                                        </div>
+												<span class="txt-main text_1">Thêm vào giỏ</span>
+												<span class="text_2">Giao hàng tận nơi miễn phí</span>
+											</button>
+										</div>
 
-                                        <div class="group-button">
+										<div class="group-button">
                                            
                                             <button type="button" style="width: 100%" class="btn-buyNow"
                                                
                                                 onclick="submitForm('{{ route('customer.buyNowDirect') }}', 'buy_now_direct')">
-                                                Mua ngay
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+												Mua ngay
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
 
-                            <script>
+							<script>
                                 // Function to show toast messages
                                 function showToast(message, type = 'info') {
                                     // Remove existing toasts first to avoid stacking
@@ -937,10 +937,10 @@
                                 }
 
                                 // Updates hidden form fields before submission
-                                function updateValues() {
+								function updateValues() {
                                     var selectedStorage = jQuery('#selected-storage').val(); // Get from hidden input now
-                                    var selectedColor = jQuery('.color-selector:checked').val();
-                                    var selectedQuantity = jQuery('#qtym').val();
+									var selectedColor = jQuery('.color-selector:checked').val();
+									var selectedQuantity = jQuery('#qtym').val();
 
                                     document.getElementById('selectedStorage').value = selectedStorage || ''; // Ensure value exists
                                     document.getElementById('selectedColor').value = selectedColor || ''; // Ensure value exists
@@ -957,15 +957,15 @@
                                     const clickedButton = event ? event.currentTarget : null;
                                     if (clickedButton && $(clickedButton).prop('disabled')) {
                                         console.warn("Button already disabled, preventing double submission.");
-                                        return;
-                                    }
+										return;
+									}
 
                                     updateValues(); // Ensure latest values are set
 
-                                    const productId = document.getElementById('product_id').value;
-                                    const selectedColor = document.getElementById('selectedColor').value;
-                                    const selectedStorage = document.getElementById('selectedStorage').value;
-                                    const selectedQuantity = document.getElementById('selectedQuantity').value;
+									const productId = document.getElementById('product_id').value;
+									const selectedColor = document.getElementById('selectedColor').value;
+									const selectedStorage = document.getElementById('selectedStorage').value;
+									const selectedQuantity = document.getElementById('selectedQuantity').value;
                                     const csrfToken = $('input[name="_token"]').val(); // Get CSRF token
 
                                     // Basic check if variant options are selected
@@ -1009,7 +1009,7 @@
                                                 if (response.success && response.redirect_url) {
                                                     window.location.href = response.redirect_url;
                                                     return; // Stop further processing on redirect
-                                                } else {
+									} else {
                                                     ErrorNoti(response.message || 'Không thể mua ngay. Vui lòng thử lại.');
                                                 }
                                             } else { // Handle add_to_cart
@@ -1049,13 +1049,13 @@
                                             }
                                         }
                                     });
-                                }
-                            </script>
+								}
+							</script>
 
 
 
-                        </div>
-                    </div>
+						</div>
+					</div>
 
                     {{-- <div class="col-xl-3 col-lg-12 col-md-12 col-12 content-pro">
                         {{-- Nội dung cũ đã được xóa --}}
@@ -1071,7 +1071,7 @@
 
     {{-- Chèn khối đánh giá/bình luận vào đây --}}
     <div class="container review-comment-container" style="margin-top: 30px; margin-bottom: 30px;">
-        <div class="row">
+						<div class="row">
             <div class="col-12">
                 <div class="block-background review-comment-section">
                     <div class="product-tab e-tabs not-dqtab" id="tab-reviews-comments">
@@ -1280,23 +1280,23 @@
                                         <div class="form-group">
                                             <textarea name="content" class="form-control" rows="3" required
                                                 placeholder="Chia sẻ suy nghĩ của bạn về sản phẩm này..."></textarea>
-                                        </div>
+											</div>
 
                                         <button type="submit" class="btn btn-primary">Gửi bình luận</button>
                                     </form>
-                                </div>
+											</div>
                             @else
                                 <div class="comment-notice">
                                     <i class="fas fa-user-circle"></i>
                                     <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết bình luận.</p>
-                                </div>
+										</div>
                             @endauth
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+										</div>
+									</div>
+								</div>
 
     <style>
         /* Style cho section đánh giá và bình luận */
@@ -1802,66 +1802,66 @@
         });
     </script>
 
-    <div class="mid-product">
-        <div class="container">
-            <div class="row ">
-                <div class="col-lg-7 ">
+	<div class="mid-product">
+		<div class="container">
+			<div class="row ">
+				<div class="col-lg-7 ">
                     <div class="block-background" style="margin-bottom: 20px;width:97%;">
 
-                        <div class="product-tab e-tabs not-dqtab" id="tab-product">
-                            <ul class="tabs tabs-title clearfix">
+						<div class="product-tab e-tabs not-dqtab" id="tab-product">
+							<ul class="tabs tabs-title clearfix">
 
-                                <li class="tab-link active" data-tab="#tab-1">
-                                    <h3>Mô tả sản phẩm</h3>
-                                </li>
-
-
-                                <li class="tab-link" data-tab="#tab-2">
-                                    <h3>Hướng dẫn mua hàng</h3>
-                                </li>
+								<li class="tab-link active" data-tab="#tab-1">
+									<h3>Mô tả sản phẩm</h3>
+								</li>
 
 
-                            </ul>
-                            <div class="tab-float">
+								<li class="tab-link" data-tab="#tab-2">
+									<h3>Hướng dẫn mua hàng</h3>
+								</li>
 
-                                <div id="tab-1" class="tab-content active content_extab">
-                                    <div class="rte product_getcontent">
 
-                                        <div class="ba-text-fpt has-height">
+							</ul>
+							<div class="tab-float">
+
+								<div id="tab-1" class="tab-content active content_extab">
+									<div class="rte product_getcontent">
+
+										<div class="ba-text-fpt has-height">
                                             <p><img alt="iphone 16 series đặc điểm nổi bật" loading="lazy"
                                                     src="https://cdn2.cellphones.com.vn/x/media/wysiwyg/1-Pro.jpg"></p>
-                                        </div>
-                                        <div class="show-more">
-                                            <div class="btn btn-default btn--view-more see-more">
-                                                <a href="javascript:void(0)" class="more-text see-more">Xem thêm</a>
-                                                <a href="javascript:void(0)" class="less-text see-more">Thu gọn </a>
-                                            </div>
-                                        </div>
+										</div>
+										<div class="show-more">
+											<div class="btn btn-default btn--view-more see-more">
+												<a href="javascript:void(0)" class="more-text see-more">Xem thêm</a>
+												<a href="javascript:void(0)" class="less-text see-more">Thu gọn </a>
+											</div>
+										</div>
 
 
-                                    </div>
-                                </div>
+									</div>
+								</div>
 
 
-                                <div id="tab-2" class="tab-content content_extab">
+								<div id="tab-2" class="tab-content content_extab">
                                     <label class="block text-sm font-medium text-gray-300 mb-1">Mô tả sản phẩm</label>
                                     <div id="description" class="rte">
                                         {!! $product->description !!}
-                                    </div>
-                                </div>
+									</div>
+								</div>
 
 
-                            </div>
-                        </div>
+							</div>
+						</div>
 
-                    </div>
-                </div>
+					</div>
+				</div>
                 {{-- có thể bạn thích  --}}
-                <div class="col-lg-5">
-                    <div class="row row-fix">
-                        <div class="col-12 col-md-12 col-lg-12 col-fix">
-                            <div class="product-like block-background">
-                                <h3 class="title">
+				<div class="col-lg-5">
+					<div class="row row-fix">
+					<div class="col-12 col-md-12 col-lg-12 col-fix">
+    <div class="product-like block-background">
+        <h3 class="title">
                                     <a class="title-name"
                                         href="{{ route('customer.category', ['id' => $categoryId]) }}"
                                         title="Có thể bạn thích">
@@ -1870,10 +1870,10 @@
                                             <path
                                                 d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z">
                                             </path>
-                                        </svg>
-                                        Có thể bạn thích
-                                    </a>
-                                </h3>
+                </svg>
+                Có thể bạn thích
+            </a>
+        </h3>
                                 <div
                                     class="product1-swiper swiper-container p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-multirow">
                                     <div class="swiper-wrapper">
@@ -1885,7 +1885,7 @@
                                                     data-id="product-actions-{{ $product->id }}"
                                                     enctype="multipart/form-data">
                                                     @csrf
-                                                    <div class="product-thumbnail">
+                            <div class="product-thumbnail">
                                                         <a class="image_thumb scale_hover"
                                                             href="{{ route('customer.product_detail', ['id' => $product->id]) }}"
                                                             title="{{ $product->name }}">
@@ -1899,18 +1899,18 @@
                                                         </a>
                                                         <input class="hidden" type="hidden" name="variantId"
                                                             value="{{ $product->variants->first()->id ?? '' }}">
-                                                        <div class="action">
+                            <div class="action">
                                                             <button class="btn-cart btn-views" title="Xem chi tiết"
                                                                 type="button"
                                                                 onclick="window.location.href='{{ route('customer.product_detail', ['id' => $product->id]) }}'">
-                                                                <svg class="icon">
+                                    <svg class="icon">
                                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
                                                                         xlink:href="#icon-detail"></use>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
+                                    </svg>
+                                </button>
+                            </div>
                                                     </div>
-                                                    <div class="product-info">
+                            <div class="product-info">
                                                         <h3 class="product-name">
                                                             <a class="line-clamp line-clamp-2"
                                                                 href="{{ route('customer.product_detail', ['id' => $product->id]) }}"
@@ -1918,7 +1918,7 @@
                                                                 {{ $product->name }}
                                                             </a>
                                                         </h3>
-                                                        <div class="price-box">
+                                <div class="price-box">
                                                             @if ($product->discount_percentage > 0)
                                                                 <span
                                                                     class="compare-price">{{ number_format($product->origin_price, 0, ',', '.') }}₫</span>
@@ -1957,34 +1957,34 @@
                                                         </div>
                                                         <div class="sold-quantity">
                                                             Đã bán: {{ $product->sold }}
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev swiper-button-disabled"></div>
                                 </div>
-                                <div class="text-center no-padding">
+                            </div>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev swiper-button-disabled"></div>
+        </div>
+        <div class="text-center no-padding">
                                     <a class="see-more" title="Xem toàn bộ sản phẩm"
                                         href="{{ route('customer.category', ['id' => $categoryId]) }}">Xem toàn bộ sản
                                         phẩm
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                             <path
                                                 d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z">
                                             </path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+                </svg>
+            </a>
         </div>
     </div>
+</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
     <style>
         /* Định dạng màu sắc */
@@ -2069,22 +2069,22 @@
     </style>
 
     {{-- san phẩm liên quan  --}}
-    <div class="productRelate product-lq">
+	<div class="productRelate product-lq">
         <div class="container">
-            <div class="block-product block-background">
-                <h3 class="title-index">
+			<div class="block-product block-background">
+				<h3 class="title-index">
                     <a class="title-name" href="/iphone-16-pro-max" title="Sản phẩm liên quan">Sản phẩm liên quan</a>
-                </h3>
+				</h3>
                 <div
                     class="product-relate-swiper swiper-container p-5 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-                    <div class="swiper-wrapper">
-                        @foreach ($relatedProducts as $relatedProduct)
-                            <div class="swiper-slide swiper-slide-pro" style="width: 202px; margin-right: 20px;">
+					<div class="swiper-wrapper">
+						@foreach ($relatedProducts as $relatedProduct)
+						<div class="swiper-slide swiper-slide-pro" style="width: 202px; margin-right: 20px;">
                                 <form action="/cart/add" method="post" class="variants product-action"
                                     data-cart-form="" data-id="product-actions-{{ $relatedProduct->id }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="product-thumbnail">
+								<div class="product-thumbnail">
                                         <a class="image_thumb scale_hover"
                                             href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
                                             title="{{ $relatedProduct->name }}">
@@ -2096,17 +2096,17 @@
                                                 <span
                                                     class="discount-tag">{{ $relatedProduct->discount_percentage }}%</span>
                                             @endif
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h3 class="product-name">
+									</a>
+								</div>
+								<div class="product-info">
+									<h3 class="product-name">
                                             <a class="line-clamp line-clamp-2"
                                                 href="{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}"
                                                 title="{{ $relatedProduct->name }}">
-                                                {{ $relatedProduct->name }}
-                                            </a>
-                                        </h3>
-                                        <div class="price-box">
+											{{ $relatedProduct->name }}
+										</a>
+									</h3>
+									<div class="price-box">
                                             @if ($relatedProduct->discount_percentage > 0)
                                                 <span
                                                     class="compare-price">{{ number_format($relatedProduct->origin_price, 0, ',', '.') }}₫</span>
@@ -2116,7 +2116,7 @@
                                                 <span
                                                     class="special-price">{{ number_format($relatedProduct->sale_price, 0, ',', '.') }}₫</span>
                                             @endif
-                                        </div>
+									</div>
 
                                         <!-- Hiển thị màu sắc -->
                                         @if ($relatedProduct->available_colors->isNotEmpty())
@@ -2154,84 +2154,84 @@
                                             Đã bán: {{ $relatedProduct->sold }}
                                         </div>
 
-                                        <div class="action">
+									<div class="action">
                                             <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
                                                 onclick="window.location.href='{{ route('customer.product_detail', ['id' => $relatedProduct->id]) }}'">
-                                                <svg class="icon">
+											<svg class="icon">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         xlink:href="#icon-detail"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="swiper-button-next swiper-button-disabled"></div>
-                    <div class="swiper-button-prev swiper-button-disabled"></div>
-                </div>
-                <div class="text-center no-padding">
+											</svg>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						@endforeach
+					</div>
+					<div class="swiper-button-next swiper-button-disabled"></div>
+					<div class="swiper-button-prev swiper-button-disabled"></div>
+				</div>
+				<div class="text-center no-padding">
                     <a class="see-more" title="Xem toàn bộ sản phẩm"
                         href="{{ route('customer.category', ['id' => $categoryId]) }}">Xem toàn bộ sản phẩm
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+						<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                             <path
                                 d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z">
                             </path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-    <div class="thong-so-popup">
-        <div class="thong-so">
-            <h3 class="title">
+	<div class="thong-so-popup">
+		<div class="thong-so">
+			<h3 class="title">
 
-                <span>
+				<span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-gear-fill" viewBox="0 0 16 16">
                         <path
                             d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z">
                         </path>
-                    </svg>
-                    Thông số kỹ thuật
-                </span>
-            </h3>
-            <div class="content">
+					</svg>
+					Thông số kỹ thuật
+				</span>
+			</h3>
+			<div class="content">
 
                 <p><img alt="iphone 16 series đặc điểm nổi bật" loading="lazy"
                         src="https://cdn2.cellphones.com.vn/x/media/wysiwyg/1-Pro.jpg"></p>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 
-    <script>
-        $(document).ready(function() {
-            $(document).on('click', '.btn-buyNow', function() {
-                var _variantID = $('#product-selectors').val();
-                var _Qty = parseInt($('#qtym').val());;
-                if (_variantID == null) {
-                    _variantID = $('#one_variant').val();
-                }
-                jQuery.ajax({
-                    type: "POST",
-                    url: "/cart/add.js",
-                    data: "quantity=" + _Qty + "&VariantId=" + _variantID,
-                    dataType: "json",
-                    success: function(e) {
-                        window.location = '/checkout';
-                    },
-                    error: function(e, t) {
-                        Bizweb.onError(e, t);
-                    }
-                });
-            })
-        });
+	<script>
+		$(document).ready(function() {
+			$(document).on('click', '.btn-buyNow', function() {
+				var _variantID = $('#product-selectors').val();
+				var _Qty = parseInt($('#qtym').val());;
+				if (_variantID == null) {
+					_variantID = $('#one_variant').val();
+				}
+				jQuery.ajax({
+					type: "POST",
+					url: "/cart/add.js",
+					data: "quantity=" + _Qty + "&VariantId=" + _variantID,
+					dataType: "json",
+					success: function(e) {
+						window.location = '/checkout';
+					},
+					error: function(e, t) {
+						Bizweb.onError(e, t);
+					}
+				});
+			})
+		});
 
-        function activeTab(obj) {
+		function activeTab(obj) {
             // Tìm đến container '.e-tabs' gần nhất của phần tử được click
             var tabContainer = $(obj).closest('.e-tabs');
 
@@ -2247,9 +2247,9 @@
             });
 
             // Thêm class 'active' cho tab được click và content tương ứng
-            $(obj).addClass('active');
-            var id = $(obj).attr('data-tab');
-            $(id).addClass('active');
+			$(obj).addClass('active');
+			var id = $(obj).attr('data-tab');
+			$(id).addClass('active');
 
             // Thêm style đặc biệt cho tiêu đề tab được click
             $(obj).find('.tab-title-heading').css({
@@ -2257,16 +2257,16 @@
                 'background-color': '#fff', // Nền trắng khi active
                 'border-color': '#dee2e6 #dee2e6 #fff' // Border giống tab Bootstrap
             });
-        }
-        $('.button-thongso').click(function() {
-            $('.thong-so-popup, .backdrop__body-backdrop___1rvky').addClass('active');
+		}
+		$('.button-thongso').click(function() {
+			$('.thong-so-popup, .backdrop__body-backdrop___1rvky').addClass('active');
 
-        });
+		});
 
         $(document).ready(function() {
             // Gắn sự kiện click cho tất cả các tab links trong các khu vực '.e-tabs'
             $('.e-tabs > ul > li.tab-link').click(function() {
-                activeTab(this);
+			activeTab(this);
                 return false; // Ngăn hành động mặc định của thẻ a (nếu có)
             });
 
@@ -2300,768 +2300,768 @@
             }
         });
 
-        var swiperflash = new Swiper('.product1-swiper', {
-            slidesPerView: 3,
-            loop: false,
-            grabCursor: true,
-            roundLengths: true,
-            slideToClickedSlide: false,
-            spaceBetween: 20,
-            autoplay: false,
-            slidesPerColumn: 2,
-            slidesPerColumnFill: "row",
-            navigation: {
-                nextEl: '.product1-swiper .swiper-button-next',
-                prevEl: '.product1-swiper .swiper-button-prev',
-            },
-            breakpoints: {
-                300: {
-                    slidesPerView: 2,
-                    spaceBetween: 15,
-                },
-                450: {
-                    slidesPerView: 2,
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20
-                },
-                767: {
-                    slidesPerView: 3,
-                    spaceBetween: 20
-                },
-                991: {
-                    slidesPerView: 2,
-                    spaceBetween: 20
-                },
-                1200: {
-                    slidesPerView: 2,
-                    spaceBetween: 20
-                }
-            }
-        });
+		var swiperflash = new Swiper('.product1-swiper', {
+			slidesPerView: 3,
+			loop: false,
+			grabCursor: true,
+			roundLengths: true,
+			slideToClickedSlide: false,
+			spaceBetween: 20,
+			autoplay: false,
+			slidesPerColumn: 2,
+			slidesPerColumnFill: "row",
+			navigation: {
+				nextEl: '.product1-swiper .swiper-button-next',
+				prevEl: '.product1-swiper .swiper-button-prev',
+			},
+			breakpoints: {
+				300: {
+					slidesPerView: 2,
+					spaceBetween: 15,
+				},
+				450: {
+					slidesPerView: 2,
+				},
+				640: {
+					slidesPerView: 2,
+					spaceBetween: 20
+				},
+				767: {
+					slidesPerView: 3,
+					spaceBetween: 20
+				},
+				991: {
+					slidesPerView: 2,
+					spaceBetween: 20
+				},
+				1200: {
+					slidesPerView: 2,
+					spaceBetween: 20
+				}
+			}
+		});
 
-        var variantsize = false;
-        var ww = $(window).width();
+		var variantsize = false;
+		var ww = $(window).width();
 
-        var selectCallback = function(variant, selector) {
-            if (variant) {
-                var form = jQuery('#' + selector.domIdPrefix).closest('form');
-                for (var i = 0, length = variant.options.length; i < length; i++) {
+		var selectCallback = function(variant, selector) {
+			if (variant) {
+				var form = jQuery('#' + selector.domIdPrefix).closest('form');
+				for (var i = 0, length = variant.options.length; i < length; i++) {
                     var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant
                         .options[i] + '"]');
-                    if (radioButton.size()) {
-                        radioButton.get(0).checked = true;
-                    }
-                }
-            }
-            var addToCart = jQuery('.form-product .btn-cart.normal_button'),
-                buyNow = jQuery('.form-product .btn-buyNow'),
-                FastAddToCart = jQuery('.form-product .btn-cart.fast'),
-                form = jQuery('.form-product .form-group'),
-                productPrice = jQuery('.details-pro .special-price .product-price'),
-                qty = jQuery('.inventory_quantity .a-stock'),
-                comparePrice = jQuery('.details-pro .old-price .product-price-old'),
-                comparePriceText = jQuery('.details-pro .old-price'),
-                savePrice = jQuery('.details-pro .save-price .product-price-save'),
-                savePriceText = jQuery('.details-pro .save-price'),
-                qtyBtn = jQuery('.form-product .form-group .custom-btn-number'),
-                BtnSold = jQuery('.form-product .form-group .btn-mua'),
-                product_sku = jQuery('.details-product .sku-product .variant-sku');
+					if (radioButton.size()) {
+						radioButton.get(0).checked = true;
+					}
+				}
+			}
+			var addToCart = jQuery('.form-product .btn-cart.normal_button'),
+				buyNow = jQuery('.form-product .btn-buyNow'),
+				FastAddToCart = jQuery('.form-product .btn-cart.fast'),
+				form = jQuery('.form-product .form-group'),
+				productPrice = jQuery('.details-pro .special-price .product-price'),
+				qty = jQuery('.inventory_quantity .a-stock'),
+				comparePrice = jQuery('.details-pro .old-price .product-price-old'),
+				comparePriceText = jQuery('.details-pro .old-price'),
+				savePrice = jQuery('.details-pro .save-price .product-price-save'),
+				savePriceText = jQuery('.details-pro .save-price'),
+				qtyBtn = jQuery('.form-product .form-group .custom-btn-number'),
+				BtnSold = jQuery('.form-product .form-group .btn-mua'),
+				product_sku = jQuery('.details-product .sku-product .variant-sku');
 
-            if (variant && variant.sku != "" && variant.sku != null) {
-                product_sku.html(variant.sku);
-            } else {
-                product_sku.html('Đang cập nhật');
-            }
+			if (variant && variant.sku != "" && variant.sku != null) {
+				product_sku.html(variant.sku);
+			} else {
+				product_sku.html('Đang cập nhật');
+			}
 
-            FastAddToCart.addClass('d-none');
+			FastAddToCart.addClass('d-none');
 
-            if (variant && variant.available) {
-                if (variant.inventory_management == "bizweb") {
-                    if (variant.inventory_quantity != 0) {
-                        qty.html('<span class="a-stock">Liên hệ</span>');
-                    } else if (variant.inventory_quantity == '') {
-                        if (variant.inventory_policy == "continue") {
-                            qty.html('<span class="a-stock">Còn hàng</span>');
-                        } else {
-                            qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
-                        }
-                    }
-                } else {
-                    qty.html('<span class="a-stock">Còn hàng</span>');
-                }
+			if (variant && variant.available) {
+				if (variant.inventory_management == "bizweb") {
+					if (variant.inventory_quantity != 0) {
+						qty.html('<span class="a-stock">Liên hệ</span>');
+					} else if (variant.inventory_quantity == '') {
+						if (variant.inventory_policy == "continue") {
+							qty.html('<span class="a-stock">Còn hàng</span>');
+						} else {
+							qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
+						}
+					}
+				} else {
+					qty.html('<span class="a-stock">Còn hàng</span>');
+				}
 
-                FastAddToCart.removeClass('d-none');
+				FastAddToCart.removeClass('d-none');
                 addToCart.html(
                         '<span class="txt-main text_1">Thêm vào giỏ</span><span class="text_2">Giao hàng tận nơi miễn phí</span>'
                     )
-                    .removeAttr('disabled').removeClass('btn-soldout');
-                buyNow.removeClass('d-none');
-                BtnSold.removeClass('btnsold');
-                qtyBtn.removeClass('d-none');
+					.removeAttr('disabled').removeClass('btn-soldout');
+				buyNow.removeClass('d-none');
+				BtnSold.removeClass('btnsold');
+				qtyBtn.removeClass('d-none');
 
-                if (variant.price == 0) {
-                    console.log(1);
-                    productPrice.html('Liên hệ');
-                    comparePrice.hide();
-                    savePrice.hide();
-                    comparePriceText.hide();
-                    savePriceText.hide();
-                    form.addClass('d-none');
-                } else {
-                    form.removeClass('d-none');
+				if (variant.price == 0) {
+					console.log(1);
+					productPrice.html('Liên hệ');
+					comparePrice.hide();
+					savePrice.hide();
+					comparePriceText.hide();
+					savePriceText.hide();
+					form.addClass('d-none');
+				} else {
+					form.removeClass('d-none');
                     productPrice.html(Bizweb.formatMoney(variant.price, "@{{ amount_no_decimals_with_comma_separator }}₫"));
 
-                    if (variant.compare_at_price > variant.price) {
+					if (variant.compare_at_price > variant.price) {
                         comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "@{{ amount_no_decimals_with_comma_separator }}₫"))
                             .show();
                         savePrice.html(Bizweb.formatMoney(variant.compare_at_price - variant.price,
                             "@{{ amount_no_decimals_with_comma_separator }}₫")).show();
-                        comparePriceText.show();
-                        savePriceText.show();
-                    } else {
-                        comparePrice.hide();
-                        savePrice.hide();
-                        comparePriceText.hide();
-                        savePriceText.hide();
-                    }
-                }
-            } else {
-                qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
-                FastAddToCart.addClass('d-none');
+						comparePriceText.show();
+						savePriceText.show();
+					} else {
+						comparePrice.hide();
+						savePrice.hide();
+						comparePriceText.hide();
+						savePriceText.hide();
+					}
+				}
+			} else {
+				qty.html('<span class="a-stock a-stock-out">Hết hàng</span>');
+				FastAddToCart.addClass('d-none');
                 addToCart.html('<span class="txt-main-hh">Hết hàng</span>').attr('disabled', 'disabled').addClass(
                     'btn-soldout');
-                buyNow.addClass('d-none');
-                BtnSold.addClass('btnsold');
-                qtyBtn.addClass('d-none');
+				buyNow.addClass('d-none');
+				BtnSold.addClass('btnsold');
+				qtyBtn.addClass('d-none');
 
-                if (variant) {
-                    if (variant.price != 0) {
-                        form.removeClass('d-none');
+				if (variant) {
+					if (variant.price != 0) {
+						form.removeClass('d-none');
                         productPrice.html(Bizweb.formatMoney(variant.price, "@{{ amount_no_decimals_with_comma_separator }}₫"));
 
-                        if (variant.compare_at_price > variant.price) {
-                            FastAddToCart.addClass('d-none');
+						if (variant.compare_at_price > variant.price) {
+							FastAddToCart.addClass('d-none');
                             addToCart.html('<span class="txt-main-hh">Hết hàng</span>').attr('disabled', 'disabled')
                                 .addClass('btn-soldout');
-                            buyNow.addClass('d-none');
+							buyNow.addClass('d-none');
                             comparePrice.html(Bizweb.formatMoney(variant.compare_at_price, "@{{ amount_no_decimals_with_comma_separator }}₫"))
                                 .show();
                             savePrice.html(Bizweb.formatMoney(variant.compare_at_price - variant.price,
                                 "@{{ amount_no_decimals_with_comma_separator }}₫")).show();
-                            comparePriceText.show();
-                            savePriceText.show();
-                        } else {
-                            comparePrice.hide();
-                            savePrice.hide();
-                            comparePriceText.hide();
-                            savePriceText.hide();
-                            FastAddToCart.addClass('d-none');
+							comparePriceText.show();
+							savePriceText.show();
+						} else {
+							comparePrice.hide();
+							savePrice.hide();
+							comparePriceText.hide();
+							savePriceText.hide();
+							FastAddToCart.addClass('d-none');
                             addToCart.html('<span class="txt-main-hh">Hết hàng</span>').attr('disabled', 'disabled')
                                 .addClass('btn-soldout');
-                        }
-                    } else {
-                        productPrice.html('Liên hệ');
-                        comparePrice.hide();
-                        savePrice.hide();
-                        comparePriceText.hide();
-                        savePriceText.hide();
-                        form.addClass('d-none');
-                        buyNow.addClass('d-none');
-                    }
-                } else {
-                    productPrice.html('Liên hệ');
-                    comparePrice.hide();
-                    savePrice.hide();
-                    comparePriceText.hide();
-                    savePriceText.hide();
-                    form.addClass('d-none');
-                }
-            }
+						}
+					} else {
+						productPrice.html('Liên hệ');
+						comparePrice.hide();
+						savePrice.hide();
+						comparePriceText.hide();
+						savePriceText.hide();
+						form.addClass('d-none');
+						buyNow.addClass('d-none');
+					}
+				} else {
+					productPrice.html('Liên hệ');
+					comparePrice.hide();
+					savePrice.hide();
+					comparePriceText.hide();
+					savePriceText.hide();
+					form.addClass('d-none');
+				}
+			}
 
-            /*begin variant image*/
-            if (variant && variant.image) {
-                var originalImage = jQuery(".gallery-thumbs .swiper-slide:not(.openvideo) img");
-                var stickoriginalImage = jQuery(".nd-product-news img");
-                var newImage = variant.image;
-                var element = originalImage[0];
-                Bizweb.Image.switchImage(newImage, element, function(newImageSizedSrc, newImage, element) {
-                    $('.gallery-thumbs .swiper-slide').each(function() {
-                        var $this = $(this);
-                        var imgThis = $this.find('img').attr('data-image');
-                        if (newImageSizedSrc.split("?")[0] == imgThis.split("?")[0]) {
-                            var pst = $this.attr('data-hash');
-                            galleryTop.slideTo(pst, 1000, false);
-                        }
-                        jQuery(stickoriginalImage).attr('src', newImageSizedSrc);
-                    });
-                });
-            }
-            /*end of variant image*/
-        };
-        jQuery(function($) {
+			/*begin variant image*/
+			if (variant && variant.image) {
+				var originalImage = jQuery(".gallery-thumbs .swiper-slide:not(.openvideo) img");
+				var stickoriginalImage = jQuery(".nd-product-news img");
+				var newImage = variant.image;
+				var element = originalImage[0];
+				Bizweb.Image.switchImage(newImage, element, function(newImageSizedSrc, newImage, element) {
+					$('.gallery-thumbs .swiper-slide').each(function() {
+						var $this = $(this);
+						var imgThis = $this.find('img').attr('data-image');
+						if (newImageSizedSrc.split("?")[0] == imgThis.split("?")[0]) {
+							var pst = $this.attr('data-hash');
+							galleryTop.slideTo(pst, 1000, false);
+						}
+						jQuery(stickoriginalImage).attr('src', newImageSizedSrc);
+					});
+				});
+			}
+			/*end of variant image*/
+		};
+		jQuery(function($) {
 
-            new Bizweb.OptionSelectors('product-selectors', {
-                product: {
-                    "id": 38055946,
-                    "name": "iPhone 16 Pro Max 512GB",
-                    "alias": "iphone-16-pro-max-512gb",
-                    "vendor": "Apple",
-                    "type": "Điện Thoại",
-                    "content": "<p><img alt=\"iphone 16 series đặc điểm nổi bật\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/x/media/wysiwyg/1-Pro.jpg\" /></p>",
-                    "summary": null,
-                    "template_layout": "product",
-                    "available": true,
-                    "tags": ["phienban_iphone-16-pro-max_512GB", "video_peFi0QWOVEg"],
-                    "price": 30000000.0000,
-                    "price_min": 30000000.0000,
-                    "price_max": 35500000.0000,
-                    "price_varies": true,
-                    "compare_at_price": 0,
-                    "compare_at_price_min": 0,
-                    "compare_at_price_max": 0,
-                    "compare_at_price_varies": false,
-                    "variants": [{
-                        "id": 128106128,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Đen / Máy Thanh Lý",
-                        "options": ["Titan Đen", "Máy Thanh Lý"],
-                        "option1": "Titan Đen",
-                        "option2": "Máy Thanh Lý",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 30000000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105974,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Đen / LikeNew 99%",
-                        "options": ["Titan Đen", "LikeNew 99%"],
-                        "option1": "Titan Đen",
-                        "option2": "LikeNew 99%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 33000000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106220,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Đen / Máy sạc ít Pin 100%",
-                        "options": ["Titan Đen", "Máy sạc ít Pin 100%"],
-                        "option1": "Titan Đen",
-                        "option2": "Máy sạc ít Pin 100%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 33500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105982,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Đen / Máy New Trần 100%",
-                        "options": ["Titan Đen", "Máy New Trần 100%"],
-                        "option1": "Titan Đen",
-                        "option2": "Máy New Trần 100%",
-                        "option3": null,
-                        "available": true,
-                        "taxable": false,
-                        "price": 35000000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 5,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106129,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Trắng / Máy Thanh Lý",
-                        "options": ["Titan Trắng", "Máy Thanh Lý"],
-                        "option1": "Titan Trắng",
-                        "option2": "Máy Thanh Lý",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 30500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105975,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Trắng / LikeNew 99%",
-                        "options": ["Titan Trắng", "LikeNew 99%"],
-                        "option1": "Titan Trắng",
-                        "option2": "LikeNew 99%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 33500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106221,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Trắng / Máy sạc ít Pin 100%",
-                        "options": ["Titan Trắng", "Máy sạc ít Pin 100%"],
-                        "option1": "Titan Trắng",
-                        "option2": "Máy sạc ít Pin 100%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 34000000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105983,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Trắng / Máy New Trần 100%",
-                        "options": ["Titan Trắng", "Máy New Trần 100%"],
-                        "option1": "Titan Trắng",
-                        "option2": "Máy New Trần 100%",
-                        "option3": null,
-                        "available": true,
-                        "taxable": false,
-                        "price": 35500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 5,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106130,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Tự Nhiên / Máy Thanh Lý",
-                        "options": ["Titan Tự Nhiên", "Máy Thanh Lý"],
-                        "option1": "Titan Tự Nhiên",
-                        "option2": "Máy Thanh Lý",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 30500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105976,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Tự Nhiên / LikeNew 99%",
-                        "options": ["Titan Tự Nhiên", "LikeNew 99%"],
-                        "option1": "Titan Tự Nhiên",
-                        "option2": "LikeNew 99%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 33500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106222,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Tự Nhiên / Máy sạc ít Pin 100%",
-                        "options": ["Titan Tự Nhiên", "Máy sạc ít Pin 100%"],
-                        "option1": "Titan Tự Nhiên",
-                        "option2": "Máy sạc ít Pin 100%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 34000000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105984,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Tự Nhiên / Máy New Trần 100%",
-                        "options": ["Titan Tự Nhiên", "Máy New Trần 100%"],
-                        "option1": "Titan Tự Nhiên",
-                        "option2": "Máy New Trần 100%",
-                        "option3": null,
-                        "available": true,
-                        "taxable": false,
-                        "price": 35500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 5,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106131,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Sa Mạc / Máy Thanh Lý",
-                        "options": ["Titan Sa Mạc", "Máy Thanh Lý"],
-                        "option1": "Titan Sa Mạc",
-                        "option2": "Máy Thanh Lý",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 30500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105977,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Sa Mạc / LikeNew 99%",
-                        "options": ["Titan Sa Mạc", "LikeNew 99%"],
-                        "option1": "Titan Sa Mạc",
-                        "option2": "LikeNew 99%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 33500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128106223,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Sa Mạc / Máy sạc ít Pin 100%",
-                        "options": ["Titan Sa Mạc", "Máy sạc ít Pin 100%"],
-                        "option1": "Titan Sa Mạc",
-                        "option2": "Máy sạc ít Pin 100%",
-                        "option3": null,
-                        "available": false,
-                        "taxable": false,
-                        "price": 34000000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 0,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
-                        }
-                    }, {
-                        "id": 128105985,
-                        "barcode": null,
-                        "sku": null,
-                        "title": "Titan Sa Mạc / Máy New Trần 100%",
-                        "options": ["Titan Sa Mạc", "Máy New Trần 100%"],
-                        "option1": "Titan Sa Mạc",
-                        "option2": "Máy New Trần 100%",
-                        "option3": null,
-                        "available": true,
-                        "taxable": false,
-                        "price": 35500000.0000,
-                        "compare_at_price": null,
-                        "inventory_management": "bizweb",
-                        "inventory_policy": "deny",
-                        "inventory_quantity": 5,
-                        "weight_unit": "kg",
-                        "weight": 0,
-                        "requires_shipping": true,
-                        "image": {
-                            "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
-                        }
-                    }],
-                    "featured_image": {
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860.png?v=1730447868917"
-                    },
-                    "images": [{
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860.png?v=1730447868917"
-                    }, {
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
-                    }, {
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
-                    }, {
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
-                    }, {
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
-                    }, {
-                        "src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-full-3c3b474e-4aa6-44ed-8403-13f91b2c2a97-e16102e5-4132-4dbb-9e79-e62db600a095-8fff99ab-6fa5-4924-b1b4-af372fe3947c.png?v=1730447868917"
-                    }],
-                    "options": ["Màu sắc", "Tình Trạng"],
-                    "created_on": "2024-11-01T14:57:48",
-                    "modified_on": "2025-04-01T13:33:21",
-                    "published_on": "2024-10-18T13:56:00"
-                },
-                onVariantSelected: selectCallback,
-                enableHistoryState: true
-            });
+			new Bizweb.OptionSelectors('product-selectors', {
+				product: {
+					"id": 38055946,
+					"name": "iPhone 16 Pro Max 512GB",
+					"alias": "iphone-16-pro-max-512gb",
+					"vendor": "Apple",
+					"type": "Điện Thoại",
+					"content": "<p><img alt=\"iphone 16 series đặc điểm nổi bật\" loading=\"lazy\" src=\"https://cdn2.cellphones.com.vn/x/media/wysiwyg/1-Pro.jpg\" /></p>",
+					"summary": null,
+					"template_layout": "product",
+					"available": true,
+					"tags": ["phienban_iphone-16-pro-max_512GB", "video_peFi0QWOVEg"],
+					"price": 30000000.0000,
+					"price_min": 30000000.0000,
+					"price_max": 35500000.0000,
+					"price_varies": true,
+					"compare_at_price": 0,
+					"compare_at_price_min": 0,
+					"compare_at_price_max": 0,
+					"compare_at_price_varies": false,
+					"variants": [{
+						"id": 128106128,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Đen / Máy Thanh Lý",
+						"options": ["Titan Đen", "Máy Thanh Lý"],
+						"option1": "Titan Đen",
+						"option2": "Máy Thanh Lý",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 30000000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105974,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Đen / LikeNew 99%",
+						"options": ["Titan Đen", "LikeNew 99%"],
+						"option1": "Titan Đen",
+						"option2": "LikeNew 99%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 33000000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106220,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Đen / Máy sạc ít Pin 100%",
+						"options": ["Titan Đen", "Máy sạc ít Pin 100%"],
+						"option1": "Titan Đen",
+						"option2": "Máy sạc ít Pin 100%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 33500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105982,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Đen / Máy New Trần 100%",
+						"options": ["Titan Đen", "Máy New Trần 100%"],
+						"option1": "Titan Đen",
+						"option2": "Máy New Trần 100%",
+						"option3": null,
+						"available": true,
+						"taxable": false,
+						"price": 35000000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 5,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106129,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Trắng / Máy Thanh Lý",
+						"options": ["Titan Trắng", "Máy Thanh Lý"],
+						"option1": "Titan Trắng",
+						"option2": "Máy Thanh Lý",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 30500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105975,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Trắng / LikeNew 99%",
+						"options": ["Titan Trắng", "LikeNew 99%"],
+						"option1": "Titan Trắng",
+						"option2": "LikeNew 99%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 33500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106221,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Trắng / Máy sạc ít Pin 100%",
+						"options": ["Titan Trắng", "Máy sạc ít Pin 100%"],
+						"option1": "Titan Trắng",
+						"option2": "Máy sạc ít Pin 100%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 34000000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105983,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Trắng / Máy New Trần 100%",
+						"options": ["Titan Trắng", "Máy New Trần 100%"],
+						"option1": "Titan Trắng",
+						"option2": "Máy New Trần 100%",
+						"option3": null,
+						"available": true,
+						"taxable": false,
+						"price": 35500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 5,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106130,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Tự Nhiên / Máy Thanh Lý",
+						"options": ["Titan Tự Nhiên", "Máy Thanh Lý"],
+						"option1": "Titan Tự Nhiên",
+						"option2": "Máy Thanh Lý",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 30500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105976,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Tự Nhiên / LikeNew 99%",
+						"options": ["Titan Tự Nhiên", "LikeNew 99%"],
+						"option1": "Titan Tự Nhiên",
+						"option2": "LikeNew 99%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 33500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106222,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Tự Nhiên / Máy sạc ít Pin 100%",
+						"options": ["Titan Tự Nhiên", "Máy sạc ít Pin 100%"],
+						"option1": "Titan Tự Nhiên",
+						"option2": "Máy sạc ít Pin 100%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 34000000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105984,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Tự Nhiên / Máy New Trần 100%",
+						"options": ["Titan Tự Nhiên", "Máy New Trần 100%"],
+						"option1": "Titan Tự Nhiên",
+						"option2": "Máy New Trần 100%",
+						"option3": null,
+						"available": true,
+						"taxable": false,
+						"price": 35500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 5,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106131,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Sa Mạc / Máy Thanh Lý",
+						"options": ["Titan Sa Mạc", "Máy Thanh Lý"],
+						"option1": "Titan Sa Mạc",
+						"option2": "Máy Thanh Lý",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 30500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105977,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Sa Mạc / LikeNew 99%",
+						"options": ["Titan Sa Mạc", "LikeNew 99%"],
+						"option1": "Titan Sa Mạc",
+						"option2": "LikeNew 99%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 33500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
+						}
+					}, {
+						"id": 128106223,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Sa Mạc / Máy sạc ít Pin 100%",
+						"options": ["Titan Sa Mạc", "Máy sạc ít Pin 100%"],
+						"option1": "Titan Sa Mạc",
+						"option2": "Máy sạc ít Pin 100%",
+						"option3": null,
+						"available": false,
+						"taxable": false,
+						"price": 34000000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 0,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
+						}
+					}, {
+						"id": 128105985,
+						"barcode": null,
+						"sku": null,
+						"title": "Titan Sa Mạc / Máy New Trần 100%",
+						"options": ["Titan Sa Mạc", "Máy New Trần 100%"],
+						"option1": "Titan Sa Mạc",
+						"option2": "Máy New Trần 100%",
+						"option3": null,
+						"available": true,
+						"taxable": false,
+						"price": 35500000.0000,
+						"compare_at_price": null,
+						"inventory_management": "bizweb",
+						"inventory_policy": "deny",
+						"inventory_quantity": 5,
+						"weight_unit": "kg",
+						"weight": 0,
+						"requires_shipping": true,
+						"image": {
+							"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
+						}
+					}],
+					"featured_image": {
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860.png?v=1730447868917"
+					},
+					"images": [{
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860.png?v=1730447868917"
+					}, {
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/iphone-16-promax-trang-48c90668-b63f-4fcf-a9ea-4e40b856dcd7-0b8373fb-1752-498a-a5e0-f82676184c5c.png?v=1730447868917"
+					}, {
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-den-89708087-aa1d-43ed-94eb-458ef9c19524-881f6c49-6255-48b2-99cc-580c0370c5a7.png?v=1730447868917"
+					}, {
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-titan-tn-92c8a959-8054-45c5-a7b6-110229df3773-e01b5f4e-3a6d-4315-ac62-a41a37aac00d.png?v=1730447868917"
+					}, {
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/16-prm-sa-mac-73b77578-986e-45eb-abec-c942363f95f0-dfe8775b-a8e0-4262-ac61-b05fab7feb31.png?v=1730447868917"
+					}, {
+						"src": "https://bizweb.dktcdn.net/100/112/815/products/16prm-full-3c3b474e-4aa6-44ed-8403-13f91b2c2a97-e16102e5-4132-4dbb-9e79-e62db600a095-8fff99ab-6fa5-4924-b1b4-af372fe3947c.png?v=1730447868917"
+					}],
+					"options": ["Màu sắc", "Tình Trạng"],
+					"created_on": "2024-11-01T14:57:48",
+					"modified_on": "2025-04-01T13:33:21",
+					"published_on": "2024-10-18T13:56:00"
+				},
+				onVariantSelected: selectCallback,
+				enableHistoryState: true
+			});
 
-            $('.selector-wrapper').css({
-                'text-align': 'left',
-                'margin-bottom': '15px'
-            });
-        });
+			$('.selector-wrapper').css({
+				'text-align': 'left',
+				'margin-bottom': '15px'
+			});
+		});
 
-        jQuery('.swatch :radio').change(function() {
-            var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
-            var optionValue = jQuery(this).val();
-            jQuery(this)
-                .closest('form')
-                .find('.single-option-selector')
-                .eq(optionIndex)
-                .val(optionValue)
-                .trigger('change');
-            $(this).closest('.swatch').find('.header .value-roperties').html(optionValue);
-        });
+		jQuery('.swatch :radio').change(function() {
+			var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+			var optionValue = jQuery(this).val();
+			jQuery(this)
+				.closest('form')
+				.find('.single-option-selector')
+				.eq(optionIndex)
+				.val(optionValue)
+				.trigger('change');
+			$(this).closest('.swatch').find('.header .value-roperties').html(optionValue);
+		});
 
-        setTimeout(function() {
-            $('.swatch .swatch-element').each(function() {
+		setTimeout(function() {
+			$('.swatch .swatch-element').each(function() {
                 $(this).closest('.swatch').find('.header .value-roperties').html($(this).closest('.swatch')
                     .find('input:checked').val());
-            });
-        }, 500);
-        setTimeout(function() {
-            var ch = $('.product_getcontent').height(),
-                smore = $('.show-more');
-            console.log(ch);
-            if (ch > 1451) {
-                $('.ba-text-fpt').addClass('has-height');
-                smore.removeClass('d-none');
-            }
-        }, 200);
-        $('.btn--view-more').on('click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            $this.parents('.product_getcontent').toggleClass('expanded');
-            $('html, body').animate({
-                scrollTop: $('.product_getcontent').offset().top - 110
-            }, 'slow');
-            $(this).toggleClass('active');
+			});
+		}, 500);
+		setTimeout(function() {
+			var ch = $('.product_getcontent').height(),
+				smore = $('.show-more');
+			console.log(ch);
+			if (ch > 1451) {
+				$('.ba-text-fpt').addClass('has-height');
+				smore.removeClass('d-none');
+			}
+		}, 200);
+		$('.btn--view-more').on('click', function(e) {
+			e.preventDefault();
+			var $this = $(this);
+			$this.parents('.product_getcontent').toggleClass('expanded');
+			$('html, body').animate({
+				scrollTop: $('.product_getcontent').offset().top - 110
+			}, 'slow');
+			$(this).toggleClass('active');
 
-        });
+		});
 
 
-        var galleryThumbs = new Swiper('.gallery-thumbs', {
-            spaceBetween: 5,
-            slidesPerView: 20,
-            freeMode: true,
-            lazy: true,
-            watchSlidesVisibility: true,
-            watchSlidesProgress: true,
-            hashNavigation: true,
-            slideToClickedSlide: true,
-            breakpoints: {
-                300: {
-                    slidesPerView: 3,
-                    spaceBetween: 10,
-                },
-                500: {
-                    slidesPerView: 3,
-                    spaceBetween: 10,
-                },
-                640: {
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                },
-                768: {
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                },
-                1199: {
-                    slidesPerView: 4,
-                    spaceBetween: 10,
-                },
-            },
-            navigation: {
-                nextEl: '.gallery-thumbs .swiper-button-next',
-                prevEl: '.gallery-thumbs .swiper-button-prev',
-            },
-        });
-        var galleryTop = new Swiper('.gallery-top', {
-            spaceBetween: 0,
-            lazy: true,
-            hashNavigation: true,
-            effect: 'fade',
-            thumbs: {
-                swiper: galleryThumbs
-            }
-        });
-        var swiper = new Swiper('.product-relate-swiper', {
-            slidesPerColumnFill: 'row',
-            direction: 'horizontal',
-            slidesPerView: 4,
-            spaceBetween: 20,
-            slidesPerGroup: 1,
-            slidesPerColumn: 1,
-            navigation: {
-                nextEl: '.product-relate-swiper .swiper-button-next',
-                prevEl: '.product-relate-swiper .swiper-button-prev',
-            },
-            breakpoints: {
-                280: {
-                    slidesPerView: 2,
-                    spaceBetween: 15
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 15
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 15
-                },
-                992: {
-                    slidesPerView: 4,
-                    spaceBetween: 15
-                },
-                1024: {
-                    slidesPerView: 5,
-                    spaceBetween: 20
-                }
-            }
-        });
+		var galleryThumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 5,
+			slidesPerView: 20,
+			freeMode: true,
+			lazy: true,
+			watchSlidesVisibility: true,
+			watchSlidesProgress: true,
+			hashNavigation: true,
+			slideToClickedSlide: true,
+			breakpoints: {
+				300: {
+					slidesPerView: 3,
+					spaceBetween: 10,
+				},
+				500: {
+					slidesPerView: 3,
+					spaceBetween: 10,
+				},
+				640: {
+					slidesPerView: 4,
+					spaceBetween: 10,
+				},
+				768: {
+					slidesPerView: 4,
+					spaceBetween: 10,
+				},
+				1024: {
+					slidesPerView: 4,
+					spaceBetween: 10,
+				},
+				1199: {
+					slidesPerView: 4,
+					spaceBetween: 10,
+				},
+			},
+			navigation: {
+				nextEl: '.gallery-thumbs .swiper-button-next',
+				prevEl: '.gallery-thumbs .swiper-button-prev',
+			},
+		});
+		var galleryTop = new Swiper('.gallery-top', {
+			spaceBetween: 0,
+			lazy: true,
+			hashNavigation: true,
+			effect: 'fade',
+			thumbs: {
+				swiper: galleryThumbs
+			}
+		});
+		var swiper = new Swiper('.product-relate-swiper', {
+			slidesPerColumnFill: 'row',
+			direction: 'horizontal',
+			slidesPerView: 4,
+			spaceBetween: 20,
+			slidesPerGroup: 1,
+			slidesPerColumn: 1,
+			navigation: {
+				nextEl: '.product-relate-swiper .swiper-button-next',
+				prevEl: '.product-relate-swiper .swiper-button-prev',
+			},
+			breakpoints: {
+				280: {
+					slidesPerView: 2,
+					spaceBetween: 15
+				},
+				640: {
+					slidesPerView: 2,
+					spaceBetween: 15
+				},
+				768: {
+					slidesPerView: 3,
+					spaceBetween: 15
+				},
+				992: {
+					slidesPerView: 4,
+					spaceBetween: 15
+				},
+				1024: {
+					slidesPerView: 5,
+					spaceBetween: 20
+				}
+			}
+		});
 
-        $(document).ready(function() {
-            $("#lightgallery").lightGallery({
-                thumbnail: false
-            });
-        });
-    </script>
+		$(document).ready(function() {
+			$("#lightgallery").lightGallery({
+				thumbnail: false
+			});
+		});
+	</script>
     <script></script>
-    <script>
-        $(document).on('click', '.js-copy', function(e) {
-            e.preventDefault();
-            var copyText = $(this).attr('data-copy');
-            var copyTextarea = document.createElement("textarea");
-            copyTextarea.textContent = copyText;
-            copyTextarea.style.position = "fixed";
-            document.body.appendChild(copyTextarea);
-            copyTextarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(copyTextarea);
-            var cur_text = $(this).text();
-            var $cur_btn = $(this);
-            $(this).addClass("iscopied");
-            $(this).text("Đã lưu");
-            setTimeout(function() {
-                $cur_btn.removeClass("iscopied");
-                $cur_btn.text(cur_text);
-            }, 1500)
-        })
-    </script>
-    <script>
-        setTimeout(function() {
-            galleryTop.slideTo(0);
-        }, 1000);
-    </script>
+	<script>
+		$(document).on('click', '.js-copy', function(e) {
+			e.preventDefault();
+			var copyText = $(this).attr('data-copy');
+			var copyTextarea = document.createElement("textarea");
+			copyTextarea.textContent = copyText;
+			copyTextarea.style.position = "fixed";
+			document.body.appendChild(copyTextarea);
+			copyTextarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(copyTextarea);
+			var cur_text = $(this).text();
+			var $cur_btn = $(this);
+			$(this).addClass("iscopied");
+			$(this).text("Đã lưu");
+			setTimeout(function() {
+				$cur_btn.removeClass("iscopied");
+				$cur_btn.text(cur_text);
+			}, 1500)
+		})
+	</script>
+	<script>
+		setTimeout(function() {
+			galleryTop.slideTo(0);
+		}, 1000);
+	</script>
 
 
     <style>
