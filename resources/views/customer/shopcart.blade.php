@@ -5,13 +5,13 @@
 
 <div class="cart-page">
     <div class="cart-header">
-        <div class="container">
+    <div class="container">
             <h1>Giỏ hàng của bạn</h1>
             <div class="cart-steps">
                 <div class="step active">
                     <span class="step-number">1</span>
                     <span class="step-text">Giỏ hàng</span>
-                </div>
+    </div>
                 <div class="step-line"></div>
                 <div class="step">
                     <span class="step-number">2</span>
@@ -40,9 +40,9 @@
         </div>
     @else
         <div class="container">
-            <div id="notification-container" class="notification-container"></div>
+    <div id="notification-container" class="notification-container"></div>
             <form id="checkout-form" action="{{ route('customer.cart.proceed-to-checkout') }}" method="POST">
-                @csrf
+        @csrf
                 <input type="hidden" name="selected_items" id="selected_items">
                 <div class="cart-content">
                     <div class="cart-items">
@@ -54,12 +54,12 @@
                             </label>
                         </div>
 
-                        @php $subTotal = 0; @endphp
-                        @foreach ($carts as $cart)
-                            @php
-                                $price = $cart->product_variant->price;
-                                $itemSubTotal = $price * $cart->quantity;
-                                $subTotal += $itemSubTotal;
+                    @php $subTotal = 0; @endphp
+                    @foreach ($carts as $cart)
+                        @php
+                            $price = $cart->product_variant->price;
+                            $itemSubTotal = $price * $cart->quantity;
+                            $subTotal += $itemSubTotal;
                                 $variants = \App\Models\ProductVariant::where(
                                     'product_id',
                                     $cart->product_variant->product_id,
@@ -68,7 +68,7 @@
                                     ->get();
                                 $colors = $variants->pluck('color')->unique();
                                 $storages = $variants->pluck('storage')->unique();
-                            @endphp
+                        @endphp
                             <div class="cart-item" data-price="{{ $price }}" data-cart-id="{{ $cart->id }}"
                                 data-default-color="{{ $cart->product_variant->color }}"
                                 data-default-storage="{{ $cart->product_variant->storage }}">
@@ -169,11 +169,11 @@
                                     <div class="current-price">{{ number_format($price, 0, ',', '.') }}₫</div>
                                     <div class="item-total">{{ number_format($itemSubTotal, 0, ',', '.') }}₫</div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
+                                </div>
+                    @endforeach
+        </div>
 
-                    <div class="cart-summary">
+        <div class="cart-summary">
                         <div class="summary-header">
                             <h2>Tổng tiền giỏ hàng</h2>
                         </div>
@@ -187,14 +187,14 @@
                                     <span>Tổng cộng</span>
                                     <span class="final-price">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
+            </div>
+            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
                                 Mua hàng (<span id="selected-items">0</span>)
-                            </button>
+            </button>
                         </div>
                     </div>
-                </div>
-            </form>
+        </div>
+    </form>
         </div>
     @endif
 </div>
