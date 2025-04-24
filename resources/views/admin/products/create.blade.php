@@ -42,15 +42,30 @@
                                         <p class="mt-1 text-sm text-red-400">{{ $errors->first('category_id') }}</p>
                                     @endif
                                 </div>
-
                                 <div>
-    <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Mô tả sản phẩm</label>
-    <textarea id="description" name="description" rows="3"
-        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description') }}</textarea>
-    @if ($errors->has('description'))
-        <p class="mt-1 text-sm text-red-400">{{ $errors->first('description') }}</p>
-    @endif
-</div>
+                                    <label for="image" class="block text-sm font-medium text-gray-300 mb-2">Ảnh chính:</label>
+                                    <input type="file" id="image" name="image" value="{{ old('image') }}"
+                                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    @if ($errors->has('image'))
+                                        <p class="mt-1 text-sm text-red-400">{{ $errors->first('image') }}</p>
+                                    @endif
+                                </div>
+                                <div>
+                                    <label for="mini_images" class="block text-sm font-medium text-gray-300 mb-2">Ảnh mini:</label>
+                                    <input type="file" id="mini_images" multiple name="mini_images[]" value="{{ old('mini_images') }}"
+                                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    @if ($errors->has('mini_images'))
+                                        <p class="mt-1 text-sm text-red-400">{{ $errors->first('mini_images') }}</p>
+                                    @endif
+                                </div>
+                                <div>
+                                    <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Mô tả sản phẩm</label>
+                                    <textarea id="description" name="description" rows="3"
+                                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description') }}</textarea>
+                                    @if ($errors->has('description'))
+                                        <p class="mt-1 text-sm text-red-400">{{ $errors->first('description') }}</p>
+                                    @endif
+                                </div>
 
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -190,23 +205,6 @@
                         </div>
                     </div>
 
-                    <!-- Thống kê -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-green-400 mb-4 flex items-center gap-2">
-                            <i class="bi bi-graph-up"></i>
-                            Thống kê
-                        </h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gray-700/50 rounded-lg p-4 text-center">
-                                <p class="text-sm text-gray-400">Tổng sản phẩm</p>
-                                <p class="text-xl font-semibold text-white"></p>
-                            </div>
-                            <div class="bg-gray-700/50 rounded-lg p-4 text-center">
-                                <p class="text-sm text-gray-400">Sản phẩm có biến thể</p>
-                                <p class="text-xl font-semibold text-white"></p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

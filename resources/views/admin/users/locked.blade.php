@@ -100,7 +100,7 @@
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs flex items-center gap-1 transition-colors">
-                                                <i class="bi bi-unlock"></i> Mở khóa
+                                                <i class="bi bi-unlock"></i> Mở
                                             </button>
                                         </form>
                                         <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline">

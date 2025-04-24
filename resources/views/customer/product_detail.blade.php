@@ -171,7 +171,7 @@
                                         {{ number_format(optional($variants->first())->origin_price, 0, ',', '.') }}₫
                                     </span>
                                 </div>
-
+                                @if ($product->have_variant == 1)
                                 <div class="form-product">
                                     <div class="phienban">
                                         <label for="storage">Dung lượng:</label>
@@ -229,6 +229,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                @else
+                                <div style="padding: 16px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                    <span style="font-size: 18px; font-weight: bold; color: #1f2937;">Sản phẩm đơn</span>
+                                    <p style="margin-top: 8px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                      Bao gồm các mặt hàng bán lẻ như điện thoại thông minh, tai nghe, dây sạc, ốp lưng, kính cường lực và nhiều phụ kiện khác. 
+                                      Phù hợp với nhu cầu mua sắm nhanh, tiện lợi cho cá nhân hoặc làm quà tặng.
+                                    </p>
+                                  </div>
+                                @endif
                                 <script>
                                     document.querySelectorAll('.color-round').forEach(function(el) {
                                         const color = el.getAttribute('data-color');
@@ -756,7 +765,7 @@
                                                 console.error('API Error:', textStatus, errorThrown, jqXHR.responseText);
                                                 updatePrice(null, null);
                                                 updateStockAndButtons(false, 0);
-                                                $('.inventory .a-stock').text('Không tìm thấy');
+                                                $('.inventory .a-stock').text('Hết hàng');
                                             }
                                         });
                                     }
@@ -967,13 +976,6 @@
                                     const selectedStorage = document.getElementById('selectedStorage').value;
                                     const selectedQuantity = document.getElementById('selectedQuantity').value;
                                     const csrfToken = $('input[name="_token"]').val(); // Get CSRF token
-
-                                    // Basic check if variant options are selected
-                                    if (!selectedColor || !selectedStorage) {
-                                        ErrorNoti('Vui lòng chọn Màu sắc và Dung lượng.');
-                                        console.error("Color or Storage not selected.");
-                                        return; // Stop submission
-                                    }
 
                                     console.log("Submitting AJAX to:", action);
                                     console.log("Action Type:", actionType);
@@ -1817,7 +1819,7 @@
 
 
                                 <li class="tab-link" data-tab="#tab-2">
-                                    <h3>Hướng dẫn mua hàng</h3>
+                                    <h3>Thông tin chi tiết</h3>
                                 </li>
 
 
@@ -1844,7 +1846,6 @@
 
 
                                 <div id="tab-2" class="tab-content content_extab">
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Mô tả sản phẩm</label>
                                     <div id="description" class="rte">
                                         {!! $product->description !!}
                                     </div>

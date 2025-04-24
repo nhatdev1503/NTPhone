@@ -104,9 +104,12 @@
                                 </div>
                                 <div class="product-info">
                                     <h3>{{ $cart->product_variant->product->name }}</h3>
-                                    <div class="variant-info">
-                                        {{ $cart->product_variant->color }} - {{ $cart->product_variant->storage }}
-                                    </div>
+                                    @if ($cart->product_variant->product->have_variant == 1)
+                                        <div class="variant-info">
+                                            {{ $cart->product_variant->color }} - {{ $cart->product_variant->storage }}
+                                        </div>
+                                    @endif
+                                    
                                     <div class="price">{{ number_format($cart->product_variant->price, 0, ',', '.') }}₫</div>
                                 </div>
                             </div>

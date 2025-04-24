@@ -28,7 +28,6 @@
                             <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">STT</th>
                             <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Tên danh mục</th>
                             <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Ảnh</th>
-                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Mô tả</th>
                             <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Trạng thái</th>
                             <th class="px-6 py-4 text-left text-sm font-medium text-gray-300">Hành động</th>
                         </tr>
@@ -45,7 +44,6 @@
                                          alt="{{ $category->name }}" 
                                          class="w-12 h-12 rounded-lg object-cover">
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-300">{{ $category->description }}</td>
                                 <td class="px-6 py-4">
                                     @if ($category->status === 'active')
                                         <span class="px-2 py-1 text-xs font-medium bg-green-500/10 text-green-400 rounded-full">

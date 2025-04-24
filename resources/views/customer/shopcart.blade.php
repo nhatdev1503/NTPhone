@@ -97,6 +97,7 @@
                                             data-cart-id="{{ $cart->id }}">{{ $cart->product_variant->stock }}</span>
                                         sản phẩm
                                     </div>
+                                    @if ($cart->product_variant->product->have_variant == 1)
                                     <div class="variant-info">
                                         @if ($colors->count() <= 1 && $storages->count() <= 1)
                                             <span class="variant-static">
@@ -105,7 +106,7 @@
                                             </span>
                                         @else
                                             <div class="variant-selectors">
-                                                <select class="variant-color" data-cart-id="{{ $cart->id }}">
+                                                <select class="variant-color" data-cart-id="{{ $cart->id }}" style="width: 80px;">
                                                     @foreach ($colors as $color)
                                                         @php
                                                             $variantCheck = $variants
@@ -124,7 +125,7 @@
                                                     @endforeach
                                                 </select>
 
-                                                <select class="variant-storage" data-cart-id="{{ $cart->id }}">
+                                                <select class="variant-storage" data-cart-id="{{ $cart->id }}" style="width: 80px;">
                                                     @foreach ($storages as $storage)
                                                         @php
                                                             $variantCheck = $variants
@@ -145,6 +146,7 @@
                                             </div>
                                         @endif
                                     </div>
+                                    @endif
                                     <div class="item-actions">
                                         <div class="quantity-controls">
                                             <button type="button" class="btn-decrease" data-cart-id="{{ $cart->id }}">
