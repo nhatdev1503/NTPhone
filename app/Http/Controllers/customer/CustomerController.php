@@ -1585,6 +1585,9 @@ class CustomerController extends Controller
         ) {
             DB::beginTransaction();
             try {
+                if($order->status === 'cancelled') {
+                    return back()->with('error', 'Đơn hàng đã được hủy trước đó.');
+                }
                 // Cập nhật trạng thái đơn hàng
                 $order->status = 'cancelled';
                 $order->cancel_reason = $request->cancel_reason;
@@ -1600,13 +1603,11 @@ class CustomerController extends Controller
                 }
 
                 DB::commit();
-                return redirect()->route('customer.order_detail', $order->id)
-                    ->with('success', 'Đơn hàng đã được hủy thành công.');
+                return back()->with('success', 'Đơn hàng đã được hủy thành công.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error('Error cancelling order: ' . $e->getMessage());
-                return redirect()->route('customer.order.history')
-                    ->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
+                return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
             }
         }
         return redirect()->back()->with('cancel_success', 'Đơn hàng đã được hủy thành công.');
@@ -1688,7 +1689,6 @@ class CustomerController extends Controller
             if ($order->status !== 'delivered') {
                 return back()->with('error', 'Chỉ có thể xác nhận đơn hàng đã được giao.');
             }
-
             // Cập nhật trạng thái đơn hàng
             $order->status = 'completed';
             $order->save();

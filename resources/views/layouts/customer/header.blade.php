@@ -231,7 +231,7 @@
     <header class="header header-scroll">
         <div class="container">
             <div class="header-top d-flex     align-items-center" style="    justify-content: space-between;">
-                <a href="/" class="logo" title="Logo">
+                <a href="{{ route('customer.index') }}" class="logo" title="Logo">
                     <picture>
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">

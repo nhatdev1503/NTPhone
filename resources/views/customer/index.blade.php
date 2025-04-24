@@ -559,7 +559,7 @@
         <div class="container">
             <a class="thumb-image-banner" href="{{ route('customer.category', $category->id) }}"
                 title="Banner">
-                <img width="1270" height="236" class="lazyload"
+                <img width="100%" height="236" class="lazyload"
                     src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
                     data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1742954225872"
                     alt="Banner">
@@ -629,10 +629,10 @@
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    <div class="product-sold">Đã bán: {{ $soldCount }}</div>
+                                    <div class="product-sold">Đã bán: {{ $product->sold ?? 0 }}</div>
 
                                     <!-- Thêm phần hiển thị màu sắc -->
-                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
                                                 <div class="color-circle" title="{{ $color['name'] }}"
@@ -643,14 +643,20 @@
                                     @endif
 
                                     <!-- Thêm phần hiển thị dung lượng -->
-                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
                                                 <span class="storage-badge">{{ $storage }}</span>
                                             @endforeach
                                         </div>
                                     @endif
-
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                          Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                      </div>
+                                    @endif
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @php
@@ -811,12 +817,10 @@
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    @if ($soldCount > 0)
-                                        <div class="product-sold">Đã bán: {{ $soldCount }}</div>
-                                    @endif
+                                    <div class="product-sold">Đã bán: {{ $product->sold }}</div>
 
                                     <!-- Thêm phần hiển thị màu sắc -->
-                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
                                                 <div class="color-circle" title="{{ $color['name'] }}"
@@ -827,14 +831,20 @@
                                     @endif
 
                                     <!-- Thêm phần hiển thị dung lượng -->
-                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
                                                 <span class="storage-badge">{{ $storage }}</span>
                                             @endforeach
                                         </div>
                                     @endif
-
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                          Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                      </div>
+                                    @endif
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @php
@@ -1255,6 +1265,14 @@
                         } else {
                             // Hiển thị toast thông báo thành công
                             showToast(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
+
+                            // 🔄 GỌI AJAX LẤY LẠI SỐ LƯỢNG GIỎ HÀNG
+                            fetch('{{ route('cart.count') }}')
+                                .then(res => res.json())
+                                .then(countData => {
+                                    document.querySelector('.count_item_pr').textContent = countData.count;
+                                })
+                                .catch(err => console.error('Lỗi khi cập nhật số lượng giỏ hàng:', err));
                         }
                     } else {
                         // Hiển thị toast thông báo lỗi

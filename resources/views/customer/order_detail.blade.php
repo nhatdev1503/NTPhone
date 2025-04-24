@@ -276,17 +276,19 @@
                             <div class="card mb-3">
                                 <div class="card-body d-flex flex-row align-items-center justify-content-between">
                                     <div class="me-3">
-                                        <img src="{{ asset($item->productVariant->product->image) }}"
-                                            alt="{{ $item->productVariant->product->name }}"
+                                        <img src="{{ asset($item->image) }}"
+                                            alt="{{ $item->name }}"
                                             style="width: 90px; height: 90px; object-fit: cover; border-radius: 8px;">
                                     </div>
 
                                     <div class="flex-grow-1">
-                                        <h6 class="fw-bold mb-1">{{ $item->productVariant->product->name }}</h6>
+                                        <h6 class="fw-bold mb-1">{{ $item->name }}</h6>
+                                        @if ($item->productVariant->product->have_variant == 1)
                                         <div class="text-muted small mb-1">
-                                            Màu: {{ $item->productVariant->color ?? 'Không có' }} |
-                                            Dung lượng: {{ $item->productVariant->storage ?? 'Không có' }}
+                                            Màu: {{ $item->color ?? 'Không có' }} |
+                                            Dung lượng: {{ $item->storage ?? 'Không có' }}
                                         </div>
+                                        @endif
                                         <div class="mb-1">Giá:
                                             <strong>{{ number_format($item->price, 0, ',', '.') }}đ</strong>
                                         </div>
@@ -319,7 +321,7 @@
                                                     @endfor
                                                 </div>
                                                 <button class="btn btn-sm btn-outline-primary"
-                                                    onclick="openRatingModal({{ $item->id }}, '{{ $item->productVariant->product->name }}', '{{ asset($item->productVariant->product->image) }}')">
+                                                    onclick="openRatingModal({{ $item->id }}, '{{ $item->name }}', '{{ asset($item->image) }}')">
                                                     Gửi đánh giá
                                                 </button>
                                             </div>

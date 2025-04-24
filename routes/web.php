@@ -45,7 +45,7 @@ use App\Http\Controllers\customer\NewController;
 
 // Route trang đăng nhập
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect()->route('guest.index');
 });
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
@@ -271,6 +271,12 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     Route::get('/change-password', [CustomerController::class, 'changePassword'])->name('customer.change_password');
     Route::put('/change-password', [CustomerController::class, 'updatePassword'])->name('customer.change_password.update');
     Route::get('/order-history', [CustomerController::class, 'orderHistory'])->name('customer.order.history');
+
+    Route::get('/cart/count', function () {
+        return response()->json([
+            'count' => \App\Models\Cart::where('user_id', auth()->id())->count()
+        ]);
+    })->name('cart.count');
 });
 
 //Route trang khách vãng lai
