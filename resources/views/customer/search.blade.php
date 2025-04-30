@@ -14,21 +14,50 @@
                         <label for="min_price_select" class="filter-label">Giá từ:</label>
                         <select name="min_price" id="min_price_select" class="filter-select">
                             <option value="0" {{ request('min_price', 0) == 0 ? 'selected' : '' }}>0₫</option>
-                            <option value="500000" {{ request('min_price') == 500000 ? 'selected' : '' }}>500.000₫</option>
-                            <option value="1000000" {{ request('min_price') == 1000000 ? 'selected' : '' }}>1.000.000₫</option>
-                            <option value="5000000" {{ request('min_price') == 5000000 ? 'selected' : '' }}>5.000.000₫</option>
-                            <option value="10000000" {{ request('min_price') == 10000000 ? 'selected' : '' }}>10.000.000₫</option>
+                            <option value="500000" {{ request('min_price') == 500000 ? 'selected' : '' }}>500.000₫
+                            </option>
+                            <option value="1000000" {{ request('min_price') == 1000000 ? 'selected' : '' }}>1.000.000₫
+                            </option>
+                            <option value="5000000" {{ request('min_price') == 5000000 ? 'selected' : '' }}>5.000.000₫
+                            </option>
+                            <option value="10000000" {{ request('min_price') == 10000000 ? 'selected' : '' }}>
+                                10.000.000₫</option>
                         </select>
-                        
+
                         <label for="max_price_select" class="filter-label ms-2">đến:</label>
                         <select name="max_price" id="max_price_select" class="filter-select">
-                            <option value="50000000" {{ request('max_price', 50000000) == 50000000 ? 'selected' : '' }}>50.000.000₫</option>
-                            <option value="10000000" {{ request('max_price') == 10000000 ? 'selected' : '' }}>10.000.000₫</option>
-                            <option value="5000000" {{ request('max_price') == 5000000 ? 'selected' : '' }}>5.000.000₫</option>
-                            <option value="1000000" {{ request('max_price') == 1000000 ? 'selected' : '' }}>1.000.000₫</option>
-                            <option value="500000" {{ request('max_price') == 500000 ? 'selected' : '' }}>500.000₫</option>
+                            <option value="50000000" {{ request('max_price', 50000000) == 50000000 ? 'selected' : '' }}>
+                                50.000.000₫</option>
+                            <option value="10000000" {{ request('max_price') == 10000000 ? 'selected' : '' }}>
+                                10.000.000₫</option>
+                            <option value="5000000" {{ request('max_price') == 5000000 ? 'selected' : '' }}>5.000.000₫
+                            </option>
+                            <option value="1000000" {{ request('max_price') == 1000000 ? 'selected' : '' }}>1.000.000₫
+                            </option>
+                            <option value="500000" {{ request('max_price') == 500000 ? 'selected' : '' }}>500.000₫
+                            </option>
                         </select>
-                        
+
+                        <label for="color" style="margin-left: 20px;" class="filter-label">Màu sắc:</label>
+                        <select name="color" id="color" class="filter-select">
+                            <option value="">Tất cả</option>
+                            @foreach ($color as $item)
+                                <option value="{{ $item->name }}"
+                                    {{ request('color') == $item->name ? 'selected' : '' }}>{{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <label for="storage" style="margin-left: 20px;" class="filter-label">Dung lượng:</label>
+                        <select name="storage" id="storage" class="filter-select">
+                            <option value="">Tất cả</option>
+                            @foreach ($storage as $item)
+                                <option value="{{ $item->size }}"
+                                    {{ request('storage') == $item->size ? 'selected' : '' }}>{{ $item->size }}
+                                </option>
+                            @endforeach
+                        </select>
+
                         <button type="submit" class="filter-btn">Lọc</button>
                     </div>
                 </form>
@@ -120,22 +149,22 @@
                                             $totalRatings = $orderItems->count();
                                             $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
                                         @endphp
-                                        
+
                                         @if ($totalRatings > 0)
                                             <div class="stars-container">
                                                 @php
                                                     $fullStars = floor($averageRating);
                                                     $hasHalfStar = $averageRating - $fullStars >= 0.5;
                                                 @endphp
-                                                
+
                                                 @for ($i = 0; $i < $fullStars; $i++)
                                                     <span class="star">★</span>
                                                 @endfor
-                                                
+
                                                 @if ($hasHalfStar)
                                                     <span class="half-star"></span>
                                                 @endif
-                                                
+
                                                 @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
                                                     <span class="star" style="color: #e0e0e0;">★</span>
                                                 @endfor
@@ -167,7 +196,7 @@
         flex: 0 0 20%;
         max-width: 20%;
     }
-    
+
     /* Điều chỉnh responsive cho các màn hình nhỏ hơn */
     @media (max-width: 991.98px) {
         .col-md-4 {
@@ -176,7 +205,7 @@
             max-width: 33.333%;
         }
     }
-    
+
     @media (max-width: 767.98px) {
         .col-6 {
             width: 50%;
@@ -184,32 +213,32 @@
             max-width: 50%;
         }
     }
-    
+
     .filter-container {
         background-color: #f8f9fa;
         padding: 10px 15px;
         border-radius: 5px;
         border: 1px solid #e9ecef;
     }
-    
+
     .filter-form {
         display: flex;
         align-items: center;
     }
-    
+
     .filter-group {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 5px;
     }
-    
+
     .filter-label {
         font-size: 14px;
         margin-bottom: 0;
         color: #495057;
     }
-    
+
     .filter-select {
         padding: 5px 10px;
         border: 1px solid #ced4da;
@@ -218,7 +247,7 @@
         background-color: white;
         min-width: 120px;
     }
-    
+
     .filter-btn {
         background-color: #0d6efd;
         color: white;
@@ -229,22 +258,22 @@
         cursor: pointer;
         margin-left: 10px;
     }
-    
+
     .filter-btn:hover {
         background-color: #0b5ed7;
     }
-    
+
     .filter-reset {
         color: #6c757d;
         text-decoration: none;
         font-size: 14px;
         margin-left: 10px;
     }
-    
+
     .filter-reset:hover {
         text-decoration: underline;
     }
-    
+
     .no-products-message {
         padding: 20px;
         background-color: #f8f9fa;
@@ -252,7 +281,7 @@
         margin-bottom: 20px;
         text-align: center;
     }
-    
+
     .product-thumbnail {
         position: relative;
         overflow: hidden;
