@@ -236,9 +236,6 @@ class CustomerController extends Controller
 
                 return $product;
             });
-        if ($products->isEmpty()) {
-            return redirect()->route('customer.index')->with('error', 'Không có sản phẩm nào trong danh mục này.');
-        }
         return view('customer.categories', compact('category', 'products'));
     }
 
