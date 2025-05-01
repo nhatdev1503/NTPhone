@@ -1,92 +1,101 @@
 @include('layouts.guest.header')
 <style>
-    
+    .section_danhmuc2 .danhmuc2-slider .swiper-slide>a h3 {
+        font-size: 14px;
+    }
+
     .news-section .block-product {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 30px 20px;
-}
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 30px 20px;
+    }
 
-/* Tin lớn */
-.news-section .item-blog-big img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-.news-section .item-blog-big a.thumb:hover img {
-    transform: scale(1.03);
-}
-.news-section .item-blog-big h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-.news-section .item-blog-big .time-post {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 10px;
-}
-.news-section .item-blog-big p {
-    font-size: 15px;
-    color: #444;
-}
+    /* Tin lớn */
+    .news-section .item-blog-big img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
 
-/* Tin nhỏ */
-.news-section .news-small-group {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-}
-.news-section .item-blog-small {
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-}
-.news-section .item-blog-small img {
-    width: 120px;
-    height: 75px;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-.news-section .item-blog-small a.thumb:hover img {
-    transform: scale(1.05);
-}
-.news-section .item-blog-small h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-.news-section .item-blog-small p {
-    font-size: 14px;
-    color: #555;
-    margin: 0;
-}
+    .news-section .item-blog-big a.thumb:hover img {
+        transform: scale(1.03);
+    }
 
-/* Xem thêm */
-.news-section .see-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-.news-section .see-more:hover {
-    color: #0056b3;
+    .news-section .item-blog-big h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
 
-}
+    .news-section .item-blog-big .time-post {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 10px;
+    }
 
+    .news-section .item-blog-big p {
+        font-size: 15px;
+        color: #444;
+    }
+
+    /* Tin nhỏ */
+    .news-section .news-small-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .news-section .item-blog-small {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .news-section .item-blog-small img {
+        width: 120px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .news-section .item-blog-small a.thumb:hover img {
+        transform: scale(1.05);
+    }
+
+    .news-section .item-blog-small h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .news-section .item-blog-small p {
+        font-size: 14px;
+        color: #555;
+        margin: 0;
+    }
+
+    /* Xem thêm */
+    .news-section .see-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .news-section .see-more:hover {
+        color: #0056b3;
+    }
 
     /* Thêm CSS để hiển thị 5 sản phẩm trên hàng và các style khác */
     .section_product .col-lg-3 {
-        /* For large screens (lg), default is 4 columns (col-lg-3). We change it to 5 */
         width: 20%;
-        /* 100% / 5 = 20% */
         flex: 0 0 20%;
         max-width: 20%;
     }
@@ -106,10 +115,9 @@
         transition: all 0.3s ease;
     }
 
-    /* Adjust for medium screens (md) if needed */
+    /* Adjust for medium screens (md) */
     @media (max-width: 991.98px) {
         .section_product .col-md-4 {
-            /* Default is 3 columns (col-md-4). Change to maybe 3 or 4 */
             width: 33.333%;
             flex: 0 0 33.333%;
             max-width: 33.333%;
@@ -119,7 +127,6 @@
     /* Adjust for small screens (sm/xs) */
     @media (max-width: 767.98px) {
         .section_product .col-6 {
-            /* Default is 2 columns (col-6). Keep as 2 or adjust if needed */
             width: 50%;
             flex: 0 0 50%;
             max-width: 50%;
@@ -129,7 +136,6 @@
     .product-thumbnail {
         position: relative;
         overflow: hidden;
-        /* Ensure content fits */
         border: 1px solid #eee;
         border-radius: 8px;
         margin-bottom: 10px;
@@ -139,11 +145,8 @@
         display: block;
         width: 100%;
         height: auto;
-        /* Maintain aspect ratio */
         aspect-ratio: 1 / 1;
-        /* Make images square */
         object-fit: cover;
-        /* Cover the area without distortion */
         transition: transform 0.3s ease;
     }
 
@@ -156,7 +159,6 @@
         top: 10px;
         left: 10px;
         background-color: #ff4d4f;
-        /* Red background for discount */
         color: white;
         padding: 3px 8px;
         font-size: 0.75rem;
@@ -168,7 +170,6 @@
     .product-info {
         text-align: left;
         padding: 0 5px;
-        /* Add some padding */
     }
 
     .product-name a {
@@ -216,29 +217,23 @@
         margin: 5px 0;
     }
 
-    .product-sold {
-        font-size: 0.75rem;
-        color: #555;
-        margin-top: 5px;
-    }
-
     .product-action .action {
-        /* Hide action button by default */
+        display: flex;
+        gap: 8px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .product-thumbnail:hover .action {
-        /* Show on hover */
         opacity: 1;
         visibility: visible;
     }
 
     .btn-views {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
         background-color: rgba(0, 0, 0, 0.6);
         color: white;
         border: none;
@@ -248,7 +243,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0;
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
@@ -262,23 +256,109 @@
         height: 16px;
     }
 
+    .product-action .action .btn-buy-now,
+    .product-action .action .btn-add-cart {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .product-action .action .btn-buy-now:hover {
+        background-color: #d70018;
+    }
+
+    .product-action .action .btn-add-cart:hover {
+        background-color: #007bff;
+    }
+
+    .product-action .action .btn-buy-now svg,
+    .product-action .action .btn-add-cart svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .product-action .action .btn-buy-now:disabled,
+    .product-action .action .btn-add-cart:disabled {
+        background-color: rgba(0, 0, 0, 0.3);
+        cursor: not-allowed;
+    }
+
+    /* CSS cho toast notification */
+    .toast-container {
+        position: fixed;
+        top: 25px;
+        right: 20px;
+        z-index: 100000;
+    }
+
+    .toast {
+        background-color: #333;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        max-width: 300px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .toast.success {
+        background-color: #28a745;
+    }
+
+    .toast.error {
+        background-color: #dc3545;
+    }
+
+    .toast .toast-icon {
+        font-size: 18px;
+    }
+
+    .toast .toast-message {
+        font-size: 14px;
+        flex: 1;
+    }
+
+    .toast .toast-close {
+        cursor: pointer;
+        font-size: 16px;
+        color: #fff;
+        opacity: 0.7;
+    }
+
+    .toast .toast-close:hover {
+        opacity: 1;
+    }
+
     /* Ensure swiper structure doesn't interfere with column layout */
     .section_product .swiper-slide-pro {
         width: 100% !important;
-        /* Override swiper's width */
         margin-right: 0 !important;
-        /* Override swiper's margin */
     }
 
     .section_product .swiper-wrapper {
         display: flex;
-        /* Use flexbox for alignment */
         flex-wrap: wrap;
-        /* Allow items to wrap */
         width: auto !important;
-        /* Let container define width */
         transform: none !important;
-        /* Disable swiper transform */
     }
 
     .colors-container {
@@ -385,12 +465,11 @@
     <section class="section_slider">
         <div class="home-slider swiper-container">
             <div class="swiper-wrapper">
-                <a href="{{ route('guest.product_detail',$banner->product_url) }}" title="{{ $banner->name }}"
+                <a href="{{ route('guest.product_detail', $banner->product_url) }}" title="{{ $banner->name }}"
                     class="swiper-slide">
                     <picture>
-                        <img width="1920" height="650"
-                            src="{{ asset('storage/' . $banner->image) }}"
-                            alt="Slider" class="img-responsive" />
+                        <img width="1920" height="650" src="{{ asset('storage/' . $banner->image) }}" alt="Slider"
+                            class="img-responsive" />
                     </picture>
                 </a>
             </div>
@@ -435,10 +514,8 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="swiper-button-next">
-                    </div>
-                    <div class="swiper-button-prev">
-                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </div>
@@ -458,31 +535,31 @@
             },
             breakpoints: {
                 300: {
-                    slidesPerView: 1,
+                    slidesPerView: 1
                 },
                 500: {
-                    slidesPerView: 1,
+                    slidesPerView: 1
                 },
                 640: {
-                    slidesPerView: 2,
+                    slidesPerView: 2
                 },
                 768: {
-                    slidesPerView: 2,
+                    slidesPerView: 2
                 },
                 991: {
-                    slidesPerView: 3,
+                    slidesPerView: 3
                 },
                 1200: {
-                    slidesPerView: 4,
+                    slidesPerView: 4
                 }
             }
         });
     </script>
     <section class="section_1_banner">
         <div class="container">
-            <a class="thumb-image-banner" href="https://www.hoangkien.com/iphone-16-16plus-16pro-16promax"
+            <a class="thumb-image-banner" href="{{ route('guest.category', $category->id) }}"
                 title="Banner">
-                <img width="1270" height="236" class="lazyload"
+                <img width="100%" height="236" class="lazyload"
                     src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
                     data-src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1742954225872"
                     alt="Banner">
@@ -499,19 +576,15 @@
                 <div class="row">
                     @foreach ($featuredProducts as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <form action="{{ route('customer.postCart') }}" method="post"
-                                class="variants product-action" data-cart-form
-                                data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="variants product-action" data-id="product-actions-{{ $product->id }}">
                                 @php
                                     $firstVariant = $product->variants->first();
                                     $displayPrice = $product->sale_price ?? 0;
                                     $originPrice = $product->origin_price ?? 0;
                                     $discountPercentage = $product->discount_percentage ?? 0;
                                     $soldCount = $product->sold_count ?? 0;
+                                    $isOutOfStock = $product->is_out_of_stock ?? true;
                                 @endphp
-                                <input type="hidden" name="variantId" value="{{ $firstVariant->id ?? '' }}">
 
                                 <div class="product-thumbnail">
                                     @if ($discountPercentage > 0)
@@ -525,15 +598,23 @@
                                             onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
                                     </a>
                                     <div class="action">
-                                        <a href="{{ route('guest.product_detail', $product->id) }}"
-                                            class="btn-views" title="Xem chi tiết">
+                                        <button class="btn-add-cart" title="Thêm vào giỏ hàng"
+                                            data-product-id="{{ $product->id }}"
+                                            {{ $isOutOfStock ? 'disabled' : '' }}>
                                             <svg class="icon" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
-                                                    d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                                    d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1-2H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63z"
                                                     fill="currentColor"></path>
                                             </svg>
-                                        </a>
+                                        </button>
+                                        {{-- <button class="btn-buy-now" title="Mua ngay"
+                                            data-product-id="{{ $product->id }}"
+                                            {{ $isOutOfStock ? 'disabled' : '' }}>
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"></path>
+                                            </svg>
+                                        </button> --}}
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -548,10 +629,10 @@
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    <div class="product-sold">Đã bán: {{ $soldCount }}</div>
+                                    <div class="product-sold">Đã bán: {{ $product->sold ?? 0 }}</div>
 
                                     <!-- Thêm phần hiển thị màu sắc -->
-                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
                                                 <div class="color-circle" title="{{ $color['name'] }}"
@@ -562,14 +643,20 @@
                                     @endif
 
                                     <!-- Thêm phần hiển thị dung lượng -->
-                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
                                                 <span class="storage-badge">{{ $storage }}</span>
                                             @endforeach
                                         </div>
                                     @endif
-
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                          Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                      </div>
+                                    @endif
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @php
@@ -577,22 +664,22 @@
                                             $totalRatings = $orderItems->count();
                                             $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
                                         @endphp
-                                        
+
                                         @if ($totalRatings > 0)
                                             <div class="stars-container">
                                                 @php
                                                     $fullStars = floor($averageRating);
                                                     $hasHalfStar = $averageRating - $fullStars >= 0.5;
                                                 @endphp
-                                                
+
                                                 @for ($i = 0; $i < $fullStars; $i++)
                                                     <span class="star">★</span>
                                                 @endfor
-                                                
+
                                                 @if ($hasHalfStar)
                                                     <span class="half-star"></span>
                                                 @endif
-                                                
+
                                                 @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
                                                     <span class="star" style="color: #e0e0e0;">★</span>
                                                 @endfor
@@ -604,13 +691,69 @@
                                         @endif
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     @endforeach
                 </div>
             </div>
         </div>
     </section>
+    <section class="section_1_banner">
+        <div class="container">
+            <div class="banner-container">
+                <a class="thumb-image-banner" href="{{ route('guest.category',15 ) }}" title="iPhone 16 Pro">
+                    <img width="635" height="236" class="lazyload"
+                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
+                        data-src="https://cdn.tgdd.vn/News/1315253/cach-xem-dia-chi-ip-cua-dien-thoai-android-iphone-don-gian-21-800x300-1.jpg"
+                        alt="iPhone 16 Pro">
+                </a>
+                <a class="thumb-image-banner" href="{{ route('guest.category',16) }}" title="iPhone 15">
+                    <img width="635" height="236" class="lazyload"
+                        src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
+                        data-src="https://inventstore.in/wp-content/uploads/2024/09/25-scaled.webp"
+                        alt="iPhone 15">
+                </a>
+            </div>
+        </div>
+    </section>
+    <style>
+        .banner-container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1270px;
+            margin: 0 auto;
+        }
+    
+        .banner-container .thumb-image-banner {
+            flex: 1;
+            width: 50%;
+            display: block;
+        }
+    
+        .banner-container .thumb-image-banner img {
+            width: 100%;
+            height: 236px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+    
+        .banner-container .thumb-image-banner:hover img {
+            transform: scale(1.03);
+        }
+    
+        @media (max-width: 767.98px) {
+            .banner-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+    
+            .banner-container .thumb-image-banner {
+                width: 100%;
+            }
+        }
+    </style>
     <section class="section_product one">
         <div class="container">
             <div class="block-background">
@@ -621,19 +764,15 @@
                 <div class="row">
                     @foreach ($bestSellingProducts as $product)
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <form action="{{ route('customer.postCart') }}" method="post"
-                                class="variants product-action" data-cart-form
-                                data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="variants product-action" data-id="product-actions-{{ $product->id }}">
                                 @php
                                     $firstVariant = $product->variants->first();
                                     $displayPrice = $product->sale_price ?? 0;
                                     $originPrice = $product->origin_price ?? 0;
                                     $discountPercentage = $product->discount_percentage ?? 0;
                                     $soldCount = $product->sold_count ?? 0;
+                                    $isOutOfStock = $product->is_out_of_stock ?? true;
                                 @endphp
-                                <input type="hidden" name="variantId" value="{{ $firstVariant->id ?? '' }}">
 
                                 <div class="product-thumbnail">
                                     @if ($discountPercentage > 0)
@@ -647,33 +786,41 @@
                                             onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
                                     </a>
                                     <div class="action">
-                                        <a href="{{ route('guest.product_detail', $product->id) }}"
-                                            class="btn-views" title="Xem chi tiết">
+                                        <button class="btn-add-cart" title="Thêm vào giỏ hàng"
+                                            data-product-id="{{ $product->id }}"
+                                            {{ $isOutOfStock ? 'disabled' : '' }}>
                                             <svg class="icon" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
-                                                    d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                                    d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1-2H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63z"
                                                     fill="currentColor"></path>
                                             </svg>
-                                        </a>
+                                        </button>
+                                        {{-- <button class="btn-buy-now" title="Mua ngay"
+                                            data-product-id="{{ $product->id }}"
+                                            {{ $isOutOfStock ? 'disabled' : '' }}>
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"></path>
+                                            </svg>
+                                        </button> --}}
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <h3 class="product-name"><a class="line-clamp line-clamp-2"
+                                    <h3 class="product-name">
+                                        <a class="line-clamp line-clamp-2"
                                             href="{{ route('guest.product_detail', $product->id) }}"
-                                            title="{{ $product->name }}">{{ $product->name }}</a></h3>
+                                            title="{{ $product->name }}">{{ $product->name }}</a>
+                                    </h3>
                                     <div class="price-box">
                                         <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
                                         @if ($originPrice > $displayPrice)
                                             <span class="origin-price">{{ number_format($originPrice) }}₫</span>
                                         @endif
                                     </div>
-                                    @if ($soldCount > 0)
-                                        <div class="product-sold">Đã bán: {{ $soldCount }}</div>
-                                    @endif
+                                    <div class="product-sold">Đã bán: {{ $product->sold }}</div>
 
                                     <!-- Thêm phần hiển thị màu sắc -->
-                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
                                                 <div class="color-circle" title="{{ $color['name'] }}"
@@ -684,14 +831,20 @@
                                     @endif
 
                                     <!-- Thêm phần hiển thị dung lượng -->
-                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
                                                 <span class="storage-badge">{{ $storage }}</span>
                                             @endforeach
                                         </div>
                                     @endif
-
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                          Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                      </div>
+                                    @endif
                                     <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @php
@@ -699,22 +852,22 @@
                                             $totalRatings = $orderItems->count();
                                             $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
                                         @endphp
-                                        
+
                                         @if ($totalRatings > 0)
                                             <div class="stars-container">
                                                 @php
                                                     $fullStars = floor($averageRating);
                                                     $hasHalfStar = $averageRating - $fullStars >= 0.5;
                                                 @endphp
-                                                
+
                                                 @for ($i = 0; $i < $fullStars; $i++)
                                                     <span class="star">★</span>
                                                 @endfor
-                                                
+
                                                 @if ($hasHalfStar)
                                                     <span class="half-star"></span>
                                                 @endif
-                                                
+
                                                 @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
                                                     <span class="star" style="color: #e0e0e0;">★</span>
                                                 @endfor
@@ -726,7 +879,7 @@
                                         @endif
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -734,90 +887,84 @@
         </div>
     </section>
     <section class="section_blog news-section">
-    <div class="container">
-        <div class="block-product block-background">
-            <h3 class="title-index px-4 pb-3">
-                <a class="title-name" href="{{ route('guest.news') }}">Tin tức mới nhất</a>
-            </h3>
-
-            <div class="row gx-4 gy-4">
-                {{-- Tin lớn bên trái --}}
-                <div class="col-md-6">
-                    @if($latestNews->first())
-                        @php $firstNews = $latestNews->first(); @endphp
-                        <div class="item-blog-big">
-                            <a class="thumb d-block mb-3" href="{{ route('guest.show', $firstNews->id) }}">
-                                <img class="lazyload"
-                                     src="{{ asset('default-thumbnail.jpg') }}"
-                                     data-src="{{ asset('storage/' . $firstNews->thumbnail_path) }}"
-                                     alt="{{ $firstNews->title }}">
-                            </a>
-                            <div class="block-content">
-                                <h3>
-                                    <a class="line-clamp line-clamp-1" href="{{ route('guest.show', $firstNews->id) }}">
-                                        {{ $firstNews->title }}
-                                    </a>
-                                </h3>
-                                <div class="time-post">
-                                    Ngày đăng: <span>{{ \Carbon\Carbon::parse($firstNews->published_at)->format('d/m/Y') }}</span>
+        <div class="container">
+            <div class="block-product block-background">
+                <h3 class="title-index px-4 pb-3">
+                    <a class="title-name" href="{{ route('guest.news') }}">Tin tức mới nhất</a>
+                </h3>
+                <div class="row gx-4 gy-4">
+                    <div class="col-md-6">
+                        @if ($latestNews->first())
+                            @php $firstNews = $latestNews->first(); @endphp
+                            <div class="item-blog-big">
+                                <a class="thumb d-block mb-3" href="{{ route('guest.show', $firstNews->id) }}">
+                                    <img class="lazyload" src="{{ asset('default-thumbnail.jpg') }}"
+                                        data-src="{{ asset('storage/' . $firstNews->thumbnail_path) }}"
+                                        alt="{{ $firstNews->title }}">
+                                </a>
+                                <div class="block-content">
+                                    <h3>
+                                        <a class="line-clamp line-clamp-1"
+                                            href="{{ route('guest.show', $firstNews->id) }}">
+                                            {{ $firstNews->title }}
+                                        </a>
+                                    </h3>
+                                    <div class="time-post">
+                                        Ngày đăng:
+                                        <span>{{ \Carbon\Carbon::parse($firstNews->published_at)->format('d/m/Y') }}</span>
+                                    </div>
+                                    <p class="justify line-clamp line-clamp-3">
+                                        {{ Str::limit(strip_tags(html_entity_decode($firstNews->content)), 200) }}
+                                    </p>
                                 </div>
-                                <p class="justify line-clamp line-clamp-3">
-                                    {{ Str::limit(strip_tags(html_entity_decode($firstNews->content)), 200) }}
-                                </p>
                             </div>
-                        </div>
-                    @endif
-                </div>
-
-                {{-- Tin nhỏ bên phải --}}
-                <div class="col-md-6 news-small-group">
-                    @foreach($latestNews->skip(1)->take(4) as $news)
-                        <div class="item-blog-small">
-                            <a class="thumb" href="{{ route('guest.show', $news->id) }}">
-                                <img class="lazyload"
-                                     src="{{ asset('default-thumbnail.jpg') }}"
-                                     data-src="{{ asset('storage/' . $news->thumbnail_path) }}"
-                                     alt="{{ $news->title }}">
-                            </a>
-                            <div class="block-content">
-                                <h3>
-                                    <a class="line-clamp line-clamp-2" href="{{ route('guest.show', $news->id) }}">
-                                        {{ $news->title }}
-                                    </a>
-                                </h3>
-                                <p class="line-clamp line-clamp-2">
-                                    {{ Str::limit(strip_tags(html_entity_decode($news->content)), 120) }}
-                                </p>
+                        @endif
+                    </div>
+                    <div class="col-md-6 news-small-group">
+                        @foreach ($latestNews->skip(1)->take(4) as $news)
+                            <div class="item-blog-small">
+                                <a class="thumb" href="{{ route('guest.show', $news->id) }}">
+                                    <img class="lazyload" src="{{ asset('default-thumbnail.jpg') }}"
+                                        data-src="{{ asset('storage/' . $news->thumbnail_path) }}"
+                                        alt="{{ $news->title }}">
+                                </a>
+                                <div class="block-content">
+                                    <h3>
+                                        <a class="line-clamp line-clamp-2"
+                                            href="{{ route('guest.show', $news->id) }}">
+                                            {{ $news->title }}
+                                        </a>
+                                    </h3>
+                                    <p class="line-clamp line-clamp-2">
+                                        {{ Str::limit(strip_tags(html_entity_decode($news->content)), 120) }}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-
-            <div class="text-center pt-4">
-                <a class="see-more" href="{{ route('guest.news') }}">
-                    Xem toàn bộ tin tức
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h306.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
-                    </svg>
-                </a>
+                <div class="text-center pt-4">
+                    <a class="see-more" href="{{ route('guest.news') }}">
+                        Xem toàn bộ tin tức
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                            <path
+                                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h306.7L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-
-
+    </section>
     <section class="section_video">
-        <div class="container ">
+        <div class="container">
             <div class="block-product block-background">
                 <h3 class="title-index p-5">
                     <a class="title-name" href="huong-dan-thu-thuat" title="Hướng Dẫn Thủ Thuật">Hướng Dẫn Thủ
-                        Thuật
-                    </a>
+                        Thuật</a>
                 </h3>
                 <div class="row p-5">
                     <a href="/bien-iphone-thanh-may-tao-tieng-on-trang-giai-phap-giup-ban-ngu-ngon-hon"
-                        class="item col-lg-3 col-sm-5 col-9 "
+                        class="item col-lg-3 col-sm-5 col-9"
                         title="Biến iPhone thành máy tạo tiếng ồn trắng: Giải pháp giúp bạn ngủ ngon hơn">
                         <div class="block-thumb">
                             <div class="thumb"
@@ -834,7 +981,7 @@
                             </h3>
                         </div>
                     </a>
-                    <a href="/dieu-khien-robot-hut-bui-bang-apple-home-va-siri" class="item col-lg-3 col-sm-5 col-9 "
+                    <a href="/dieu-khien-robot-hut-bui-bang-apple-home-va-siri" class="item col-lg-3 col-sm-5 col-9"
                         title="Điều Khiển Robot Hút Bụi Bằng Apple Home và Siri">
                         <div class="block-thumb">
                             <div class="thumb" title="Điều Khiển Robot Hút Bụi Bằng Apple Home và Siri">
@@ -850,7 +997,7 @@
                             </h3>
                         </div>
                     </a>
-                    <a href="/su-dung-apple-music-hieu-qua-nhat" class="item col-lg-3 col-sm-5 col-9 "
+                    <a href="/su-dung-apple-music-hieu-qua-nhat" class="item col-lg-3 col-sm-5 col-9"
                         title="Sử Dụng Apple Music Hiệu Quả Nhất">
                         <div class="block-thumb">
                             <div class="thumb" title="Sử Dụng Apple Music Hiệu Quả Nhất">
@@ -867,7 +1014,7 @@
                         </div>
                     </a>
                     <a href="/huong-dan-ve-sinh-iphone-don-gian-tai-nha-loa-to-ro-sac-khong-chap-chon"
-                        class="item col-lg-3 col-sm-5 col-9 "
+                        class="item col-lg-3 col-sm-5 col-9"
                         title="Hướng Dẫn Vệ Sinh iPhone Đơn Giản Tại Nhà – Loa To Rõ, Sạc Không Chập Chờn">
                         <div class="block-thumb">
                             <div class="thumb"
@@ -887,79 +1034,61 @@
                 </div>
                 <div class="text-center no-padding">
                     <a class="see-more" title="Xem toàn bộ video" href="huong-dan-thu-thuat">Xem toàn bộ video
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                            viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                             <path
                                 d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
-                        </svg></a>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
     <div class="popup-video">
-        <div class="body-popup">
-        </div>
+        <div class="body-popup"></div>
         <div class="close-popup-video">
-            <i class="fa fa-close"></i>
-            Đóng
+            <i class="fa fa-close"></i> Đóng
         </div>
     </div>
-    {{-- <section class="section_danhgia">
-        <div class="container">
-            <div class="block-background">
-                <h3 class="title-index p-5">
-                    <span class="title-name"></span>
-                </h3>
-                <div class="danhgia-slider swiper-container p-5">
-                    <div class="swiper-wrapper">
-                    </div>
-                    <div class="swiper-button-next">
-                    </div>
-                    <div class="swiper-button-prev">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    <script>
-        var swiperdanhgia = new Swiper('.danhgia-slider', {
-            autoplay: false,
-            slidesPerView: 2,
-            spaceBetween: 30,
-            navigation: {
-                nextEl: '.danhgia-slider .swiper-button-next',
-                prevEl: '.danhgia-slider .swiper-button-prev',
-            },
-            breakpoints: {
-                300: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                500: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                768: {
-                    slidesPerView: 1,
-                    spaceBetween: 30
-                },
-                991: {
-                    slidesPerView: 2,
-                    spaceBetween: 30
-                },
-                1200: {
-                    slidesPerView: 2,
-                    spaceBetween: 30
-                }
-            }
-        });
-    </script>
-
+    <!-- Toast container -->
+    <div class="toast-container"></div>
 </div>
+<script>
+    var swiperdanhgia = new Swiper('.danhgia-slider', {
+        autoplay: false,
+        slidesPerView: 2,
+        spaceBetween: 30,
+        navigation: {
+            nextEl: '.danhgia-slider .swiper-button-next',
+            prevEl: '.danhgia-slider .swiper-button-prev',
+        },
+        breakpoints: {
+            300: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            500: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 30
+            },
+            991: {
+                slidesPerView: 2,
+                spaceBetween: 30
+            },
+            1200: {
+                slidesPerView: 2,
+                spaceBetween: 30
+            }
+        }
+    });
+</script>
 <script>
     (function($) {
         "use strict";
@@ -976,7 +1105,7 @@
                 en: null
             },
             init: function(selector, options) {
-                $(selector).ajaxChimp(options)
+                $(selector).ajaxChimp(options);
             }
         };
         $.fn.ajaxChimp = function(options) {
@@ -998,7 +1127,7 @@
                         if (resp.result === "success") {
                             msg = "We have sent you a confirmation email";
                             label.removeClass("error").addClass("valid");
-                            email.removeClass("error").addClass("valid")
+                            email.removeClass("error").addClass("valid");
                         } else {
                             email.removeClass("valid").addClass("error");
                             label.removeClass("valid").addClass("error");
@@ -1006,40 +1135,42 @@
                             try {
                                 var parts = resp.msg.split(" - ", 2);
                                 if (parts[1] === undefined) {
-                                    msg = resp.msg
+                                    msg = resp.msg;
                                 } else {
                                     var i = parseInt(parts[0], 10);
                                     if (i.toString() === parts[0]) {
                                         index = parts[0];
-                                        msg = parts[1]
+                                        msg = parts[1];
                                     } else {
                                         index = -1;
-                                        msg = resp.msg
+                                        msg = resp.msg;
                                     }
                                 }
                             } catch (e) {
                                 index = -1;
-                                msg = resp.msg
+                                msg = resp.msg;
                             }
                         }
                         if (settings.language !== "en" && $.ajaxChimp.responses[msg] !==
-                            undefined && $.ajaxChimp.translations && $.ajaxChimp.translations[
-                                settings.language] && $.ajaxChimp.translations[settings
-                                .language][$.ajaxChimp.responses[msg]]) {
+                            undefined &&
+                            $.ajaxChimp.translations && $.ajaxChimp.translations[settings
+                                .language] &&
+                            $.ajaxChimp.translations[settings.language][$.ajaxChimp.responses[
+                                msg]]) {
                             msg = $.ajaxChimp.translations[settings.language][$.ajaxChimp
                                 .responses[msg]
-                            ]
+                            ];
                         }
                         label.html(msg);
                         label.show(2e3);
                         if (settings.callback) {
-                            settings.callback(resp)
+                            settings.callback(resp);
                         }
                     }
                     var data = {};
                     var dataArray = form.serializeArray();
                     $.each(dataArray, function(index, item) {
-                        data[item.name] = item.value
+                        data[item.name] = item.value;
                     });
                     $.ajax({
                         url: url,
@@ -1047,21 +1178,112 @@
                         success: successCallback,
                         dataType: "jsonp",
                         error: function(resp, text) {
-                            console.log("mailchimp ajax submit error: " + text)
+                            console.log("mailchimp ajax submit error: " + text);
                         }
                     });
                     var submitMsg = "Submitting...";
-                    if (settings.language !== "en" && $.ajaxChimp.translations && $.ajaxChimp
-                        .translations[settings.language] && $.ajaxChimp.translations[settings
-                            .language]["submit"]) {
-                        submitMsg = $.ajaxChimp.translations[settings.language]["submit"]
+                    if (settings.language !== "en" && $.ajaxChimp.translations &&
+                        $.ajaxChimp.translations[settings.language] &&
+                        $.ajaxChimp.translations[settings.language]["submit"]) {
+                        submitMsg = $.ajaxChimp.translations[settings.language]["submit"];
                     }
                     label.html(submitMsg).show(2e3);
-                    return false
-                })
+                    return false;
+                });
             });
-            return this
-        }
+            return this;
+        };
     })(jQuery);
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Xử lý nút Thêm vào giỏ
+        document.querySelectorAll('.btn-add-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                addToCart(productId, false);
+            });
+        });
+
+        // Xử lý nút Mua ngay
+        document.querySelectorAll('.btn-buy-now').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                addToCart(productId, true);
+            });
+        });
+
+        function showToast(message, type = 'success') {
+            const toastContainer = document.querySelector('.toast-container');
+            const toast = document.createElement('div');
+            toast.classList.add('toast', type);
+            toast.innerHTML = `
+                <span class="toast-icon">${type === 'success' ? '✔' : '❌'}</span>
+                <span class="toast-message">${message}</span>
+                <span class="toast-close">&times;</span>
+            `;
+            toastContainer.appendChild(toast);
+
+            // Hiển thị toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+
+            // Xử lý nhấn nút đóng
+            toast.querySelector('.toast-close').addEventListener('click', () => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            });
+        }
+
+        function addToCart(productId, isBuyNow) {
+            // Gửi yêu cầu AJAX để thêm vào giỏ hàng
+            fetch('{{ route('customer.postCart') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (isBuyNow) {
+                            // Chuyển hướng đến trang giỏ hàng hoặc checkout
+                            window.location.href = data.cart_url || '{{ route('customer.cart') }}';
+                        } else {
+                            // Hiển thị toast thông báo thành công
+                            showToast(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
+
+                            // 🔄 GỌI AJAX LẤY LẠI SỐ LƯỢNG GIỎ HÀNG
+                            fetch('{{ route('cart.count') }}')
+                                .then(res => res.json())
+                                .then(countData => {
+                                    document.querySelector('.count_item_pr').textContent = countData.count;
+                                })
+                                .catch(err => console.error('Lỗi khi cập nhật số lượng giỏ hàng:', err));
+                        }
+                    } else {
+                        // Hiển thị toast thông báo lỗi
+                        showToast(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
+                });
+        }
+    });
 </script>
 @include('layouts.guest.footer')
