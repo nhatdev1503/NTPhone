@@ -1,3 +1,4 @@
+@include('layouts.customer.header')
 @php
     $user = Auth::user();
 @endphp
@@ -1100,3 +1101,4 @@ document.getElementById('checkout-form').addEventListener('submit', function(e) 
     });
 });
 </script>
+@include('layouts.customer.footer')

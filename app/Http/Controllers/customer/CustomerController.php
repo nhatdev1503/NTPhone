@@ -1637,7 +1637,7 @@ class CustomerController extends Controller
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error('Error cancelling order: ' . $e->getMessage());
-                return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
+                return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng, có vẻ như đơn hàng đã được hủy trước đó ! ' . $e->getMessage());
             }
         }
         return redirect()->back()->with('cancel_success', 'Đơn hàng đã được hủy thành công.');
@@ -1723,6 +1723,19 @@ class CustomerController extends Controller
             $order->status = 'completed';
             $order->save();
 
+            // Tăng số lượng sold cho từng sản phẩm đã mua
+            foreach ($order->orderItems as $item) {
+                $variant = ProductVariant::find($item->product_variant_id);
+                
+                if ($variant) {
+                    $product = $variant->product;
+
+                    if ($product) {
+                        $product->sold += $item->quantity;
+                        $product->save();
+                    }
+                }
+            }
             return back()->with('success', 'Xác nhận đơn hàng thành công!');
         } catch (\Exception $e) {
             return back()->with('error', 'Có lỗi xảy ra khi xác nhận đơn hàng.');
