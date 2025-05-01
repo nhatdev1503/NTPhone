@@ -45,17 +45,44 @@
                                 </div>
 
                                 <div>
-    <label for="description" class="block text-sm font-medium text-gray-300 mb-1">Mô tả</label>
-    <textarea id="description" name="description" rows="10"
-        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description', $product->description) }}</textarea>
-    
-    @if ($errors->has('description'))
-        <div class="text-red-400 text-sm mt-1">{{ $errors->first('description') }}</div>
-    @endif
-</div>
+                                    <label for="description" class="block text-sm font-medium text-gray-300 mb-1">Mô tả</label>
+                                    <textarea id="description" name="description" rows="10"
+                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description', $product->description) }}</textarea>
+                                    
+                                    @if ($errors->has('description'))
+                                        <div class="text-red-400 text-sm mt-1">{{ $errors->first('description') }}</div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
+                    </div>
 
+                    <!-- Cột phải: Thông số kỹ thuật -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-700/50 rounded-xl p-4">
+                            <h3 class="text-lg font-semibold text-blue-400 mb-4">Giá và kho</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Giá gốc</label>
+                                    <input type="text" name="base_price" value="{{ old('base_price',$product->base_price) }}"
+                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Giá giảm</label>
+                                    <input type="text" name="sale_price" value="{{ old('sale_price',$product->sale_price) }}"
+                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+
+                                @if ($product->have_variant == 0)
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-300 mb-1">Số lượng</label>
+                                        <input type="text" name="stock" value="{{ old('stock',$product->one_variant->stock )}}"
+                                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                         <div class="bg-gray-700/50 rounded-xl p-4">
                             <h3 class="text-lg font-semibold text-blue-400 mb-4">Hình ảnh sản phẩm</h3>
                             <div class="space-y-4">
@@ -97,34 +124,6 @@
                                         </div>
                                     @endif
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Cột phải: Thông số kỹ thuật -->
-                    <div class="space-y-6">
-                        <div class="bg-gray-700/50 rounded-xl p-4">
-                            <h3 class="text-lg font-semibold text-blue-400 mb-4">Giá và kho</h3>
-                            <div class="grid grid-cols-1 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Giá gốc</label>
-                                    <input type="text" name="base_price" value="{{ old('base_price',$product->base_price) }}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Giá giảm</label>
-                                    <input type="text" name="sale_price" value="{{ old('sale_price',$product->sale_price) }}"
-                                        class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                </div>
-
-                                @if ($product->have_variant == 0)
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-300 mb-1">Số lượng</label>
-                                        <input type="text" name="stock" value="{{ old('stock',$product->one_variant->stock )}}"
-                                            class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                    </div>
-                                @endif
                             </div>
                         </div>
                     </div>

@@ -42,8 +42,10 @@ class CustomerOrderController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'review' => 'required|string|max:1000',
         ]);
-
         $item = OrderItem::findOrFail($request->input('item_id'));
+        if($item->rating != null && $item->review != null){
+            return back()->with('error', 'Bạn đã đánh giá sản phẩm này rồi');
+        }
         $item->rating = $request->input('rating');
         $item->review = $request->input('review');
         $item->save();

@@ -14,7 +14,8 @@ class UserController extends Controller
     // Hiển thị danh sách người dùng
     public function index(Request $request)
     {
-        $query = User::query()->where('status', 'active');
+        $query = User::query()->where('status', 'active')
+        ->where('role', '!=', 'admin');
 
         // Search by name or email
         if ($request->filled('keyword')) {

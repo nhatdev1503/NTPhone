@@ -177,10 +177,15 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-white">{{ $item->name }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-300">
+                                        @if($item->productVariant->product->have_variant == 0)
+                                                Không
+                                        @else
                                         <div class="flex items-center gap-2">
-                                            <span class="w-4 h-4 rounded-full" style="background-color: {{ $item->color }}"></span>
+                                            <span>{{ $item->color }}</span>
                                             {{ $item->storage }}
                                         </div>
+                                        @endif
+                                        
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-300">{{ $item->quantity }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-300">{{ number_format($item->price, 0, ',', '.') }} VND</td>

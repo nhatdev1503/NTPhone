@@ -157,26 +157,26 @@
 
                             <form enctype="multipart/form-data" data-cart-form="" id="add-to-cart-form"
                                 method="post" class="form-inline">
-								@csrf
-								<input type="hidden" name="product_id" value="{{ $product->id }}">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-								<div class="price-box clearfix">
-									<span class="title-price">Giá bán:</span>
-									<span class="special-price">
-										<span class="price product-price current-price" id="display-price">
-											{{ number_format(optional($variants->first())->price, 0, ',', '.') }}₫
-										</span>
-									</span>
-									<span class="origin_price" id="display-origin-price">
-										{{ number_format(optional($variants->first())->origin_price, 0, ',', '.') }}₫
-									</span>
-								</div>
-
-								<div class="form-product">
-									<div class="phienban">
-										<label for="storage">Dung lượng:</label>
-										<div class="row">
-											@foreach ($storages as $storage)
+                                <div class="price-box clearfix">
+                                    <span class="title-price">Giá bán:</span>
+                                    <span class="special-price">
+                                        <span class="price product-price current-price" id="display-price">
+                                            {{ number_format(optional($variants->first())->price, 0, ',', '.') }}₫
+                                        </span>
+                                    </span>
+                                    <span class="origin_price" id="display-origin-price">
+                                        {{ number_format(optional($variants->first())->origin_price, 0, ',', '.') }}₫
+                                    </span>
+                                </div>
+                                @if ($product->have_variant == 1)
+                                <div class="form-product">
+                                    <div class="phienban">
+                                        <label for="storage">Dung lượng:</label>
+                                        <div class="row">
+                                            @foreach ($storages as $storage)
                                                 <div class="col-lg-4 col-md-3 col-4" style="padding-left: 3px; padding-right: 3px;width: 70px;">
                                                     <a href="javascript:void(0);"
                                                        class="thumb-phienban storage-option"
@@ -219,26 +219,35 @@
 													<label for="swatch-0-{{ \Str::slug($colorGroup['color']) }}">
                                                             <span class="color-round"
                                                                 data-color="{{ $colorGroup['variants']->first()->hax_code ?? '' }}">
-															<span>{{ $colorGroup['color'] }}</span>
-														</span>
+                                                                <span>{{ $colorGroup['color'] }}</span>
+                                                            </span>
 
-													</label>
-												</div>
-												@endforeach
-											</div>
-										</div>
-									</div>
-								</div>
-								<script>
-									document.querySelectorAll('.color-round').forEach(function(el) {
-										const color = el.getAttribute('data-color');
-										if (color) {
-											el.style.backgroundColor = color;
-										}
-									});
-								</script>
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @else
+                                <div style="padding: 16px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                    <span style="font-size: 18px; font-weight: bold; color: #1f2937;">Sản phẩm đơn</span>
+                                    <p style="margin-top: 8px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                      Bao gồm các mặt hàng bán lẻ như điện thoại thông minh, tai nghe, dây sạc, ốp lưng, kính cường lực và nhiều phụ kiện khác. 
+                                      Phù hợp với nhu cầu mua sắm nhanh, tiện lợi cho cá nhân hoặc làm quà tặng.
+                                    </p>
+                                  </div>
+                                @endif
+                                <script>
+                                    document.querySelectorAll('.color-round').forEach(function(el) {
+                                        const color = el.getAttribute('data-color');
+                                        if (color) {
+                                            el.style.backgroundColor = color;
+                                        }
+                                    });
+                                </script>
 
-								<style>
+                                <style>
                                     /* Đưa nút Liên hệ và Mua ngay lên cùng hàng ngang */
                                     .group-button {
                                         flex-direction: row;
@@ -756,10 +765,10 @@
                                                 console.error('API Error:', textStatus, errorThrown, jqXHR.responseText);
                                                 updatePrice(null, null);
                                                 updateStockAndButtons(false, 0);
-                                                $('.inventory .a-stock').text('Không tìm thấy');
-											}
-										});
-									}
+                                                $('.inventory .a-stock').text('Hết hàng');
+                                            }
+                                        });
+                                    }
 
                                     // Function to show/hide quantity error messages
                                     function showQuantityError(message) {
@@ -967,13 +976,6 @@
 									const selectedStorage = document.getElementById('selectedStorage').value;
 									const selectedQuantity = document.getElementById('selectedQuantity').value;
                                     const csrfToken = $('input[name="_token"]').val(); // Get CSRF token
-
-                                    // Basic check if variant options are selected
-                                    if (!selectedColor || !selectedStorage) {
-                                        ErrorNoti('Vui lòng chọn Màu sắc và Dung lượng.');
-                                        console.error("Color or Storage not selected.");
-                                        return; // Stop submission
-                                    }
 
                                     console.log("Submitting AJAX to:", action);
                                     console.log("Action Type:", actionType);
@@ -1860,9 +1862,9 @@
 								</li>
 
 
-								<li class="tab-link" data-tab="#tab-2">
-									<h3>Hướng dẫn mua hàng</h3>
-								</li>
+                                <li class="tab-link" data-tab="#tab-2">
+                                    <h3>Thông tin chi tiết</h3>
+                                </li>
 
 
 							</ul>
@@ -1887,8 +1889,7 @@
 								</div>
 
 
-								<div id="tab-2" class="tab-content content_extab">
-                                    <label class="block text-sm font-medium text-gray-300 mb-1">Mô tả sản phẩm</label>
+                                <div id="tab-2" class="tab-content content_extab">
                                     <div id="description" class="rte">
                                         {!! $product->description !!}
 									</div>
