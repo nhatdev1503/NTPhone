@@ -280,16 +280,20 @@
 
     .tag-discount {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: #ff4d4f;
-        /* Red background for discount */
-        color: white;
-        padding: 3px 8px;
-        font-size: 0.75rem;
-        font-weight: bold;
-        border-radius: 4px;
-        z-index: 2;
+        top: 7px;
+        left: -41px;
+        width: 120px;
+        text-align: center;
+        background: linear-gradient(135deg, #ff4b2b 0%, #e03a1a 100%);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 10px;
+        transform: rotate(-44deg);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        line-height: 1;
     }
 
     .product-info {

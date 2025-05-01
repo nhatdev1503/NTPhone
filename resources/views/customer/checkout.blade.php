@@ -107,7 +107,16 @@
                                     <div class="variant-info">
                                         {{ $cart->product_variant->color }} - {{ $cart->product_variant->storage }}
                                     </div>
-                                    <div class="price">{{ number_format($cart->product_variant->price, 0, ',', '.') }}₫</div>
+                                    <div class="price-info">
+                                        <div class="unit-price">
+                                            <span class="label">Đơn giá:</span>
+                                            <span class="value">{{ number_format($cart->product_variant->price, 0, ',', '.') }}₫</span>
+                                        </div>
+                                        <div class="total-price">
+                                            <span class="label">Tổng:</span>
+                                            <span class="value">{{ number_format($cart->product_variant->price * $cart->quantity, 0, ',', '.') }}₫</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
@@ -385,7 +394,7 @@
 }
 
 .phone-group .form-control {
-    padding-left: 100px;
+ 
 }
 
 .payment-methods {
@@ -499,10 +508,32 @@
     margin-bottom: 0.5rem;
 }
 
-.price {
-    font-size: 0.95rem;
-    color: #2979ff;
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.unit-price {
+    display: flex;
+    align-items: center;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-right: 0.5rem;
+}
+
+.value {
+    font-size: 0.9rem;
+    color: #333;
     font-weight: 500;
+}
+
+.total-price {
+    display: flex;
+    align-items: center;
 }
 
 .discount-section {
@@ -933,7 +964,7 @@ function applyVoucher(code) {
     document.getElementById('applied-voucher-code').textContent = code;
     document.getElementById('applied-voucher-discount').textContent = `Giảm ${discount.toLocaleString('vi-VN')}₫`;
     
-    showNotification('Đã áp dụng mã giảm giá thành công!', 'success');
+    showNotification('Đã áp dụng mã giảm giá', 'success');
 }
 
 function updateFinalTotal() {

@@ -1803,6 +1803,50 @@
                     this.parentElement.appendChild(previewContainer);
                 });
             }
+
+            function SuccessNoti(message) {
+                showNotification(message, 'success');
+            }
+
+            function ErrorNoti(message) {
+                showNotification(message, 'error');
+            }
+
+            function addToCart(productId, isBuyNow) {
+                // Gửi yêu cầu AJAX để thêm vào giỏ hàng
+                fetch('{{ route('customer.postCart') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            quantity: 1
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (isBuyNow) {
+                                window.location.href = data.cart_url || '{{ route('customer.cart') }}';
+                            } else {
+                                SuccessNoti(data.message || 'Đã thêm sản phẩm vào giỏ hàng!');
+                            }
+                        } else {
+                            if (data.exists) {
+                                SuccessNoti(data.message || 'Sản phẩm đã có trong giỏ hàng.');
+                            } else {
+                                ErrorNoti(data.message || 'Không thể thêm vào giỏ hàng.');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        ErrorNoti('Có lỗi xảy ra khi thêm vào giỏ hàng.');
+                    });
+            }
         });
     </script>
 
@@ -1920,7 +1964,7 @@
                                                             value="{{ $pro->variants->first()->id ?? '' }}">
                                                         <div class="action">
                                                             <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
-                                                                onclick="window.location.href='{{ route('guest.product_detail', ['id' => $pro->id]) }}'">
+                                                                onclick="submitForm('{{ route('guest.product_detail', ['id' => $pro->id]) }}', 'add_to_cart')">
                                                                 <svg class="icon">
                                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use>
                                                                 </svg>
@@ -2163,7 +2207,7 @@
 
                                         <div class="action">
                                             <button class="btn-cart btn-views" title="Xem chi tiết" type="button"
-                                                onclick="window.location.href='{{ route('guest.product_detail', ['id' => $relatedProduct->id]) }}'">
+                                                onclick="submitForm('{{ route('guest.product_detail', ['id' => $relatedProduct->id]) }}', 'add_to_cart')">
                                                 <svg class="icon">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         xlink:href="#icon-detail"></use>

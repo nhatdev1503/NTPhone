@@ -171,9 +171,11 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
     Route::get('/dashboard', [StaffController::class, 'index'])->name('staff.index');
 });
 
-//Route trang khách hàng
-Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
+// Add these routes before any middleware routes
+Route::get('/search-suggestions', [CustomerController::class, 'searchSuggestions']);
+Route::get('/guest/search-suggestions', [GuestController::class, 'searchSuggestions'])->name('guest.searchSuggestions');
 
+Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
     // chat
     Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chatClient.sendMessage');
     Route::post('/getDataChatClient', [ChatController::class, 'getDataChatClient'])->name('chat.getDataChatClient');

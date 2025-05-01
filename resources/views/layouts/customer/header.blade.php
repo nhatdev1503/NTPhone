@@ -62,72 +62,7 @@
     <link rel="stylesheet"
         href="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/product_style.scss.css?1742954225872">
 
-
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    {{-- 
-    <script>
-        var Bizweb = Bizweb || {};
-        Bizweb.store = 'hoangkien.mysapo.net';
-        Bizweb.id = 112815;
-        Bizweb.theme = {
-            "id": 966034,
-            "name": "Dola Phone - Bản Chính",
-            "role": "main"
-        };
-        Bizweb.template = 'index';
-        if (!Bizweb.fbEventId) Bizweb.fbEventId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    </script>
-
-    <script>
-        (function() {
-            function asyncLoad() {
-                var urls = [
-                    "https://blogstatistics.sapoapps.vn/scripts/ab_blogstatistics_scripttag.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//survey.sapoapps.vn/genscript/script.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "https://googleshopping.sapoapps.vn/conversion-tracker/global-tag/2180.js?store=hoangkien.mysapo.net",
-                    "https://googleshopping.sapoapps.vn/conversion-tracker/event-tag/2180.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "//promotionpopup.sapoapps.vn/genscript/script.js?store=hoangkien.mysapo.net",
-                    "//static.zotabox.com/e/9/e99af72a216c8aba2b12effffc6981ec/widgets.js?store=hoangkien.mysapo.net",
-                    "https://popup.sapoapps.vn/api/genscript/script?store=hoangkien.mysapo.net"
-                ];
-                for (var i = 0; i < urls.length; i++) {
-                    var s = document.createElement('script');
-                    s.type = 'text/javascript';
-                    s.async = true;
-                    s.src = urls[i];
-                    var x = document.getElementsByTagName('script')[0];
-                    x.parentNode.insertBefore(s, x);
-                }
-            };
-            window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad,
-                false);
-        })();
-    </script> --}}
 
     <script>
         window.BizwebAnalytics = window.BizwebAnalytics || {};
@@ -212,9 +147,11 @@
         }
         window.awe_lazyloadImage = awe_lazyloadImage;
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
+    @include('components.notification')
     <div class="opacity_menu"></div>
     <div class="banner-top d-none d-md-block" style="background: #01000d">
         <div class="container">
@@ -239,6 +176,12 @@
                             src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}" alt="NTShop">
                     </picture>
                 </a>
+                <div class="notification-bell" id="notification-bell">
+                    <div class="bell-icon">
+                        <i class="fas fa-bell"></i>
+                        <div class="glow-effect"></div>
+                    </div>
+                </div>
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
                     <span class="menu-icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
@@ -268,27 +211,32 @@
                                     </a>
                                 </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
-                <div class="search-header">
+                <div class="search-header" style="flex: 1;">
                     <div class="search-smart">
-                        <form action="{{ route('customer.search') }}" method="POST"
-                            style="display: flex; justify-content: center; align-items: center;">
-                            <div class="search-container" style="display: flex; align-items: center; width: 100%;">
-                                @csrf
-                                <input type="text" name="query" placeholder="Bạn cần tìm gì..."
-                                    style="padding-left: 10px; width: 300px; height: 30px;">
-                                <button type="submit"
-                                    style="border: none; background-color: white; width: 30px; height: 30px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                        <path fill="#000"
-                                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
-                                        </path>
-                                    </svg>
+                        <form action="{{ auth()->check() ? route('customer.search') : route('guest.search') }}" method="POST" class="search-form">
+                            @csrf
+                            <div class="search-container">
+                                <input type="text" name="query" id="search-input" placeholder="Bạn cần tìm gì..." autocomplete="off">
+                                <button type="submit">
+                                    <i class="fas fa-search"></i>
                                 </button>
+                            </div>
+                            <div class="search-results" id="search-results">
+                                <div class="trending-products">
+                                    <h3>Sản phẩm nổi bật</h3>
+                                    <div class="product-grid">
+                                        <!-- Products will be inserted here by JavaScript -->
+                                    </div>
+                                </div>
+                                <div class="search-products" style="display: none;">
+                                    <h3>Kết quả tìm kiếm</h3>
+                                    <div class="product-grid">
+                                        <!-- Search results will be inserted here -->
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -421,6 +369,28 @@
 
     {{-- Assume main content (@yield or similar) follows here --}}
 
+    <!-- Thêm ngay sau thẻ body -->
+    <div id="promotion-popup" class="promotion-popup">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <div class="popup-image">
+                <img src="{{ asset('images/promotion-banner.jpg') }}" alt="Khuyến mãi">
+            </div>
+            <div class="popup-text">
+                <h2>🎉 Tin vui mới nhất! 🎉</h2>
+                <p>Kính gửi quý khách,</p>
+                <p class="highlight">Chúng tôi đang có chương trình:</p>
+                <ul>
+                    <li>🚚 Miễn phí vận chuyển toàn quốc tới tháng 9/2025</li>
+                    <li>🎫 Hàng loạt voucher giảm giá hấp dẫn</li>
+                </ul>
+                <div class="cta-button">
+                    <a href="{{ route('customer.index') }}" class="shop-now">Mua sắm ngay thôi nào!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
@@ -489,4 +459,494 @@
         font-size: 0.8em;
         font-weight: 500;
     }
+
+    .promotion-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 99999;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .popup-content {
+        position: relative;
+        width: 90%;
+        max-width: 600px;
+        background: white;
+        margin: 50px auto;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        animation: slideIn 0.5s ease-out;
+    }
+
+    .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+        z-index: 1;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .close-popup:hover {
+        background: #ff4444;
+        color: white;
+    }
+
+    .popup-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .popup-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .popup-text {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .popup-text h2 {
+        color: #ff4444;
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
+
+    .popup-text p {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .popup-text .highlight {
+        color: #ff4444;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .popup-text ul {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
+
+    .popup-text ul li {
+        margin: 10px 0;
+        color: #666;
+        font-size: 16px;
+    }
+
+    .cta-button {
+        margin-top: 20px;
+    }
+
+    .shop-now {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(45deg, #ff4444, #ff6b6b);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(255, 68, 68, 0.3);
+    }
+
+    .shop-now:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+        background: linear-gradient(45deg, #ff6b6b, #ff4444);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .notification-bell {
+        position: fixed;
+        top: 81%;
+        left: 20px;
+        transform: translateY(-50%);
+        z-index: 9999;
+        cursor: pointer;
+        background: #ff4444;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(255, 68, 68, 0.3);
+    }
+
+    .bell-icon {
+        position: relative;
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .glow-effect {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 68, 68, 0.3);
+        border-radius: 50%;
+        animation: glow 2s infinite;
+        pointer-events: none;
+    }
+
+    @keyframes glow {
+        0% {
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+        50% {
+            width: 150%;
+            height: 150%;
+            opacity: 0.1;
+        }
+        100% {
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .notification-bell {
+            top: auto;
+            bottom: 20px;
+            left: 20px;
+        }
+    }
+
+    .notification-bell:hover {
+        transform: translateY(-50%) scale(1.1);
+        transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .notification-bell:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .search-header {
+        margin: 0 20px;
+        position: relative;
+    }
+
+    .search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-container input {
+        width: 100%;
+        padding: 12px 45px 12px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 30px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+    .search-container input:focus {
+        border-color: #ff4444;
+        box-shadow: 0 0 0 4px rgba(255, 68, 68, 0.1);
+        outline: none;
+        background: #fff;
+    }
+
+    .search-container button {
+        position: absolute;
+        right: 15px;
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .search-container button:hover {
+        color: #ff4444;
+        background: rgba(255, 68, 68, 0.1);
+    }
+
+    .search-results {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 100%;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        margin-top: 5px;
+        z-index: 1000;
+        padding: 20px;
+        animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .search-results h3 {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+        padding-left: 10px;
+        font-weight: 600;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        background: #fff;
+    }
+
+    .product-item:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .product-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right: 15px;
+        border: 1px solid #eee;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-info {
+        flex: 1;
+    }
+
+    .product-name {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: 500;
+    }
+
+    .product-price {
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .old-price {
+        color: #999;
+        text-decoration: line-through;
+        margin-bottom: 2px;
+    }
+
+    .new-price {
+        color: #ff4444;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .product-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .search-results {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            border-radius: 0;
+            margin-top: 0;
+        }
+    }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('promotion-popup');
+    const bell = document.getElementById('notification-bell');
+    const closeBtn = document.querySelector('.close-popup');
+    const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+
+    // Kiểm tra lần đầu vào trang
+    const hasSeenPopup = localStorage.getItem('hasSeenPromotionPopup');
+    if (isLoggedIn && !hasSeenPopup) {
+        popup.style.display = 'block';
+        localStorage.setItem('hasSeenPromotionPopup', 'true');
+    }
+
+    // Xử lý sự kiện click vào chuông
+    bell.addEventListener('click', function() {
+        popup.style.display = 'block';
+    });
+
+    // Đóng popup khi click nút close
+    closeBtn.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
+    // Đóng popup khi click bên ngoài
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+            popup.style.display = 'none';
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    const trendingProducts = document.querySelector('.trending-products');
+    const searchProducts = document.querySelector('.search-products');
+    let searchTimeout;
+
+    // Load trending products on focus
+    searchInput.addEventListener('focus', function() {
+        searchResults.style.display = 'block';
+        if (!searchInput.value) {
+            loadTrendingProducts();
+        }
+    });
+
+    // Handle input changes
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        const query = this.value.trim();
+        
+        searchTimeout = setTimeout(() => {
+            if (query) {
+                searchProducts.style.display = 'block';
+                trendingProducts.style.display = 'none';
+                searchProductsByQuery(query);
+            } else {
+                searchProducts.style.display = 'none';
+                trendingProducts.style.display = 'block';
+                loadTrendingProducts();
+            }
+        }, 300);
+    });
+
+    // Close search results when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!searchResults.contains(e.target) && e.target !== searchInput) {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    function loadTrendingProducts() {
+        const url = '{{ auth()->check() ? "/search-suggestions" : "/guest/search-suggestions" }}';
+        fetch(url)
+            .then(response => response.json())
+            .then(products => {
+                displayProducts(products, trendingProducts.querySelector('.product-grid'));
+            });
+    }
+
+    function searchProductsByQuery(query) {
+        const url = '{{ auth()->check() ? "/search-suggestions" : "/guest/search-suggestions" }}';
+        fetch(`${url}?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(products => {
+                displayProducts(products, searchProducts.querySelector('.product-grid'));
+            });
+    }
+
+    function displayProducts(products, container) {
+        if (products.length === 0) {
+            container.innerHTML = '<div class="no-results">Không tìm thấy sản phẩm nào</div>';
+            return;
+        }
+        
+        container.innerHTML = products.map(product => `
+            <a href="${product.url}" class="product-item">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">
+                        <span class="old-price">${product.base_price}</span>
+                        <span class="new-price">${product.sale_price}</span>
+                    </div>
+                </div>
+            </a>
+        `).join('');
+    }
+});
+</script>

@@ -156,15 +156,20 @@
 
     .tag-discount {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: #ff4d4f;
-        color: white;
-        padding: 3px 8px;
-        font-size: 0.75rem;
-        font-weight: bold;
-        border-radius: 4px;
-        z-index: 2;
+        top: 7px;
+        left: -41px;
+        width: 120px;
+        text-align: center;
+        background: linear-gradient(135deg, #ff4b2b 0%, #e03a1a 100%);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 10px;
+        transform: rotate(-44deg);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        line-height: 1;
     }
 
     .product-info {
@@ -458,6 +463,106 @@
         display: inline-block;
         line-height: 1;
     }
+
+    .flash-sale-section {
+        margin-bottom: 30px;
+    }
+
+    .flash-sale-section .section-header {
+        border-bottom: 1px solid #eee;
+    }
+
+    .flash-sale-section .section-title {
+        color: #d70018;
+        font-size: 24px;
+        font-weight: 700;
+        margin-right: 20px;
+    }
+
+    .countdown-timer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff3f3;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+
+    .countdown-label {
+        font-size: 14px;
+        color: #d70018;
+    }
+
+    .countdown {
+        display: flex;
+        gap: 5px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #d70018;
+    }
+
+    .flash-sale-navigation {
+        display: flex;
+        gap: 10px;
+    }
+
+    .flash-prev,
+    .flash-next {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: #f5f5f5;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .flash-prev:hover,
+    .flash-next:hover {
+        background: #e0e0e0;
+    }
+
+    .flash-prev svg,
+    .flash-next svg {
+        width: 24px;
+        height: 24px;
+        fill: #666;
+    }
+
+    .flash-sale-slider {
+        padding: 20px;
+    }
+
+    .flash-sale-slider .swiper-slide {
+        width: 20%;
+    }
+
+    @media (max-width: 1200px) {
+        .flash-sale-slider .swiper-slide {
+            width: 25%;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .flash-sale-slider .swiper-slide {
+            width: 33.333%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .flash-sale-slider .swiper-slide {
+            width: 50%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .flash-sale-slider .swiper-slide {
+            width: 100%;
+        }
+    }
 </style>
 <div class="bodywrap">
     <h1 class="d-none">NTShop - Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công
@@ -475,6 +580,297 @@
             </div>
         </div>
     </section>
+
+    <!-- Flash Sale Section -->
+    <section class="flash-sale-section">
+        <div class="container">
+            <div class="block-background">
+                <div class="section-header d-flex justify-content-between align-items-center mb-4 p-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <h2 class="section-title mb-0">Giá sốc trong ngày 🔥🔥🔥</h2>
+                        <div class="countdown-timer">
+                            <span class="countdown-label">Kết thúc sau:</span>
+                            <div class="countdown" data-end-time="{{ $flashSaleEndTime }}">
+                                <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="flash-sale-slider swiper-container">
+                    <div class="swiper-wrapper">
+                        @foreach($highestDiscountProducts as $product)
+                            <div class="swiper-slide">
+                                <div class="variants product-action" data-id="product-actions-{{ $product->id }}">
+                                    @php
+                                        $firstVariant = $product->variants->first();
+                                        $displayPrice = $firstVariant ? $firstVariant->price : 0;
+                                        $originPrice = $firstVariant ? $firstVariant->origin_price : 0;
+                                        $discountPercentage = $product->discount_percent ?? 0;
+                                        $soldCount = $product->sold_count ?? 0;
+                                        $isOutOfStock = $product->is_out_of_stock ?? true;
+                                    @endphp
+
+                                    <div class="product-thumbnail">
+                                        @if ($discountPercentage > 0)
+                                            <div class="tag-discount">-{{ $discountPercentage }}%</div>
+                                        @endif
+                                        <a class="image_thumb scale_hover"
+                                            href="{{ route('customer.product_detail', $product->id) }}"
+                                            title="{{ $product->name }}">
+                                            <img width="240" height="240" src="{{ asset($product->image) }}"
+                                                alt="{{ $product->name }}" loading="lazy">
+                                        </a>
+                                        <div class="action">
+                                            <button class="btn-add-cart" title="Thêm vào giỏ hàng"
+                                                data-product-id="{{ $product->id }}"
+                                                {{ $isOutOfStock ? 'disabled' : '' }}>
+                                                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-8.9-5h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01L19.42 4h-.01l-1.1-2H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63z" fill="currentColor"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <h3 class="product-name">
+                                            <a class="line-clamp line-clamp-2"
+                                                href="{{ route('customer.product_detail', $product->id) }}"
+                                                title="{{ $product->name }}">{{ $product->name }}</a>
+                                        </h3>
+                                        <div class="price-box">
+                                            <span class="sale-price">{{ number_format($displayPrice, 0, ',', '.') }}₫</span>
+                                            @if ($originPrice > $displayPrice)
+                                                <span class="origin-price">{{ number_format($originPrice, 0, ',', '.') }}₫</span>
+                                            @endif
+                                        </div>
+                                        <div class="product-sold">Đã bán: {{ $soldCount }}</div>
+
+                                        @if ($product->available_colors && count($product->available_colors) > 0)
+                                            <div class="colors-container">
+                                                @foreach($product->available_colors as $color)
+                                                    <div class="color-circle" title="{{ $color['name'] }}"
+                                                        style="background-color: {{ $color['hex_code'] }}">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+
+                                        @if ($product->available_storages && count($product->available_storages) > 0)
+                                            <div class="storage-options">
+                                                @foreach($product->available_storages as $storage)
+                                                    <span class="storage-badge">{{ $storage }}</span>
+                                                @endforeach
+                                            </div>
+                                        @endif
+
+                                        <div class="rating">
+                                            <div class="stars-container">
+                                                @php
+                                                    $fullStars = floor($product->average_rating);
+                                                    $hasHalfStar = $product->average_rating - $fullStars >= 0.5;
+                                                @endphp
+
+                                                @for ($i = 0; $i < $fullStars; $i++)
+                                                    <span class="star">★</span>
+                                                @endfor
+
+                                                @if ($hasHalfStar)
+                                                    <span class="half-star"></span>
+                                                @endif
+
+                                                @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
+                                                    <span class="star" style="color: #e0e0e0;">★</span>
+                                                @endfor
+                                            </div>
+                                            <span class="rating-number">{{ number_format($product->average_rating, 1) }}</span>
+                                            <span class="total-ratings">({{ $product->total_ratings }} đánh giá)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .flash-sale-section {
+        margin-bottom: 30px;
+    }
+
+    .flash-sale-section .section-header {
+        border-bottom: 1px solid #eee;
+    }
+
+    .flash-sale-section .section-title {
+        color: #d70018;
+        font-size: 24px;
+        font-weight: 700;
+        margin-right: 20px;
+    }
+
+    .countdown-timer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff3f3;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+
+    .countdown-label {
+        font-size: 14px;
+        color: #d70018;
+    }
+
+    .countdown {
+        display: flex;
+        gap: 5px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #d70018;
+    }
+
+    .flash-sale-navigation {
+        display: flex;
+        gap: 10px;
+    }
+
+    .flash-prev,
+    .flash-next {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: #f5f5f5;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .flash-prev:hover,
+    .flash-next:hover {
+        background: #e0e0e0;
+    }
+
+    .flash-prev svg,
+    .flash-next svg {
+        width: 24px;
+        height: 24px;
+        fill: #666;
+    }
+
+    .flash-sale-slider {
+        padding: 20px;
+    }
+
+    .flash-sale-slider .swiper-slide {
+        width: 20%;
+    }
+
+    @media (max-width: 1200px) {
+        .flash-sale-slider .swiper-slide {
+            width: 25%;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .flash-sale-slider .swiper-slide {
+            width: 33.333%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .flash-sale-slider .swiper-slide {
+            width: 50%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .flash-sale-slider .swiper-slide {
+            width: 100%;
+        }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Khởi tạo Swiper cho Flash Sale
+        var flashSaleSwiper = new Swiper('.flash-sale-slider', {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.flash-next',
+                prevEl: '.flash-prev',
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 15
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 15
+                },
+                992: {
+                    slidesPerView: 4,
+                    spaceBetween: 20
+                },
+                1200: {
+                    slidesPerView: 5,
+                    spaceBetween: 20
+                }
+            }
+        });
+
+        // Countdown timer
+        const countdown = document.querySelector('.countdown');
+        const endTime = parseInt(countdown.dataset.endTime);
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+            
+            if (distance < 0) {
+                countdown.innerHTML = '<span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>';
+                // Khi hết thời gian, reload trang để cập nhật flash sale mới
+                window.location.reload();
+                return;
+            }
+            
+            const hours = Math.floor(distance / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            countdown.querySelector('.hours').textContent = String(hours).padStart(2, '0');
+            countdown.querySelector('.minutes').textContent = String(minutes).padStart(2, '0');
+            countdown.querySelector('.seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Cập nhật countdown mỗi giây
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Cleanup interval khi component unmount
+        window.addEventListener('beforeunload', function() {
+            clearInterval(countdownInterval);
+        });
+    });
+    </script>
+
     <section class="section_danhmuc2">
         <div class="container">
             <div class="block-background">
@@ -608,13 +1004,6 @@
                                                     fill="currentColor"></path>
                                             </svg>
                                         </button>
-                                        {{-- <button class="btn-buy-now" title="Mua ngay"
-                                            data-product-id="{{ $product->id }}"
-                                            {{ $isOutOfStock ? 'disabled' : '' }}>
-                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"></path>
-                                            </svg>
-                                        </button> --}}
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -631,7 +1020,6 @@
                                     </div>
                                     <div class="product-sold">Đã bán: {{ $soldCount }}</div>
 
-                                    <!-- Thêm phần hiển thị màu sắc -->
                                     @if ($product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
@@ -642,7 +1030,6 @@
                                         </div>
                                     @endif
 
-                                    <!-- Thêm phần hiển thị dung lượng -->
                                     @if ($product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
@@ -651,7 +1038,6 @@
                                         </div>
                                     @endif
 
-                                    <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @php
                                             $orderItems = $product->orderItems()->whereNotNull('rating')->get();
@@ -790,13 +1176,6 @@
                                                     fill="currentColor"></path>
                                             </svg>
                                         </button>
-                                        {{-- <button class="btn-buy-now" title="Mua ngay"
-                                            data-product-id="{{ $product->id }}"
-                                            {{ $isOutOfStock ? 'disabled' : '' }}>
-                                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"></path>
-                                            </svg>
-                                        </button> --}}
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -815,7 +1194,6 @@
                                         <div class="product-sold">Đã bán: {{ $soldCount }}</div>
                                     @endif
 
-                                    <!-- Thêm phần hiển thị màu sắc -->
                                     @if ($product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
@@ -826,7 +1204,6 @@
                                         </div>
                                     @endif
 
-                                    <!-- Thêm phần hiển thị dung lượng -->
                                     @if ($product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
@@ -835,7 +1212,6 @@
                                         </div>
                                     @endif
 
-                                    <!-- Thêm phần hiển thị đánh giá -->
                                     <div class="rating">
                                         @php
                                             $orderItems = $product->orderItems()->whereNotNull('rating')->get();
@@ -1203,35 +1579,6 @@
             });
         });
 
-        function showToast(message, type = 'success') {
-            const toastContainer = document.querySelector('.toast-container');
-            const toast = document.createElement('div');
-            toast.classList.add('toast', type);
-            toast.innerHTML = `
-                <span class="toast-icon">${type === 'success' ? '✔' : '❌'}</span>
-                <span class="toast-message">${message}</span>
-                <span class="toast-close">&times;</span>
-            `;
-            toastContainer.appendChild(toast);
-
-            // Hiển thị toast
-            setTimeout(() => {
-                toast.classList.add('show');
-            }, 100);
-
-            // Tự động ẩn sau 3 giây
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-
-            // Xử lý nhấn nút đóng
-            toast.querySelector('.toast-close').addEventListener('click', () => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            });
-        }
-
         function addToCart(productId, isBuyNow) {
             // Gửi yêu cầu AJAX để thêm vào giỏ hàng
             fetch('{{ route('customer.postCart') }}', {
@@ -1250,20 +1597,17 @@
                 .then(data => {
                     if (data.success) {
                         if (isBuyNow) {
-                            // Chuyển hướng đến trang giỏ hàng hoặc checkout
                             window.location.href = data.cart_url || '{{ route('customer.cart') }}';
                         } else {
-                            // Hiển thị toast thông báo thành công
-                            showToast(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
+                            showNotification(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
                         }
                     } else {
-                        // Hiển thị toast thông báo lỗi
-                        showToast(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
+                        showNotification(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showToast('Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
+                    showNotification('Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
                 });
         }
     });

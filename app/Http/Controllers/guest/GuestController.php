@@ -640,4 +640,51 @@ class GuestController extends Controller
         return view('guest.search', compact('products', 'query'));
     }
 
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->get('query');
+        
+        if (empty($query)) {
+            // Return top viewed products if no query
+            $products = Product::where('status', 'active')
+                ->whereHas('category', function ($q) {
+                    $q->where('status', 'active');
+                })
+                ->with(['variants' => function ($query) {
+                    $query->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                }])
+                ->orderBy('view', 'desc')
+                ->take(4)
+                ->get();
+        } else {
+            // Search products based on query
+            $products = Product::where('status', 'active')
+                ->whereHas('category', function ($q) {
+                    $q->where('status', 'active');
+                })
+                ->with(['variants' => function ($query) {
+                    $query->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                }])
+                ->where('name', 'like', '%' . $query . '%')
+                ->take(4)
+                ->get();
+        }
+
+        $formattedProducts = $products->map(function ($product) {
+            $variant = $product->variants->first();
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'image' => asset($product->image),
+                'base_price' => $variant ? number_format($variant->origin_price) . '₫' : number_format($product->base_price) . '₫',
+                'sale_price' => $variant ? number_format($variant->price) . '₫' : number_format($product->sale_price) . '₫',
+                'url' => route('guest.product_detail', $product->id)
+            ];
+        });
+
+        return response()->json($formattedProducts);
+    }
+
 }

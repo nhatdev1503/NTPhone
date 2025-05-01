@@ -37,7 +37,20 @@ class CustomerController extends Controller
             ->take(10)
             ->get();
         $latestNews = News::latest('published_at')->take(5)->get();
-    
+        
+        // Xử lý thời gian Flash Sale
+        $flashSaleKey = 'flash_sale_end_time';
+        $flashSaleEndTime = Cache::get($flashSaleKey);
+        
+        if (!$flashSaleEndTime) {
+            // Nếu chưa có thời gian kết thúc trong cache, tạo mới
+            $flashSaleEndTime = now()->addHours(24)->timestamp * 1000;
+            // Cache trong 24 giờ
+            Cache::put($flashSaleKey, $flashSaleEndTime, now()->addHours(24));
+        }
+
+        $highestDiscountProducts = $this->getHighestDiscountProducts();
+        
         $featuredProducts = Product::where('status', 'active')
             ->whereHas('category', function ($q) {
                 $q->where('status', 'active');
@@ -156,7 +169,7 @@ class CustomerController extends Controller
                 return $product;
             });
     
-        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts', 'latestNews'));
+        return view('customer.index', compact('banner', 'categories', 'featuredProducts', 'bestSellingProducts', 'latestNews', 'highestDiscountProducts', 'flashSaleEndTime'));
     }
 
 
@@ -386,12 +399,14 @@ class CustomerController extends Controller
         $variants = $product->variants ?? collect();
     
         $colors = $variants->groupBy('color')->map(function ($group) {
+            $firstVariant = $group->first();
             return [
-                'color' => $group->first()->color,
-                'variants' => $group,
-                'prices' => $group->pluck('price')->unique()
+                'name' => $firstVariant->color,
+                'color' => $firstVariant->color,
+                'hex_code' => $firstVariant->hax_code,
+                'variants' => $group->values()
             ];
-        });
+        })->values();
     
         $storages = $variants->unique('storage');
     
@@ -543,36 +558,52 @@ class CustomerController extends Controller
     }
     public function getPrice(Request $request)
     {
+        try {
         $productId = $request->query('product_id');
         $storage = $request->query('storage');
         $color = $request->query('color');
 
         if (!$productId || !$storage || !$color) {
-            return response()->json(['success' => false, 'message' => 'Thiếu thông tin cần thiết'], 400);
+                return response()->json([
+                    'success' => false, 
+                    'message' => 'Thiếu thông tin cần thiết'
+                ], 400);
         }
 
         $variant = ProductVariant::where('product_id', $productId)
             ->where('storage', $storage)
             ->where('color', $color)
-            ->first(); // Find variant regardless of status first
+            ->first();
 
-        if ($variant) {
+            if (!$variant) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không tìm thấy phiên bản này',
+                    'available' => false,
+                    'stock' => 0
+                ], 404);
+            }
+
+            // Kiểm tra trạng thái và tồn kho
             $available = ($variant->status === 'active' && $variant->stock > 0);
+            
             return response()->json([
                 'success' => true,
                 'price' => $variant->price,
-                'origin_price' => $variant->origin_price ?? null,
+                'origin_price' => $variant->origin_price,
                 'stock' => $variant->stock,
-                'available' => $available
+                'available' => $available,
+                'variant_id' => $variant->id
             ]);
-        } else {
-            // If the specific combination doesn't exist at all
+
+        } catch (\Exception $e) {
+            \Log::error('Get price error: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Không tìm thấy phiên bản này',
-                'available' => false, // Explicitly set available to false
-                'stock' => 0          // Explicitly set stock to 0
-            ], 404);
+                'message' => 'Có lỗi xảy ra khi lấy thông tin giá',
+                'available' => false,
+                'stock' => 0
+            ], 500);
         }
     }
 
@@ -646,6 +677,7 @@ class CustomerController extends Controller
             'quantity' => 'required|integer|min:1|max:5',
         ]);
     
+    
         // Tìm biến thể còn hàng, ưu tiên giá thấp nhất
         $product_variant = ProductVariant::where('product_id', $data['product_id'])
             ->where('status', 'active')
@@ -656,7 +688,7 @@ class CustomerController extends Controller
         if (!$product_variant) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sản phẩm hiện đã hết hàng hoặc không có biến thể hợp lệ.'
+                'message' => 'Sản phẩm hiện đã hết hàng .'
             ], 404);
         }
     
@@ -672,7 +704,7 @@ class CustomerController extends Controller
         if ($product_variant->stock < $quantityToAdd) {
             return response()->json([
                 'success' => false,
-                'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."
+                'message' => "Rất tiếc,Số lượng kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."
             ], 400);
         }
     
@@ -683,7 +715,7 @@ class CustomerController extends Controller
                 if ($product_variant->stock < $newQuantity) {
                     return response()->json([
                         'success' => false,
-                        'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."
+                        'message' => " Rất tiếc,Số lượng kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."
                     ], 400);
                 }
                 $cartItem->quantity = $newQuantity;
@@ -703,10 +735,9 @@ class CustomerController extends Controller
                 'cart_url' => route('customer.cart')
             ]);
         } catch (\Exception $e) {
-            Log::error("Error adding item to cart: " . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Có lỗi xảy ra khi thêm vào giỏ hàng.'
+                'message' => 'Rất tiếc,Chưa thể thêm sản phẩm vào giỏ hàng'
             ], 500);
         }
     }
@@ -812,6 +843,7 @@ class CustomerController extends Controller
         return response()->json([
             'success' => true,
             'price' => $newVariant->price,
+            'stock' => $newVariant->stock,
             'message' => 'Đã thay đổi thành công!',
             'available_variants' => $availableVariants
         ]);
@@ -1697,5 +1729,131 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Có lỗi xảy ra khi xác nhận đơn hàng.');
         }
+    }
+
+    public function getHighestDiscountProducts()
+    {
+        $cacheKey = 'highest_discount_products_24h';
+        $flashSaleKey = 'flash_sale_end_time';
+        
+        // Lấy thời gian kết thúc flash sale từ cache
+        $flashSaleEndTime = Cache::get($flashSaleKey);
+        
+        if (!$flashSaleEndTime) {
+            // Nếu chưa có thời gian kết thúc trong cache, tạo mới
+            $flashSaleEndTime = now()->addHours(24)->timestamp * 1000;
+            // Cache trong 24 giờ
+            Cache::put($flashSaleKey, $flashSaleEndTime, now()->addHours(24));
+        }
+        
+        return Cache::remember($cacheKey, now()->addHours(24), function () {
+            return Product::where('status', 'active')
+                ->whereHas('category', function ($q) {
+                    $q->where('status', 'active');
+                })
+                ->with(['variants' => function ($query) {
+                    $query->select('product_id', 'price', 'origin_price', 'color', 'hax_code', 'storage', 'stock', 'status')
+                        ->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                }])
+                ->with('ratings')
+                ->get()
+                ->map(function ($product) {
+                    $firstVariant = $product->variants->first();
+                    
+                    // Tính phần trăm giảm giá
+                    if ($firstVariant && $firstVariant->origin_price > 0) {
+                        $discountPercent = round((($firstVariant->origin_price - $firstVariant->price) / $firstVariant->origin_price) * 100);
+                        $product->discount_percent = $discountPercent;
+                    } else {
+                        $product->discount_percent = 0;
+                    }
+
+                    // Kiểm tra stock
+                    $hasActiveStock = $product->variants->where('status', 'active')->where('stock', '>', 0)->count() > 0;
+                    $product->is_out_of_stock = !$hasActiveStock;
+
+                    // Số lượng đã bán
+                    $product->sold_count = $product->orderItems()->sum('quantity');
+
+                    // Màu sắc có sẵn
+                    $product->available_colors = $product->variants
+                        ->unique('color')
+                        ->map(function ($variant) {
+                            return [
+                                'name' => $variant->color,
+                                'hex_code' => $variant->hax_code
+                            ];
+                        })->values();
+
+                    // Dung lượng có sẵn
+                    $product->available_storages = $product->variants
+                        ->pluck('storage')
+                        ->unique()
+                        ->values();
+
+                    // Đánh giá
+                    $ratings = $product->ratings;
+                    if ($ratings->isNotEmpty()) {
+                        $product->average_rating = round($ratings->avg('rating'), 1);
+                        $product->total_ratings = $ratings->count();
+                    } else {
+                        $product->average_rating = 0;
+                        $product->total_ratings = 0;
+                    }
+
+                    return $product;
+                })
+                ->sortByDesc('discount_percent')
+                ->take(7)
+                ->values();
+        });
+    }
+
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->get('query');
+        
+        if (empty($query)) {
+            // Return top viewed products if no query
+            $products = Product::where('status', 'active')
+                ->whereHas('category', function ($q) {
+                    $q->where('status', 'active');
+                })
+                ->with(['variants' => function ($query) {
+                    $query->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                }])
+                ->orderBy('view', 'desc')
+                ->take(4)
+                ->get();
+        } else {
+            // Search products based on query
+            $products = Product::where('status', 'active')
+                ->whereHas('category', function ($q) {
+                    $q->where('status', 'active');
+                })
+                ->with(['variants' => function ($query) {
+                    $query->where('status', 'active')
+                        ->orderBy('price', 'asc');
+                }])
+                ->where('name', 'like', '%' . $query . '%')
+                ->take(4)
+                ->get();
+        }
+
+        $formattedProducts = $products->map(function ($product) {
+            $variant = $product->variants->first();
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'image' => asset($product->image),
+                'base_price' => $variant ? number_format($variant->origin_price) . '₫' : number_format($product->base_price) . '₫',
+                'sale_price' => $variant ? number_format($variant->price) . '₫' : number_format($product->sale_price) . '₫',
+                'url' => route('customer.product_detail', $product->id)
+            ];
+        });
+
+        return response()->json($formattedProducts);
     }
 }

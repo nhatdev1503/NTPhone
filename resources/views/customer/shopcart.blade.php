@@ -5,13 +5,13 @@
 
 <div class="cart-page">
     <div class="cart-header">
-    <div class="container">
+        <div class="container">
             <h1>Giỏ hàng của bạn</h1>
             <div class="cart-steps">
                 <div class="step active">
                     <span class="step-number">1</span>
                     <span class="step-text">Giỏ hàng</span>
-    </div>
+                </div>
                 <div class="step-line"></div>
                 <div class="step">
                     <span class="step-number">2</span>
@@ -40,9 +40,9 @@
         </div>
     @else
         <div class="container">
-    <div id="notification-container" class="notification-container"></div>
+            <div id="notification-container" class="notification-container"></div>
             <form id="checkout-form" action="{{ route('customer.cart.proceed-to-checkout') }}" method="POST">
-        @csrf
+                @csrf
                 <input type="hidden" name="selected_items" id="selected_items">
                 <div class="cart-content">
                     <div class="cart-items">
@@ -54,12 +54,12 @@
                             </label>
                         </div>
 
-                    @php $subTotal = 0; @endphp
-                    @foreach ($carts as $cart)
-                        @php
-                            $price = $cart->product_variant->price;
-                            $itemSubTotal = $price * $cart->quantity;
-                            $subTotal += $itemSubTotal;
+                        @php $subTotal = 0; @endphp
+                        @foreach ($carts as $cart)
+                            @php
+                                $price = $cart->product_variant->price;
+                                $itemSubTotal = $price * $cart->quantity;
+                                $subTotal += $itemSubTotal;
                                 $variants = \App\Models\ProductVariant::where(
                                     'product_id',
                                     $cart->product_variant->product_id,
@@ -68,7 +68,7 @@
                                     ->get();
                                 $colors = $variants->pluck('color')->unique();
                                 $storages = $variants->pluck('storage')->unique();
-                        @endphp
+                            @endphp
                             <div class="cart-item" data-price="{{ $price }}" data-cart-id="{{ $cart->id }}"
                                 data-default-color="{{ $cart->product_variant->color }}"
                                 data-default-storage="{{ $cart->product_variant->storage }}">
@@ -80,11 +80,19 @@
                                     </label>
                                 </div>
                                 <div class="item-image">
-                                    <img src="{{ asset($cart->product_variant->product->image) }}"
-                                        alt="{{ $cart->product_variant->product->name }}">
+                                    <a href="{{ route('customer.product_detail', $cart->product_variant->product->id) }}"
+                                        title="{{ $cart->product_variant->product->name }}">
+                                        <img src="{{ asset($cart->product_variant->product->image) }}"
+                                            alt="{{ $cart->product_variant->product->name }}">
+                                    </a>
                                 </div>
                                 <div class="item-info">
-                                    <h3 class="item-name">{{ $cart->product_variant->product->name }}</h3>
+                                    <h3 class="item-name">
+                                        <a href="{{ route('customer.product_detail', $cart->product_variant->product->id) }}"
+                                            title="{{ $cart->product_variant->product->name }}">
+                                            {{ $cart->product_variant->product->name }}
+                                        </a>
+                                    </h3>
                                     <div class="brand-info">
                                         <span class="brand-label">Thương hiệu:</span>
                                         <span
@@ -97,7 +105,7 @@
                                             data-cart-id="{{ $cart->id }}">{{ $cart->product_variant->stock }}</span>
                                         sản phẩm
                                     </div>
-                                        <div class="variant-info">
+                                    <div class="variant-info">
                                         @if ($colors->count() <= 1 && $storages->count() <= 1)
                                             <span class="variant-static">
                                                 {{ $cart->product_variant->color }} -
@@ -147,13 +155,16 @@
                                     </div>
                                     <div class="item-actions">
                                         <div class="quantity-controls">
-                                            <button type="button" class="btn-decrease" data-cart-id="{{ $cart->id }}">
-                                                <i class="fas fa-chevron-down">-</i>
+                                            <button type="button" class="btn-decrease"
+                                                data-cart-id="{{ $cart->id }}">
+                                                <i class="fas fa-chevron-down"></i>
                                             </button>
-                                            <input type="number" name="quantities[{{ $cart->id }}]" value="{{ $cart->quantity }}" min="1" max="5"
+                                            <input type="number" name="quantities[{{ $cart->id }}]"
+                                                value="{{ $cart->quantity }}" min="1" max="5"
                                                 class="quantity-input" data-cart-id="{{ $cart->id }}">
-                                            <button type="button" class="btn-increase" data-cart-id="{{ $cart->id }}">
-                                                <i class="fas fa-chevron-up">+</i>
+                                            <button type="button" class="btn-increase"
+                                                data-cart-id="{{ $cart->id }}">
+                                                <i class="fas fa-chevron-up"></i>
                                             </button>
                                         </div>
                                         <button type="button" class="btn-remove" data-cart-id="{{ $cart->id }}">
@@ -161,17 +172,17 @@
                                             <span>Xóa</span>
                                         </button>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="item-price">
                                     <div class="current-price">{{ number_format($price, 0, ',', '.') }}₫</div>
                                     <div class="item-total">{{ number_format($itemSubTotal, 0, ',', '.') }}₫</div>
                                 </div>
-                                </div>
-                    @endforeach
-        </div>
+                            </div>
+                        @endforeach
+                    </div>
 
-        <div class="cart-summary">
+                    <div class="cart-summary">
                         <div class="summary-header">
                             <h2>Tổng tiền giỏ hàng</h2>
                         </div>
@@ -185,14 +196,14 @@
                                     <span>Tổng cộng</span>
                                     <span class="final-price">{{ number_format($subTotal, 0, ',', '.') }}₫</span>
                                 </div>
-            </div>
-            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
+                            </div>
+                            <button type="submit" class="btn-checkout" id="proceed-to-checkout" disabled>
                                 Mua hàng (<span id="selected-items">0</span>)
-            </button>
+                            </button>
                         </div>
                     </div>
-        </div>
-    </form>
+                </div>
+            </form>
         </div>
     @endif
 </div>
@@ -327,11 +338,31 @@
         align-items: center;
     }
 
+    .item-image a {
+        display: block;
+        transition: transform 0.2s ease;
+    }
+
+    .item-image a:hover img {
+        transform: scale(1.05);
+    }
+
+    .item-name a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .item-name a:hover {
+        color: #2979ff;
+    }
+
     .item-image img {
         width: 80px;
         height: 80px;
         object-fit: cover;
         border-radius: 4px;
+        transition: transform 0.2s ease;
     }
 
     .item-info {
@@ -910,77 +941,95 @@
 
     // Xử lý thay đổi biến thể
     document.querySelectorAll('.variant-color, .variant-storage').forEach(function(select) {
-        select.addEventListener('change', function() {
-            const cartId = this.getAttribute('data-cart-id');
-            const row = document.querySelector(`[data-cart-id="${cartId}"]`);
-            const colorSelect = row.querySelector('.variant-color');
-            const storageSelect = row.querySelector('.variant-storage');
-            const loadingSpinner = row.querySelector('.loading-spinner');
+    select.addEventListener('change', function() {
+        const cartId = this.getAttribute('data-cart-id');
+        const row = document.querySelector(`[data-cart-id="${cartId}"]`);
+        const colorSelect = row.querySelector('.variant-color');
+        const storageSelect = row.querySelector('.variant-storage');
+        const loadingSpinner = row.querySelector('.loading-spinner');
 
-            // Hiển thị loading
-            if (loadingSpinner) loadingSpinner.style.display = 'inline-block';
+        // Hiển thị loading
+        if (loadingSpinner) loadingSpinner.style.display = 'inline-block';
 
-            // Disable selects while loading
-            colorSelect.disabled = true;
-            storageSelect.disabled = true;
+        // Disable selects while loading
+        colorSelect.disabled = true;
+        storageSelect.disabled = true;
 
-            fetch("{{ route('customer.cart.updateVariant') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        cart_id: cartId,
-                        color: colorSelect.value,
-                        storage: storageSelect.value
-                    })
+        fetch("{{ route('customer.cart.updateVariant') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    cart_id: cartId,
+                    color: colorSelect.value,
+                    storage: storageSelect.value
                 })
-                .then(response => response.json())
-                .then(data => {
-                    // Ẩn loading
-                    if (loadingSpinner) loadingSpinner.style.display = 'none';
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Ẩn loading
+                if (loadingSpinner) loadingSpinner.style.display = 'none';
 
-                    // Enable selects
-                    colorSelect.disabled = false;
-                    storageSelect.disabled = false;
+                // Enable selects
+                colorSelect.disabled = false;
+                storageSelect.disabled = false;
 
-                    if (data.success) {
-                        // Cập nhật giá
-                        const priceElement = row.querySelector('.current-price');
-                        if (priceElement) {
-                            priceElement.textContent = new Intl.NumberFormat('vi-VN', {
-                                style: 'currency',
-                                currency: 'VND'
-                            }).format(data.price);
-                        }
-
-                        // Cập nhật các option có sẵn
-                        if (data.available_variants) {
-                            updateAvailableOptions(row, data.available_variants);
-                        }
-
-                        showNotification(data.message, 'success');
-                        updateTotals();
-                    } else {
-                        // Khôi phục giá trị ban đầu
-                        colorSelect.value = row.getAttribute('data-default-color');
-                        storageSelect.value = row.getAttribute('data-default-storage');
-
-                        showNotification(data.message, 'warning');
+                if (data.success) {
+                    // Cập nhật giá
+                    const priceElement = row.querySelector('.current-price');
+                    if (priceElement) {
+                        priceElement.textContent = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }).format(data.price);
                     }
-                })
-                .catch(error => {
-                    console.error('Lỗi:', error);
-                    showNotification('Đã có lỗi xảy ra. Vui lòng thử lại sau.', 'error');
 
-                    // Ẩn loading và enable selects
-                    if (loadingSpinner) loadingSpinner.style.display = 'none';
-                    colorSelect.disabled = false;
-                    storageSelect.disabled = false;
-                });
-        });
+                    // Cập nhật số lượng tồn kho
+                    const stockElement = row.querySelector('.stock-value');
+                    const stockInfo = row.querySelector('.stock-info');
+                    if (stockElement) {
+                        stockElement.textContent = data.stock;
+
+                        // Cập nhật style dựa trên số lượng tồn
+                        stockInfo.classList.remove('low-stock', 'out-of-stock', 'in-stock');
+                        if (data.stock <= 0) {
+                            stockInfo.classList.add('out-of-stock');
+                        } else if (data.stock <= 5) {
+                            stockInfo.classList.add('low-stock');
+                        } else {
+                            stockInfo.classList.add('in-stock');
+                        }
+                    }
+
+                    // Cập nhật các option có sẵn
+                    if (data.available_variants) {
+                        updateAvailableOptions(row, data.available_variants);
+                    }
+
+                    showNotification(data.message, 'success');
+                    updateTotals();
+                } else {
+                    // Khôi phục giá trị ban đầu
+                    colorSelect.value = row.getAttribute('data-default-color');
+                    storageSelect.value = row.getAttribute('data-default-storage');
+
+                    showNotification(data.message, 'warning');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                showNotification('Đã có lỗi xảy ra. Vui lòng thử lại sau.', 'error');
+
+                // Ẩn loading và enable selects
+                if (loadingSpinner) loadingSpinner.style.display = 'none';
+                colorSelect.disabled = false;
+                storageSelect.disabled = false;
+            });
     });
+});
+
 
     function updateAvailableOptions(row, variants) {
         const colorSelect = row.querySelector('.variant-color');
@@ -1272,7 +1321,7 @@
         document.getElementById('voucher-code-display').innerText = code;
         document.getElementById('voucher-discount-display').innerText = discount.toLocaleString('vi-VN');
         updateTotals();
-        showNotification('Đã áp dụng mã giảm giá thành công!', 'success');
+        showNotification('Đã áp dụng mã giảm giá ', 'success');
     }
 
     // Update the checkout button click handler
