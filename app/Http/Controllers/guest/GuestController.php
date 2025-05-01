@@ -240,9 +240,6 @@ class GuestController extends Controller
 
                 return $product;
             });
-        if ($products->isEmpty()) {
-            return redirect()->route('guest.index')->with('error', 'Không có sản phẩm nào trong danh mục này.');
-        }
         return view('guest.categories', compact('category', 'products'));
     }
 
