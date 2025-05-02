@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use App\Models\News;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -916,6 +917,28 @@ class CustomerController extends Controller
 
     public function cart_checkout(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => ['required', 'regex:/^0[0-9]{9,10}$/'],
+            'address' => 'required|string',
+        ], [
+            'fullname.required' => 'Vui lòng nhập họ và tên',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Email không đúng định dạng',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'phone.regex' => 'Số điện thoại không hợp lệ (phải bắt đầu bằng số 0 và có 10-11 số)',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+                'message' => 'Vui lòng kiểm tra lại thông tin'
+            ], 422);
+        }
+
         try {
             DB::beginTransaction();
 

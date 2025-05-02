@@ -381,10 +381,10 @@
     }
 
     .storage-options {
-        display: flex;
+        /* display: flex;
         gap: 5px;
         flex-wrap: wrap;
-        margin: 8px 0;
+        margin: 8px 0; */
     }
 
     .storage-badge {

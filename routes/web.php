@@ -282,36 +282,36 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 });
 
 //Route trang khách vãng lai
-Route::prefix('guest')->group(function () {
-    Route::get('/dashboard', [GuestController::class, 'index'])->name('guest.index');
-    Route::get('/payment', [GuestController::class, 'payment'])->name('guest.payment');
-    Route::post('/payment', [GuestController::class, 'postPayment'])->name('guest.postPayment');
-    Route::get('/buynow', [GuestController::class, 'buynow'])->name('guest.buynow');
+Route::prefix('guest')->name('guest.')->group(function () {
+    Route::get('/dashboard', [GuestController::class, 'index'])->name('index');
+    Route::get('/payment', [GuestController::class, 'payment'])->name('payment');
+    Route::post('/payment', [GuestController::class, 'postPayment'])->name('postPayment');
+    Route::get('/buynow', [GuestController::class, 'buynow'])->name('buynow');
 
     // Trang danh mục
-    Route::get('/categories/{id}', [GuestController::class, 'categories'])->name('guest.category');
+    Route::get('/categories/{id}', [GuestController::class, 'categories'])->name('category');
 
     // Lọc sản phẩm theo danh mục
-    Route::get('/filter/categories/{id}', [GuestController::class, 'filterByCategory'])->name('guest.filter');
+    Route::get('/filter/categories/{id}', [GuestController::class, 'filterByCategory'])->name('filter');
 
     // Lọc sản phẩm
-    Route::get('/filter', [GuestController::class, 'filter'])->name('guest.filters');
+    Route::get('/filter', [GuestController::class, 'filter'])->name('filters');
 
     // Trang tìm kiếm
-    Route::post('/search', [GuestController::class, 'search'])->name('guest.search');
+    Route::post('/search', [GuestController::class, 'search'])->name('search');
 
     // Product detail
-    Route::get('/product_detail/{id}', [GuestController::class, 'product_detail'])->name('guest.product_detail');
+    Route::get('/product_detail/{id}', [GuestController::class, 'product_detail'])->name('product_detail');
     //  bài viết (newnew)
-    Route::get('/news', [NewController::class, 'index'])->name('guest.news');
-    Route::get('/shownew/{id}', [NewController::class, 'show'])->name('guest.show');
+    Route::get('/news', [NewController::class, 'index'])->name('news');
+    Route::get('/shownew/{id}', [NewController::class, 'show'])->name('show');
 
-    Route::post('/posts/{id}/comments', [NewsController::class, 'storeComment'])->name('comments.store');
+    Route::post('/comments', [GuestController::class, 'storeComment'])->name('comments.store');
 
     // Bao hanhhanh
-    Route::get('/warranty', [GuestController::class, 'warranty'])->name('guest.warranty');
+    Route::get('/warranty', [GuestController::class, 'warranty'])->name('warranty');
     // Bao contactcontact
-    Route::get('/contact', [GuestController::class, 'contact'])->name('guest.contact');
+    Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
     
 
 });

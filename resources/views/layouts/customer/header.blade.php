@@ -2,6 +2,10 @@
 <html lang="vi">
 
 <head>
+    @php
+        use Illuminate\Support\Facades\Route;
+        $currentRoute = Route::currentRouteName();
+    @endphp
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#000" />
     <link rel="canonical" href="https://www.hoangkien.com/" />
@@ -182,6 +186,29 @@
                         <div class="glow-effect"></div>
                     </div>
                 </div>
+                <div class="hot-deals-container" id="hotDealsContainer" style="{{ $currentRoute === 'customer.index' ? '' : 'display: none;' }}">
+                    <div class="hot-deals-title">
+                        Giá sốc trong ngày
+                        <button class="close-hot-deals">&times;</button>
+                    </div>
+                    <div class="hot-deals-content">
+                        <div class="hot-deal-item">
+                            <a href="#" class="product-link">
+                                <div class="product-image">
+                                    <img src="" alt="Product Image">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name"></div>
+                                    <div class="price-container">
+                                        <div class="old-price"></div>
+                                        <div class="new-price"></div>
+                                        <div class="discount"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
                     <span class="menu-icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
@@ -216,10 +243,12 @@
                 </div>
                 <div class="search-header" style="flex: 1;">
                     <div class="search-smart">
-                        <form action="{{ auth()->check() ? route('customer.search') : route('guest.search') }}" method="POST" class="search-form">
+                        <form action="{{ auth()->check() ? route('customer.search') : route('guest.search') }}"
+                            method="POST" class="search-form">
                             @csrf
                             <div class="search-container">
-                                <input type="text" name="query" id="search-input" placeholder="Bạn cần tìm gì..." autocomplete="off">
+                                <input type="text" name="query" id="search-input"
+                                    placeholder="Bạn cần tìm gì..." autocomplete="off">
                                 <button type="submit">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -578,8 +607,13 @@
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 
     @keyframes slideIn {
@@ -587,6 +621,7 @@
             transform: translateY(-100px);
             opacity: 0;
         }
+
         to {
             transform: translateY(0);
             opacity: 1;
@@ -635,11 +670,13 @@
             height: 100%;
             opacity: 0.3;
         }
+
         50% {
             width: 150%;
             height: 150%;
             opacity: 0.1;
         }
+
         100% {
             width: 100%;
             height: 100%;
@@ -734,6 +771,7 @@
             opacity: 0;
             transform: translateY(-10px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -822,7 +860,7 @@
         .product-grid {
             grid-template-columns: 1fr;
         }
-        
+
         .search-results {
             position: fixed;
             top: 60px;
@@ -833,107 +871,278 @@
             margin-top: 0;
         }
     }
+
+    .hot-deals-container {
+        position: fixed;
+        top: 62%;
+        left: 48px;
+        z-index: 10;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        width: 250px;
+        overflow: hidden;
+        animation: slideIn 0.5s ease;
+    }
+
+    .hot-deals-title {
+        background: #ff4444;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+     
+        position: relative;
+    }
+
+    .close-hot-deals {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0 5px;
+        line-height: 1;
+    }
+
+    .close-hot-deals:hover {
+        opacity: 0.8;
+    }
+
+    .product-link {
+        display: flex;
+        gap: 12px;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .product-link:hover .product-name {
+        color: #ff4444;
+    }
+
+    .hot-deals-content {
+        padding: 12px;
+    }
+
+    .hot-deal-item {
+        display: flex;
+        gap: 12px;
+        transition: opacity 0.5s ease;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-info {
+        flex: 1;
+    }
+
+    .product-name {
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .price-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 0.9em;
+    }
+
+    .new-price {
+        color: #ff4444;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .discount {
+        position: absolute;
+        background: #ff4444;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        top: 32px;
+        left: 70px;
+    }
+
+    @media (max-width: 768px) {
+        .hot-deals-container {
+            top: auto;
+            bottom: 80px;
+            left: 20px;
+        }
+    }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const popup = document.getElementById('promotion-popup');
-    const bell = document.getElementById('notification-bell');
-    const closeBtn = document.querySelector('.close-popup');
-    const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentRoute = '{{ Route::currentRouteName() }}';
+        const hotDealsContainer = document.getElementById('hotDealsContainer');
+        
+        // Chỉ khởi tạo và chạy hot deals nếu đang ở trang chủ
+        if (currentRoute === 'customer.index') {
+            const popup = document.getElementById('promotion-popup');
+            const bell = document.getElementById('notification-bell');
+            const closeBtn = document.querySelector('.close-popup');
+            const closeHotDeals = document.querySelector('.close-hot-deals');
+            const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
 
-    // Kiểm tra lần đầu vào trang
-    const hasSeenPopup = localStorage.getItem('hasSeenPromotionPopup');
-    if (isLoggedIn && !hasSeenPopup) {
-        popup.style.display = 'block';
-        localStorage.setItem('hasSeenPromotionPopup', 'true');
-    }
+            // Kiểm tra trạng thái hiển thị hot deals từ localStorage
+            const isHotDealsHidden = localStorage.getItem('hotDealsHidden') === 'true';
+            if (isHotDealsHidden) {
+                hotDealsContainer.style.display = 'none';
+            }
 
-    // Xử lý sự kiện click vào chuông
-    bell.addEventListener('click', function() {
-        popup.style.display = 'block';
-    });
+            // Xử lý đóng hot deals
+            closeHotDeals.addEventListener('click', function(e) {
+                e.preventDefault();
+                hotDealsContainer.style.display = 'none';
+                localStorage.setItem('hotDealsHidden', 'true');
+            });
 
-    // Đóng popup khi click nút close
-    closeBtn.addEventListener('click', function() {
-        popup.style.display = 'none';
-    });
+            // Xử lý hiển thị sản phẩm giá sốc
+            const hotDeals = @json($highestDiscountProducts ?? []);
+            let currentIndex = 0;
+            const hotDealItem = document.querySelector('.hot-deal-item');
+            const productLink = document.querySelector('.product-link');
+            const productImage = document.querySelector('.product-image img');
+            const productName = document.querySelector('.product-name');
+            const oldPrice = document.querySelector('.old-price');
+            const newPrice = document.querySelector('.new-price');
+            const discount = document.querySelector('.discount');
 
-    // Đóng popup khi click bên ngoài
-    popup.addEventListener('click', function(e) {
-        if (e.target === popup) {
-            popup.style.display = 'none';
+            function updateHotDeal() {
+                if (!hotDeals || hotDeals.length === 0) return;
+                
+                const deal = hotDeals[currentIndex];
+                const firstVariant = deal.variants[0];
+                
+                if (deal && firstVariant) {
+                    productLink.href = '{{ route('customer.product_detail', '') }}/' + deal.id;
+                    productImage.src = '/' + deal.image;
+                    productImage.alt = deal.name;
+                    productName.textContent = deal.name;
+                    oldPrice.textContent = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(firstVariant.origin_price);
+                    newPrice.textContent = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }).format(firstVariant.price);
+                    discount.textContent = `-${deal.discount_percent}%`;
+                }
+                
+                hotDealItem.style.opacity = '0';
+                setTimeout(() => {
+                    hotDealItem.style.opacity = '1';
+                }, 500);
+            }
+
+            // Cập nhật sản phẩm đầu tiên
+            updateHotDeal();
+
+            // Tự động chuyển đổi sản phẩm mỗi 3 giây
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % hotDeals.length;
+                updateHotDeal();
+            }, 3000);
         }
     });
-});
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-    const trendingProducts = document.querySelector('.trending-products');
-    const searchProducts = document.querySelector('.search-products');
-    let searchTimeout;
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const trendingProducts = document.querySelector('.trending-products');
+        const searchProducts = document.querySelector('.search-products');
+        let searchTimeout;
 
-    // Load trending products on focus
-    searchInput.addEventListener('focus', function() {
-        searchResults.style.display = 'block';
-        if (!searchInput.value) {
-            loadTrendingProducts();
-        }
-    });
-
-    // Handle input changes
-    searchInput.addEventListener('input', function() {
-        clearTimeout(searchTimeout);
-        const query = this.value.trim();
-        
-        searchTimeout = setTimeout(() => {
-            if (query) {
-                searchProducts.style.display = 'block';
-                trendingProducts.style.display = 'none';
-                searchProductsByQuery(query);
-            } else {
-                searchProducts.style.display = 'none';
-                trendingProducts.style.display = 'block';
+        // Load trending products on focus
+        searchInput.addEventListener('focus', function() {
+            searchResults.style.display = 'block';
+            if (!searchInput.value) {
                 loadTrendingProducts();
             }
-        }, 300);
-    });
+        });
 
-    // Close search results when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!searchResults.contains(e.target) && e.target !== searchInput) {
-            searchResults.style.display = 'none';
+        // Handle input changes
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim();
+
+            searchTimeout = setTimeout(() => {
+                if (query) {
+                    searchProducts.style.display = 'block';
+                    trendingProducts.style.display = 'none';
+                    searchProductsByQuery(query);
+                } else {
+                    searchProducts.style.display = 'none';
+                    trendingProducts.style.display = 'block';
+                    loadTrendingProducts();
+                }
+            }, 300);
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchResults.contains(e.target) && e.target !== searchInput) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        function loadTrendingProducts() {
+            const url = '{{ auth()->check() ? '/search-suggestions' : '/guest/search-suggestions' }}';
+            fetch(url)
+                .then(response => response.json())
+                .then(products => {
+                    displayProducts(products, trendingProducts.querySelector('.product-grid'));
+                });
         }
-    });
 
-    function loadTrendingProducts() {
-        const url = '{{ auth()->check() ? "/search-suggestions" : "/guest/search-suggestions" }}';
-        fetch(url)
-            .then(response => response.json())
-            .then(products => {
-                displayProducts(products, trendingProducts.querySelector('.product-grid'));
-            });
-    }
-
-    function searchProductsByQuery(query) {
-        const url = '{{ auth()->check() ? "/search-suggestions" : "/guest/search-suggestions" }}';
-        fetch(`${url}?query=${encodeURIComponent(query)}`)
-            .then(response => response.json())
-            .then(products => {
-                displayProducts(products, searchProducts.querySelector('.product-grid'));
-            });
-    }
-
-    function displayProducts(products, container) {
-        if (products.length === 0) {
-            container.innerHTML = '<div class="no-results">Không tìm thấy sản phẩm nào</div>';
-            return;
+        function searchProductsByQuery(query) {
+            const url = '{{ auth()->check() ? '/search-suggestions' : '/guest/search-suggestions' }}';
+            fetch(`${url}?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(products => {
+                    displayProducts(products, searchProducts.querySelector('.product-grid'));
+                });
         }
-        
-        container.innerHTML = products.map(product => `
+
+        function displayProducts(products, container) {
+            if (products.length === 0) {
+                container.innerHTML = '<div class="no-results">Không tìm thấy sản phẩm nào</div>';
+                return;
+            }
+
+            container.innerHTML = products.map(product => `
             <a href="${product.url}" class="product-item">
                 <div class="product-image">
                     <img src="${product.image}" alt="${product.name}">
@@ -947,6 +1156,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </a>
         `).join('');
-    }
-});
+        }
+    });
 </script>

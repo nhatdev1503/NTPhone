@@ -1542,6 +1542,7 @@
         .stars {
             display: flex;
             gap: 5px;
+            justify-content: center;
         }
 
         .stars i {
@@ -1991,7 +1992,7 @@
                                                             </div>
                                                         @endif
                                                         <div class="rating">
-                                                            <span class="stars">
+                                                            <span sty class="stars">
                                                                 @for ($i = 1; $i <= 5; $i++)
                                                                     <span
                                                                         class="star {{ $i <= round($product->average_rating) ? 'filled' : '' }}">★</span>
@@ -2184,7 +2185,7 @@
 
                                         <!-- Hiển thị đánh giá -->
                                         <div class="rating">
-                                            <span class="stars">
+                                            <span style="justify-content: center;" class="stars">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     <span
                                                         class="star {{ $i <= round($relatedProduct->average_rating) ? 'filled' : '' }}">★</span>
