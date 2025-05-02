@@ -617,7 +617,7 @@ class CustomerController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Get price error: ' . $e->getMessage());
+        
             return response()->json([
                 'success' => false,
                 'message' => 'Có lỗi xảy ra khi lấy thông tin giá',
@@ -643,7 +643,7 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
 
-        // Gộp các sản phẩm trùng lặp
+        // Gộp các sản phẩm trùng lặp   
         $this->mergeDuplicateCartItems($user->id);
 
         $carts = Cart::where('user_id', $user->id)

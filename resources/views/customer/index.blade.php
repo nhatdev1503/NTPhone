@@ -1595,17 +1595,28 @@
                 .then(data => {
                     if (data.success) {
                         if (isBuyNow) {
+                            // Chuyển hướng đến trang giỏ hàng hoặc checkout
                             window.location.href = data.cart_url || '{{ route('customer.cart') }}';
                         } else {
-                            showNotification(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
+                            // Hiển thị toast thông báo thành công
+                           showNotification(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
+
+                            // 🔄 GỌI AJAX LẤY LẠI SỐ LƯỢNG GIỎ HÀNG
+                            fetch('{{ route('cart.count') }}')
+                                .then(res => res.json())
+                                .then(countData => {
+                                    document.querySelector('.count_item_pr').textContent = countData.count;
+                                })
+                                .catch(err => console.error('Lỗi khi cập nhật số lượng giỏ hàng:', err));
                         }
                     } else {
-                        showNotification(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
+                        // Hiển thị toast thông báo lỗi
+                         showNotification(data.message || 'Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showNotification('Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
+                   showNotification('Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
                 });
         }
     });

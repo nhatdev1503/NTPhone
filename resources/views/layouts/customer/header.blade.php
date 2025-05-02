@@ -1159,3 +1159,18 @@
         }
     });
 </script>
+
+<style>
+    /* .header-scroll {
+        transition: 0.3s linear;
+        position: fixed;
+        z-index: 99999;
+        top: 0 !important;
+        width: 100%;
+    }
+    .header-scroll.active {
+        position: fixed;
+        top: 0 !important;
+        width: 100%;
+    } */
+</style>

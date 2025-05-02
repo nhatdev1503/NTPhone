@@ -1012,20 +1012,20 @@
                                                     window.location.href = response.redirect_url;
                                                     return; // Stop further processing on redirect
 									} else {
-                                                    ErrorNoti(response.message || 'Không thể mua ngay. Vui lòng thử lại.');
+                                                    showNotification(response.message || 'Không thể mua ngay. Vui lòng thử lại.');
                                                 }
                                             } else { // Handle add_to_cart
                                                 if (response.success) {
-                                                    SuccessNoti('Đã thêm sản phẩm vào giỏ hàng.');
+                                                    showNotification('Đã thêm sản phẩm vào giỏ hàng.');
                                                     // Optional: Update cart count
                                                     // if (response.cartCount) { $('.count_item_pr').text(response.cartCount); }
                                                 } else {
                                                     if (response.exists) {
                                                         // Use SuccessNoti for 'exists' message to match cart page style
-                                                        SuccessNoti(response.message || 'Sản phẩm đã có trong giỏ hàng.');
+                                                        showNotification(response.message || 'Sản phẩm đã có trong giỏ hàng.');
                                                     } else {
                                                         // Use ErrorNoti for other add to cart failures, provide fallback message
-                                                        ErrorNoti(response.message || 'Không thể thêm vào giỏ hàng.');
+                                                        showNotification(response.message || 'Không thể thêm vào giỏ hàng.');
                                                     }
                                                 }
                                             }
@@ -1034,22 +1034,20 @@
                                             console.error('AJAX Error:', textStatus, errorThrown, jqXHR.responseText);
                                             let errorMessage =
                                                 'Có lỗi kết nối hoặc lỗi máy chủ. Vui lòng thử lại.'; // More specific default error
-                                            // Try to get a more specific error from the response, if available
+                                       
                                             if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                                                 errorMessage = jqXHR.responseJSON.message;
                                             } else if (jqXHR.responseText) {
-                                                // Fallback to raw response text if JSON parsing fails but text exists
-                                                // You might want to limit its length or format it
-                                                // errorMessage = jqXHR.responseText.substring(0, 100) + "..."; 
-                                            }
-                                            ErrorNoti(errorMessage); // Always show an error message
-                                        },
-                                        complete: function() {
-                                            // Restore button text and state unless redirecting
-                                            if (actionType !== 'buy_now_direct') { // Don't restore if buy now is redirecting
-                                                $button.prop('disabled', false).html(originalButtonText);
-                                            }
-                                        }
+                                             
+                                            } 
+                                            showNotification(errorMessage); 
+                                         }
+                                        // complete: function() {
+                                         
+                                        //     if (actionType !== 'buy_now_direct') { 
+                                        //         $button.prop('disabled', false).html(originalButtonText);
+                                        //     }
+                                        // }
                                     });
 								}
 							</script>
@@ -1831,19 +1829,19 @@
                             if (isBuyNow) {
                                 window.location.href = data.cart_url || '{{ route('customer.cart') }}';
                             } else {
-                                SuccessNoti(data.message || 'Đã thêm sản phẩm vào giỏ hàng!');
+                                showNotification(data.message || 'Đã thêm sản phẩm vào giỏ hàng!', 'success');
                             }
                         } else {
                             if (data.exists) {
-                                SuccessNoti(data.message || 'Sản phẩm đã có trong giỏ hàng.');
+                                showNotification(data.message || 'Sản phẩm đã có trong giỏ hàng.', 'success');
                             } else {
-                                ErrorNoti(data.message || 'Không thể thêm vào giỏ hàng.');
+                                showNotification(data.message || 'Không thể thêm vào giỏ hàng.', 'error');
                             }
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        ErrorNoti('Có lỗi xảy ra khi thêm vào giỏ hàng.');
+                        showNotification('Có lỗi xảy ra khi thêm vào giỏ hàng.', 'error');
                     });
             }
         });
