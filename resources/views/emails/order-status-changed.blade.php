@@ -57,6 +57,7 @@
             <p>Xin chào {{ $order->fullname }},</p>
             
             <p>Đơn hàng <strong>#{{ $order->order_code }}</strong> của bạn đã được cập nhật trạng thái.</p>
+            <a href="{{ route('customer.order_detail',$order->id) }}">Bấm vào đây để xem chi tiết đơn hàng </a>
             
             <div class="order-details">
                 <p><strong>Trạng thái mới:</strong> 

@@ -332,6 +332,7 @@
                         @endif
                     @endforeach
                 </div>
+                <a href="{{ route('customer.order.history') }}" class="btn btn-secondary float-end">Quay lại</a>
             </div>
         </div>
 
@@ -418,7 +419,6 @@
             </div>
         </div>
     </div>
-
     <script>
         let ratingMap = {};
 

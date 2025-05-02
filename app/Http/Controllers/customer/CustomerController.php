@@ -728,7 +728,46 @@ class CustomerController extends Controller
             ], 500);
         }
     }
+    public function postCartDT(Request $request): JsonResponse
+    {
+        $data = $request->validate([ // Validate input first
+        'product_id' => 'required|integer|exists:products,id',
+             'color' => 'required|string',
+             'storage' => 'required|string',
+             'quantity' => 'required|integer|min:1|max:5',
+         ]);
+         $product_variant = ProductVariant::where('product_id', $data['product_id'])
+             ->where('color', $data['color'])
+             ->where('storage', $data['storage'])
+             ->first();
+        if (!$product_variant || $product_variant->status !== 'active') {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
+        }
+        $user = Auth::user();
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        $cartItem = Cart::where('user_id', $user->id)
+        ->where('product_variant_id', $product_variant->id)
+        ->first();
 
+        if ($cartItem) {
+            return response()->json(['success' => false, 'exists' => true, 'message' => 'Sản phẩm đã có trong giỏ hàng.']);
+        }
+        $quantityToAdd = $data['quantity'];
+        if ($product_variant->stock < $quantityToAdd) {
+            return response()->json(['success' => false, 'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."], 400);
+        }
+        try {
+            $newCartItem = Cart::create([
+                'user_id' => $user->id,
+                'product_variant_id' => $product_variant->id,
+                'quantity' => $quantityToAdd,
+            ]);
+            return response()->json(['success' => true, 'new_item' => true, 'message' => 'Đã thêm sản phẩm vào giỏ hàng.']); // Add cartCount if needed
+        } catch (\Exception $e) {
+            Log::error("Error adding item to cart: " . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi thêm vào giỏ hàng.'], 500);
+        }
+    }
 
     public function postPayment(Request $request)
     {
@@ -1616,7 +1655,7 @@ class CustomerController extends Controller
             DB::beginTransaction();
             try {
                 if($order->status === 'cancelled') {
-                    return back()->with('error', 'Đơn hàng đã được hủy trước đó.');
+                    return back()->with('error', 'Đơn hàng đã được cập nhật trước đó.');
                 }
                 // Cập nhật trạng thái đơn hàng
                 $order->status = 'cancelled';

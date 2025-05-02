@@ -99,12 +99,6 @@
                                     </div>
                                     @if ($cart->product_variant->product->have_variant == 1)
                                     <div class="variant-info">
-                                        @if ($colors->count() <= 1 && $storages->count() <= 1)
-                                            <span class="variant-static">
-                                                {{ $cart->product_variant->color }} -
-                                                {{ $cart->product_variant->storage }}
-                                            </span>
-                                        @else
                                             <div class="variant-selectors">
                                                 <select class="variant-color" data-cart-id="{{ $cart->id }}" style="width: 80px;">
                                                     @foreach ($colors as $color)
@@ -144,7 +138,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        @endif
                                     </div>
                                     @endif
                                     <div class="item-actions">
