@@ -35,7 +35,7 @@
                 <div class="flex-shrink-0">
                     <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500/20">
                         @if($user->avatar)
-                            <img src="{{ asset( $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
+                            <img src="{{ asset( 'storage/' .$user->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full bg-gray-700 flex items-center justify-center">
                                 <i class="bi bi-person-circle text-4xl text-gray-500"></i>
@@ -73,8 +73,8 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Trạng thái</label>
-                        <div class="px-2 py-1 text-sm font-medium rounded-full {{ $user->status ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400' }}">
-                            {{ $user->status ? 'Hoạt động' : 'Đã khóa' }}
+                        <div class="px-2 py-1 text-sm font-medium rounded-full {{ $user->status == 'active' ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400' }}">
+                            {{ $user->status == 'active' ? 'Hoạt động' : 'Đã khóa' }}
                         </div>
                     </div>
                     <div>
@@ -125,6 +125,9 @@
                                                     @case('processing')
                                                         bg-blue-500/10 text-blue-400
                                                         @break
+                                                    @case('shipped')
+                                                        bg-blue-500/10 text-blue-400
+                                                        @break
                                                     @case('delivered')
                                                         bg-green-500/10 text-pink-400
                                                         @break
@@ -137,10 +140,13 @@
                                                 @endswitch">
                                                 @switch($order->status)
                                                     @case('pending')
-                                                        Chờ xử lý
+                                                        Chờ xác nhận
                                                         @break
                                                     @case('processing')
                                                         Đang xử lý
+                                                        @break
+                                                    @case('shipped')
+                                                        Đang giao
                                                         @break
                                                     @case('delivered')
                                                         Đã giao hàng

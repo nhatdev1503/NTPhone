@@ -281,7 +281,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
 });
 
 //Route trang khách vãng lai
-Route::prefix('guest')->group(function () {
+Route::prefix('guest')->middleware('guest')->group(function () {
     Route::get('/dashboard', [GuestController::class, 'index'])->name('guest.index');
     Route::get('/payment', [GuestController::class, 'payment'])->name('guest.payment');
     Route::post('/payment', [GuestController::class, 'postPayment'])->name('guest.postPayment');

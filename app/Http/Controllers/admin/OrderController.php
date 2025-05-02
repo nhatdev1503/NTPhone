@@ -22,6 +22,7 @@ class OrderController extends Controller
             $keyword = $request->keyword;
             $query->where(function ($q) use ($keyword) {
                 $q->where('fullname', 'like', "%$keyword%")
+                  ->orWhere('order_code', 'like', "%$keyword%")
                   ->orWhere('email', 'like', "%$keyword%")
                   ->orWhere('phone', 'like', "%$keyword%");
             });

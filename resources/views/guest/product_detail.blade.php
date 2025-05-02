@@ -1277,7 +1277,7 @@
                             @auth
                                 <div class="comment-form">
                                     <h4>Viết bình luận của bạn</h4>
-                                    <form action="{{ route('guest.comments.store') }}" method="POST">
+                                    <form action="/" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
 

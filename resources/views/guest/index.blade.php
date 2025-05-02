@@ -701,7 +701,7 @@
     <section class="section_1_banner">
         <div class="container">
             <div class="banner-container">
-                <a class="thumb-image-banner" href="{{ route('guest.category',15 ) }}" title="iPhone 16 Pro">
+                <a class="thumb-image-banner" href="{{ route('guest.product_detail',$banner->product_url ) }}" title="iPhone 16 Pro">
                     <img width="635" height="236" class="lazyload"
                         src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
                         data-src="https://cdn.tgdd.vn/News/1315253/cach-xem-dia-chi-ip-cua-dien-thoai-android-iphone-don-gian-21-800x300-1.jpg"

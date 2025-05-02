@@ -634,7 +634,9 @@ class CustomerController extends Controller
 
         foreach ($cartItems as $item) {
             $key = $item->product_variant_id;
-
+            if($item->product_variant->product->status != 'active' || $item->product_variant->product->category->status != 'active') {
+                $item->delete();
+            }
             if (!isset($processedItems[$key])) {
                 // Nếu chưa xử lý sản phẩm này, thêm vào danh sách đã xử lý
                 $processedItems[$key] = $item;
@@ -671,10 +673,10 @@ class CustomerController extends Controller
             ->orderBy('price', 'asc')
             ->first();
     
-        if (!$product_variant) {
+        if (!$product_variant || $product_variant->product->status !== 'active' || $product_variant->product->category->status !== 'active') {
             return response()->json([
                 'success' => false,
-                'message' => 'Sản phẩm hiện đã hết hàng hoặc không có biến thể hợp lệ.'
+                'message' => 'Sản phẩm hiện đã hết hàng hoặc đã ngừng kinh doanh'
             ], 404);
         }
     
@@ -740,7 +742,7 @@ class CustomerController extends Controller
              ->where('color', $data['color'])
              ->where('storage', $data['storage'])
              ->first();
-        if (!$product_variant || $product_variant->status !== 'active') {
+        if (!$product_variant || $product_variant->product->status !== 'active' || $product_variant->product->category->status !== 'active') {
             return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
         }
         $user = Auth::user();
@@ -1304,6 +1306,9 @@ class CustomerController extends Controller
         if ($buyNowItem) {
             // --- Handle Buy Now Direct --- 
             $variant = ProductVariant::with('product.category')->find($buyNowItem['variant_id']);
+            if($variant && ($variant->product->status != 'active' || $variant->product->category->status != 'active')) {
+                return redirect()->route('customer.product_detail',$variant->product->id)->with('error', 'Sản phẩm bạn muốn mua ngay không hợp lệ hoặc đã hết hàng.');
+            }
             if ($variant && $variant->status === 'active' && $variant->stock >= $buyNowItem['quantity']) {
                 // Create a pseudo cart item structure for the view
                 $pseudoCartItem = new \stdClass(); // Use stdClass or a temporary Cart-like object
@@ -1678,6 +1683,8 @@ class CustomerController extends Controller
                 Log::error('Error cancelling order: ' . $e->getMessage());
                 return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng, có vẻ như đơn hàng đã được hủy trước đó ! ' . $e->getMessage());
             }
+        }else{
+            return back()->with('error', 'Đơn hàng không thể hủy vì đã được giao hoặc đã thanh toán qua VNPay.');
         }
         return redirect()->back()->with('cancel_success', 'Đơn hàng đã được hủy thành công.');
     }

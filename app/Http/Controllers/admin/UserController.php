@@ -104,7 +104,6 @@ class UserController extends Controller
             'fullname' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|string|max:20',
-            'role' => 'required|in:admin,customer,staff',
             'status' => 'required|in:active,inactive',
             'block_reason' => 'nullable|required_if:status,inactive|string|max:255',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
@@ -113,32 +112,23 @@ class UserController extends Controller
         $user->fullname = $request->fullname;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->role = $request->role;
         $user->status = $request->status;
         $user->block_reason = $request->block_reason;
 
-        // Xử lý ảnh đại diện
         if ($request->hasFile('avatar')) {
             // Xóa ảnh cũ nếu có
-            if ($user->avatar) {
-                $oldAvatarPath = public_path($user->avatar);
-                if (file_exists($oldAvatarPath)) {
-                    unlink($oldAvatarPath);
-                }
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
             }
-            
+        
             // Lưu ảnh mới
-            $avatar = $request->file('avatar');
-            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->move(public_path('uploads/avatars'), $avatarName);
-            $user->avatar = 'uploads/avatars/' . $avatarName;
+            $file = $request->file('avatar');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('avatars', $fileName, 'public');
+            $user->avatar = 'avatars/' . $fileName;
         } elseif ($request->has('remove_avatar')) {
-            // Xóa ảnh nếu người dùng yêu cầu
-            if ($user->avatar) {
-                $oldAvatarPath = public_path($user->avatar);
-                if (file_exists($oldAvatarPath)) {
-                    unlink($oldAvatarPath);
-                }
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
             }
             $user->avatar = null;
         }

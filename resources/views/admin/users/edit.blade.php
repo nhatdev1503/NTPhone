@@ -37,7 +37,7 @@
                     <div class="flex-shrink-0">
                         <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500/20 mb-4">
                             @if($user->avatar)
-                                <img src="{{ asset($user->avatar) }}" alt="Avatar" class="w-full h-full object-cover" id="avatar-preview">
+                                <img src="{{ asset('storage/'.$user->avatar) }}" alt="Avatar" class="w-full h-full object-cover" id="avatar-preview">
                             @else
                                 <div class="w-full h-full bg-gray-700 flex items-center justify-center" id="avatar-placeholder">
                                     <i class="bi bi-person-circle text-4xl text-gray-500"></i>
@@ -49,11 +49,6 @@
                                 <i class="bi bi-camera"></i> Đổi ảnh
                             </label>
                             <input type="file" name="avatar" id="avatar" class="hidden" accept="image/*">
-                            @if($user->avatar)
-                                <button type="button" onclick="removeAvatar()" class="mt-2 text-red-400 hover:text-red-300 text-sm">
-                                    <i class="bi bi-trash"></i> Xóa ảnh
-                                </button>
-                            @endif
                         </div>
                     </div>
 
@@ -80,16 +75,7 @@
                 <!-- Vai trò và trạng thái -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-4">
-                        <h3 class="text-lg font-medium text-gray-300 mb-4">Vai trò và trạng thái</h3>
-                        <div>
-                            <label for="role" class="block text-sm font-medium text-gray-400 mb-1">Vai trò</label>
-                            <select name="role" id="role"
-                                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <option value="customer" {{ old('role', $user->role) == 'customer' ? 'selected' : '' }}>Người dùng</option>
-                                <option value="staff" {{ old('role', $user->role) == 'staff' ? 'selected' : '' }}>Nhân viên</option>
-                                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                        </div>
+                        <h3 class="text-lg font-medium text-gray-300 mb-4">Trạng thái</h3>
                         <div>
                             <label for="status" class="block text-sm font-medium text-gray-400 mb-1">Trạng thái</label>
                             <select name="status" id="status"
