@@ -216,36 +216,44 @@
 
     .filter .card {
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .filter .card-header {
         border-radius: 8px 8px 0 0;
     }
+
     .filter .form-select {
         border-radius: 4px;
         border: 1px solid #ced4da;
         padding: 0.375rem 0.75rem;
     }
+
     .filter .form-select:focus {
         border-color: #86b7fe;
-        box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
     }
+
     .filter .btn {
         padding: 0.375rem 1rem;
         border-radius: 4px;
     }
+
     .filter .btn-primary {
         background-color: #0d6efd;
         border-color: #0d6efd;
     }
+
     .filter .btn-primary:hover {
         background-color: #0b5ed7;
         border-color: #0a58ca;
     }
+
     .filter .btn-secondary {
         background-color: #6c757d;
         border-color: #6c757d;
     }
+
     .filter .btn-secondary:hover {
         background-color: #5c636a;
         border-color: #565e64;
@@ -257,25 +265,25 @@
         border-radius: 5px;
         border: 1px solid #e9ecef;
     }
-    
+
     .filter-form {
         display: flex;
         align-items: center;
     }
-    
+
     .filter-group {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 5px;
     }
-    
+
     .filter-label {
         font-size: 14px;
         margin-bottom: 0;
         color: #495057;
     }
-    
+
     .filter-select {
         padding: 5px 10px;
         border: 1px solid #ced4da;
@@ -284,7 +292,7 @@
         background-color: white;
         min-width: 120px;
     }
-    
+
     .filter-btn {
         background-color: #0d6efd;
         color: white;
@@ -295,18 +303,18 @@
         cursor: pointer;
         margin-left: 10px;
     }
-    
+
     .filter-btn:hover {
         background-color: #0b5ed7;
     }
-    
+
     .filter-reset {
         color: #6c757d;
         text-decoration: none;
         font-size: 14px;
         margin-left: 10px;
     }
-    
+
     .filter-reset:hover {
         text-decoration: underline;
     }
@@ -324,135 +332,162 @@
                     <select name="min_price" id="min_price_select" class="filter-select">
                         <option value="0" {{ request('min_price', 0) == 0 ? 'selected' : '' }}>0₫</option>
                         <option value="500000" {{ request('min_price') == 500000 ? 'selected' : '' }}>500.000₫</option>
-                        <option value="1000000" {{ request('min_price') == 1000000 ? 'selected' : '' }}>1.000.000₫</option>
-                        <option value="5000000" {{ request('min_price') == 5000000 ? 'selected' : '' }}>5.000.000₫</option>
-                        <option value="10000000" {{ request('min_price') == 10000000 ? 'selected' : '' }}>10.000.000₫</option>
+                        <option value="1000000" {{ request('min_price') == 1000000 ? 'selected' : '' }}>1.000.000₫
+                        </option>
+                        <option value="5000000" {{ request('min_price') == 5000000 ? 'selected' : '' }}>5.000.000₫
+                        </option>
+                        <option value="10000000" {{ request('min_price') == 10000000 ? 'selected' : '' }}>10.000.000₫
+                        </option>
                     </select>
-                    
+
                     <label for="max_price_select" class="filter-label ms-2">đến:</label>
                     <select name="max_price" id="max_price_select" class="filter-select">
-                        <option value="50000000" {{ request('max_price', 50000000) == 50000000 ? 'selected' : '' }}>50.000.000₫</option>
-                        <option value="10000000" {{ request('max_price') == 10000000 ? 'selected' : '' }}>10.000.000₫</option>
-                        <option value="5000000" {{ request('max_price') == 5000000 ? 'selected' : '' }}>5.000.000₫</option>
-                        <option value="1000000" {{ request('max_price') == 1000000 ? 'selected' : '' }}>1.000.000₫</option>
+                        <option value="50000000" {{ request('max_price', 50000000) == 50000000 ? 'selected' : '' }}>
+                            50.000.000₫</option>
+                        <option value="10000000" {{ request('max_price') == 10000000 ? 'selected' : '' }}>10.000.000₫
+                        </option>
+                        <option value="5000000" {{ request('max_price') == 5000000 ? 'selected' : '' }}>5.000.000₫
+                        </option>
+                        <option value="1000000" {{ request('max_price') == 1000000 ? 'selected' : '' }}>1.000.000₫
+                        </option>
                         <option value="500000" {{ request('max_price') == 500000 ? 'selected' : '' }}>500.000₫</option>
                     </select>
-                    
+
+                    <label for="color" style="margin-left: 20px;" class="filter-label">Màu sắc:</label>
+                    <select name="color" id="color" class="filter-select">
+                        <option value="">Tất cả</option>
+                        @foreach ($color as $item)
+                            <option value="{{ $item->name }}" {{ request('color') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <label for="storage" style="margin-left: 20px;" class="filter-label">Dung lượng:</label>
+                    <select name="storage" id="storage" class="filter-select">
+                        <option value="">Tất cả</option>
+                        @foreach ($storage as $item)
+                            <option value="{{ $item->size }}" {{ request('storage') == $item->size ? 'selected' : '' }}>{{ $item->size }}</option>
+                        @endforeach
+                    </select>
+
                     <button type="submit" class="filter-btn">Lọc</button>
                 </div>
             </form>
         </div>
 
         <div class="row d-flex flex-wrap">
-            @foreach ($products as $product)
-                <div class="col-6 col-md-4 col-lg-3 mb-4 p-2" style="width: 20%;">
-                    <form action="{{ route('customer.postCart') }}" method="post" class="variants product-action"
-                        data-cart-form data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        @php
-                            $firstVariant = $product->variants->first();
-                            $displayPrice = $product->sale_price ?? 0;
-                            $originPrice = $product->origin_price ?? 0;
-                            $discountPercentage = $product->discount_percentage ?? 0;
-                            $soldCount = $product->sold_count ?? 0;
-                        @endphp
-                        <input type="hidden" name="variantId" value="{{ $firstVariant->id ?? '' }}">
+            @if ($products->isEmpty())
+                <p style="text-align: center; width: 100%;">Không tìm thấy sản phẩm phù hợp.</p>
+            @else
+                @foreach ($products as $product)
+                    <div class="col-6 col-md-4 col-lg-3 mb-4 p-2" style="width: 20%;">
+                        <form action="{{ route('customer.postCart') }}" method="post" class="variants product-action"
+                            data-cart-form data-id="product-actions-{{ $product->id }}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            @php
+                                $firstVariant = $product->variants->first();
+                                $displayPrice = $product->sale_price ?? 0;
+                                $originPrice = $product->origin_price ?? 0;
+                                $discountPercentage = $product->discount_percentage ?? 0;
+                                $soldCount = $product->sold_count ?? 0;
+                            @endphp
+                            <input type="hidden" name="variantId" value="{{ $firstVariant->id ?? '' }}">
 
-                        <div class="product-thumbnail">
-                            @if ($discountPercentage > 0)
-                                <div class="tag-discount">-{{ $discountPercentage }}%</div>
-                            @endif
-                            <a class="image_thumb scale_hover"
-                                href="{{ route('customer.product_detail', $product->id) }}"
-                                title="{{ $product->name }}">
-                                <img width="130" height="130" src="{{ asset($product->image) }}"
-                                    alt="{{ $product->name }}" loading="lazy"
-                                    onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
-                            </a>
-                            <div class="action">
-                                <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views"
-                                    title="Xem chi tiết">
-                                    <svg class="icon" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                                            fill="currentColor"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">
-                                <a class="line-clamp line-clamp-2"
+                            <div class="product-thumbnail">
+                                @if ($discountPercentage > 0)
+                                    <div class="tag-discount">-{{ $discountPercentage }}%</div>
+                                @endif
+                                <a class="image_thumb scale_hover"
                                     href="{{ route('customer.product_detail', $product->id) }}"
-                                    title="{{ $product->name }}">{{ $product->name }}</a>
-                            </h3>
-                            <div class="price-box">
-                                <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
-                                @if ($originPrice > $displayPrice)
-                                    <span class="origin-price">{{ number_format($originPrice) }}₫</span>
-                                @endif
+                                    title="{{ $product->name }}">
+                                    <img width="130" height="130" src="{{ asset($product->image) }}"
+                                        alt="{{ $product->name }}" loading="lazy"
+                                        onerror="this.onerror=null;this.src='/path/to/placeholder.jpg';">
+                                </a>
+                                <div class="action">
+                                    <a href="{{ route('customer.product_detail', $product->id) }}" class="btn-views"
+                                        title="Xem chi tiết">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                                fill="currentColor"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="product-sold">Đã bán: {{ $soldCount }}</div>
-
-                            <!-- Thêm phần hiển thị màu sắc -->
-                            @if ($product->available_colors && $product->available_colors->count() > 0)
-                                <div class="colors-container">
-                                    @foreach ($product->available_colors as $color)
-                                        <div class="color-circle" title="{{ $color['name'] }}"
-                                            style="background-color: {{ $color['hex_code'] }}">
-                                        </div>
-                                    @endforeach
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a class="line-clamp line-clamp-2"
+                                        href="{{ route('customer.product_detail', $product->id) }}"
+                                        title="{{ $product->name }}">{{ $product->name }}</a>
+                                </h3>
+                                <div class="price-box">
+                                    <span class="sale-price">{{ number_format($displayPrice) }}₫</span>
+                                    @if ($originPrice > $displayPrice)
+                                        <span class="origin-price">{{ number_format($originPrice) }}₫</span>
+                                    @endif
                                 </div>
-                            @endif
+                                <div class="product-sold">Đã bán: {{ $soldCount }}</div>
 
-                            <!-- Thêm phần hiển thị dung lượng -->
-                            @if ($product->available_storages && $product->available_storages->count() > 0)
-                                <div class="storage-options">
-                                    @foreach ($product->available_storages as $storage)
-                                        <span class="storage-badge">{{ $storage }}</span>
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            <!-- Thêm phần hiển thị đánh giá -->
-                            <div class="rating">
-                                @php
-                                    $orderItems = $product->orderItems()->whereNotNull('rating')->get();
-                                    $totalRatings = $orderItems->count();
-                                    $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
-                                @endphp
-                                
-                                @if ($totalRatings > 0)
-                                    <div class="stars-container">
-                                        @php
-                                            $fullStars = floor($averageRating);
-                                            $hasHalfStar = $averageRating - $fullStars >= 0.5;
-                                        @endphp
-                                        
-                                        @for ($i = 0; $i < $fullStars; $i++)
-                                            <span class="star">★</span>
-                                        @endfor
-                                        
-                                        @if ($hasHalfStar)
-                                            <span class="half-star"></span>
-                                        @endif
-                                        
-                                        @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
-                                            <span class="star" style="color: #e0e0e0;">★</span>
-                                        @endfor
+                                <!-- Thêm phần hiển thị màu sắc -->
+                                @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    <div class="colors-container">
+                                        @foreach ($product->available_colors as $color)
+                                            <div class="color-circle" title="{{ $color['name'] }}"
+                                                style="background-color: {{ $color['hex_code'] }}">
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <span class="rating-number">{{ number_format($averageRating, 1) }}</span>
-                                    <span class="total-ratings">({{ $totalRatings }} đánh giá)</span>
-                                @else
-                                    <span class="no-ratings">Chưa có đánh giá</span>
                                 @endif
+
+                                <!-- Thêm phần hiển thị dung lượng -->
+                                @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    <div class="storage-options">
+                                        @foreach ($product->available_storages as $storage)
+                                            <span class="storage-badge">{{ $storage }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                <!-- Thêm phần hiển thị đánh giá -->
+                                <div class="rating">
+                                    @php
+                                        $orderItems = $product->orderItems()->whereNotNull('rating')->get();
+                                        $totalRatings = $orderItems->count();
+                                        $averageRating = $totalRatings > 0 ? $orderItems->avg('rating') : 0;
+                                    @endphp
+
+                                    @if ($totalRatings > 0)
+                                        <div class="stars-container">
+                                            @php
+                                                $fullStars = floor($averageRating);
+                                                $hasHalfStar = $averageRating - $fullStars >= 0.5;
+                                            @endphp
+
+                                            @for ($i = 0; $i < $fullStars; $i++)
+                                                <span class="star">★</span>
+                                            @endfor
+
+                                            @if ($hasHalfStar)
+                                                <span class="half-star"></span>
+                                            @endif
+
+                                            @for ($i = $fullStars + ($hasHalfStar ? 1 : 0); $i < 5; $i++)
+                                                <span class="star" style="color: #e0e0e0;">★</span>
+                                            @endfor
+                                        </div>
+                                        <span class="rating-number">{{ number_format($averageRating, 1) }}</span>
+                                        <span class="total-ratings">({{ $totalRatings }} đánh giá)</span>
+                                    @else
+                                        <span class="no-ratings">Chưa có đánh giá</span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-            @endforeach
+                        </form>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
 

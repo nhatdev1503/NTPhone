@@ -5,6 +5,7 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Contact;
 use App\Models\Discount;
 use App\Models\Order;
@@ -25,6 +26,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use App\Models\News;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Storage;
+
 
 class CustomerController extends Controller
 {
@@ -177,10 +180,14 @@ class CustomerController extends Controller
     public function categories(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
+        $color = Color::all();
+        $storage = Storage::all();
 
         // Lấy tham số lọc từ request
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
+        $colorId = $request->input('color');
+        $storageId = $request->input('storage');
 
         // Query sản phẩm với điều kiện lọc
         $query = Product::where('category_id', $id)
@@ -198,9 +205,17 @@ class CustomerController extends Controller
             ]);
 
         // Thêm điều kiện lọc theo khoảng giá
-        if ($minPrice > 0 || $maxPrice < 50000000) {
-            $query->whereHas('variants', function ($q) use ($minPrice, $maxPrice) {
+        if ($minPrice > 0 || $maxPrice < 50000000 || $colorId || $storageId) {
+            $query->whereHas('variants', function ($q) use ($minPrice, $maxPrice, $colorId, $storageId) {
                 $q->whereBetween('price', [$minPrice, $maxPrice]);
+
+                if ($colorId) {
+                    $q->where('color', $colorId);
+                }
+        
+                if ($storageId) {
+                    $q->where('storage', $storageId);
+                }
             });
         }
 
@@ -250,18 +265,22 @@ class CustomerController extends Controller
 
                 return $product;
             });
-        if ($products->isEmpty()) {
-            return redirect()->route('customer.index')->with('error', 'Không có sản phẩm nào trong danh mục này.');
-        }
-        return view('customer.categories', compact('category', 'products'));
+        // if ($products->isEmpty()) {
+        //     return redirect()->route('customer.index')->with('error', 'Không có sản phẩm nào trong danh mục này.');
+        // }
+        return view('customer.categories', compact('category', 'products', 'color', 'storage'));
     }
 
     public function filterByCategory(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
+        $color = Color::all();
+        $storage = Storage::all();
 
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
+        $colorId = $request->input('color');
+        $storageId = $request->input('storage');
 
         $products = Product::with([
             'variants' => function ($query) {
@@ -305,7 +324,7 @@ class CustomerController extends Controller
 
         $products->setCollection($products->getCollection()->filter());
 
-        return view('customer.filterByCategory', compact('category', 'products'));
+        return view('customer.filterByCategory', compact('category', 'products', 'color', 'storage'));
     }
 
     public function filter(Request $request)
@@ -1538,10 +1557,14 @@ class CustomerController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
+        $color = Color::all();
+        $storage = Storage::all();
 
         // Lấy tham số lọc từ request
         $minPrice = $request->input('min_price', 0);
         $maxPrice = $request->input('max_price', 50000000);
+        $colorId = $request->input('color');
+        $storageId = $request->input('storage');
 
         // Query sản phẩm với điều kiện lọc
         $productQuery = Product::where('name', 'LIKE', "%$query%")
@@ -1556,9 +1579,17 @@ class CustomerController extends Controller
             ]);
 
         // Thêm điều kiện lọc theo khoảng giá
-        if ($minPrice > 0 || $maxPrice < 50000000) {
-            $productQuery->whereHas('variants', function ($q) use ($minPrice, $maxPrice) {
+        if ($minPrice > 0 || $maxPrice < 50000000 || $colorId || $storageId) {
+            $productQuery->whereHas('variants', function ($q) use ($minPrice, $maxPrice, $colorId, $storageId) {
                 $q->whereBetween('price', [$minPrice, $maxPrice]);
+
+                if ($colorId) {
+                    $q->where('color', $colorId);
+                }
+        
+                if ($storageId) {
+                    $q->where('storage', $storageId);
+                }
             });
         }
 
@@ -1609,7 +1640,7 @@ class CustomerController extends Controller
                 return $product;
             });
 
-        return view('customer.search', compact('products', 'query'));
+        return view('customer.search', compact('products', 'query', 'color', 'storage'));
     }
 
     public function orderDetail($id)

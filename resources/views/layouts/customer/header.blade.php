@@ -26,8 +26,8 @@
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <meta property="og:url" content="https://www.hoangkien.com/">
     <meta property="og:site_name" content="NTShop">
-    <link rel="icon" href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/favicon.png?1742954225872"
-        type="image/x-icon" />
+    <link rel="icon" href="{{ asset('uploads/icon-ntphone.png') }}"
+        type="image/png" />
     <link rel="preload" as="script"
         href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/jquery.js?1742954225872" />
     <script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/jquery.js?1742954225872" type="text/javascript">
