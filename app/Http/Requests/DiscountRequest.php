@@ -19,6 +19,7 @@ class DiscountRequest extends FormRequest
         return [
             'code' => [
                 'required',
+                'min:7',
                 'max:10',
                 Rule::unique('discounts', 'code')->ignore($discountId),
             ],
@@ -43,6 +44,7 @@ class DiscountRequest extends FormRequest
         return [
             'code.required' => 'Mã voucher không được để trống.',
             'code.max' => 'Mã voucher không được quá 10 ký tự.',
+            'code.min' => 'Mã voucher không ít hơn 7 ký tự.',
             'code.unique' => 'Mã voucher đã tồn tại, vui lòng chọn mã khác.',
             'discount_type.required' => 'Loại voucher không được để trống.',
             'discount_type.in' => 'Loại voucher không hợp lệ.',

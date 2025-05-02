@@ -25,7 +25,7 @@
                             <label class="block text-sm font-medium text-gray-300 mb-1">Tìm kiếm</label>
                             <input type="text" name="keyword" 
                                 class="w-full bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Tìm kiếm khách hàng, SĐT"
+                                placeholder="Tìm kiếm mã đơn hàng, khách hàng, SĐT"
                                 value="{{ request('keyword') }}">
                         </div>
                         <div>

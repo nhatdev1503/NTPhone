@@ -1081,13 +1081,13 @@
     <section class="section_1_banner">
         <div class="container">
             <div class="banner-container">
-                <a class="thumb-image-banner" href="{{ route('customer.category',15 ) }}" title="iPhone 16 Pro">
+                <a class="thumb-image-banner" href="{{ route('customer.product_detail',$banner->product_url ) }}" title="iPhone 16 Pro">
                     <img width="635" height="236" class="lazyload"
                         src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
                         data-src="https://cdn.tgdd.vn/News/1315253/cach-xem-dia-chi-ip-cua-dien-thoai-android-iphone-don-gian-21-800x300-1.jpg"
                         alt="iPhone 16 Pro">
                 </a>
-                <a class="thumb-image-banner" href="{{ route('customer.category',16) }}" title="iPhone 15">
+                <a class="thumb-image-banner" href="{{ route('customer.product_detail',$banner->product_url ) }}" title="iPhone 15">
                     <img width="635" height="236" class="lazyload"
                         src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazy.png?1742954225872"
                         data-src="https://inventstore.in/wp-content/uploads/2024/09/25-scaled.webp"

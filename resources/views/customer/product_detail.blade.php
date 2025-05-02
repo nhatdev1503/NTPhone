@@ -901,7 +901,7 @@
                                             {{-- Nút Thêm vào giỏ --}}
                                             <button type="button" title="Thêm vào giỏ"
 												class="btn btn_base normal_button btn_add_cart add_to_cart btn-cart"
-                                                onclick="submitForm('{{ route('customer.postCart') }}', 'add_to_cart')">
+                                                onclick="submitForm('{{ route('customer.postCartDT') }}', 'add_to_cart')">
                                                 {{-- Pass action type --}}
 												<span class="txt-main text_1">Thêm vào giỏ</span>
 												<span class="text_2">Giao hàng tận nơi miễn phí</span>

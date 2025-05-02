@@ -667,7 +667,9 @@ class CustomerController extends Controller
 
         foreach ($cartItems as $item) {
             $key = $item->product_variant_id;
-
+            if($item->product_variant->product->status != 'active' || $item->product_variant->product->category->status != 'active') {
+                $item->delete();
+            }
             if (!isset($processedItems[$key])) {
                 // Nếu chưa xử lý sản phẩm này, thêm vào danh sách đã xử lý
                 $processedItems[$key] = $item;
@@ -705,7 +707,7 @@ class CustomerController extends Controller
             ->orderBy('price', 'asc')
             ->first();
     
-        if (!$product_variant) {
+        if (!$product_variant || $product_variant->product->status !== 'active' || $product_variant->product->category->status !== 'active') {
             return response()->json([
                 'success' => false,
                 'message' => 'Sản phẩm hiện đã hết hàng .'
@@ -761,7 +763,46 @@ class CustomerController extends Controller
             ], 500);
         }
     }
+    public function postCartDT(Request $request): JsonResponse
+    {
+        $data = $request->validate([ // Validate input first
+        'product_id' => 'required|integer|exists:products,id',
+             'color' => 'required|string',
+             'storage' => 'required|string',
+             'quantity' => 'required|integer|min:1|max:5',
+         ]);
+         $product_variant = ProductVariant::where('product_id', $data['product_id'])
+             ->where('color', $data['color'])
+             ->where('storage', $data['storage'])
+             ->first();
+        if (!$product_variant || $product_variant->product->status !== 'active' || $product_variant->product->category->status !== 'active') {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
+        }
+        $user = Auth::user();
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        $cartItem = Cart::where('user_id', $user->id)
+        ->where('product_variant_id', $product_variant->id)
+        ->first();
 
+        if ($cartItem) {
+            return response()->json(['success' => false, 'exists' => true, 'message' => 'Sản phẩm đã có trong giỏ hàng.']);
+        }
+        $quantityToAdd = $data['quantity'];
+        if ($product_variant->stock < $quantityToAdd) {
+            return response()->json(['success' => false, 'message' => "Số lượng tồn kho không đủ. Chỉ còn {$product_variant->stock} sản phẩm."], 400);
+        }
+        try {
+            $newCartItem = Cart::create([
+                'user_id' => $user->id,
+                'product_variant_id' => $product_variant->id,
+                'quantity' => $quantityToAdd,
+            ]);
+            return response()->json(['success' => true, 'new_item' => true, 'message' => 'Đã thêm sản phẩm vào giỏ hàng.']); // Add cartCount if needed
+        } catch (\Exception $e) {
+            Log::error("Error adding item to cart: " . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi thêm vào giỏ hàng.'], 500);
+        }
+    }
 
     public function postPayment(Request $request)
     {
@@ -1321,6 +1362,9 @@ class CustomerController extends Controller
         if ($buyNowItem) {
             // --- Handle Buy Now Direct --- 
             $variant = ProductVariant::with('product.category')->find($buyNowItem['variant_id']);
+            if($variant && ($variant->product->status != 'active' || $variant->product->category->status != 'active')) {
+                return redirect()->route('customer.product_detail',$variant->product->id)->with('error', 'Sản phẩm bạn muốn mua ngay không hợp lệ hoặc đã hết hàng.');
+            }
             if ($variant && $variant->status === 'active' && $variant->stock >= $buyNowItem['quantity']) {
                 // Create a pseudo cart item structure for the view
                 $pseudoCartItem = new \stdClass(); // Use stdClass or a temporary Cart-like object
@@ -1672,7 +1716,7 @@ class CustomerController extends Controller
             DB::beginTransaction();
             try {
                 if($order->status === 'cancelled') {
-                    return back()->with('error', 'Đơn hàng đã được hủy trước đó.');
+                    return back()->with('error', 'Đơn hàng đã được cập nhật trước đó.');
                 }
                 // Cập nhật trạng thái đơn hàng
                 $order->status = 'cancelled';
@@ -1693,8 +1737,10 @@ class CustomerController extends Controller
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error('Error cancelling order: ' . $e->getMessage());
-                return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng: ' . $e->getMessage());
+                return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng, có vẻ như đơn hàng đã được hủy trước đó ! ' . $e->getMessage());
             }
+        }else{
+            return back()->with('error', 'Đơn hàng không thể hủy vì đã được giao hoặc đã thanh toán qua VNPay.');
         }
         return redirect()->back()->with('cancel_success', 'Đơn hàng đã được hủy thành công.');
     }
@@ -1779,6 +1825,19 @@ class CustomerController extends Controller
             $order->status = 'completed';
             $order->save();
 
+            // Tăng số lượng sold cho từng sản phẩm đã mua
+            foreach ($order->orderItems as $item) {
+                $variant = ProductVariant::find($item->product_variant_id);
+                
+                if ($variant) {
+                    $product = $variant->product;
+
+                    if ($product) {
+                        $product->sold += $item->quantity;
+                        $product->save();
+                    }
+                }
+            }
             return back()->with('success', 'Xác nhận đơn hàng thành công!');
         } catch (\Exception $e) {
             return back()->with('error', 'Có lỗi xảy ra khi xác nhận đơn hàng.');

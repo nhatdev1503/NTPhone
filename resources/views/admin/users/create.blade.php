@@ -84,16 +84,7 @@
                     </div>
 
                     <div class="space-y-4">
-                        <h3 class="text-lg font-medium text-gray-300 mb-4">Vai trò và trạng thái</h3>
-                        <div>
-                            <label for="role" class="block text-sm font-medium text-gray-400 mb-1">Vai trò</label>
-                            <select name="role" id="role"
-                                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Người dùng</option>
-                                <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Nhân viên</option>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                        </div>
+                        <h3 class="text-lg font-medium text-gray-300 mb-4">Trạng thái</h3>
                         <div>
                             <label for="status" class="block text-sm font-medium text-gray-400 mb-1">Trạng thái</label>
                             <select name="status" id="status"

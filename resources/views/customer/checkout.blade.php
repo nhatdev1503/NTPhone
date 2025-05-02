@@ -1348,5 +1348,4 @@
         applyVoucher(code, true);
     }
 </script>
-
 @include('layouts.customer.footer')
