@@ -26,8 +26,7 @@
         content="Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, máy đọc sách, phụ kiện công nghệ các loại uy tín, chất lượng">
     <meta property="og:url" content="https://www.hoangkien.com/">
     <meta property="og:site_name" content="NTShop">
-    <link rel="icon" href="{{ asset('uploads/icon-ntphone.png') }}"
-        type="image/png" />
+    <link rel="icon" href="{{ asset('uploads/icon-ntphone.png') }}" type="image/png" />
     <link rel="preload" as="script"
         href="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/jquery.js?1742954225872" />
     <script src="//bizweb.dktcdn.net/100/112/815/themes/966034/assets/jquery.js?1742954225872" type="text/javascript">
@@ -180,13 +179,17 @@
                             src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}" alt="NTShop">
                     </picture>
                 </a>
+
+
                 <div class="notification-bell" id="notification-bell">
                     <div class="bell-icon">
                         <i class="fas fa-bell"></i>
                         <div class="glow-effect"></div>
                     </div>
                 </div>
-                <div class="hot-deals-container" id="hotDealsContainer" style="{{ $currentRoute === 'customer.index' ? '' : 'display: none;' }}">
+
+                <div class="hot-deals-container" id="hotDealsContainer"
+                    style="{{ $currentRoute === 'customer.index' ? '' : 'display: none;' }}">
                     <div class="hot-deals-title">
                         Giá sốc trong ngày
                         <button class="close-hot-deals">&times;</button>
@@ -209,6 +212,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="icon-menu vertical-menu-category d-none d-lg-block" style="position: relative">
                     <span class="menu-icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bars" role="img"
@@ -890,7 +895,7 @@
         color: white;
         font-weight: bold;
         text-align: center;
-     
+
         position: relative;
     }
 
@@ -1004,7 +1009,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const currentRoute = '{{ Route::currentRouteName() }}';
         const hotDealsContainer = document.getElementById('hotDealsContainer');
-        
+
         // Chỉ khởi tạo và chạy hot deals nếu đang ở trang chủ
         if (currentRoute === 'customer.index') {
             const popup = document.getElementById('promotion-popup');
@@ -1013,18 +1018,40 @@
             const closeHotDeals = document.querySelector('.close-hot-deals');
             const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
 
-            // Kiểm tra trạng thái hiển thị hot deals từ localStorage
-            const isHotDealsHidden = localStorage.getItem('hotDealsHidden') === 'true';
-            if (isHotDealsHidden) {
-                hotDealsContainer.style.display = 'none';
-            }
+            // Thêm sự kiện click cho chuông bell
+            bell.addEventListener('click', function() {
+                popup.style.display = 'block';
+            });
+
+            // Thêm sự kiện đóng popup
+            closeBtn.addEventListener('click', function() {
+                popup.style.display = 'none';
+            });
 
             // Xử lý đóng hot deals
             closeHotDeals.addEventListener('click', function(e) {
                 e.preventDefault();
                 hotDealsContainer.style.display = 'none';
                 localStorage.setItem('hotDealsHidden', 'true');
+
+                // Tự động hiện lại sau 2 phút
+                setTimeout(() => {
+                    hotDealsContainer.style.display = 'block';
+                    localStorage.setItem('hotDealsHidden', 'false');
+                }, 120000); // 120000ms = 2 phút
             });
+
+            // Kiểm tra trạng thái hiển thị hot deals từ localStorage
+            const isHotDealsHidden = localStorage.getItem('hotDealsHidden') === 'true';
+            if (isHotDealsHidden) {
+                hotDealsContainer.style.display = 'none';
+
+                // Tự động hiện lại sau 2 phút nếu đã bị ẩn
+                setTimeout(() => {
+                    hotDealsContainer.style.display = 'block';
+                    localStorage.setItem('hotDealsHidden', 'false');
+                }, 120000);
+            }
 
             // Xử lý hiển thị sản phẩm giá sốc
             const hotDeals = @json($highestDiscountProducts ?? []);
@@ -1039,10 +1066,10 @@
 
             function updateHotDeal() {
                 if (!hotDeals || hotDeals.length === 0) return;
-                
+
                 const deal = hotDeals[currentIndex];
                 const firstVariant = deal.variants[0];
-                
+
                 if (deal && firstVariant) {
                     productLink.href = '{{ route('customer.product_detail', '') }}/' + deal.id;
                     productImage.src = '/' + deal.image;
@@ -1058,7 +1085,7 @@
                     }).format(firstVariant.price);
                     discount.textContent = `-${deal.discount_percent}%`;
                 }
-                
+
                 hotDealItem.style.opacity = '0';
                 setTimeout(() => {
                     hotDealItem.style.opacity = '1';
@@ -1173,4 +1200,31 @@
         top: 0 !important;
         width: 100%;
     } */
+    .header-scroll {
+        transition: 0.3s linear;
+        width: 100%;
+        /* Không fixed mặc định */
+    }
+
+    .header-scroll.active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        width: 100%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+     
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('.header-scroll');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) { // 50px, bạn có thể chỉnh lại
+                header.classList.add('active');
+            } else {
+                header.classList.remove('active');
+            }
+        });
+    });
+</script>
