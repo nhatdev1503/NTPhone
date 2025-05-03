@@ -471,8 +471,7 @@
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Đã nhận hàng',
-                        cancelButtonText: 'Chưa nhận'
+                        confirmButtonText: 'Xác Nhận',
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Swal.fire({

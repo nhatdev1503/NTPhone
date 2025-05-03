@@ -175,7 +175,7 @@
                     <picture>
                         <source media="(max-width: 567px)"
                             srcset="//bizweb.dktcdn.net/thumb/large/100/112/815/themes/966034/assets/logo-mobile2.png?1742954225872">
-                        <img width="414" height="85"
+                        <img width="414" height="100"
                             src="{{ asset('uploads/ChatGPT Image 19_21_24 5 thg 4, 2025.png') }}" alt="NTShop">
                     </picture>
                 </a>
@@ -408,7 +408,7 @@
         <div class="popup-content">
             <button class="close-popup">&times;</button>
             <div class="popup-image">
-                <img src="{{ asset('images/promotion-banner.jpg') }}" alt="Khuyến mãi">
+                <img src="{{ asset('banners/z6564600626573_304f1f14c1aa56b2a7c162a347f7f041.jpg') }}" alt="Khuyến mãi">
             </div>
             <div class="popup-text">
                 <h2>🎉 Tin vui mới nhất! 🎉</h2>

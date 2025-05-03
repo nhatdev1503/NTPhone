@@ -237,15 +237,6 @@
                     </button>
                 </div>
             </form>
-
-            <form action="{{ route('products.priority',$product->id) }}" method="POST" class="mt-4">
-                @csrf
-                @method('PUT')
-                <button type="submit"
-                    class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors">
-                    <i class="bi bi-arrow-up"></i> Đưa sản phẩm lên đầu trang
-                </button>
-            </form>
         </div>
     </div>
 </div>

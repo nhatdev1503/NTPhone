@@ -93,7 +93,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::put('/productvariants/{id}/update', [ProductVariantController::class, 'edit'])->name('productvariants.update');
     Route::put('/productvariants/{id}/destroy', [ProductVariantController::class, 'edit'])->name('productvariants.destroy');
     Route::put('/priority/{product}', [ProductController::class, 'priority'])->name('products.priority');
-    Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
+    Route::put('/products/{product}/delete', [ProductController::class, 'delete'])->name('products.delete');
 
     // Routes for deleting ratings and comments
     Route::delete('/order-items/{orderItem}/delete-rating', [ProductController::class, 'deleteRating'])->name('admin.order-items.delete-rating');

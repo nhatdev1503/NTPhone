@@ -139,8 +139,8 @@
         <div class="success-icon">✔</div>
         <h2>Đặt hàng thành công!</h2>
         <p>Chúng tôi sẽ sớm giao đơn hàng đến bạn. Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi!</p>
-        <a href="{{ route('customer.index') }}" class="btn btn-primary btn-custom">Về Trang Chủ</a>
-        {{-- <a href="{{ route('customer.orders') }}" class="btn btn-success btn-custom">Xem Đơn Hàng</a> --}}
+        <a href="{{ route('customer.index') }}" class="btn btn-primary btn-custom">Về trang chủ</a>
+        <a href="{{ route('customer.order.history') }}" class="btn btn-success btn-custom">Xem lịch sử mua hàng</a>
     </div>
     <div class="cart-steps">
         <div class="step completed">

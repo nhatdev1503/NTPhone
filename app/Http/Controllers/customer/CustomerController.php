@@ -775,8 +775,8 @@ class CustomerController extends Controller
              ->where('color', $data['color'])
              ->where('storage', $data['storage'])
              ->first();
-        if (!$product_variant || $product_variant->product->status !== 'active' || $product_variant->product->category->status !== 'active') {
-            return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm với biến thể đã chọn hoặc sản phẩm đã ngừng kinh doanh.'], 404);
+        if (!$product_variant || $product_variant->stock == 0 || $product_variant->product->status !== 'active' || $product_variant->product->category->status !== 'active') {
+            return response()->json(['error' => false, 'message' => 'Rất tiếc, có thể sản phẩm hết hàng hoặc đã ngừng kinh doanh.'], 404);
         }
         $user = Auth::user();
         // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
@@ -1039,8 +1039,8 @@ class CustomerController extends Controller
                 // Handle buy now flow
                 foreach ($checkoutItems as $item) {
                     $variant = ProductVariant::with('product')->find($item['variant_id']);
-                    if (!$variant || $variant->status !== 'active') {
-                        throw new \Exception("Phiên bản của sản phẩm {$variant->product->name} không còn kinh doanh.");
+                    if (!$variant || $variant->product->status != 'active' || $variant->product->category->status != 'active') {
+                        throw new \Exception("Sản phẩm hết hàng hoặc không còn kinh doanh.");
                     }
                     if ($variant->stock < $item['quantity']) {
                         throw new \Exception("Sản phẩm {$variant->product->name} chỉ còn {$variant->stock} sản phẩm trong kho.");
@@ -1077,8 +1077,8 @@ class CustomerController extends Controller
                     $variant = $cart->product_variant;
                     $lockedVariant = ProductVariant::lockForUpdate()->find($variant->id);
 
-                    if (!$lockedVariant || $lockedVariant->status !== 'active') {
-                        throw new \Exception("Phiên bản của sản phẩm {$variant->product->name} không còn kinh doanh.");
+                    if (!$lockedVariant || $lockedVariant->product->status !== 'active' || $lockedVariant->product->category->status !== 'active') {
+                        throw new \Exception("Sản phẩm hết hàng hoặc không còn kinh doanh.");
                     }
                     if ($lockedVariant->stock < $cart->quantity) {
                         throw new \Exception("Sản phẩm {$variant->product->name} chỉ còn {$lockedVariant->stock} sản phẩm trong kho.");
@@ -1740,7 +1740,7 @@ class CustomerController extends Controller
                 return back()->with('error', 'Có lỗi xảy ra khi hủy đơn hàng, có vẻ như đơn hàng đã được hủy trước đó ! ' . $e->getMessage());
             }
         }else{
-            return back()->with('error', 'Đơn hàng không thể hủy vì đã được giao hoặc đã thanh toán qua VNPay.');
+            return back()->with('error', 'Rất tiếc, đơn hàng vừa được hủy trước đó');
         }
         return redirect()->back()->with('cancel_success', 'Đơn hàng đã được hủy thành công.');
     }

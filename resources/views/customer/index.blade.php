@@ -645,23 +645,32 @@
                                         </div>
                                         <div class="product-sold">Đã bán: {{ $soldCount }}</div>
 
-                                        @if ($product->available_colors && count($product->available_colors) > 0)
-                                            <div class="colors-container">
-                                                @foreach($product->available_colors as $color)
-                                                    <div class="color-circle" title="{{ $color['name'] }}"
-                                                        style="background-color: {{ $color['hex_code'] }}">
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @endif
+                                        <!-- Thêm phần hiển thị màu sắc -->
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
+                                        <div class="colors-container">
+                                            @foreach ($product->available_colors as $color)
+                                                <div class="color-circle" title="{{ $color['name'] }}"
+                                                    style="background-color: {{ $color['hex_code'] }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
 
-                                        @if ($product->available_storages && count($product->available_storages) > 0)
-                                            <div class="storage-options">
-                                                @foreach($product->available_storages as $storage)
-                                                    <span class="storage-badge">{{ $storage }}</span>
-                                                @endforeach
-                                            </div>
-                                        @endif
+                                    <!-- Thêm phần hiển thị dung lượng -->
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
+                                        <div class="storage-options">
+                                            @foreach ($product->available_storages as $storage)
+                                                <span class="storage-badge">{{ $storage }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                        Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                    </div>
+                                    @endif
 
                                         <div class="rating">
                                             <div class="stars-container">
@@ -1020,7 +1029,8 @@
                                     </div>
                                     <div class="product-sold">Đã bán: {{ $product->sold ?? 0 }}</div>
 
-                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    <!-- Thêm phần hiển thị màu sắc -->
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
                                                 <div class="color-circle" title="{{ $color['name'] }}"
@@ -1030,12 +1040,20 @@
                                         </div>
                                     @endif
 
-                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    <!-- Thêm phần hiển thị dung lượng -->
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
                                                 <span class="storage-badge">{{ $storage }}</span>
                                             @endforeach
                                         </div>
+                                    @endif
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                          Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                      </div>
                                     @endif
 
                                     <div class="rating">
@@ -1192,7 +1210,8 @@
                                     </div>
                                     <div class="product-sold">Đã bán: {{ $product->sold }}</div>
 
-                                    @if ($product->available_colors && $product->available_colors->count() > 0)
+                                    <!-- Thêm phần hiển thị màu sắc -->
+                                    @if ($product->have_variant == 1 && $product->available_colors && $product->available_colors->count() > 0)
                                         <div class="colors-container">
                                             @foreach ($product->available_colors as $color)
                                                 <div class="color-circle" title="{{ $color['name'] }}"
@@ -1202,12 +1221,20 @@
                                         </div>
                                     @endif
 
-                                    @if ($product->available_storages && $product->available_storages->count() > 0)
+                                    <!-- Thêm phần hiển thị dung lượng -->
+                                    @if ($product->have_variant == 1 && $product->available_storages && $product->available_storages->count() > 0)
                                         <div class="storage-options">
                                             @foreach ($product->available_storages as $storage)
                                                 <span class="storage-badge">{{ $storage }}</span>
                                             @endforeach
                                         </div>
+                                    @endif
+                                    @if ($product->have_variant == 0)
+                                    <div style="padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; background-color: #f9fafb;">
+                                        <p style="margin-top: 3px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+                                          Các sản phẩm đơn, mặt hàng bán lẻ 
+                                        </p>
+                                      </div>
                                     @endif
 
                                     <div class="rating">

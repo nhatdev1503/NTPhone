@@ -41,6 +41,18 @@ class CustomerOrderController extends Controller
             'item_id' => 'required|exists:order_items,id',
             'rating' => 'required|integer|min:1|max:5',
             'review' => 'required|string|max:1000',
+        ], [
+            'item_id.required' => 'Vui lòng chọn sản phẩm để đánh giá.',
+            'item_id.exists' => 'Sản phẩm bạn chọn không hợp lệ.',
+        
+            'rating.required' => 'Vui lòng chọn số sao đánh giá.',
+            'rating.integer' => 'Số sao đánh giá phải là một số nguyên.',
+            'rating.min' => 'Số sao tối thiểu là 1.',
+            'rating.max' => 'Số sao tối đa là 5.',
+        
+            'review.required' => 'Vui lòng nhập nội dung đánh giá.',
+            'review.string' => 'Nội dung đánh giá không hợp lệ.',
+            'review.max' => 'Nội dung đánh giá không được vượt quá 1000 ký tự.',
         ]);
         $item = OrderItem::findOrFail($request->input('item_id'));
         if($item->rating != null && $item->review != null){

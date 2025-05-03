@@ -12,7 +12,11 @@
                 <i class="bi bi-plus-lg"></i> Thêm mới
             </a>
         </div>
-
+        @if(session('success'))
+            <div class="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-lg mb-6">
+                {{ session('success') }}
+            </div>
+        @endif
         <!-- Form tìm kiếm và lọc -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
             <form method="GET" action="{{ route('products.inactive') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -98,7 +102,7 @@
                                         </form>
                                         <form action="{{ route('products.delete', $product->id) }}" method="POST" class="inline">
                                             @csrf
-                                            @method('DELETE')
+                                            @method('PUT')
                                             <button type="submit" class="text-red-400 hover:text-red-300 transition-colors"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này? Hành động này không thể hoàn tác.')">
                                                 <i class="bi bi-trash"></i>

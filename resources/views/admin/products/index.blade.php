@@ -12,7 +12,11 @@
                 <i class="bi bi-plus-lg"></i> Thêm mới
             </a>
         </div>
-
+        @if(session('success'))
+            <div class="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-lg mb-6">
+                {{ session('success') }}
+            </div>
+        @endif
         <!-- Form tìm kiếm và lọc -->
         <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
             <form method="GET" action="{{ route('products.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">

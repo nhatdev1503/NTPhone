@@ -446,14 +446,11 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        try {
-            // Thực hiện xóa mềm
-            $product->delete();
-
-            return redirect()->back()->with('success', 'Đã xóa sản phẩm thành công');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa sản phẩm: ' . $e->getMessage());
-        }
+        $product->update([
+            'status' => 'deleted'
+        ]);
+        return redirect()->route('products.inactive')
+            ->with('success', 'Cập nhật thành công');
     }
 
     public function priority(Product $product)
